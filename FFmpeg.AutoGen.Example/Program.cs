@@ -100,7 +100,7 @@ internal class Program
     {
         // decode all frames from url, please not it might local resorce, e.g. string url = "../../sample_mpeg4.mp4";
         
-        var url = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"; // be advised this file holds 1440 frames
+        var url = "https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/1080/Big_Buck_Bunny_1080_10s_1MB.mp4"; // ~1 MB, 10 s, 1080p H.264
         using var vsd = new VideoStreamDecoder(url, HWDevice);
 
         Console.WriteLine($"codec name: {vsd.CodecName}");

@@ -4,10 +4,10 @@ public static unsafe partial class ffmpeg
 {
     /// <summary>_WIN32_WINNT = 0x602</summary>
     public const int _WIN32_WINNT = 0x602;
-    // public static attribute_deprecated = __declspec(deprecated);
+    // public static attribute_deprecated = __attribute__((deprecated));
     // public static av_alias = __attribute__((may_alias));
     // public static av_alloc_size = (...);
-    // public static av_always_inline = __forceinline;
+    // public static av_always_inline = __attribute__((always_inline)) inline;
     /// <summary>AV_BUFFER_FLAG_READONLY = (1 &lt;&lt; 0)</summary>
     public const int AV_BUFFER_FLAG_READONLY = 0x1 << 0x0;
     /// <summary>AV_BUFFERSINK_FLAG_NO_REQUEST = 0x2</summary>
@@ -341,6 +341,8 @@ public static unsafe partial class ffmpeg
     public static readonly int AV_CODEC_ID_IFF_BYTERUN1 = 136;
     /// <summary>AV_CODEC_PROP_BITMAP_SUB = 0x1 &lt;&lt; 0x10</summary>
     public const int AV_CODEC_PROP_BITMAP_SUB = 0x1 << 0x10;
+    /// <summary>AV_CODEC_PROP_ENHANCEMENT = 0x1 &lt;&lt; 0x5</summary>
+    public const int AV_CODEC_PROP_ENHANCEMENT = 0x1 << 0x5;
     /// <summary>AV_CODEC_PROP_FIELDS = 0x1 &lt;&lt; 0x4</summary>
     public const int AV_CODEC_PROP_FIELDS = 0x1 << 0x4;
     /// <summary>AV_CODEC_PROP_INTRA_ONLY = 0x1 &lt;&lt; 0x0</summary>
@@ -353,6 +355,8 @@ public static unsafe partial class ffmpeg
     public const int AV_CODEC_PROP_REORDER = 0x1 << 0x3;
     /// <summary>AV_CODEC_PROP_TEXT_SUB = 0x1 &lt;&lt; 0x11</summary>
     public const int AV_CODEC_PROP_TEXT_SUB = 0x1 << 0x11;
+    /// <summary>AV_CODEC_RECEIVE_FRAME_FLAG_SYNCHRONOUS = 0x1 &lt;&lt; 0x0</summary>
+    public const int AV_CODEC_RECEIVE_FRAME_FLAG_SYNCHRONOUS = 0x1 << 0x0;
     // public static av_cold = __attribute__((cold));
     // public static av_const = __attribute__((const));
     /// <summary>AV_CPU_FLAG_3DNOW = 0x4</summary>
@@ -363,6 +367,8 @@ public static unsafe partial class ffmpeg
     public const int AV_CPU_FLAG_AESNI = 0x80000;
     /// <summary>AV_CPU_FLAG_ALTIVEC = 0x1</summary>
     public const int AV_CPU_FLAG_ALTIVEC = 0x1;
+    /// <summary>AV_CPU_FLAG_ARM_CRC = 0x1 &lt;&lt; 0xd</summary>
+    public const int AV_CPU_FLAG_ARM_CRC = 0x1 << 0xd;
     /// <summary>AV_CPU_FLAG_ARMV5TE = 0x1 &lt;&lt; 0x0</summary>
     public const int AV_CPU_FLAG_ARMV5TE = 0x1 << 0x0;
     /// <summary>AV_CPU_FLAG_ARMV6 = 0x1 &lt;&lt; 0x1</summary>
@@ -387,6 +393,8 @@ public static unsafe partial class ffmpeg
     public const int AV_CPU_FLAG_BMI1 = 0x20000;
     /// <summary>AV_CPU_FLAG_BMI2 = 0x40000</summary>
     public const int AV_CPU_FLAG_BMI2 = 0x40000;
+    /// <summary>AV_CPU_FLAG_CLMUL = 0x400000</summary>
+    public const int AV_CPU_FLAG_CLMUL = 0x400000;
     /// <summary>AV_CPU_FLAG_CMOV = 0x1000</summary>
     public const int AV_CPU_FLAG_CMOV = 0x1000;
     /// <summary>AV_CPU_FLAG_DOTPROD = 0x1 &lt;&lt; 0x8</summary>
@@ -447,6 +455,12 @@ public static unsafe partial class ffmpeg
     public const int AV_CPU_FLAG_SIMD128 = 0x1 << 0x0;
     /// <summary>AV_CPU_FLAG_SLOW_GATHER = 0x2000000</summary>
     public const int AV_CPU_FLAG_SLOW_GATHER = 0x2000000;
+    /// <summary>AV_CPU_FLAG_SME = 0x1 &lt;&lt; 0xc</summary>
+    public const int AV_CPU_FLAG_SME = 0x1 << 0xc;
+    /// <summary>AV_CPU_FLAG_SME_I16I64 = 0x1 &lt;&lt; 0xf</summary>
+    public const int AV_CPU_FLAG_SME_I16I64 = 0x1 << 0xf;
+    /// <summary>AV_CPU_FLAG_SME2 = 0x1 &lt;&lt; 0xe</summary>
+    public const int AV_CPU_FLAG_SME2 = 0x1 << 0xe;
     /// <summary>AV_CPU_FLAG_SSE = 0x8</summary>
     public const int AV_CPU_FLAG_SSE = 0x8;
     /// <summary>AV_CPU_FLAG_SSE2 = 0x10</summary>
@@ -556,6 +570,8 @@ public static unsafe partial class ffmpeg
     /// <summary>AV_FOURCC_MAX_STRING_SIZE = 32</summary>
     public const int AV_FOURCC_MAX_STRING_SIZE = 0x20;
     // public static av_fourcc2str = (fourcc) av_fourcc_make_string((char[AV_FOURCC_MAX_STRING_SIZE]){0}, fourcc);
+    /// <summary>AV_FRAME_FILENAME_FLAGS_IGNORE_TRUNCATION = 2</summary>
+    public const int AV_FRAME_FILENAME_FLAGS_IGNORE_TRUNCATION = 0x2;
     /// <summary>AV_FRAME_FILENAME_FLAGS_MULTIPLE = 1</summary>
     public const int AV_FRAME_FILENAME_FLAGS_MULTIPLE = 0x1;
     /// <summary>AV_FRAME_FLAG_CORRUPT = (1 &lt;&lt; 0)</summary>
@@ -583,7 +599,9 @@ public static unsafe partial class ffmpeg
     /// <summary>AV_GET_ENCODE_BUFFER_FLAG_REF = 0x1 &lt;&lt; 0x0</summary>
     public const int AV_GET_ENCODE_BUFFER_FLAG_REF = 0x1 << 0x0;
     // public static AV_GLUE = a;
+    // public static AV_HAS_ATTRIBUTE = (x)(__has_attribute(x));
     // public static AV_HAS_BUILTIN = (x)(__has_builtin(x));
+    // public static AV_HAS_STD_ATTRIBUTE = (x)(0x0);
     /// <summary>AV_HAVE_BIGENDIAN = 0</summary>
     public const int AV_HAVE_BIGENDIAN = 0x0;
     /// <summary>AV_HAVE_FAST_UNALIGNED = 1</summary>
@@ -639,7 +657,7 @@ public static unsafe partial class ffmpeg
     public const int AV_LOG_WARNING = 0x18;
     // public static av_mod_uintp2 = av_mod_uintp2_c;
     // public static AV_NE = be;
-    // public static av_noinline = __declspec(noinline);
+    // public static av_noinline = __attribute__((noinline));
     /// <summary>AV_NOPTS_VALUE = ((int64_t)UINT64_C(0x8000000000000000))</summary>
     public static readonly long AV_NOPTS_VALUE = (long)(UINT64_C(0x8000000000000000L));
     // public static av_noreturn = __attribute__((noreturn));
@@ -932,6 +950,7 @@ public static unsafe partial class ffmpeg
     // public static av_popcount = av_popcount_c;
     // public static av_popcount64 = av_popcount64_c;
     // public static AV_PRAGMA = (s) _Pragma(#s);
+    // public static AV_PRINTF_FMT = __printf__;
     // public static av_printf_format = fmtpos;
     /// <summary>AV_PROFILE_AAC_ELD = 38</summary>
     public const int AV_PROFILE_AAC_ELD = 0x26;
@@ -1186,6 +1205,7 @@ public static unsafe partial class ffmpeg
     // public static av_sat_dsub32 = av_sat_dsub32_c;
     // public static av_sat_sub32 = av_sat_sub32_c;
     // public static av_sat_sub64 = av_sat_sub64_c;
+    // public static AV_SCANF_FMT = __scanf__;
     // public static av_scanf_format = fmtpos;
     // public static AV_STRINGIFY = (s)(AV_TOSTRING(s));
     /// <summary>AV_SUBTITLE_FLAG_FORCED = 0x1</summary>
@@ -1207,6 +1227,7 @@ public static unsafe partial class ffmpeg
     // public static AV_VERSION_MINOR = (a)((a)(&0xff00) >> 0x8);
     /// <summary>AV_VIDEO_MAX_PLANES = 4</summary>
     public const int AV_VIDEO_MAX_PLANES = 0x4;
+    // public static av_warn_unused_result = __attribute__((warn_unused_result));
     // public static av_zero_extend = av_zero_extend_c;
     // public static AVERROR = (e) (-(e));
     /// <summary>AVERROR_BSF_NOT_FOUND = FFERRTAG(0xF8,&apos;B&apos;,&apos;S&apos;,&apos;F&apos;)</summary>
@@ -1421,6 +1442,8 @@ public static unsafe partial class ffmpeg
     // public static AVUNERROR = (e) (-(e));
     /// <summary>FF_API_ALSA_CHANNELS = (LIBAVDEVICE_VERSION_MAJOR &lt; 63)</summary>
     public const bool FF_API_ALSA_CHANNELS = LIBAVDEVICE_VERSION_MAJOR < 0x3f;
+    /// <summary>FF_API_ASSERT_FPU = (LIBAVUTIL_VERSION_MAJOR &lt; 61)</summary>
+    public const bool FF_API_ASSERT_FPU = LIBAVUTIL_VERSION_MAJOR < 0x3d;
     /// <summary>FF_API_BUFFERSINK_OPTS = LIBAVFILTER_VERSION_MAJOR &lt; 0xc</summary>
     public const bool FF_API_BUFFERSINK_OPTS = LIBAVFILTER_VERSION_MAJOR < 0xc;
     /// <summary>FF_API_CODEC_PROPS = (LIBAVCODEC_VERSION_MAJOR &lt; 63)</summary>
@@ -1429,12 +1452,20 @@ public static unsafe partial class ffmpeg
     public const bool FF_API_COMPUTE_PKT_FIELDS2 = LIBAVFORMAT_VERSION_MAJOR < 0x3f;
     /// <summary>FF_API_CONTEXT_PUBLIC = LIBAVFILTER_VERSION_MAJOR &lt; 0xc</summary>
     public const bool FF_API_CONTEXT_PUBLIC = LIBAVFILTER_VERSION_MAJOR < 0xc;
+    /// <summary>FF_API_CPU_FLAG_FORCE = (LIBAVUTIL_VERSION_MAJOR &lt; 61)</summary>
+    public const bool FF_API_CPU_FLAG_FORCE = LIBAVUTIL_VERSION_MAJOR < 0x3d;
+    /// <summary>FF_API_DOVI_L11_INVALID_PROPS = (LIBAVUTIL_VERSION_MAJOR &lt; 61)</summary>
+    public const bool FF_API_DOVI_L11_INVALID_PROPS = LIBAVUTIL_VERSION_MAJOR < 0x3d;
     /// <summary>FF_API_EXR_GAMMA = (LIBAVCODEC_VERSION_MAJOR &lt; 63)</summary>
     public const bool FF_API_EXR_GAMMA = LIBAVCODEC_VERSION_MAJOR < 0x3f;
     /// <summary>FF_API_INIT_PACKET = (LIBAVCODEC_VERSION_MAJOR &lt; 63)</summary>
     public const bool FF_API_INIT_PACKET = LIBAVCODEC_VERSION_MAJOR < 0x3f;
     /// <summary>FF_API_INTERNAL_TIMING = (LIBAVFORMAT_VERSION_MAJOR &lt; 63)</summary>
     public const bool FF_API_INTERNAL_TIMING = LIBAVFORMAT_VERSION_MAJOR < 0x3f;
+    /// <summary>FF_API_INTRA_DC_PRECISION = (LIBAVCODEC_VERSION_MAJOR &lt; 63)</summary>
+    public const bool FF_API_INTRA_DC_PRECISION = LIBAVCODEC_VERSION_MAJOR < 0x3f;
+    /// <summary>FF_API_LIBNPP_SUPPORT = LIBAVFILTER_VERSION_MAJOR &lt; 0xc</summary>
+    public const bool FF_API_LIBNPP_SUPPORT = LIBAVFILTER_VERSION_MAJOR < 0xc;
     /// <summary>FF_API_MOD_UINTP2 = (LIBAVUTIL_VERSION_MAJOR &lt; 61)</summary>
     public const bool FF_API_MOD_UINTP2 = LIBAVUTIL_VERSION_MAJOR < 0x3d;
     /// <summary>FF_API_NO_DEFAULT_TLS_VERIFY = (LIBAVFORMAT_VERSION_MAJOR &lt; 63)</summary>
@@ -1445,6 +1476,10 @@ public static unsafe partial class ffmpeg
     public const bool FF_API_OPT_INT_LIST = LIBAVUTIL_VERSION_MAJOR < 0x3d;
     /// <summary>FF_API_OPT_PTR = (LIBAVUTIL_VERSION_MAJOR &lt; 61)</summary>
     public const bool FF_API_OPT_PTR = LIBAVUTIL_VERSION_MAJOR < 0x3d;
+    /// <summary>FF_API_PARSER_CODECID = (LIBAVCODEC_VERSION_MAJOR &lt; 63)</summary>
+    public const bool FF_API_PARSER_CODECID = LIBAVCODEC_VERSION_MAJOR < 0x3f;
+    /// <summary>FF_API_PARSER_PRIVATE = (LIBAVCODEC_VERSION_MAJOR &lt; 63)</summary>
+    public const bool FF_API_PARSER_PRIVATE = LIBAVCODEC_VERSION_MAJOR < 0x3f;
     /// <summary>FF_API_R_FRAME_RATE = 1</summary>
     public const int FF_API_R_FRAME_RATE = 0x1;
     /// <summary>FF_API_RISCV_FD_ZBA = (LIBAVUTIL_VERSION_MAJOR &lt; 61)</summary>
@@ -1453,6 +1488,8 @@ public static unsafe partial class ffmpeg
     public const bool FF_API_V408_CODECID = LIBAVCODEC_VERSION_MAJOR < 0x3f;
     /// <summary>FF_API_VULKAN_FIXED_QUEUES = (LIBAVUTIL_VERSION_MAJOR &lt; 61)</summary>
     public const bool FF_API_VULKAN_FIXED_QUEUES = LIBAVUTIL_VERSION_MAJOR < 0x3d;
+    /// <summary>FF_API_VULKAN_SYNC_QUEUES = (LIBAVUTIL_VERSION_MAJOR &lt; 62)</summary>
+    public const bool FF_API_VULKAN_SYNC_QUEUES = LIBAVUTIL_VERSION_MAJOR < 0x3e;
     // public static FF_ARRAY_ELEMS = (a) (sizeof(a) / sizeof((a)[0]));
     /// <summary>FF_BUG_AMV = 0x20</summary>
     public const int FF_BUG_AMV = 0x20;
@@ -1688,8 +1725,8 @@ public static unsafe partial class ffmpeg
     // public static FFSWAP = (type,a,b) do{type SWAP_tmp= b; b= a; a= SWAP_tmp;}while(0);
     // public static FFUDIV = (a,b) (((a)>0 ?(a):(a)-(b)+1) / (b));
     // public static FFUMOD = a;
-    // public static GET_UTF16 = (val, GET_16BIT, ERROR)val = (GET_16BIT);{unsigned int hi = val - 0xD800;if (hi < 0x800) {val = (GET_16BIT) - 0xDC00;if (val > 0x3FFU || hi > 0x3FFU){ERROR}val += (hi<<10) + 0x10000;}};
-    // public static GET_UTF8 = (val, GET_BYTE, ERROR)val= (GET_BYTE);{uint32_t top = (val & 128) >> 1;if ((val & 0xc0) == 0x80 || val >= 0xFE){ERROR}while (val & top) {unsigned int tmp = (GET_BYTE) - 128;if(tmp>>6){ERROR}val= (val<<6) + tmp;top <<= 5;}val &= (top << 1) - 1;};
+    // public static GET_UTF16 = (val, GET_16BIT, ERROR)val = (uint16_t)(GET_16BIT);{unsigned int hi = val - 0xD800;if (hi < 0x800) {val = (uint16_t)(GET_16BIT) - 0xDC00;if (val > 0x3FFU || hi > 0x3FFU){ERROR}val += (hi<<10) + 0x10000;}};
+    // public static GET_UTF8 = (val, GET_BYTE, ERROR)val= (uint8_t)(GET_BYTE);{uint32_t top = (val & 128) >> 1;if ((val & 0xc0) == 0x80 || val >= 0xFE){ERROR}while (val & top) {unsigned int tmp = (uint8_t)(GET_BYTE) - 128;if(tmp>>6){ERROR}val= (val<<6) + tmp;top <<= 5;}val &= (top << 1) - 1;};
     /// <summary>LIBAVCODEC_BUILD = LIBAVCODEC_VERSION_INT</summary>
     public static readonly int LIBAVCODEC_BUILD = LIBAVCODEC_VERSION_INT;
     /// <summary>LIBAVCODEC_IDENT = &quot;Lavc&quot;</summary>
@@ -1702,8 +1739,8 @@ public static unsafe partial class ffmpeg
     public const int LIBAVCODEC_VERSION_MAJOR = 0x3e;
     /// <summary>LIBAVCODEC_VERSION_MICRO = 0x64</summary>
     public const int LIBAVCODEC_VERSION_MICRO = 0x64;
-    /// <summary>LIBAVCODEC_VERSION_MINOR = 0xb</summary>
-    public const int LIBAVCODEC_VERSION_MINOR = 0xb;
+    /// <summary>LIBAVCODEC_VERSION_MINOR = 0x1c</summary>
+    public const int LIBAVCODEC_VERSION_MINOR = 0x1c;
     /// <summary>LIBAVDEVICE_BUILD = LIBAVDEVICE_VERSION_INT</summary>
     public static readonly int LIBAVDEVICE_BUILD = LIBAVDEVICE_VERSION_INT;
     /// <summary>LIBAVDEVICE_IDENT = &quot;Lavd&quot; AV_STRINGIFY(LIBAVDEVICE_VERSION)</summary>
@@ -1716,8 +1753,8 @@ public static unsafe partial class ffmpeg
     public const int LIBAVDEVICE_VERSION_MAJOR = 0x3e;
     /// <summary>LIBAVDEVICE_VERSION_MICRO = 100</summary>
     public const int LIBAVDEVICE_VERSION_MICRO = 0x64;
-    /// <summary>LIBAVDEVICE_VERSION_MINOR = 1</summary>
-    public const int LIBAVDEVICE_VERSION_MINOR = 0x1;
+    /// <summary>LIBAVDEVICE_VERSION_MINOR = 3</summary>
+    public const int LIBAVDEVICE_VERSION_MINOR = 0x3;
     /// <summary>LIBAVFILTER_BUILD = LIBAVFILTER_VERSION_INT</summary>
     public static readonly int LIBAVFILTER_BUILD = LIBAVFILTER_VERSION_INT;
     /// <summary>LIBAVFILTER_IDENT = &quot;Lavfi&quot;</summary>
@@ -1730,8 +1767,8 @@ public static unsafe partial class ffmpeg
     public const int LIBAVFILTER_VERSION_MAJOR = 0xb;
     /// <summary>LIBAVFILTER_VERSION_MICRO = 0x64</summary>
     public const int LIBAVFILTER_VERSION_MICRO = 0x64;
-    /// <summary>LIBAVFILTER_VERSION_MINOR = 0x4</summary>
-    public const int LIBAVFILTER_VERSION_MINOR = 0x4;
+    /// <summary>LIBAVFILTER_VERSION_MINOR = 0xe</summary>
+    public const int LIBAVFILTER_VERSION_MINOR = 0xe;
     /// <summary>LIBAVFORMAT_BUILD = LIBAVFORMAT_VERSION_INT</summary>
     public static readonly int LIBAVFORMAT_BUILD = LIBAVFORMAT_VERSION_INT;
     /// <summary>LIBAVFORMAT_IDENT = &quot;Lavf&quot; AV_STRINGIFY(LIBAVFORMAT_VERSION)</summary>
@@ -1744,8 +1781,8 @@ public static unsafe partial class ffmpeg
     public const int LIBAVFORMAT_VERSION_MAJOR = 0x3e;
     /// <summary>LIBAVFORMAT_VERSION_MICRO = 100</summary>
     public const int LIBAVFORMAT_VERSION_MICRO = 0x64;
-    /// <summary>LIBAVFORMAT_VERSION_MINOR = 3</summary>
-    public const int LIBAVFORMAT_VERSION_MINOR = 0x3;
+    /// <summary>LIBAVFORMAT_VERSION_MINOR = 12</summary>
+    public const int LIBAVFORMAT_VERSION_MINOR = 0xc;
     /// <summary>LIBAVUTIL_BUILD = LIBAVUTIL_VERSION_INT</summary>
     public static readonly int LIBAVUTIL_BUILD = LIBAVUTIL_VERSION_INT;
     /// <summary>LIBAVUTIL_IDENT = &quot;Lavu&quot; AV_STRINGIFY(LIBAVUTIL_VERSION)</summary>
@@ -1758,8 +1795,8 @@ public static unsafe partial class ffmpeg
     public const int LIBAVUTIL_VERSION_MAJOR = 0x3c;
     /// <summary>LIBAVUTIL_VERSION_MICRO = 100</summary>
     public const int LIBAVUTIL_VERSION_MICRO = 0x64;
-    /// <summary>LIBAVUTIL_VERSION_MINOR = 8</summary>
-    public const int LIBAVUTIL_VERSION_MINOR = 0x8;
+    /// <summary>LIBAVUTIL_VERSION_MINOR = 26</summary>
+    public const int LIBAVUTIL_VERSION_MINOR = 0x1a;
     /// <summary>LIBSWRESAMPLE_BUILD = LIBSWRESAMPLE_VERSION_INT</summary>
     public static readonly int LIBSWRESAMPLE_BUILD = LIBSWRESAMPLE_VERSION_INT;
     /// <summary>LIBSWRESAMPLE_IDENT = &quot;SwR&quot;</summary>
@@ -1772,8 +1809,8 @@ public static unsafe partial class ffmpeg
     public const int LIBSWRESAMPLE_VERSION_MAJOR = 0x6;
     /// <summary>LIBSWRESAMPLE_VERSION_MICRO = 0x64</summary>
     public const int LIBSWRESAMPLE_VERSION_MICRO = 0x64;
-    /// <summary>LIBSWRESAMPLE_VERSION_MINOR = 0x1</summary>
-    public const int LIBSWRESAMPLE_VERSION_MINOR = 0x1;
+    /// <summary>LIBSWRESAMPLE_VERSION_MINOR = 0x3</summary>
+    public const int LIBSWRESAMPLE_VERSION_MINOR = 0x3;
     /// <summary>LIBSWSCALE_BUILD = LIBSWSCALE_VERSION_INT</summary>
     public static readonly int LIBSWSCALE_BUILD = LIBSWSCALE_VERSION_INT;
     /// <summary>LIBSWSCALE_IDENT = &quot;SwS&quot;</summary>
@@ -1786,8 +1823,8 @@ public static unsafe partial class ffmpeg
     public const int LIBSWSCALE_VERSION_MAJOR = 0x9;
     /// <summary>LIBSWSCALE_VERSION_MICRO = 0x64</summary>
     public const int LIBSWSCALE_VERSION_MICRO = 0x64;
-    /// <summary>LIBSWSCALE_VERSION_MINOR = 0x1</summary>
-    public const int LIBSWSCALE_VERSION_MINOR = 0x1;
+    /// <summary>LIBSWSCALE_VERSION_MINOR = 0x5</summary>
+    public const int LIBSWSCALE_VERSION_MINOR = 0x5;
     /// <summary>M_1_PI = 0.31830988618379067154</summary>
     public const double M_1_PI = 0.3183098861837907D;
     /// <summary>M_1_PIf = 0.31830988618379067154f</summary>
