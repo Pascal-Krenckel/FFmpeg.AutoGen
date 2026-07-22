@@ -1,12 +1,11 @@
 <Project>
   <PropertyGroup>
-    <PackageId>$(AssemblyName)</PackageId>
+    <PackageId>FFmpegDotNet._AutoGen</PackageId>
     <Version>8.1.0.0</Version>
-    <Authors>Ruslan Balanukhin</Authors>
-    <Company>Rationale One</Company>
-    <Product>FFmpeg.AutoGen</Product>
-    <Copyright>Copyright © Ruslan Balanukhin 2025 All rights reserved.</Copyright>
-    <PackageProjectUrl>https://github.com/Ruslan-B/FFmpeg.AutoGen</PackageProjectUrl>
+    <Authors>Pascal-Krenckel</Authors>
+    <Product>FFmpeg._AutoGen</Product>
+    <Copyright>Copyright © Pascal Krenckel. All rights reserved.</Copyright>
+    <PackageProjectUrl>https://github.com/Pascal-Krenckel/FFmpeg.AutoGen</PackageProjectUrl>
     <RepositoryType>Git</RepositoryType>
     <AssemblyVersion>$(Version)</AssemblyVersion>
     <FileVersion>$(Version)</FileVersion>
@@ -21,8 +20,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="$(MSBuildThisFileDirectory)LICENSE.txt" Link="LICENSE.txt" Pack="true" PackagePath="" />
-    <None Include="$(MSBuildThisFileDirectory)README.md" Link="README.md" Pack="true" PackagePath="" />
+    <None Include="$(MSBuildThisFileDirectory)LICENSE.txt" Link="LICENSE.txt" Pack="true" PackagePath="LICENSE.txt" />
+    <None Include="$(MSBuildThisFileDirectory)README.md" Link="README.md" Pack="true" PackagePath="README.md" />
   </ItemGroup>
   
 </Project>
