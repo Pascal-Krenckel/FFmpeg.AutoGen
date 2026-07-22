@@ -1,3 +1,7 @@
+This is a clone of Ruslan-B's FFmpeg.AutoGen. It's almost the same but all the types start with a _.
+
+---
+
 ## Important Announcement
 
 **This project is undergoing a transition to a semi-managed model over the coming months.**
