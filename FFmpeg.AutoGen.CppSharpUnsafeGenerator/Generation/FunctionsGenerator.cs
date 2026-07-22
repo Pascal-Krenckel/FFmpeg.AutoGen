@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using FFmpeg.AutoGen.CppSharpUnsafeGenerator.Definitions;
+using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
-using FFmpeg.AutoGen.CppSharpUnsafeGenerator.Definitions;
 
 namespace FFmpeg.AutoGen.CppSharpUnsafeGenerator.Generation;
 
@@ -19,14 +18,14 @@ internal sealed partial class FunctionsGenerator : GeneratorBase<ExportFunctionD
 
     public static void GenerateFacade(string path, GenerationContext context)
     {
-        using var g = new FunctionsGenerator(path, context);
+        using FunctionsGenerator g = new(path, context);
         g.IsFacadeGenerationOn = true;
         g.Generate();
     }
 
     public static void GenerateVectors(string path, GenerationContext context)
     {
-        using var g = new FunctionsGenerator(path, context);
+        using FunctionsGenerator g = new(path, context);
         g.IsVectorsGenerationOn = true;
         g.Generate();
     }
@@ -34,21 +33,21 @@ internal sealed partial class FunctionsGenerator : GeneratorBase<ExportFunctionD
 
     public static void GenerateStaticallyLinked(string path, GenerationContext context)
     {
-        using var g = new FunctionsGenerator(path, context);
+        using FunctionsGenerator g = new(path, context);
         g.IsStaticallyLinkedGenerationOn = true;
         g.Generate();
     }
 
     public static void GenerateDynamicallyLinked(string path, GenerationContext context)
     {
-        using var g = new FunctionsGenerator(path, context);
+        using FunctionsGenerator g = new(path, context);
         g.IsDynamicallyLinkedGenerationOn = true;
         g.Generate();
     }
 
     public static void GenerateDynamicallyLoaded(string path, GenerationContext context)
     {
-        using var g = new FunctionsGenerator(path, context);
+        using FunctionsGenerator g = new(path, context);
         g.IsDynamicallyLoadedGenerationOn = true;
         g.Generate();
     }
@@ -90,17 +89,21 @@ internal sealed partial class FunctionsGenerator : GeneratorBase<ExportFunctionD
 
     protected override void GenerateDefinition(ExportFunctionDefinition function)
     {
-        if (IsFacadeGenerationOn) GenerateFacadeFunction(function);
-        if (IsVectorsGenerationOn) GenerateVector(function);
-        if (IsStaticallyLinkedGenerationOn) GenerateDllImport(function, "__Internal");
-        if (IsDynamicallyLinkedGenerationOn) GenerateDllImport(function, $"{function.LibraryName}-{function.LibraryVersion}");
+        if (IsFacadeGenerationOn)
+            GenerateFacadeFunction(function);
+        if (IsVectorsGenerationOn)
+            GenerateVector(function);
+        if (IsStaticallyLinkedGenerationOn)
+            GenerateDllImport(function, "__Internal");
+        if (IsDynamicallyLinkedGenerationOn)
+            GenerateDllImport(function, $"{function.LibraryName}-{function.LibraryVersion}");
     }
 
     public void GenerateFacadeFunction(ExportFunctionDefinition function)
     {
-        var parameterNames = ParametersHelper.GetParameterNames(function.Parameters);
-        var parameters = ParametersHelper.GetParameters(function.Parameters, Context.IsLegacyGenerationOn, false);
-        
+        string parameterNames = ParametersHelper.GetParameterNames(function.Parameters);
+        string parameters = ParametersHelper.GetParameters(function.Parameters, Context.IsLegacyGenerationOn, false);
+
 
         this.WriteSummary(function);
         function.Parameters.ToList().ForEach(p => this.WriteParam(p, p.Name));
@@ -123,14 +126,14 @@ internal sealed partial class FunctionsGenerator : GeneratorBase<ExportFunctionD
     }
 
     public void GenerateVector(ExportFunctionDefinition function)
-    {        
+    {
         GenerateDelegateType(function);
-        var functionDelegateName = GetFunctionDelegateName(function);
+        string functionDelegateName = GetFunctionDelegateName(function);
         WriteLine($"public static {functionDelegateName} {function.Name};"); // todo => throw new NotSupportedException();");
         WriteLine();
 
-        var parameters = ParametersHelper.GetParameters(function.Parameters, Context.IsLegacyGenerationOn);
-        if(parameters.Contains("[]"))
+        string parameters = ParametersHelper.GetParameters(function.Parameters, Context.IsLegacyGenerationOn);
+        if (parameters.Contains("[]"))
         {
             WriteLine($"public static {functionDelegateName}_ptr {function.Name}_ptr;"); // todo => throw new NotSupportedException();");
             WriteLine();
@@ -144,30 +147,31 @@ internal sealed partial class FunctionsGenerator : GeneratorBase<ExportFunctionD
         this.WriteReturnComment(function);
 
         this.WriteObsoletion(function);
-        if (Context.SuppressUnmanagedCodeSecurity) WriteLine(SuppressUnmanagedCodeSecurityAttribute);
+        if (Context.SuppressUnmanagedCodeSecurity)
+            WriteLine(SuppressUnmanagedCodeSecurityAttribute);
 
         WriteLine($"[DllImport(\"{libraryName}\", CallingConvention = CallingConvention.Cdecl)]");
         function.ReturnType.Attributes.ToList().ForEach(WriteLine);
 
-        var parameters = ParametersHelper.GetParameters(function.Parameters, Context.IsLegacyGenerationOn);
+        string parameters = ParametersHelper.GetParameters(function.Parameters, Context.IsLegacyGenerationOn);
         WriteLine($"public static extern {function.ReturnType.Name} {function.Name}({parameters});");
         WriteLine();
     }
 
     private void GenerateDynamicallyLoaded(ExportFunctionDefinition function)
     {
-        var delegateParameters = ParametersHelper.GetParameters(function.Parameters, Context.IsLegacyGenerationOn, false);
+        string delegateParameters = ParametersHelper.GetParameters(function.Parameters, Context.IsLegacyGenerationOn, false);
 
-        var functionFieldName = $"vectors.{function.Name}";
+        string functionFieldName = $"vectors.{function.Name}";
         WriteLine($"{functionFieldName} = ({delegateParameters}) =>");
 
         using (BeginBlock(true))
         {
-            var functionDelegateName = GetFunctionDelegateName(function);
-            var getDelegate = $"FunctionResolver.GetFunctionDelegate<vectors.{functionDelegateName}>(\"{function.LibraryName}\", \"{function.Name}\", ThrowErrorIfFunctionNotFound)";
+            string functionDelegateName = GetFunctionDelegateName(function);
+            string getDelegate = $"FunctionResolver.GetFunctionDelegate<vectors.{functionDelegateName}>(\"{function.LibraryName}\", \"{function.Name}\", ThrowErrorIfFunctionNotFound)";
             WriteLine($"{functionFieldName} = {getDelegate} ?? delegate {{ throw new NotSupportedException(); }};");
-            var returnCommand = function.ReturnType.Name == "void" ? string.Empty : "return ";
-            var parameterNames = ParametersHelper.GetParameterNames(function.Parameters);
+            string returnCommand = function.ReturnType.Name == "void" ? string.Empty : "return ";
+            string parameterNames = ParametersHelper.GetParameterNames(function.Parameters);
             WriteLine($"{returnCommand}{functionFieldName}({parameterNames});");
         }
 
@@ -183,11 +187,11 @@ internal sealed partial class FunctionsGenerator : GeneratorBase<ExportFunctionD
 
             using (BeginBlock(true))
             {
-                var functionDelegateName = GetFunctionDelegateName(function)+"_ptr";
-                var getDelegate = $"FunctionResolver.GetFunctionDelegate<vectors.{functionDelegateName}>(\"{function.LibraryName}\", \"{function.Name}\", ThrowErrorIfFunctionNotFound)";
+                string functionDelegateName = GetFunctionDelegateName(function) + "_ptr";
+                string getDelegate = $"FunctionResolver.GetFunctionDelegate<vectors.{functionDelegateName}>(\"{function.LibraryName}\", \"{function.Name}\", ThrowErrorIfFunctionNotFound)";
                 WriteLine($"{functionFieldName} = {getDelegate} ?? delegate {{ throw new NotSupportedException(); }};");
-                var returnCommand = function.ReturnType.Name == "void" ? string.Empty : "return ";
-                var parameterNames = ParametersHelper.GetParameterNames(function.Parameters);
+                string returnCommand = function.ReturnType.Name == "void" ? string.Empty : "return ";
+                string parameterNames = ParametersHelper.GetParameterNames(function.Parameters);
                 WriteLine($"{returnCommand}{functionFieldName}({parameterNames});");
             }
 
@@ -200,19 +204,21 @@ internal sealed partial class FunctionsGenerator : GeneratorBase<ExportFunctionD
 
     private void GenerateDelegateType(ExportFunctionDefinition function)
     {
-        var functionDelegateName = GetFunctionDelegateName(function);
-        if (Context.SuppressUnmanagedCodeSecurity) WriteLine(SuppressUnmanagedCodeSecurityAttribute);
+        string functionDelegateName = GetFunctionDelegateName(function);
+        if (Context.SuppressUnmanagedCodeSecurity)
+            WriteLine(SuppressUnmanagedCodeSecurityAttribute);
         WriteLine(UnmanagedFunctionPointerAttribute);
         function.ReturnType.Attributes.ToList().ForEach(WriteLine);
-        var parameters = ParametersHelper.GetParameters(function.Parameters, Context.IsLegacyGenerationOn);
+        string parameters = ParametersHelper.GetParameters(function.Parameters, Context.IsLegacyGenerationOn);
         WriteLine($"public delegate {function.ReturnType.Name} {functionDelegateName}({parameters});");
-        if(parameters.Contains("[]"))
-         {
+        if (parameters.Contains("[]"))
+        {
             parameters = parameters.Replace("[]", "*");
-            if (Context.SuppressUnmanagedCodeSecurity) WriteLine(SuppressUnmanagedCodeSecurityAttribute);
+            if (Context.SuppressUnmanagedCodeSecurity)
+                WriteLine(SuppressUnmanagedCodeSecurityAttribute);
             WriteLine(UnmanagedFunctionPointerAttribute);
             function.ReturnType.Attributes.ToList().ForEach(WriteLine);
-            WriteLine($"public delegate {function.ReturnType.Name} {functionDelegateName+"_ptr"}({parameters});");
+            WriteLine($"public delegate {function.ReturnType.Name} {functionDelegateName + "_ptr"}({parameters});");
 
         }
     }

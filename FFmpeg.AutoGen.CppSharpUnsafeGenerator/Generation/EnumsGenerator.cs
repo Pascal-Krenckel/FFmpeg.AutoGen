@@ -10,7 +10,7 @@ internal sealed class EnumsGenerator : GeneratorBase<EnumerationDefinition>
 
     public static void Generate(string path, GenerationContext context)
     {
-        using var g = new EnumsGenerator(path, context);
+        using EnumsGenerator g = new(path, context);
         g.Generate();
     }
 
@@ -21,7 +21,7 @@ internal sealed class EnumsGenerator : GeneratorBase<EnumerationDefinition>
         WriteLine($"public enum {@enum.Name} : {@enum.TypeName}");
 
         using (BeginBlock())
-            foreach (var item in @enum.Items)
+            foreach (EnumerationItem item in @enum.Items)
             {
                 this.WriteSummary(item);
                 WriteLine($"@{item.Name} = {item.Value},");

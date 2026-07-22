@@ -1,6 +1,6 @@
-﻿using System;
+﻿using FFmpeg.AutoGen.CppSharpUnsafeGenerator.Definitions;
+using System;
 using System.Collections.Generic;
-using FFmpeg.AutoGen.CppSharpUnsafeGenerator.Definitions;
 
 namespace FFmpeg.AutoGen.CppSharpUnsafeGenerator.Generation;
 

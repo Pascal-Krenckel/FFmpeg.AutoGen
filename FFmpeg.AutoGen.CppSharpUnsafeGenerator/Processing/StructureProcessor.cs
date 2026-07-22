@@ -1,9 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using CppSharp.AST;
 using CppSharp.AST.Extensions;
 using FFmpeg.AutoGen.CppSharpUnsafeGenerator.Definitions;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Type = CppSharp.AST.Type;
 
 namespace FFmpeg.AutoGen.CppSharpUnsafeGenerator.Processing;
@@ -19,15 +19,15 @@ internal class StructureProcessor
 
     public void Process(TranslationUnit translationUnit)
     {
-        foreach (var typedef in translationUnit.Typedefs)
+        foreach (TypedefNameDecl typedef in translationUnit.Typedefs)
         {
-            if (!typedef.Type.TryGetClass(out var @class))
+            if (!typedef.Type.TryGetClass(out Class @class))
                 continue;
 
             if (@class.Comment == null && typedef.Comment != null)
                 @class.Comment = typedef.Comment;
 
-            var className = @class.Name;
+            string className = @class.Name;
             MakeDefinition(@class, className);
         }
     }
@@ -36,7 +36,7 @@ internal class StructureProcessor
     {
         name = string.IsNullOrEmpty(@class.Name) ? name : @class.Name;
 
-        var definition = _context.Definitions.OfType<StructureDefinition>().FirstOrDefault(x => x.Name == name);
+        StructureDefinition definition = _context.Definitions.OfType<StructureDefinition>().FirstOrDefault(x => x.Name == name);
 
         if (definition == null)
         {
@@ -52,7 +52,8 @@ internal class StructureProcessor
         if (@class.Comment != null)
             definition.Content = @class.Comment?.BriefText;
 
-        if (@class.IsIncomplete || definition.IsComplete) return;
+        if (@class.IsIncomplete || definition.IsComplete)
+            return;
 
         definition.IsComplete = true;
 
@@ -61,7 +62,7 @@ internal class StructureProcessor
         long bitCounter = 0;
         var fields = new List<StructureField>();
 
-        foreach (var field in @class.Fields)
+        foreach (Field field in @class.Fields)
         {
             if (field.IsBitField)
             {
@@ -80,7 +81,7 @@ internal class StructureProcessor
                 continue;
             }
 
-            var typeName = $"{field.Class.Name}_{field.Name}";
+            string typeName = $"{field.Class.Name}_{field.Name}";
             fields.Add(new StructureField
             {
                 Name = field.Name,
@@ -90,31 +91,29 @@ internal class StructureProcessor
             });
         }
 
-        if (bitFieldNames.Any() || bitCounter > 0) throw new InvalidOperationException();
+        if (bitFieldNames.Any() || bitCounter > 0)
+            throw new InvalidOperationException();
 
         definition.Fields = fields.ToArray();
     }
 
-    internal TypeDefinition GetTypeDefinition(Type type, string name = null)
+    internal TypeDefinition GetTypeDefinition(Type type, string name = null) => type switch
     {
-        return type switch
+        TypedefType declaration => GetTypeDefinition(declaration.Declaration.Type, name),
+        ArrayType { SizeType: ArrayType.ArraySize.Constant } arrayType => GetFieldTypeForFixedArray(arrayType),
+        TagType tagType => GetFieldTypeForNestedDeclaration(tagType.Declaration, name),
+        PointerType pointerType => GetTypeDefinition(pointerType, name),
+        _ => new TypeDefinition
         {
-            TypedefType declaration => GetTypeDefinition(declaration.Declaration.Type, name),
-            ArrayType { SizeType: ArrayType.ArraySize.Constant } arrayType => GetFieldTypeForFixedArray(arrayType),
-            TagType tagType => GetFieldTypeForNestedDeclaration(tagType.Declaration, name),
-            PointerType pointerType => GetTypeDefinition(pointerType, name),
-            _ => new TypeDefinition
-            {
-                Name = TypeHelper.GetTypeName(type)
-            }
-        };
-    }
+            Name = TypeHelper.GetTypeName(type)
+        }
+    };
 
     private static StructureField GetBitField(IEnumerable<string> names, long bitCounter, List<string> comments)
     {
-        var fieldName = string.Join("_", names);
+        string fieldName = string.Join("_", names);
 
-        var fieldType = bitCounter switch
+        string fieldType = bitCounter switch
         {
             8 => "byte",
             16 => "short",
@@ -133,7 +132,7 @@ internal class StructureProcessor
 
     private TypeDefinition GetTypeDefinition(PointerType pointerType, string name)
     {
-        var pointee = pointerType.Pointee;
+        Type pointee = pointerType.Pointee;
 
         if (pointee is TypedefType typedefType)
             pointee = typedefType.Declaration.Type;
@@ -141,13 +140,13 @@ internal class StructureProcessor
         if (pointee is FunctionType functionType)
             return FunctionProcessor.GetDelegateType(functionType, name);
 
-        var pointerTypeDefinition = GetTypeDefinition(pointee, name);
+        TypeDefinition pointerTypeDefinition = GetTypeDefinition(pointee, name);
         return new TypeDefinition { Name = $"{pointerTypeDefinition.Name}*" };
     }
 
     private TypeDefinition GetFieldTypeForNestedDeclaration(Declaration declaration, string name)
     {
-        var typeName = string.IsNullOrEmpty(declaration.Name) ? name : declaration.Name;
+        string typeName = string.IsNullOrEmpty(declaration.Name) ? name : declaration.Name;
 
         switch (declaration)
         {
@@ -165,15 +164,15 @@ internal class StructureProcessor
 
     private TypeDefinition GetFieldTypeForFixedArray(ArrayType arrayType)
     {
-        var elementType = arrayType.Type;
-        var elementTypeDefinition = GetTypeDefinition(elementType);
+        Type elementType = arrayType.Type;
+        TypeDefinition elementTypeDefinition = GetTypeDefinition(elementType);
 
-        var fixedSize = (int)arrayType.Size;
+        int fixedSize = (int)arrayType.Size;
 
-        var name = $"{elementTypeDefinition.Name}{fixedSize}";
-        var legacyName = $"{elementTypeDefinition.Name}_array{fixedSize}";
-        
-        var isPointer = elementType.IsPointer();
+        string name = $"{elementTypeDefinition.Name}{fixedSize}";
+        string legacyName = $"{elementTypeDefinition.Name}_array{fixedSize}";
+
+        bool isPointer = elementType.IsPointer();
 
         if (isPointer)
         {
@@ -183,7 +182,7 @@ internal class StructureProcessor
 
         if (elementType is ArrayType elementArrayType)
         {
-            var typeName = TypeHelper.GetTypeName(elementArrayType.Type);
+            string typeName = TypeHelper.GetTypeName(elementArrayType.Type);
 
             if (elementArrayType.SizeType == ArrayType.ArraySize.Constant)
             {
@@ -199,7 +198,7 @@ internal class StructureProcessor
             }
         }
 
-        var knownDefinition = _context.Definitions.FirstOrDefault(d => d.Name == name);
+        IDefinition knownDefinition = _context.Definitions.FirstOrDefault(d => d.Name == name);
         if (knownDefinition != null)
             return (FixedArrayDefinition)knownDefinition;
 

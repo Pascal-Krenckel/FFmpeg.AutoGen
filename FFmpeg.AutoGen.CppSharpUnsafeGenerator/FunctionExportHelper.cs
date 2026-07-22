@@ -10,30 +10,33 @@ internal static class FunctionExportHelper
 {
     public static IEnumerable<FunctionExport> LoadFunctionExports(string path)
     {
-        var libraries = Directory.EnumerateFiles(path, "*.dll");
+        IEnumerable<string> libraries = Directory.EnumerateFiles(path, "*.dll");
 
-        foreach (var libraryPath in libraries)
+        foreach (string libraryPath in libraries)
         {
-            var libraryFullName = Path.GetFileNameWithoutExtension(libraryPath);
-            var libraryNameParts = libraryFullName.Split('-');
-            var libraryName = libraryNameParts[0];
-            var libraryVersion = int.Parse(libraryNameParts[1]);
+            string libraryFullName = Path.GetFileNameWithoutExtension(libraryPath);
+            string[] libraryNameParts = libraryFullName.Split('-');
+            string libraryName = libraryNameParts[0];
+            int libraryVersion = int.Parse(libraryNameParts[1]);
 
-            var exports = GetExports(libraryPath);
-            foreach (var export in exports) yield return new FunctionExport { LibraryName = libraryName, LibraryVersion = libraryVersion, Name = export };
+            IEnumerable<string> exports = GetExports(libraryPath);
+            foreach (string export in exports)
+                yield return new FunctionExport { LibraryName = libraryName, LibraryVersion = libraryVersion, Name = export };
         }
     }
 
     private static IEnumerable<string> GetExports(string library)
     {
-        var hCurrentProcess = Process.GetCurrentProcess().Handle;
+        nint hCurrentProcess = Process.GetCurrentProcess().Handle;
 
-        if (!SymInitialize(hCurrentProcess, null, false)) throw new Exception("SymInitialize failed.");
+        if (!SymInitialize(hCurrentProcess, null, false))
+            throw new Exception("SymInitialize failed.");
 
         try
         {
-            var baseOfDll = SymLoadModuleEx(hCurrentProcess, IntPtr.Zero, library, null, 0, 0, IntPtr.Zero, 0);
-            if (baseOfDll == 0) throw new Exception($"SymLoadModuleEx failed for {library}.");
+            ulong baseOfDll = SymLoadModuleEx(hCurrentProcess, IntPtr.Zero, library, null, 0, 0, IntPtr.Zero, 0);
+            if (baseOfDll == 0)
+                throw new Exception($"SymLoadModuleEx failed for {library}.");
 
             var exports = new List<string>();
 
@@ -43,13 +46,13 @@ internal static class FunctionExportHelper
                 return true;
             }
 
-            if (!SymEnumerateSymbols64(hCurrentProcess, baseOfDll, EnumSyms, IntPtr.Zero)) throw new Exception("SymEnumerateSymbols64 failed.");
-
-            return exports;
+            return !SymEnumerateSymbols64(hCurrentProcess, baseOfDll, EnumSyms, IntPtr.Zero)
+                ? throw new Exception("SymEnumerateSymbols64 failed.")
+                : (IEnumerable<string>)exports;
         }
         finally
         {
-            SymCleanup(hCurrentProcess);
+            _ = SymCleanup(hCurrentProcess);
         }
     }
 

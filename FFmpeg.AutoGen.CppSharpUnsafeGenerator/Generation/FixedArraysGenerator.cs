@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using FFmpeg.AutoGen.CppSharpUnsafeGenerator.Definitions;
+using System.Collections.Generic;
 using System.Linq;
-using FFmpeg.AutoGen.CppSharpUnsafeGenerator.Definitions;
 
 namespace FFmpeg.AutoGen.CppSharpUnsafeGenerator.Generation;
 
@@ -12,7 +12,7 @@ internal sealed class FixedArraysGenerator : GeneratorBase<FixedArrayDefinition>
 
     public static void Generate(string path, GenerationContext context)
     {
-        using var g = new FixedArraysGenerator(path, context);
+        using FixedArraysGenerator g = new(path, context);
         g.Generate();
     }
 
@@ -26,22 +26,24 @@ internal sealed class FixedArraysGenerator : GeneratorBase<FixedArrayDefinition>
 
     protected override void GenerateDefinition(FixedArrayDefinition array)
     {
-        var useLegacy = Context.IsLegacyGenerationOn;
-        var length = array.Length;
+        bool useLegacy = Context.IsLegacyGenerationOn;
+        int length = array.Length;
         var elementType = array.ElementType;
-        var elementTypeName = ParametersHelper.GetTypeName(elementType, useLegacy);
-        var arrayName = useLegacy ? array.LegacyName : array.Name;
+        string elementTypeName = ParametersHelper.GetTypeName(elementType, useLegacy);
+        string arrayName = useLegacy ? array.LegacyName : array.Name;
 
         WriteLine(array.IsPointer ? $"public unsafe struct {arrayName} : IFixedArray" : $"public unsafe struct {arrayName} : IFixedArray<{elementTypeName}>");
 
         using (BeginBlock())
         {
-            var lengthPropertyName = useLegacy ? "Size" : "ArrayLength";
+            string lengthPropertyName = useLegacy ? "Size" : "ArrayLength";
             WriteLine($"public static readonly int {lengthPropertyName} = {length};");
             WriteLine($"public int Length => {length};");
 
-            if (array.IsPrimitive) WritePrimitiveFixedArray(elementTypeName, length);
-            else WriteComplexFixedArray(elementTypeName, length);
+            if (array.IsPrimitive)
+                WritePrimitiveFixedArray(elementTypeName, length);
+            else
+                WriteComplexFixedArray(elementTypeName, length);
 
             WriteLine($"public static implicit operator {elementTypeName}[]({arrayName} @struct) => @struct.ToArray();");
         }
@@ -76,8 +78,8 @@ internal sealed class FixedArraysGenerator : GeneratorBase<FixedArrayDefinition>
     {
         WriteLine(string.Join(" ", Enumerable.Range(0, length).Select(i => $"{elementType} _{i};")));
         WriteLine();
-        
-        var @fixed = $"fixed ({elementType}* p0 = &_0)";
+
+        string @fixed = $"fixed ({elementType}* p0 = &_0)";
         WriteLine($"public {elementType} this[uint i]");
 
         using (BeginBlock())

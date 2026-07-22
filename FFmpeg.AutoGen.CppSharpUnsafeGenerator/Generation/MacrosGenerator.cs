@@ -8,7 +8,7 @@ internal sealed class MacrosGenerator : GeneratorBase<MacroDefinition>
 
     public static void Generate(string path, GenerationContext context)
     {
-        using var g = new MacrosGenerator(path, context);
+        using MacrosGenerator g = new(path, context);
         g.Generate();
     }
 
@@ -17,7 +17,7 @@ internal sealed class MacrosGenerator : GeneratorBase<MacroDefinition>
         if (@enum.IsValid)
         {
             this.WriteSummary(@enum);
-            var constOrStatic = @enum.IsConst ? "const" : "static readonly";
+            string constOrStatic = @enum.IsConst ? "const" : "static readonly";
             WriteLine($"public {constOrStatic} {@enum.TypeName} {@enum.Name} = {@enum.Expression};");
         }
         else

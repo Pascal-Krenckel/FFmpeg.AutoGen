@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace FFmpeg.AutoGen.CppSharpUnsafeGenerator.Definitions;
+﻿namespace FFmpeg.AutoGen.CppSharpUnsafeGenerator.Definitions;
 
 internal record DelegateDefinition : TypeDefinition
 {

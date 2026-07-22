@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using CppSharp.AST;
+﻿using CppSharp.AST;
+using System.Linq;
 
 namespace FFmpeg.AutoGen.CppSharpUnsafeGenerator.Processing;
 
@@ -11,10 +11,10 @@ internal class MacroProcessor
 
     public void Process(TranslationUnit translationUnit)
     {
-        foreach (var macro in translationUnit.PreprocessedEntities.OfType<MacroDefinition>()
+        foreach (MacroDefinition macro in translationUnit.PreprocessedEntities.OfType<MacroDefinition>()
                      .Where(x => !string.IsNullOrWhiteSpace(x.Expression)))
         {
-            var macroDefinition = new Definitions.MacroDefinition
+            Definitions.MacroDefinition macroDefinition = new()
             {
                 Name = macro.Name,
                 Expression = macro.Expression

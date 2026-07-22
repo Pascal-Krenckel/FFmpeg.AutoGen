@@ -1,9 +1,9 @@
-﻿using System;
+﻿using FFmpeg.AutoGen.CppSharpUnsafeGenerator.Definitions;
+using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using FFmpeg.AutoGen.CppSharpUnsafeGenerator.Definitions;
 
 namespace FFmpeg.AutoGen.CppSharpUnsafeGenerator.Generation;
 
@@ -30,9 +30,10 @@ internal abstract class GeneratorBase : IDisposable
     protected GeneratorBase(string path, GenerationContext context)
     {
         Context = context;
-        var fullPath = Path.Combine(Context.OutputDir, path);
-        var outputDir = Path.GetDirectoryName(fullPath);
-        if (!Directory.Exists(outputDir)) Directory.CreateDirectory(outputDir);
+        string fullPath = Path.Combine(Context.OutputDir, path);
+        string outputDir = Path.GetDirectoryName(fullPath);
+        if (!Directory.Exists(outputDir))
+            _ = Directory.CreateDirectory(outputDir);
         _streamWriter = File.CreateText(fullPath);
         _indentedTextWriter = new IndentedTextWriter(_streamWriter);
     }
@@ -58,9 +59,10 @@ internal abstract class GeneratorBase : IDisposable
             WriteLine();
         }
 
-        var usings = Usings().ToList();
+        List<string> usings = Usings().ToList();
         usings.ForEach(ns => WriteLine($"using {ns};"));
-        if (usings.Count > 0) WriteLine();
+        if (usings.Count > 0)
+            WriteLine();
 
         WriteLine($"namespace {Context.Namespace};");
         WriteLine();
@@ -69,7 +71,8 @@ internal abstract class GeneratorBase : IDisposable
         {
             WriteLine($"public static unsafe partial class {Context.TypeName}");
 
-            using (BeginBlock()) GenerateBody();
+            using (BeginBlock())
+                GenerateBody();
         }
         else
             GenerateBody();

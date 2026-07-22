@@ -1,10 +1,10 @@
 ﻿// Copyright 2020 Craytive Technologies BV. All rights reserved. Company proprietary and confidential.
 
+using FFmpeg.AutoGen.CppSharpUnsafeGenerator.Definitions;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
-using FFmpeg.AutoGen.CppSharpUnsafeGenerator.Definitions;
 
 namespace FFmpeg.AutoGen.CppSharpUnsafeGenerator;
 
@@ -20,24 +20,25 @@ internal static class ExistingInlineFunctionsHelper
 
     public static IEnumerable<InlineFunctionDefinition> LoadInlineFunctions(string path)
     {
-        if (!File.Exists(path)) yield break;
+        if (!File.Exists(path))
+            yield break;
 
-        var text = File.ReadAllText(path);
+        string text = File.ReadAllText(path);
 
-        var nameMatches = FunctionNameRegex.Matches(text);
-        var hashMatches = FunctionHashRegex.Matches(text);
+        MatchCollection nameMatches = FunctionNameRegex.Matches(text);
+        MatchCollection hashMatches = FunctionHashRegex.Matches(text);
 
         Debug.Assert(nameMatches.Count == hashMatches.Count);
 
-        for (var i = 0; i < nameMatches.Count; i++)
+        for (int i = 0; i < nameMatches.Count; i++)
         {
-            var nameMatch = nameMatches[i];
-            var hashMatch = hashMatches[i];
+            Match nameMatch = nameMatches[i];
+            Match hashMatch = hashMatches[i];
 
-            var name = nameMatch.Groups["name"].Value;
-            var hash = hashMatch.Groups["hash"].Value;
-            var bodyIndex = nameMatch.Index + nameMatch.Length;
-            var body = text.Substring(bodyIndex, hashMatch.Index - bodyIndex);
+            string name = nameMatch.Groups["name"].Value;
+            string hash = hashMatch.Groups["hash"].Value;
+            int bodyIndex = nameMatch.Index + nameMatch.Length;
+            string body = text[bodyIndex..hashMatch.Index];
 
             var function = new InlineFunctionDefinition
             {

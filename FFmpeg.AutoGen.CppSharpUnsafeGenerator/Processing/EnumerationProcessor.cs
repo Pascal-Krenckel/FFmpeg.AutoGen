@@ -1,8 +1,9 @@
-﻿using System;
-using System.Linq;
-using CppSharp.AST;
+﻿using CppSharp.AST;
 using CppSharp.AST.Extensions;
 using FFmpeg.AutoGen.CppSharpUnsafeGenerator.Definitions;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace FFmpeg.AutoGen.CppSharpUnsafeGenerator.Processing;
 
@@ -14,15 +15,17 @@ internal class EnumerationProcessor
 
     public void Process(TranslationUnit translationUnit)
     {
-        foreach (var enumeration in translationUnit.Enums)
+        foreach (Enumeration enumeration in translationUnit.Enums)
         {
-            if (!enumeration.Type.IsPrimitiveType()) throw new NotSupportedException();
+            if (!enumeration.Type.IsPrimitiveType())
+                throw new NotSupportedException();
 
-            var enumerationName = enumeration.Name;
+            string enumerationName = enumeration.Name;
             if (string.IsNullOrEmpty(enumerationName))
             {
                 enumerationName = DeriveNameFromMembers(enumeration);
-                if (enumerationName == null) continue;
+                if (enumerationName == null)
+                    continue;
             }
 
             MakeDefinition(enumeration, enumerationName);
@@ -36,30 +39,33 @@ internal class EnumerationProcessor
     /// </summary>
     private static string DeriveNameFromMembers(Enumeration enumeration)
     {
-        var items = enumeration.Items;
-        if (items.Count == 0) return null;
+        List<Enumeration.Item> items = enumeration.Items;
+        if (items.Count == 0)
+            return null;
 
         // Find longest common prefix up to last underscore
-        var prefix = items[0].Name;
-        foreach (var item in items.Skip(1))
+        string prefix = items[0].Name;
+        foreach (Enumeration.Item item in items.Skip(1))
         {
-            var len = 0;
+            int len = 0;
             while (len < prefix.Length && len < item.Name.Length && prefix[len] == item.Name[len])
                 len++;
             prefix = prefix[..len];
         }
 
         // Trim to last underscore boundary
-        var lastUnderscore = prefix.LastIndexOf('_');
-        if (lastUnderscore <= 0) return null;
+        int lastUnderscore = prefix.LastIndexOf('_');
+        if (lastUnderscore <= 0)
+            return null;
         prefix = prefix[..(lastUnderscore + 1)];
 
         // Need at least 2 segments (e.g. "AV_SOMETHING_")
-        if (prefix.Count(c => c == '_') < 2) return null;
+        if (prefix.Count(c => c == '_') < 2)
+            return null;
 
         // Convert to PascalCase: "AV_CODEC_HW_CONFIG_METHOD_" → "AvCodecHwConfigMethod"
-        var parts = prefix.TrimEnd('_').Split('_');
-        var name = string.Concat(parts.Select(p =>
+        string[] parts = prefix.TrimEnd('_').Split('_');
+        string name = string.Concat(parts.Select(p =>
             p.Length <= 1 ? p.ToUpperInvariant() : char.ToUpperInvariant(p[0]) + p[1..].ToLowerInvariant()));
 
         return name;
@@ -68,7 +74,8 @@ internal class EnumerationProcessor
     public void MakeDefinition(Enumeration enumeration, string name)
     {
         name = string.IsNullOrEmpty(enumeration.Name) ? name : enumeration.Name;
-        if (_context.Definitions.Any(d => d.Name == name)) return;
+        if (_context.Definitions.Any(d => d.Name == name))
+            return;
 
         var definition = new EnumerationDefinition
         {
@@ -90,15 +97,12 @@ internal class EnumerationProcessor
         _context.AddDefinition(definition);
     }
 
-    private static object ConvertValue(ulong value, PrimitiveType primitiveType)
+    private static object ConvertValue(ulong value, PrimitiveType primitiveType) => primitiveType switch
     {
-        return primitiveType switch
-        {
-            PrimitiveType.Int => value > int.MaxValue ? (int)value : value,
-            PrimitiveType.UInt => value,
-            PrimitiveType.Long => value > long.MaxValue ? (long)value : value,
-            PrimitiveType.ULong => value,
-            _ => throw new NotSupportedException()
-        };
-    }
+        PrimitiveType.Int => value > int.MaxValue ? (int)value : value,
+        PrimitiveType.UInt => value,
+        PrimitiveType.Long => value > long.MaxValue ? (long)value : value,
+        PrimitiveType.ULong => value,
+        _ => throw new NotSupportedException()
+    };
 }

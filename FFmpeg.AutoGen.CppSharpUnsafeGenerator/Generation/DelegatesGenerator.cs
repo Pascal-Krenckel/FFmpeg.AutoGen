@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using FFmpeg.AutoGen.CppSharpUnsafeGenerator.Definitions;
+using System.Collections.Generic;
 using System.Linq;
-using FFmpeg.AutoGen.CppSharpUnsafeGenerator.Definitions;
 
 namespace FFmpeg.AutoGen.CppSharpUnsafeGenerator.Generation;
 
@@ -12,7 +12,7 @@ internal sealed class DelegatesGenerator : GeneratorBase<DelegateDefinition>
 
     public static void Generate(string path, GenerationContext context)
     {
-        using var g = new DelegatesGenerator(path, context);
+        using DelegatesGenerator g = new(path, context);
         g.Generate();
     }
 
@@ -26,7 +26,7 @@ internal sealed class DelegatesGenerator : GeneratorBase<DelegateDefinition>
     {
         @delegate.Parameters.ToList().ForEach(x => this.WriteParam(x, x.Name));
 
-        var parameters = ParametersHelper.GetParameters(@delegate.Parameters, Context.IsLegacyGenerationOn);
+        string parameters = ParametersHelper.GetParameters(@delegate.Parameters, Context.IsLegacyGenerationOn);
         WriteLine("[UnmanagedFunctionPointer(CallingConvention.Cdecl)]");
         WriteLine($"public unsafe delegate {@delegate.ReturnType.Name} {@delegate.FunctionName} ({parameters});");
 

@@ -1,6 +1,6 @@
-﻿using System;
+﻿using CommandLine;
+using System;
 using System.IO;
-using CommandLine;
 
 namespace FFmpeg.AutoGen.CppSharpUnsafeGenerator;
 
@@ -70,8 +70,8 @@ public class CliOptions
 
     public static CliOptions ParseArgumentsStrict(string[] args)
     {
-        var result = CommandLine.Parser.Default.ParseArguments<CliOptions>(args);
-        var options = result.MapResult(x => x, x => new CliOptions());
+        ParserResult<CliOptions> result = CommandLine.Parser.Default.ParseArguments<CliOptions>(args);
+        CliOptions options = result.MapResult(x => x, x => new CliOptions());
         options.Normalize();
         return options;
     }
@@ -79,13 +79,14 @@ public class CliOptions
     private void Normalize()
     {
         // Support for the original path setup
-        if (string.IsNullOrWhiteSpace(SolutionDir)) SolutionDir = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../../../"));
+        if (string.IsNullOrWhiteSpace(SolutionDir))
+            SolutionDir = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../../../"));
 
         if (string.IsNullOrWhiteSpace(FFmpegDir) &&
             string.IsNullOrWhiteSpace(FFmpegIncludesDir) &&
             string.IsNullOrWhiteSpace(FFmpegBinDir))
             FFmpegDir = Path.Combine(SolutionDir, "FFmpeg");
-        
+
         // If the FFmpegDir option is specified, it will take precedence
         if (!string.IsNullOrWhiteSpace(FFmpegDir))
         {

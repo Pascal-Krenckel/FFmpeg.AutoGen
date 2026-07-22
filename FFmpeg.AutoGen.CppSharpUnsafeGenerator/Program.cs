@@ -1,10 +1,11 @@
-﻿using System;
+﻿using CppSharp.AST;
+using FFmpeg.AutoGen.CppSharpUnsafeGenerator.Definitions;
+using FFmpeg.AutoGen.CppSharpUnsafeGenerator.Generation;
+using FFmpeg.AutoGen.CppSharpUnsafeGenerator.Processing;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using CppSharp.AST;
-using FFmpeg.AutoGen.CppSharpUnsafeGenerator.Generation;
-using FFmpeg.AutoGen.CppSharpUnsafeGenerator.Processing;
 
 namespace FFmpeg.AutoGen.CppSharpUnsafeGenerator;
 
@@ -12,7 +13,7 @@ internal class Program
 {
     internal static void Main(string[] args)
     {
-        var options = CliOptions.ParseArgumentsStrict(args);
+        CliOptions options = CliOptions.ParseArgumentsStrict(args);
 
         if (options.Verbose)
         {
@@ -25,24 +26,24 @@ internal class Program
         }
 
         // parse headers
-        var astContexts = Parse(options.FFmpegIncludesDir).ToList();
+        List<ASTContext> astContexts = Parse(options.FFmpegIncludesDir).ToList();
 
         // process
-        var functionExports = FunctionExportHelper.LoadFunctionExports(options.FFmpegBinDir).ToArray();
-        var processingContext = new ProcessingContext
+        FunctionExport[] functionExports = FunctionExportHelper.LoadFunctionExports(options.FFmpegBinDir).ToArray();
+        ProcessingContext processingContext = new()
         {
-            IgnoreUnitNames = new HashSet<string> { "__NSConstantString_tag" },
+            IgnoreUnitNames = ["__NSConstantString_tag"],
             TypeAliases = { { "int64_t", typeof(long) } },
             WellKnownMacros =
             {
-                { "FFERRTAG", typeof(int) }, 
+                { "FFERRTAG", typeof(int) },
                 { "MKTAG", typeof(int) },
                 { "UINT64_C", typeof(ulong) },
                 { "AV_VERSION_INT", typeof(int) },
                 { "AV_VERSION", typeof(string) },
-                { "_DHUGE_EXP", typeof(int) }, 
-                { "_DMAX", typeof(long) }, 
-                { "_FMAX", typeof(long) }, 
+                { "_DHUGE_EXP", typeof(int) },
+                { "_DMAX", typeof(long) },
+                { "_FMAX", typeof(long) },
                 { "_LMAX", typeof(long) }
             },
             FunctionExportMap = functionExports
@@ -51,12 +52,12 @@ internal class Program
                 .ToDictionary(x => x.Name),
             NoCustomStringMarshal = options.NoCustomStringMarshal,
         };
-        var processor = new ASTProcessor(processingContext);
+        ASTProcessor processor = new(processingContext);
         astContexts.ForEach(processor.Process);
 
         // generate files
-        var inlineFunctions = ExistingInlineFunctionsHelper.LoadInlineFunctions(Path.Combine(options.SolutionDir, "FFmpeg.AutoGen/generated/FFmpeg.functions.inline.g.cs"));
-        var generationContext = new GenerationContext
+        IEnumerable<InlineFunctionDefinition> inlineFunctions = ExistingInlineFunctionsHelper.LoadInlineFunctions(Path.Combine(options.SolutionDir, "FFmpeg.AutoGen/generated/FFmpeg.functions.inline.g.cs"));
+        GenerationContext generationContext = new()
         {
             Namespace = options.Namespace,
             TypeName = options.TypeName,
@@ -80,7 +81,7 @@ internal class Program
 
     private static IEnumerable<ASTContext> Parse(string includesDir)
     {
-        var p = new Parser
+        Parser p = new()
         {
             IncludeDirs = new[] { includesDir },
             Defines = new[] { "__STDC_CONSTANT_MACROS" }
@@ -131,7 +132,7 @@ internal class Program
 
     private static void GenerateLegacyFFmpegAutoGen(GenerationContext baseContext)
     {
-        var context = baseContext with
+        GenerationContext context = baseContext with
         {
             IsLegacyGenerationOn = true,
             OutputDir = Path.Combine(baseContext.SolutionDir, @"FFmpeg.AutoGen\generated")
@@ -151,7 +152,7 @@ internal class Program
 
     private static void GenerateAbstractions(GenerationContext baseContext)
     {
-        var context = baseContext with
+        GenerationContext context = baseContext with
         {
             Namespace = $"{baseContext.Namespace}.Abstractions",
             OutputDir = Path.Combine(baseContext.SolutionDir, @"FFmpeg.AutoGen.Abstractions\generated")
@@ -169,9 +170,10 @@ internal class Program
 
     private static void GenerateStaticallyLinkedBindings(GenerationContext baseContext)
     {
-        var context = baseContext with
+        GenerationContext context = baseContext with
         {
-            Namespace = $"{baseContext.Namespace}.Bindings.StaticallyLinked", TypeName = "StaticallyLinkedBindings",
+            Namespace = $"{baseContext.Namespace}.Bindings.StaticallyLinked",
+            TypeName = "StaticallyLinkedBindings",
             OutputDir = Path.Combine(baseContext.SolutionDir, @"FFmpeg.AutoGen.Bindings.StaticallyLinked\generated")
         };
         FunctionsGenerator.GenerateStaticallyLinked("StaticallyLinkedBindings.g.cs", context);
@@ -179,9 +181,10 @@ internal class Program
 
     private static void GenerateDynamicallyLinkedBindings(GenerationContext baseContext)
     {
-        var context = baseContext with
+        GenerationContext context = baseContext with
         {
-            Namespace = $"{baseContext.Namespace}.Bindings.DynamicallyLinked", TypeName = "DynamicallyLinkedBindings",
+            Namespace = $"{baseContext.Namespace}.Bindings.DynamicallyLinked",
+            TypeName = "DynamicallyLinkedBindings",
             OutputDir = Path.Combine(baseContext.SolutionDir, @"FFmpeg.AutoGen.Bindings.DynamicallyLinked\generated")
         };
 
@@ -190,9 +193,10 @@ internal class Program
 
     private static void GenerateDynamicallyLoadedBindings(GenerationContext baseContext)
     {
-        var context = baseContext with
+        GenerationContext context = baseContext with
         {
-            Namespace = $"{baseContext.Namespace}.Bindings.DynamicallyLoaded", TypeName = "DynamicallyLoadedBindings",
+            Namespace = $"{baseContext.Namespace}.Bindings.DynamicallyLoaded",
+            TypeName = "DynamicallyLoadedBindings",
             OutputDir = Path.Combine(baseContext.SolutionDir, @"FFmpeg.AutoGen.Bindings.DynamicallyLoaded\generated")
         };
 

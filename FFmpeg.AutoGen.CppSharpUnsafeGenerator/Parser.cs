@@ -1,10 +1,9 @@
-using System;
-using System.Collections.Generic;
 using CppSharp;
 using CppSharp.AST;
 using CppSharp.Parser;
+using System;
+using System.Collections.Generic;
 using ClangParser = CppSharp.ClangParser;
-using System.Linq;
 
 namespace FFmpeg.AutoGen.CppSharpUnsafeGenerator;
 
@@ -18,31 +17,29 @@ internal sealed class Parser
     public ASTContext Parse(params string[] sourceFiles)
     {
         _hasParsingErrors = false;
-        var context = ParseInternal(sourceFiles);
-        foreach (var unit in context.TranslationUnits)
+        ASTContext context = ParseInternal(sourceFiles);
+        foreach (TranslationUnit unit in context.TranslationUnits)
         {
-            foreach (var @class in unit.Classes)
+            foreach (Class @class in unit.Classes)
                 if (!string.IsNullOrEmpty(@class.Name))
                     @class.Name = "_" + @class.Name;
-            foreach (var @enum in unit.Enums)
+            foreach (Enumeration @enum in unit.Enums)
                 if (!string.IsNullOrEmpty(@enum.Name))
                     @enum.Name = "_" + @enum.Name;
-            foreach (var typedef in unit.Typedefs)
+            foreach (TypedefNameDecl typedef in unit.Typedefs)
                 if (!string.IsNullOrEmpty(typedef.Name))
                     typedef.Name = "_" + typedef.Name;
-            foreach (var events in unit.Events)
+            foreach (Event events in unit.Events)
                 if (!string.IsNullOrEmpty(events.Name))
                     events.Name = "_" + events.Name;
         }
 
-        if (_hasParsingErrors)
-            throw new InvalidOperationException();
-        return context;
+        return _hasParsingErrors ? throw new InvalidOperationException() : context;
     }
 
     private ASTContext ParseInternal(string[] sourceFiles)
     {
-        var parserOptions = new ParserOptions
+        ParserOptions parserOptions = new()
         {
             Verbose = true,
             ASTContext = new CppSharp.Parser.AST.ASTContext(),
@@ -56,7 +53,7 @@ internal sealed class Parser
 
         foreach (var define in Defines)
             parserOptions.AddDefines(define);
-        var result = ClangParser.ParseSourceFiles(sourceFiles, parserOptions);
+        ParserResult result = ClangParser.ParseSourceFiles(sourceFiles, parserOptions);
         OnSourceFileParsed(sourceFiles, result);
         return ClangParser.ConvertASTContext(parserOptions.ASTContext);
     }
@@ -81,7 +78,7 @@ internal sealed class Parser
 
         for (uint i = 0; i < result.DiagnosticsCount; ++i)
         {
-            var diagnostics = result.GetDiagnostics(i);
+            ParserDiagnostic diagnostics = result.GetDiagnostics(i);
 
             var message =
                 $"{diagnostics.FileName}({diagnostics.LineNumber},{diagnostics.ColumnNumber}): {diagnostics.Level.ToString().ToLower()}: {diagnostics.Message}";

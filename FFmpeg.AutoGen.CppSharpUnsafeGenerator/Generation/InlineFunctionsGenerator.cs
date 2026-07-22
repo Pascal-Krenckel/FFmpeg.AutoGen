@@ -1,7 +1,7 @@
-﻿using System;
+﻿using FFmpeg.AutoGen.CppSharpUnsafeGenerator.Definitions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using FFmpeg.AutoGen.CppSharpUnsafeGenerator.Definitions;
 
 namespace FFmpeg.AutoGen.CppSharpUnsafeGenerator.Generation;
 
@@ -11,7 +11,7 @@ internal sealed class InlineFunctionsGenerator : GeneratorBase<InlineFunctionDef
 
     public static void Generate(string path, GenerationContext context)
     {
-        using var g = new InlineFunctionsGenerator(path, context);
+        using InlineFunctionsGenerator g = new(path, context);
         g.Generate();
     }
 
@@ -26,14 +26,14 @@ internal sealed class InlineFunctionsGenerator : GeneratorBase<InlineFunctionDef
     protected override void GenerateDefinition(InlineFunctionDefinition function)
     {
         function.ReturnType.Attributes.ToList().ForEach(WriteLine);
-        var parameters = ParametersHelper.GetParameters(function.Parameters, Context.IsLegacyGenerationOn, false);
+        string parameters = ParametersHelper.GetParameters(function.Parameters, Context.IsLegacyGenerationOn, false);
 
         this.WriteSummary(function);
         function.Parameters.ToList().ForEach(p => this.WriteParam(p, p.Name));
         this.WriteReturnComment(function);
 
         this.WriteObsoletion(function);
-        this.WriteAggressiveInlining();
+        WriteAggressiveInlining();
         WriteLine($"public static {function.ReturnType.Name} {function.Name}({parameters})");
 
         var lines = function.Body.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries).ToList();
@@ -41,11 +41,8 @@ internal sealed class InlineFunctionsGenerator : GeneratorBase<InlineFunctionDef
         WriteLine($"// original body hash: {function.OriginalBodyHash}");
         WriteLine();
     }
-    
-    private void WriteAggressiveInlining()
-    {
-        WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
-    }
+
+    private void WriteAggressiveInlining() => WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
 
     private InlineFunctionDefinition RewriteFunctionBody(InlineFunctionDefinition function) =>
         Context.ExistingInlineFunctionMap.TryGetValue(function.Name, out var existing) && function.OriginalBodyHash == existing.OriginalBodyHash

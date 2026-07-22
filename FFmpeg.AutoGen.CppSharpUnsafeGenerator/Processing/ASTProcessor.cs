@@ -1,6 +1,7 @@
-using System.Linq;
 using CppSharp.AST;
 using FFmpeg.AutoGen.CppSharpUnsafeGenerator.Definitions;
+using System.Collections.Generic;
+using System.Linq;
 using MacroDefinition = FFmpeg.AutoGen.CppSharpUnsafeGenerator.Definitions.MacroDefinition;
 
 namespace FFmpeg.AutoGen.CppSharpUnsafeGenerator.Processing;
@@ -31,9 +32,9 @@ internal sealed class ASTProcessor
 
     public void Process(ASTContext context)
     {
-        var units = context.TranslationUnits.Where(x => !x.IsSystemHeader);
-        
-        foreach (var translationUnit in units)
+        IEnumerable<TranslationUnit> units = context.TranslationUnits.Where(x => !x.IsSystemHeader);
+
+        foreach (TranslationUnit translationUnit in units)
         {
             _macroProcessor.Process(translationUnit);
             _enumerationProcessor.Process(translationUnit);
@@ -42,17 +43,19 @@ internal sealed class ASTProcessor
         }
 
         // add all enums as known macros  
-        var enums = _context.Definitions.OfType<EnumerationDefinition>().ToArray();
+        EnumerationDefinition[] enums = _context.Definitions.OfType<EnumerationDefinition>().ToArray();
 
-        foreach (var @enum in enums)
-            foreach (var item in @enum.Items)
+        foreach (EnumerationDefinition @enum in enums)
+            foreach (EnumerationItem item in @enum.Items)
             {
-                var key = @enum.Name + "." + item.Name;
-                if (!_context.WellKnownMacros.ContainsKey(key)) _context.WellKnownMacros.Add(key, new TypeOrAlias(typeof(int)));
-                if (!_context.WellKnownEnumItems.ContainsKey(item.Name)) _context.WellKnownEnumItems.Add(item.Name, item.Value);
+                string key = @enum.Name + "." + item.Name;
+                if (!_context.WellKnownMacros.ContainsKey(key))
+                    _context.WellKnownMacros.Add(key, new TypeOrAlias(typeof(int)));
+                if (!_context.WellKnownEnumItems.ContainsKey(item.Name))
+                    _context.WellKnownEnumItems.Add(item.Name, item.Value);
             }
 
-        var macros = _context.Definitions.OfType<MacroDefinition>().ToArray();
+        MacroDefinition[] macros = _context.Definitions.OfType<MacroDefinition>().ToArray();
         _macroPostProcessor.Process(macros);
     }
 }

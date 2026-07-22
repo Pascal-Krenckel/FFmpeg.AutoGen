@@ -1,9 +1,9 @@
+using CppSharp.AST;
+using FFmpeg.AutoGen.CppSharpUnsafeGenerator.Definitions;
 using System;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using CppSharp.AST;
-using FFmpeg.AutoGen.CppSharpUnsafeGenerator.Definitions;
 using Type = CppSharp.AST.Type;
 
 namespace FFmpeg.AutoGen.CppSharpUnsafeGenerator.Processing;
@@ -34,9 +34,9 @@ internal class FunctionProcessor
 
     public void Process(TranslationUnit translationUnit)
     {
-        foreach (var function in translationUnit.Functions)
+        foreach (Function function in translationUnit.Functions)
         {
-            var functionName = function.Name;
+            string functionName = function.Name;
 
             void PopulateCommon(FunctionDefinitionBase inline)
             {
@@ -60,7 +60,7 @@ internal class FunctionProcessor
                 continue;
             }
 
-            if (!_context.FunctionExportMap.TryGetValue(functionName, out var export))
+            if (!_context.FunctionExportMap.TryGetValue(functionName, out FunctionExport export))
             {
                 Console.WriteLine($"Export not found. Skipping {functionName} function.");
                 continue;
@@ -90,25 +90,20 @@ internal class FunctionProcessor
         return @delegate;
     }
 
-    private TypeDefinition GetDelegateReturnType(Type type, string name)
-    {
+    private TypeDefinition GetDelegateReturnType(Type type, string name) =>
         // For delegates (function pointers), const char* must be byte* not string,
         // because string marshaling does not work with unmanaged function pointers.
-        if (type is PointerType pointerType &&
+        type is PointerType pointerType &&
             pointerType.QualifiedPointee.Qualifiers.IsConst &&
             pointerType.Pointee is BuiltinType builtinType &&
-            builtinType.Type == PrimitiveType.Char)
-        {
-            return new TypeDefinition { Name = "byte*" };
-        }
-
-        return GetReturnType(type, name);
-    }
+            builtinType.Type == PrimitiveType.Char
+            ? new TypeDefinition { Name = "byte*" }
+            : GetReturnType(type, name);
 
     private FunctionParameter GetParameter(Parameter parameter, int position)
     {
-        var name = string.IsNullOrEmpty(parameter.Name) ? $"p{position}" : parameter.Name;
-        var parameterType = GetParameterType(parameter.Type, name);
+        string name = string.IsNullOrEmpty(parameter.Name) ? $"p{position}" : parameter.Name;
+        TypeDefinition parameterType = GetParameterType(parameter.Type, name);
         return new FunctionParameter
         {
             Name = name,
@@ -121,8 +116,8 @@ internal class FunctionProcessor
 
     private FunctionParameter GetParameter(Function function, Parameter parameter, int position)
     {
-        var name = string.IsNullOrEmpty(parameter.Name) ? $"p{position}" : parameter.Name;
-        var parameterType = GetParameterType(parameter.Type, $"{function.Name}_{name}");
+        string name = string.IsNullOrEmpty(parameter.Name) ? $"p{position}" : parameter.Name;
+        TypeDefinition parameterType = GetParameterType(parameter.Type, $"{function.Name}_{name}");
         return new FunctionParameter
         {
             Name = name,
@@ -134,13 +129,10 @@ internal class FunctionProcessor
         };
     }
 
-    private TypeDefinition GetParameterType(Type type, string name)
-    {
-        if (type is PointerType pointerType &&
+    private TypeDefinition GetParameterType(Type type, string name) => type is PointerType pointerType &&
             pointerType.QualifiedPointee.Qualifiers.IsConst &&
-            pointerType.Pointee is BuiltinType builtinType)
-        {
-            return builtinType.Type switch
+            pointerType.Pointee is BuiltinType builtinType
+            ? builtinType.Type switch
             {
                 PrimitiveType.Char => new TypeDefinition
                 {
@@ -155,19 +147,13 @@ internal class FunctionProcessor
                 {
                     Name = TypeHelper.GetTypeName(type)
                 }
-            };
-        }
+            }
+            : GetNoneBuiltinParameterType(type, name);
 
-        return GetNoneBuiltinParameterType(type, name);
-    }
-
-    private TypeDefinition GetReturnType(Type type, string name)
-    {
-        if (type is PointerType pointerType &&
+    private TypeDefinition GetReturnType(Type type, string name) => type is PointerType pointerType &&
             pointerType.QualifiedPointee.Qualifiers.IsConst &&
-            pointerType.Pointee is BuiltinType builtinType)
-        {
-            return builtinType.Type switch
+            pointerType.Pointee is BuiltinType builtinType
+            ? builtinType.Type switch
             {
                 PrimitiveType.Char => new TypeDefinition
                 {
@@ -182,28 +168,22 @@ internal class FunctionProcessor
                 {
                     Name = TypeHelper.GetTypeName(type)
                 }
-            };
-        }
+            }
+            : GetNoneBuiltinParameterType(type, name);
 
-        return GetNoneBuiltinParameterType(type, name);
-    }
-
-    private TypeDefinition GetNoneBuiltinParameterType(Type type, string name)
-    {
+    private TypeDefinition GetNoneBuiltinParameterType(Type type, string name) =>
         // edge case when type is array of pointers to none builtin type (type[]* -> type**)
-        if (type is ArrayType arrayType &&
+        type is ArrayType arrayType &&
             arrayType.SizeType == ArrayType.ArraySize.Incomplete &&
             arrayType.Type is PointerType arrayPointerType &&
             !(arrayPointerType.Pointee is BuiltinType || (arrayPointerType.Pointee is TypedefType typedefType &&
-                                                          typedefType.Declaration.Type is BuiltinType)))
-            return new TypeDefinition { Name = $"{TypeHelper.GetTypeName(arrayPointerType)}*" };
-
-        return StructureProcessor.GetTypeDefinition(type, name);
-    }
+                                                          typedefType.Declaration.Type is BuiltinType))
+            ? new TypeDefinition { Name = $"{TypeHelper.GetTypeName(arrayPointerType)}*" }
+            : StructureProcessor.GetTypeDefinition(type, name);
 
     private static string GetParamComment(Function function, string parameterName)
     {
-        var comment = function?.Comment?.FullComment.Blocks
+        ParamCommandComment comment = function?.Comment?.FullComment.Blocks
             .OfType<ParamCommandComment>()
             .FirstOrDefault(x => x.Arguments.Count == 1 && x.Arguments[0].Text == parameterName);
         return GetCommentString(comment);
@@ -211,7 +191,7 @@ internal class FunctionProcessor
 
     private string GetReturnComment(Function function)
     {
-        var comment = function?.Comment?.FullComment.Blocks
+        BlockCommandComment comment = function?.Comment?.FullComment.Blocks
             .OfType<BlockCommandComment>()
             .FirstOrDefault(x => x.CommandKind == CommentCommandKind.Return);
         return GetCommentString(comment);
@@ -219,18 +199,15 @@ internal class FunctionProcessor
 
     private static bool ParameterIsConstantFixedArray(Parameter parameter) => parameter.IsConst && parameter.Type is ArrayType { SizeType: ArrayType.ArraySize.Constant };
 
-    private static string GetCommentString(BlockCommandComment comment)
-    {
-        return comment == null
+    private static string GetCommentString(BlockCommandComment comment) => comment == null
             ? null
             : string.Join(" ", comment.ParagraphComment.Content.OfType<TextComment>().Select(x => x.Text.Trim()).Where(x => !string.IsNullOrWhiteSpace(x)));
-    }
 
     private static string GetSha256(string text)
     {
-        var bytes = Encoding.UTF8.GetBytes(text);
+        byte[] bytes = Encoding.UTF8.GetBytes(text);
         var sha256 = SHA256.Create();
-        var hash = sha256.ComputeHash(bytes);
+        byte[] hash = sha256.ComputeHash(bytes);
         return Convert.ToBase64String(hash);
     }
 }

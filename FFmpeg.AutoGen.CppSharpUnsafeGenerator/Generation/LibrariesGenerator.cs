@@ -9,7 +9,7 @@ internal sealed class LibrariesGenerator : GeneratorBase
 
     public static void Generate(string path, GenerationContext options)
     {
-        using var g = new LibrariesGenerator(path, options);
+        using LibrariesGenerator g = new(path, options);
         g.Generate();
     }
 
@@ -23,7 +23,7 @@ internal sealed class LibrariesGenerator : GeneratorBase
         WriteLine("public static Dictionary<string, int> LibraryVersionMap = new Dictionary<string, int>");
 
         using (BeginBlock(true))
-            foreach (var pair in Context.LibraryVersionMap.OrderBy(x => x.Key))
+            foreach (KeyValuePair<string, int> pair in Context.LibraryVersionMap.OrderBy(x => x.Key))
                 WriteLine($"{{\"{pair.Key}\", {pair.Value}}},");
 
         WriteLine(";");

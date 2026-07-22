@@ -1,6 +1,6 @@
-﻿using System.Linq;
+﻿using FFmpeg.AutoGen.CppSharpUnsafeGenerator.Definitions;
+using System.Linq;
 using System.Text;
-using FFmpeg.AutoGen.CppSharpUnsafeGenerator.Definitions;
 
 namespace FFmpeg.AutoGen.CppSharpUnsafeGenerator.Generation;
 
@@ -14,25 +14,26 @@ internal static class ParametersHelper
 
         string GetParameter(FunctionParameter parameter)
         {
-            var sb = new StringBuilder();
-            if (withAttributes && parameter.Type.Attributes.Length > 0) sb.Append($"{string.Join("", parameter.Type.Attributes)} ");
-            if (parameter.IsConstant) sb.Append("in ");
-            if (parameter.ByReference) sb.Append("ref ");
-            sb.Append($"{GetTypeName(parameter.Type, useLegacy)} @{parameter.Name}");
+            StringBuilder sb = new();
+            if (withAttributes && parameter.Type.Attributes.Length > 0)
+                _ = sb.Append($"{string.Join("", parameter.Type.Attributes)} ");
+            if (parameter.IsConstant)
+                _ = sb.Append("in ");
+            if (parameter.ByReference)
+                _ = sb.Append("ref ");
+            _ = sb.Append($"{GetTypeName(parameter.Type, useLegacy)} @{parameter.Name}");
             return sb.ToString();
         }
     }
 
 
-    public static string GetParameterNames(FunctionParameter[] parameters)
-    {
-        return string.Join(", ",
+    public static string GetParameterNames(FunctionParameter[] parameters) => string.Join(", ",
             parameters.Select(x =>
             {
-                var sb = new StringBuilder();
-                if (x.ByReference) sb.Append("ref ");
-                sb.Append($"@{x.Name}");
+                StringBuilder sb = new();
+                if (x.ByReference)
+                    _ = sb.Append("ref ");
+                _ = sb.Append($"@{x.Name}");
                 return sb.ToString();
             }));
-    }
 }

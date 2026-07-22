@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using FFmpeg.AutoGen.CppSharpUnsafeGenerator.Definitions;
+using System.Collections.Generic;
 using System.Linq;
-using FFmpeg.AutoGen.CppSharpUnsafeGenerator.Definitions;
 
 namespace FFmpeg.AutoGen.CppSharpUnsafeGenerator.Generation;
 
@@ -12,7 +12,7 @@ internal sealed class StructuresGenerator : GeneratorBase<StructureDefinition>
 
     public static void Generate(string path, GenerationContext context)
     {
-        using var g = new StructuresGenerator(path, context);
+        using StructuresGenerator g = new(path, context);
         g.Generate();
     }
 
@@ -27,18 +27,21 @@ internal sealed class StructuresGenerator : GeneratorBase<StructureDefinition>
 
     protected override void GenerateDefinition(StructureDefinition structure)
     {
-         this.WriteSummary(structure);
-        if (!structure.IsComplete) WriteLine("/// <remarks>This struct is incomplete.</remarks>");
+        this.WriteSummary(structure);
+        if (!structure.IsComplete)
+            WriteLine("/// <remarks>This struct is incomplete.</remarks>");
         this.WriteObsoletion(structure);
-        if (structure.IsUnion) WriteLine("[StructLayout(LayoutKind.Explicit)]");
+        if (structure.IsUnion)
+            WriteLine("[StructLayout(LayoutKind.Explicit)]");
         WriteLine($"public unsafe partial struct {structure.Name}");
 
         using (BeginBlock())
-            foreach (var field in structure.Fields)
+            foreach (StructureField field in structure.Fields)
             {
                 this.WriteSummary(field);
                 this.WriteObsoletion(field);
-                if (structure.IsUnion) WriteLine("[FieldOffset(0)]");
+                if (structure.IsUnion)
+                    WriteLine("[FieldOffset(0)]");
                 var typeName = ParametersHelper.GetTypeName(field.FieldType, Context.IsLegacyGenerationOn);
 
                 if (!Context.IsLegacyGenerationOn && typeName.Contains("_array"))
