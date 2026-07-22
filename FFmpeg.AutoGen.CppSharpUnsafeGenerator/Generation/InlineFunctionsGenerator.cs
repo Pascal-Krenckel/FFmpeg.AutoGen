@@ -18,6 +18,7 @@ internal sealed class InlineFunctionsGenerator : GeneratorBase<InlineFunctionDef
     public override IEnumerable<string> Usings()
     {
         yield return "System";
+        yield return "System.Runtime.CompilerServices";
     }
 
     protected override IEnumerable<InlineFunctionDefinition> Query(IEnumerable<InlineFunctionDefinition> functions) => base.Query(functions).Select(RewriteFunctionBody);
@@ -32,12 +33,18 @@ internal sealed class InlineFunctionsGenerator : GeneratorBase<InlineFunctionDef
         this.WriteReturnComment(function);
 
         this.WriteObsoletion(function);
+        this.WriteAggressiveInlining();
         WriteLine($"public static {function.ReturnType.Name} {function.Name}({parameters})");
 
         var lines = function.Body.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries).ToList();
         lines.ForEach(WriteLineWithoutIntent);
         WriteLine($"// original body hash: {function.OriginalBodyHash}");
         WriteLine();
+    }
+    
+    private void WriteAggressiveInlining()
+    {
+        WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
     }
 
     private InlineFunctionDefinition RewriteFunctionBody(InlineFunctionDefinition function) =>

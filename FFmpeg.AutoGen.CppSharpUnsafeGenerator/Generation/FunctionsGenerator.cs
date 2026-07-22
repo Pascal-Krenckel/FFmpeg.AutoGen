@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using FFmpeg.AutoGen.CppSharpUnsafeGenerator.Definitions;
 
 namespace FFmpeg.AutoGen.CppSharpUnsafeGenerator.Generation;
 
-internal sealed class FunctionsGenerator : GeneratorBase<ExportFunctionDefinition>
+internal sealed partial class FunctionsGenerator : GeneratorBase<ExportFunctionDefinition>
 {
     private const string SuppressUnmanagedCodeSecurityAttribute = "[SuppressUnmanagedCodeSecurity]";
     private const string UnmanagedFunctionPointerAttribute = "[UnmanagedFunctionPointer(CallingConvention.Cdecl)]";
@@ -99,6 +100,7 @@ internal sealed class FunctionsGenerator : GeneratorBase<ExportFunctionDefinitio
     {
         var parameterNames = ParametersHelper.GetParameterNames(function.Parameters);
         var parameters = ParametersHelper.GetParameters(function.Parameters, Context.IsLegacyGenerationOn, false);
+        
 
         this.WriteSummary(function);
         function.Parameters.ToList().ForEach(p => this.WriteParam(p, p.Name));
@@ -106,14 +108,33 @@ internal sealed class FunctionsGenerator : GeneratorBase<ExportFunctionDefinitio
         this.WriteObsoletion(function);
         WriteLine($"public static {function.ReturnType.Name} {function.Name}({parameters}) => vectors.{function.Name}({parameterNames});");
         WriteLine();
+
+        if (parameters.Contains("[]"))
+        {
+            parameters = parameters.Replace("[]", "*");
+            this.WriteSummary(function);
+            function.Parameters.ToList().ForEach(p => this.WriteParam(p, p.Name));
+            this.WriteReturnComment(function);
+            this.WriteObsoletion(function);
+            WriteLine($"public static {function.ReturnType.Name} {function.Name}({parameters}) => vectors.{function.Name}_ptr({parameterNames});");
+            WriteLine();
+        }
+
     }
 
     public void GenerateVector(ExportFunctionDefinition function)
-    {
+    {        
         GenerateDelegateType(function);
         var functionDelegateName = GetFunctionDelegateName(function);
         WriteLine($"public static {functionDelegateName} {function.Name};"); // todo => throw new NotSupportedException();");
         WriteLine();
+
+        var parameters = ParametersHelper.GetParameters(function.Parameters, Context.IsLegacyGenerationOn);
+        if(parameters.Contains("[]"))
+        {
+            WriteLine($"public static {functionDelegateName}_ptr {function.Name}_ptr;"); // todo => throw new NotSupportedException();");
+            WriteLine();
+        }
     }
 
     private void GenerateDllImport(ExportFunctionDefinition function, string libraryName)
@@ -152,6 +173,28 @@ internal sealed class FunctionsGenerator : GeneratorBase<ExportFunctionDefinitio
 
         WriteLine(";");
         WriteLine();
+
+        if (delegateParameters.Contains("[]"))
+        {
+            delegateParameters = delegateParameters.Replace("[]", "*");
+
+            functionFieldName = $"vectors.{function.Name}_ptr";
+            WriteLine($"{functionFieldName} = ({delegateParameters}) =>");
+
+            using (BeginBlock(true))
+            {
+                var functionDelegateName = GetFunctionDelegateName(function)+"_ptr";
+                var getDelegate = $"FunctionResolver.GetFunctionDelegate<vectors.{functionDelegateName}>(\"{function.LibraryName}\", \"{function.Name}\", ThrowErrorIfFunctionNotFound)";
+                WriteLine($"{functionFieldName} = {getDelegate} ?? delegate {{ throw new NotSupportedException(); }};");
+                var returnCommand = function.ReturnType.Name == "void" ? string.Empty : "return ";
+                var parameterNames = ParametersHelper.GetParameterNames(function.Parameters);
+                WriteLine($"{returnCommand}{functionFieldName}({parameterNames});");
+            }
+
+            WriteLine(";");
+            WriteLine();
+
+        }
     }
 
 
@@ -163,7 +206,17 @@ internal sealed class FunctionsGenerator : GeneratorBase<ExportFunctionDefinitio
         function.ReturnType.Attributes.ToList().ForEach(WriteLine);
         var parameters = ParametersHelper.GetParameters(function.Parameters, Context.IsLegacyGenerationOn);
         WriteLine($"public delegate {function.ReturnType.Name} {functionDelegateName}({parameters});");
+        if(parameters.Contains("[]"))
+         {
+            parameters = parameters.Replace("[]", "*");
+            if (Context.SuppressUnmanagedCodeSecurity) WriteLine(SuppressUnmanagedCodeSecurityAttribute);
+            WriteLine(UnmanagedFunctionPointerAttribute);
+            function.ReturnType.Attributes.ToList().ForEach(WriteLine);
+            WriteLine($"public delegate {function.ReturnType.Name} {functionDelegateName+"_ptr"}({parameters});");
+
+        }
     }
 
     private static string GetFunctionDelegateName(ExportFunctionDefinition function) => $"{function.Name}_delegate";
+
 }

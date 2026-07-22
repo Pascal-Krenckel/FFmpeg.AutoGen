@@ -32,7 +32,7 @@ internal sealed class ASTProcessor
     public void Process(ASTContext context)
     {
         var units = context.TranslationUnits.Where(x => !x.IsSystemHeader);
-
+        
         foreach (var translationUnit in units)
         {
             _macroProcessor.Process(translationUnit);

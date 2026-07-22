@@ -1,8 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.1;netstandard2.0</TargetFrameworks>
-    <Description>FFmpeg auto generated unsafe bindings for C#/.NET and Mono.</Description>
+    <Description>Based on FFmpeg.AutoGen by Ruslan Balanukhin with minor changes.
+Manly all classes and structs are renamed to start with '_'
+.
+FFmpeg auto generated unsafe bindings for C#/.NET and Mono.</Description>
     <GeneratePackageOnBuild Condition=" $(Configuration) == 'Release' ">true</GeneratePackageOnBuild>
   </PropertyGroup>
 
@@ -18,6 +21,9 @@
     <!-- Build symbol package (.snupkg) to distribute the PDB containing Source Link -->
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <Title>FFmpeg._AutoGen</Title>
+    <Product>FFmpeg._AutoGen</Product>
+    <Version>8.0.0.0</Version>
   </PropertyGroup>
   
   <ItemGroup>
