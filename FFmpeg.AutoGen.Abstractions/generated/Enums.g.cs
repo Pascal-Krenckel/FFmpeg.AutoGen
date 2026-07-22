@@ -1,6 +1,6 @@
 namespace FFmpeg.AutoGen.Abstractions;
 
-public enum AVActiveFormatDescription : int
+public enum _AVActiveFormatDescription : int
 {
     @AV_AFD_SAME = 8,
     @AV_AFD_4_3 = 9,
@@ -12,7 +12,7 @@ public enum AVActiveFormatDescription : int
 }
 
 /// <summary>Correlation between the alpha channel and color values.</summary>
-public enum AVAlphaMode : int
+public enum _AVAlphaMode : int
 {
     /// <summary>Unknown alpha handling, or no alpha channel</summary>
     @AVALPHA_MODE_UNSPECIFIED = 0,
@@ -25,7 +25,7 @@ public enum AVAlphaMode : int
 }
 
 /// <summary>Message types used by avdevice_app_to_dev_control_message().</summary>
-public enum AVAppToDevMessageType : int
+public enum _AVAppToDevMessageType : int
 {
     /// <summary>Dummy message.</summary>
     @AV_APP_TO_DEV_NONE = 1313820229,
@@ -53,7 +53,7 @@ public enum AVAppToDevMessageType : int
     @AV_APP_TO_DEV_GET_MUTE = 1196250452,
 }
 
-public enum AVAudioServiceType : int
+public enum _AVAudioServiceType : int
 {
     @AV_AUDIO_SERVICE_TYPE_MAIN = 0,
     @AV_AUDIO_SERVICE_TYPE_EFFECTS = 1,
@@ -68,19 +68,8 @@ public enum AVAudioServiceType : int
     @AV_AUDIO_SERVICE_TYPE_NB = 9,
 }
 
-/// <summary>@{</summary>
-public enum AvBuffersrcFlag : int
-{
-    /// <summary>Do not check for format changes.</summary>
-    @AV_BUFFERSRC_FLAG_NO_CHECK_FORMAT = 1,
-    /// <summary>Immediately push the frame to the output.</summary>
-    @AV_BUFFERSRC_FLAG_PUSH = 4,
-    /// <summary>Keep a reference to the frame. If the frame if reference-counted, create a new reference; otherwise copy the frame data.</summary>
-    @AV_BUFFERSRC_FLAG_KEEP_REF = 8,
-}
-
 /// <summary>Audio channel layout utility functions</summary>
-public enum AVChannel : int
+public enum _AVChannel : int
 {
     /// <summary>Invalid channel index</summary>
     @AV_CHAN_NONE = -1,
@@ -164,7 +153,7 @@ public enum AVChannel : int
     @AV_CHAN_AMBISONIC_END = 2047,
 }
 
-public enum AVChannelOrder : int
+public enum _AVChannelOrder : int
 {
     /// <summary>Only the channel count is specified, without any further information about the channel order.</summary>
     @AV_CHANNEL_ORDER_UNSPEC = 0,
@@ -179,7 +168,7 @@ public enum AVChannelOrder : int
 }
 
 /// <summary>Location of chroma samples.</summary>
-public enum AVChromaLocation : int
+public enum _AVChromaLocation : int
 {
     @AVCHROMA_LOC_UNSPECIFIED = 0,
     /// <summary>MPEG-2/4 4:2:0, H.264 default for 4:2:0</summary>
@@ -195,7 +184,7 @@ public enum AVChromaLocation : int
     @AVCHROMA_LOC_NB = 7,
 }
 
-public enum AVClassCategory : int
+public enum _AVClassCategory : int
 {
     @AV_CLASS_CATEGORY_NA = 0,
     @AV_CLASS_CATEGORY_INPUT = 1,
@@ -219,13 +208,13 @@ public enum AVClassCategory : int
     @AV_CLASS_CATEGORY_NB = 46,
 }
 
-public enum AVClassStateFlags : int
+public enum _AVClassStateFlags : int
 {
     /// <summary>Object initialization has finished and it is now in the &apos;runtime&apos; stage. This affects e.g. what options can be set on the object (only AV_OPT_FLAG_RUNTIME_PARAM options can be set on initialized objects).</summary>
     @AV_CLASS_STATE_INITIALIZED = 1,
 }
 
-public enum AVCodecConfig : int
+public enum _AVCodecConfig : int
 {
     /// <summary>AVPixelFormat, terminated by AV_PIX_FMT_NONE</summary>
     @AV_CODEC_CONFIG_PIX_FORMAT = 0,
@@ -245,20 +234,8 @@ public enum AVCodecConfig : int
     @AV_CODEC_CONFIG_ALPHA_MODE = 7,
 }
 
-public enum AvCodecHwConfigMethod : int
-{
-    /// <summary>The codec supports this format via the hw_device_ctx interface.</summary>
-    @AV_CODEC_HW_CONFIG_METHOD_HW_DEVICE_CTX = 1,
-    /// <summary>The codec supports this format via the hw_frames_ctx interface.</summary>
-    @AV_CODEC_HW_CONFIG_METHOD_HW_FRAMES_CTX = 2,
-    /// <summary>The codec supports this format by some internal method.</summary>
-    @AV_CODEC_HW_CONFIG_METHOD_INTERNAL = 4,
-    /// <summary>The codec supports this format by some ad-hoc method.</summary>
-    @AV_CODEC_HW_CONFIG_METHOD_AD_HOC = 8,
-}
-
 /// <summary>Identify the syntax and semantics of the bitstream. The principle is roughly: Two decoders with the same ID can decode the same streams. Two encoders with the same ID can encode compatible streams. There may be slight deviations from the principle due to implementation details.</summary>
-public enum AVCodecID : int
+public enum _AVCodecID : int
 {
     @AV_CODEC_ID_NONE = 0,
     @AV_CODEC_ID_MPEG1VIDEO = 1,
@@ -417,126 +394,124 @@ public enum AVCodecID : int
     @AV_CODEC_ID_BMV_VIDEO = 153,
     @AV_CODEC_ID_VBLE = 154,
     @AV_CODEC_ID_DXTORY = 155,
-    @AV_CODEC_ID_V410 = 156,
-    @AV_CODEC_ID_XWD = 157,
-    @AV_CODEC_ID_CDXL = 158,
-    @AV_CODEC_ID_XBM = 159,
-    @AV_CODEC_ID_ZEROCODEC = 160,
-    @AV_CODEC_ID_MSS1 = 161,
-    @AV_CODEC_ID_MSA1 = 162,
-    @AV_CODEC_ID_TSCC2 = 163,
-    @AV_CODEC_ID_MTS2 = 164,
-    @AV_CODEC_ID_CLLC = 165,
-    @AV_CODEC_ID_MSS2 = 166,
-    @AV_CODEC_ID_VP9 = 167,
-    @AV_CODEC_ID_AIC = 168,
-    @AV_CODEC_ID_ESCAPE130 = 169,
-    @AV_CODEC_ID_G2M = 170,
-    @AV_CODEC_ID_WEBP = 171,
-    @AV_CODEC_ID_HNM4_VIDEO = 172,
-    @AV_CODEC_ID_HEVC = 173,
-    @AV_CODEC_ID_FIC = 174,
-    @AV_CODEC_ID_ALIAS_PIX = 175,
-    @AV_CODEC_ID_BRENDER_PIX = 176,
-    @AV_CODEC_ID_PAF_VIDEO = 177,
-    @AV_CODEC_ID_EXR = 178,
-    @AV_CODEC_ID_VP7 = 179,
-    @AV_CODEC_ID_SANM = 180,
-    @AV_CODEC_ID_SGIRLE = 181,
-    @AV_CODEC_ID_MVC1 = 182,
-    @AV_CODEC_ID_MVC2 = 183,
-    @AV_CODEC_ID_HQX = 184,
-    @AV_CODEC_ID_TDSC = 185,
-    @AV_CODEC_ID_HQ_HQA = 186,
-    @AV_CODEC_ID_HAP = 187,
-    @AV_CODEC_ID_DDS = 188,
-    @AV_CODEC_ID_DXV = 189,
-    @AV_CODEC_ID_SCREENPRESSO = 190,
-    @AV_CODEC_ID_RSCC = 191,
-    @AV_CODEC_ID_AVS2 = 192,
-    @AV_CODEC_ID_PGX = 193,
-    @AV_CODEC_ID_AVS3 = 194,
-    @AV_CODEC_ID_MSP2 = 195,
-    @AV_CODEC_ID_VVC = 196,
-    @AV_CODEC_ID_Y41P = 197,
-    @AV_CODEC_ID_AVRP = 198,
-    @AV_CODEC_ID_012V = 199,
-    @AV_CODEC_ID_AVUI = 200,
-    @AV_CODEC_ID_TARGA_Y216 = 201,
-    @AV_CODEC_ID_V308 = 202,
-    @AV_CODEC_ID_V408 = 203,
-    @AV_CODEC_ID_YUV4 = 204,
-    @AV_CODEC_ID_AVRN = 205,
-    @AV_CODEC_ID_CPIA = 206,
-    @AV_CODEC_ID_XFACE = 207,
-    @AV_CODEC_ID_SNOW = 208,
-    @AV_CODEC_ID_SMVJPEG = 209,
-    @AV_CODEC_ID_APNG = 210,
-    @AV_CODEC_ID_DAALA = 211,
-    @AV_CODEC_ID_CFHD = 212,
-    @AV_CODEC_ID_TRUEMOTION2RT = 213,
-    @AV_CODEC_ID_M101 = 214,
-    @AV_CODEC_ID_MAGICYUV = 215,
-    @AV_CODEC_ID_SHEERVIDEO = 216,
-    @AV_CODEC_ID_YLC = 217,
-    @AV_CODEC_ID_PSD = 218,
-    @AV_CODEC_ID_PIXLET = 219,
-    @AV_CODEC_ID_SPEEDHQ = 220,
-    @AV_CODEC_ID_FMVC = 221,
-    @AV_CODEC_ID_SCPR = 222,
-    @AV_CODEC_ID_CLEARVIDEO = 223,
-    @AV_CODEC_ID_XPM = 224,
-    @AV_CODEC_ID_AV1 = 225,
-    @AV_CODEC_ID_BITPACKED = 226,
-    @AV_CODEC_ID_MSCC = 227,
-    @AV_CODEC_ID_SRGC = 228,
-    @AV_CODEC_ID_SVG = 229,
-    @AV_CODEC_ID_GDV = 230,
-    @AV_CODEC_ID_FITS = 231,
-    @AV_CODEC_ID_IMM4 = 232,
-    @AV_CODEC_ID_PROSUMER = 233,
-    @AV_CODEC_ID_MWSC = 234,
-    @AV_CODEC_ID_WCMV = 235,
-    @AV_CODEC_ID_RASC = 236,
-    @AV_CODEC_ID_HYMT = 237,
-    @AV_CODEC_ID_ARBC = 238,
-    @AV_CODEC_ID_AGM = 239,
-    @AV_CODEC_ID_LSCR = 240,
-    @AV_CODEC_ID_VP4 = 241,
-    @AV_CODEC_ID_IMM5 = 242,
-    @AV_CODEC_ID_MVDV = 243,
-    @AV_CODEC_ID_MVHA = 244,
-    @AV_CODEC_ID_CDTOONS = 245,
-    @AV_CODEC_ID_MV30 = 246,
-    @AV_CODEC_ID_NOTCHLC = 247,
-    @AV_CODEC_ID_PFM = 248,
-    @AV_CODEC_ID_MOBICLIP = 249,
-    @AV_CODEC_ID_PHOTOCD = 250,
-    @AV_CODEC_ID_IPU = 251,
-    @AV_CODEC_ID_ARGO = 252,
-    @AV_CODEC_ID_CRI = 253,
-    @AV_CODEC_ID_SIMBIOSIS_IMX = 254,
-    @AV_CODEC_ID_SGA_VIDEO = 255,
-    @AV_CODEC_ID_GEM = 256,
-    @AV_CODEC_ID_VBN = 257,
-    @AV_CODEC_ID_JPEGXL = 258,
-    @AV_CODEC_ID_QOI = 259,
-    @AV_CODEC_ID_PHM = 260,
-    @AV_CODEC_ID_RADIANCE_HDR = 261,
-    @AV_CODEC_ID_WBMP = 262,
-    @AV_CODEC_ID_MEDIA100 = 263,
-    @AV_CODEC_ID_VQC = 264,
-    @AV_CODEC_ID_PDV = 265,
-    @AV_CODEC_ID_EVC = 266,
-    @AV_CODEC_ID_RTV1 = 267,
-    @AV_CODEC_ID_VMIX = 268,
-    @AV_CODEC_ID_LEAD = 269,
-    @AV_CODEC_ID_DNXUC = 270,
-    @AV_CODEC_ID_RV60 = 271,
-    @AV_CODEC_ID_JPEGXL_ANIM = 272,
-    @AV_CODEC_ID_APV = 273,
-    @AV_CODEC_ID_PRORES_RAW = 274,
-    @AV_CODEC_ID_JPEGXS = 275,
+    @AV_CODEC_ID_XWD = 156,
+    @AV_CODEC_ID_CDXL = 157,
+    @AV_CODEC_ID_XBM = 158,
+    @AV_CODEC_ID_ZEROCODEC = 159,
+    @AV_CODEC_ID_MSS1 = 160,
+    @AV_CODEC_ID_MSA1 = 161,
+    @AV_CODEC_ID_TSCC2 = 162,
+    @AV_CODEC_ID_MTS2 = 163,
+    @AV_CODEC_ID_CLLC = 164,
+    @AV_CODEC_ID_MSS2 = 165,
+    @AV_CODEC_ID_VP9 = 166,
+    @AV_CODEC_ID_AIC = 167,
+    @AV_CODEC_ID_ESCAPE130 = 168,
+    @AV_CODEC_ID_G2M = 169,
+    @AV_CODEC_ID_WEBP = 170,
+    @AV_CODEC_ID_HNM4_VIDEO = 171,
+    @AV_CODEC_ID_HEVC = 172,
+    @AV_CODEC_ID_FIC = 173,
+    @AV_CODEC_ID_ALIAS_PIX = 174,
+    @AV_CODEC_ID_BRENDER_PIX = 175,
+    @AV_CODEC_ID_PAF_VIDEO = 176,
+    @AV_CODEC_ID_EXR = 177,
+    @AV_CODEC_ID_VP7 = 178,
+    @AV_CODEC_ID_SANM = 179,
+    @AV_CODEC_ID_SGIRLE = 180,
+    @AV_CODEC_ID_MVC1 = 181,
+    @AV_CODEC_ID_MVC2 = 182,
+    @AV_CODEC_ID_HQX = 183,
+    @AV_CODEC_ID_TDSC = 184,
+    @AV_CODEC_ID_HQ_HQA = 185,
+    @AV_CODEC_ID_HAP = 186,
+    @AV_CODEC_ID_DDS = 187,
+    @AV_CODEC_ID_DXV = 188,
+    @AV_CODEC_ID_SCREENPRESSO = 189,
+    @AV_CODEC_ID_RSCC = 190,
+    @AV_CODEC_ID_AVS2 = 191,
+    @AV_CODEC_ID_PGX = 192,
+    @AV_CODEC_ID_AVS3 = 193,
+    @AV_CODEC_ID_MSP2 = 194,
+    @AV_CODEC_ID_VVC = 195,
+    @AV_CODEC_ID_Y41P = 196,
+    @AV_CODEC_ID_AVRP = 197,
+    @AV_CODEC_ID_012V = 198,
+    @AV_CODEC_ID_AVUI = 199,
+    @AV_CODEC_ID_TARGA_Y216 = 200,
+    @AV_CODEC_ID_YUV4 = 201,
+    @AV_CODEC_ID_AVRN = 202,
+    @AV_CODEC_ID_CPIA = 203,
+    @AV_CODEC_ID_XFACE = 204,
+    @AV_CODEC_ID_SNOW = 205,
+    @AV_CODEC_ID_SMVJPEG = 206,
+    @AV_CODEC_ID_APNG = 207,
+    @AV_CODEC_ID_DAALA = 208,
+    @AV_CODEC_ID_CFHD = 209,
+    @AV_CODEC_ID_TRUEMOTION2RT = 210,
+    @AV_CODEC_ID_M101 = 211,
+    @AV_CODEC_ID_MAGICYUV = 212,
+    @AV_CODEC_ID_SHEERVIDEO = 213,
+    @AV_CODEC_ID_YLC = 214,
+    @AV_CODEC_ID_PSD = 215,
+    @AV_CODEC_ID_PIXLET = 216,
+    @AV_CODEC_ID_SPEEDHQ = 217,
+    @AV_CODEC_ID_FMVC = 218,
+    @AV_CODEC_ID_SCPR = 219,
+    @AV_CODEC_ID_CLEARVIDEO = 220,
+    @AV_CODEC_ID_XPM = 221,
+    @AV_CODEC_ID_AV1 = 222,
+    @AV_CODEC_ID_BITPACKED = 223,
+    @AV_CODEC_ID_MSCC = 224,
+    @AV_CODEC_ID_SRGC = 225,
+    @AV_CODEC_ID_SVG = 226,
+    @AV_CODEC_ID_GDV = 227,
+    @AV_CODEC_ID_FITS = 228,
+    @AV_CODEC_ID_IMM4 = 229,
+    @AV_CODEC_ID_PROSUMER = 230,
+    @AV_CODEC_ID_MWSC = 231,
+    @AV_CODEC_ID_WCMV = 232,
+    @AV_CODEC_ID_RASC = 233,
+    @AV_CODEC_ID_HYMT = 234,
+    @AV_CODEC_ID_ARBC = 235,
+    @AV_CODEC_ID_AGM = 236,
+    @AV_CODEC_ID_LSCR = 237,
+    @AV_CODEC_ID_VP4 = 238,
+    @AV_CODEC_ID_IMM5 = 239,
+    @AV_CODEC_ID_MVDV = 240,
+    @AV_CODEC_ID_MVHA = 241,
+    @AV_CODEC_ID_CDTOONS = 242,
+    @AV_CODEC_ID_MV30 = 243,
+    @AV_CODEC_ID_NOTCHLC = 244,
+    @AV_CODEC_ID_PFM = 245,
+    @AV_CODEC_ID_MOBICLIP = 246,
+    @AV_CODEC_ID_PHOTOCD = 247,
+    @AV_CODEC_ID_IPU = 248,
+    @AV_CODEC_ID_ARGO = 249,
+    @AV_CODEC_ID_CRI = 250,
+    @AV_CODEC_ID_SIMBIOSIS_IMX = 251,
+    @AV_CODEC_ID_SGA_VIDEO = 252,
+    @AV_CODEC_ID_GEM = 253,
+    @AV_CODEC_ID_VBN = 254,
+    @AV_CODEC_ID_JPEGXL = 255,
+    @AV_CODEC_ID_QOI = 256,
+    @AV_CODEC_ID_PHM = 257,
+    @AV_CODEC_ID_RADIANCE_HDR = 258,
+    @AV_CODEC_ID_WBMP = 259,
+    @AV_CODEC_ID_MEDIA100 = 260,
+    @AV_CODEC_ID_VQC = 261,
+    @AV_CODEC_ID_PDV = 262,
+    @AV_CODEC_ID_EVC = 263,
+    @AV_CODEC_ID_RTV1 = 264,
+    @AV_CODEC_ID_VMIX = 265,
+    @AV_CODEC_ID_LEAD = 266,
+    @AV_CODEC_ID_DNXUC = 267,
+    @AV_CODEC_ID_RV60 = 268,
+    @AV_CODEC_ID_JPEGXL_ANIM = 269,
+    @AV_CODEC_ID_APV = 270,
+    @AV_CODEC_ID_PRORES_RAW = 271,
+    @AV_CODEC_ID_JPEGXS = 272,
+    @AV_CODEC_ID_WEBP_ANIM = 273,
     /// <summary>A dummy id pointing at the start of audio codecs</summary>
     @AV_CODEC_ID_FIRST_AUDIO = 65536,
     @AV_CODEC_ID_PCM_S16LE = 65536,
@@ -762,6 +737,7 @@ public enum AVCodecID : int
     @AV_CODEC_ID_LC3 = 86122,
     @AV_CODEC_ID_G728 = 86123,
     @AV_CODEC_ID_AHX = 86124,
+    @AV_CODEC_ID_APPLE_APAC = 86125,
     /// <summary>A dummy ID pointing at the start of subtitle codecs.</summary>
     @AV_CODEC_ID_FIRST_SUBTITLE = 94208,
     @AV_CODEC_ID_DVD_SUBTITLE = 94208,
@@ -809,6 +785,7 @@ public enum AVCodecID : int
     @AV_CODEC_ID_SMPTE_2038 = 98315,
     @AV_CODEC_ID_LCEVC = 98316,
     @AV_CODEC_ID_SMPTE_436M_ANC = 98317,
+    @AV_CODEC_ID_ITUT_T35 = 98318,
     /// <summary>codec_id is not known (like AV_CODEC_ID_NONE) but lavf should attempt to identify it</summary>
     @AV_CODEC_ID_PROBE = 102400,
     /// <summary>_FAKE_ codec to indicate a raw MPEG-2 TS stream (only used by libavformat)</summary>
@@ -826,7 +803,7 @@ public enum AVCodecID : int
 }
 
 /// <summary>Chromaticity coordinates of the source primaries. These values match the ones defined by ISO/IEC 23091-2_2019 subclause 8.1 and ITU-T H.273.</summary>
-public enum AVColorPrimaries : int
+public enum _AVColorPrimaries : int
 {
     @AVCOL_PRI_RESERVED0 = 0,
     /// <summary>also ITU-R BT1361 / IEC 61966-2-4 / SMPTE RP 177 Annex B</summary>
@@ -864,7 +841,7 @@ public enum AVColorPrimaries : int
 }
 
 /// <summary>Visual content value range.</summary>
-public enum AVColorRange : int
+public enum _AVColorRange : int
 {
     @AVCOL_RANGE_UNSPECIFIED = 0,
     /// <summary>Narrow or limited range content.</summary>
@@ -876,7 +853,7 @@ public enum AVColorRange : int
 }
 
 /// <summary>YUV colorspace type. These values match the ones defined by ISO/IEC 23091-2_2019 subclause 8.3.</summary>
-public enum AVColorSpace : int
+public enum _AVColorSpace : int
 {
     /// <summary>order of coefficients is actually GBR, also IEC 61966-2-1 (sRGB), YZX and ST 428-1</summary>
     @AVCOL_SPC_RGB = 0,
@@ -919,7 +896,7 @@ public enum AVColorSpace : int
 }
 
 /// <summary>Color Transfer Characteristic. These values match the ones defined by ISO/IEC 23091-2_2019 subclause 8.2.</summary>
-public enum AVColorTransferCharacteristic : int
+public enum _AVColorTransferCharacteristic : int
 {
     @AVCOL_TRC_RESERVED0 = 0,
     /// <summary>also ITU-R BT1361</summary>
@@ -966,7 +943,7 @@ public enum AVColorTransferCharacteristic : int
 }
 
 /// <summary>Message types used by avdevice_dev_to_app_control_message().</summary>
-public enum AVDevToAppMessageType : int
+public enum _AVDevToAppMessageType : int
 {
     /// <summary>Dummy message.</summary>
     @AV_DEV_TO_APP_NONE = 1313820229,
@@ -992,7 +969,7 @@ public enum AVDevToAppMessageType : int
     @AV_DEV_TO_APP_VOLUME_LEVEL_CHANGED = 1129729868,
 }
 
-public enum AVDiscard : int
+public enum _AVDiscard : int
 {
     /// <summary>discard nothing</summary>
     @AVDISCARD_NONE = -16,
@@ -1011,7 +988,7 @@ public enum AVDiscard : int
 }
 
 /// <summary>The duration of a video can be estimated through various ways, and this enum can be used to know how the duration was estimated.</summary>
-public enum AVDurationEstimationMethod : int
+public enum _AVDurationEstimationMethod : int
 {
     /// <summary>Duration accurately estimated from PTSes</summary>
     @AVFMT_DURATION_FROM_PTS = 0,
@@ -1021,7 +998,7 @@ public enum AVDurationEstimationMethod : int
     @AVFMT_DURATION_FROM_BITRATE = 2,
 }
 
-public enum AVFieldOrder : int
+public enum _AVFieldOrder : int
 {
     @AV_FIELD_UNKNOWN = 0,
     @AV_FIELD_PROGRESSIVE = 1,
@@ -1035,30 +1012,15 @@ public enum AVFieldOrder : int
     @AV_FIELD_BT = 5,
 }
 
-public enum AvfilterAutoConvert : int
-{
-    /// <summary>all automatic conversions enabled</summary>
-    @AVFILTER_AUTO_CONVERT_ALL = 0,
-    /// <summary>all automatic conversions disabled</summary>
-    @AVFILTER_AUTO_CONVERT_NONE = -1,
-}
-
 /// <summary>Command IDs that can be sent to the demuxer</summary>
-public enum AVFormatCommandID : int
+public enum _AVFormatCommandID : int
 {
     /// <summary>Send a RTSP `SET_PARAMETER` request to the server</summary>
     @AVFORMAT_COMMAND_RTSP_SET_PARAMETER = 0,
 }
 
-/// <summary>Flags for frame cropping.</summary>
-public enum AvFrameCrop : int
-{
-    /// <summary>Apply the maximum possible cropping, even if it requires setting the AVFrame.data[] entries to unaligned pointers. Passing unaligned data to FFmpeg API is generally not allowed, and causes undefined behavior (such as crashes). You can pass unaligned data only to FFmpeg APIs that are explicitly documented to accept it. Use this flag only if you absolutely know what you are doing.</summary>
-    @AV_FRAME_CROP_UNALIGNED = 1,
-}
-
 /// <summary>@{ AVFrame is an abstraction for reference-counted raw multimedia data.</summary>
-public enum AVFrameSideDataType : int
+public enum _AVFrameSideDataType : int
 {
     /// <summary>The data is the AVPanScan struct defined in libavcodec.</summary>
     @AV_FRAME_DATA_PANSCAN = 0,
@@ -1122,18 +1084,30 @@ public enum AVFrameSideDataType : int
     @AV_FRAME_DATA_VIEW_ID = 29,
     /// <summary>This side data contains information about the reference display width(s) and reference viewing distance(s) as well as information about the corresponding reference stereo pair(s), i.e., the pair(s) of views to be displayed for the viewer&apos;s left and right eyes on the reference display at the reference viewing distance. The payload is the AV3DReferenceDisplaysInfo struct defined in libavutil/tdrdi.h.</summary>
     @AV_FRAME_DATA_3D_REFERENCE_DISPLAYS = 30,
-    /// <summary>Extensible image file format metadata. The payload is a buffer containing EXIF metadata, starting with either 49 49 2a 00, or 4d 4d 00 2a.</summary>
+    /// <summary>Exchangeable image file format metadata. The payload is a buffer containing EXIF metadata, starting with either 49 49 2a 00, or 4d 4d 00 2a. These four bytes signify the endianness, and occur as the first part of the TIFF header.</summary>
     @AV_FRAME_DATA_EXIF = 31,
+    /// <summary>HDR dynamic metadata associated with a video frame. The payload is an AVDynamicHDRSmpte2094App5 type and contains information for color volume transform as specified in the SMPTE 2094-50 standard.</summary>
+    @AV_FRAME_DATA_DYNAMIC_HDR_SMPTE_2094_APP5 = 32,
+    /// <summary>IAMF Mix Gain Parameter Data associated with the audio frame. This metadata is in the form of the AVIAMFParamDefinition struct and contains information defined in sections 3.6.1 and 3.8.1 of the Immersive Audio Model and Formats standard.</summary>
+    @AV_FRAME_DATA_IAMF_MIX_GAIN_PARAM = 33,
+    /// <summary>IAMF Demixing Info Parameter Data associated with the audio frame. This metadata is in the form of the AVIAMFParamDefinition struct and contains information defined in sections 3.6.1 and 3.8.2 of the Immersive Audio Model and Formats standard.</summary>
+    @AV_FRAME_DATA_IAMF_DEMIXING_INFO_PARAM = 34,
+    /// <summary>IAMF Recon Gain Info Parameter Data associated with the audio frame. This metadata is in the form of the AVIAMFParamDefinition struct and contains information defined in sections 3.6.1 and 3.8.3 of the Immersive Audio Model and Formats standard.</summary>
+    @AV_FRAME_DATA_IAMF_RECON_GAIN_INFO_PARAM = 35,
+    /// <summary>Color information from a RAW camera codecs, needed to correctly process the video data. The payload is an AVRawColorParams struct defined in libavutil/raw_color_params.h.</summary>
+    @AV_FRAME_DATA_RAW_COLOR_PARAMS = 36,
+    /// <summary>Metadata relevant to a downmix procedure in the form of a remixig matrix. The data is the AVDownmixMatrix struct defined in libavutil/downmix_info.h.</summary>
+    @AV_FRAME_DATA_DOWNMIX_MATRIX = 37,
 }
 
 /// <summary>Option for overlapping elliptical pixel selectors in an image.</summary>
-public enum AVHDRPlusOverlapProcessOption : int
+public enum _AVHDRPlusOverlapProcessOption : int
 {
     @AV_HDR_PLUS_OVERLAP_PROCESS_WEIGHTED_AVERAGING = 0,
     @AV_HDR_PLUS_OVERLAP_PROCESS_LAYERING = 1,
 }
 
-public enum AVHWDeviceType : int
+public enum _AVHWDeviceType : int
 {
     @AV_HWDEVICE_TYPE_NONE = 0,
     @AV_HWDEVICE_TYPE_VDPAU = 1,
@@ -1152,20 +1126,7 @@ public enum AVHWDeviceType : int
     @AV_HWDEVICE_TYPE_OHCODEC = 14,
 }
 
-/// <summary>Flags to apply to frame mappings.</summary>
-public enum AvHwframeMap : int
-{
-    /// <summary>The mapping must be readable.</summary>
-    @AV_HWFRAME_MAP_READ = 1,
-    /// <summary>The mapping must be writeable.</summary>
-    @AV_HWFRAME_MAP_WRITE = 2,
-    /// <summary>The mapped frame will be overwritten completely in subsequent operations, so the current frame data need not be loaded. Any values which are not overwritten are unspecified.</summary>
-    @AV_HWFRAME_MAP_OVERWRITE = 4,
-    /// <summary>The mapping must be direct. That is, there must not be any copying in the map or unmap steps. Note that performance of direct mappings may be much lower than normal memory.</summary>
-    @AV_HWFRAME_MAP_DIRECT = 8,
-}
-
-public enum AVHWFrameTransferDirection : int
+public enum _AVHWFrameTransferDirection : int
 {
     /// <summary>Transfer the data from the queried hw frame.</summary>
     @AV_HWFRAME_TRANSFER_DIRECTION_FROM = 0,
@@ -1174,7 +1135,7 @@ public enum AVHWFrameTransferDirection : int
 }
 
 /// <summary>Different data types that can be returned via the AVIO write_data_type callback.</summary>
-public enum AVIODataMarkerType : int
+public enum _AVIODataMarkerType : int
 {
     /// <summary>Header data; this needs to be present for the stream to be decodeable.</summary>
     @AVIO_DATA_MARKER_HEADER = 0,
@@ -1191,7 +1152,7 @@ public enum AVIODataMarkerType : int
 }
 
 /// <summary>Directory entry types.</summary>
-public enum AVIODirEntryType : int
+public enum _AVIODirEntryType : int
 {
     @AVIO_ENTRY_UNKNOWN = 0,
     @AVIO_ENTRY_BLOCK_DEVICE = 1,
@@ -1206,7 +1167,7 @@ public enum AVIODirEntryType : int
     @AVIO_ENTRY_WORKGROUP = 10,
 }
 
-public enum AVMatrixEncoding : int
+public enum _AVMatrixEncoding : int
 {
     @AV_MATRIX_ENCODING_NONE = 0,
     @AV_MATRIX_ENCODING_DOLBY = 1,
@@ -1219,7 +1180,7 @@ public enum AVMatrixEncoding : int
 }
 
 /// <summary>Media Type</summary>
-public enum AVMediaType : int
+public enum _AVMediaType : int
 {
     /// <summary>Usually treated as AVMEDIA_TYPE_DATA</summary>
     @AVMEDIA_TYPE_UNKNOWN = -1,
@@ -1233,14 +1194,8 @@ public enum AVMediaType : int
     @AVMEDIA_TYPE_NB = 5,
 }
 
-public enum AvOptFlagImplicit : int
-{
-    /// <summary>Accept to parse a value without a key; the key will then be returned as NULL.</summary>
-    @AV_OPT_FLAG_IMPLICIT_KEY = 1,
-}
-
 /// <summary>An option type determines: - for native access, the underlying C type of the field that an AVOption refers to; - for foreign access, the semantics of accessing the option through this API, e.g. which av_opt_get_*() and av_opt_set_*() functions can be called, or what format will av_opt_get()/av_opt_set() expect/produce.</summary>
-public enum AVOptionType : int
+public enum _AVOptionType : int
 {
     /// <summary>Underlying C type is unsigned int.</summary>
     @AV_OPT_TYPE_FLAGS = 1,
@@ -1287,7 +1242,7 @@ public enum AVOptionType : int
 }
 
 /// <summary>Types and functions for working with AVPacketSideData. @{</summary>
-public enum AVPacketSideDataType : int
+public enum _AVPacketSideDataType : int
 {
     /// <summary>An AV_PKT_DATA_PALETTE side data packet contains exactly AVPALETTE_SIZE bytes worth of palette. This side data signals that a new palette is present.</summary>
     @AV_PKT_DATA_PALETTE = 0,
@@ -1371,12 +1326,16 @@ public enum AVPacketSideDataType : int
     @AV_PKT_DATA_RTCP_SR = 39,
     /// <summary>Extensible image file format metadata. The payload is a buffer containing EXIF metadata, starting with either 49 49 2a 00, or 4d 4d 00 2a.</summary>
     @AV_PKT_DATA_EXIF = 40,
+    /// <summary>HDR dynamic metadata associated with a video frame. The payload is an AVDynamicHDRSmpte2094App5 type and contains information for color volume transform as specified in the SMPTE 2094-50 standard.</summary>
+    @AV_PKT_DATA_DYNAMIC_HDR_SMPTE_2094_APP5 = 41,
+    /// <summary>Dolby Vision enhancement-layer HEVC decoder configuration. Parsed from the hvcE box in ISOM-based containers or the corresponding BlockAdditionMapping in Matroska. The data is a raw HEVCDecoderConfigurationRecord as defined in ISO 14496-15.</summary>
+    @AV_PKT_DATA_HEVC_CONF = 42,
     /// <summary>The number of side data types. This is not part of the public API/ABI in the sense that it may change when new side data types are added. This must stay the last enum value. If its value becomes huge, some code using it needs to be updated as it assumes it to be smaller than other limits.</summary>
-    @AV_PKT_DATA_NB = 41,
+    @AV_PKT_DATA_NB = 43,
 }
 
 /// <summary>@{</summary>
-public enum AVPictureStructure : int
+public enum _AVPictureStructure : int
 {
     /// <summary>unknown</summary>
     @AV_PICTURE_STRUCTURE_UNKNOWN = 0,
@@ -1389,7 +1348,7 @@ public enum AVPictureStructure : int
 }
 
 /// <summary>@} @}</summary>
-public enum AVPictureType : int
+public enum _AVPictureType : int
 {
     /// <summary>Undefined</summary>
     @AV_PICTURE_TYPE_NONE = 0,
@@ -1410,7 +1369,7 @@ public enum AVPictureType : int
 }
 
 /// <summary>Pixel format.</summary>
-public enum AVPixelFormat : int
+public enum _AVPixelFormat : int
 {
     @AV_PIX_FMT_NONE = -1,
     /// <summary>planar YUV 4:2:0, 12bpp, (1 Cr &amp; Cb sample per 2x2 Y samples)</summary>
@@ -1951,12 +1910,14 @@ public enum AVPixelFormat : int
     /// <summary>planar GBR 4:4:4 36bpp, lowest bits zero, little-endian</summary>
     @AV_PIX_FMT_GBRP12MSBLE = 265,
     @AV_PIX_FMT_OHCODEC = 266,
+    /// <summary>CUDA block-linear (opaque). data[0] is a CUarray in block-linear layout, e.g. from NVDEC opaque decode. Use for zero-copy to NVENC (CUDA array input).</summary>
+    @AV_PIX_FMT_CUARRAY = 267,
     /// <summary>number of pixel formats, DO NOT USE THIS if you want to link with shared libav* because the number of formats might differ between versions</summary>
-    @AV_PIX_FMT_NB = 267,
+    @AV_PIX_FMT_NB = 268,
 }
 
 /// <summary>Rounding methods.</summary>
-public enum AVRounding : int
+public enum _AVRounding : int
 {
     /// <summary>Round toward zero.</summary>
     @AV_ROUND_ZERO = 0,
@@ -1973,7 +1934,7 @@ public enum AVRounding : int
 }
 
 /// <summary>Audio sample formats</summary>
-public enum AVSampleFormat : int
+public enum _AVSampleFormat : int
 {
     @AV_SAMPLE_FMT_NONE = -1,
     /// <summary>unsigned 8 bits</summary>
@@ -2004,13 +1965,13 @@ public enum AVSampleFormat : int
     @AV_SAMPLE_FMT_NB = 12,
 }
 
-public enum AVSideDataParamChangeFlags : int
+public enum _AVSideDataParamChangeFlags : int
 {
     @AV_SIDE_DATA_PARAM_CHANGE_SAMPLE_RATE = 4,
     @AV_SIDE_DATA_PARAM_CHANGE_DIMENSIONS = 8,
 }
 
-public enum AVSideDataProps : int
+public enum _AVSideDataProps : int
 {
     /// <summary>The side data type can be used in stream-global structures. Side data types without this property are only meaningful on per-frame basis.</summary>
     @AV_SIDE_DATA_PROP_GLOBAL = 1,
@@ -2024,17 +1985,19 @@ public enum AVSideDataProps : int
     @AV_SIDE_DATA_PROP_CHANNEL_DEPENDENT = 16,
 }
 
-public enum AVStreamGroupParamsType : int
+public enum _AVStreamGroupParamsType : int
 {
     @AV_STREAM_GROUP_PARAMS_NONE = 0,
     @AV_STREAM_GROUP_PARAMS_IAMF_AUDIO_ELEMENT = 1,
     @AV_STREAM_GROUP_PARAMS_IAMF_MIX_PRESENTATION = 2,
     @AV_STREAM_GROUP_PARAMS_TILE_GRID = 3,
     @AV_STREAM_GROUP_PARAMS_LCEVC = 4,
+    @AV_STREAM_GROUP_PARAMS_TREF = 5,
+    @AV_STREAM_GROUP_PARAMS_DOLBY_VISION = 6,
 }
 
 /// <summary>@}</summary>
-public enum AVStreamParseType : int
+public enum _AVStreamParseType : int
 {
     @AVSTREAM_PARSE_NONE = 0,
     /// <summary>full parsing and repack</summary>
@@ -2050,7 +2013,7 @@ public enum AVStreamParseType : int
 }
 
 /// <summary>@}</summary>
-public enum AVSubtitleType : int
+public enum _AVSubtitleType : int
 {
     @SUBTITLE_NONE = 0,
     /// <summary>A bitmap, pict will be set</summary>
@@ -2061,15 +2024,7 @@ public enum AVSubtitleType : int
     @SUBTITLE_ASS = 3,
 }
 
-public enum AVTimebaseSource : int
-{
-    @AVFMT_TBCF_AUTO = -1,
-    @AVFMT_TBCF_DECODER = 0,
-    @AVFMT_TBCF_DEMUXER = 1,
-    @AVFMT_TBCF_R_FRAMERATE = 2,
-}
-
-public enum AVTimecodeFlag : int
+public enum _AVTimecodeFlag : int
 {
     /// <summary>timecode is drop frame</summary>
     @AV_TIMECODE_FLAG_DROPFRAME = 1,
@@ -2080,7 +2035,7 @@ public enum AVTimecodeFlag : int
 }
 
 /// <summary>Dithering algorithms</summary>
-public enum SwrDitherType : int
+public enum _SwrDitherType : int
 {
     @SWR_DITHER_NONE = 0,
     @SWR_DITHER_RECTANGULAR = 1,
@@ -2100,7 +2055,7 @@ public enum SwrDitherType : int
 }
 
 /// <summary>Resampling Engines</summary>
-public enum SwrEngine : int
+public enum _SwrEngine : int
 {
     /// <summary>SW Resampler</summary>
     @SWR_ENGINE_SWR = 0,
@@ -2111,7 +2066,7 @@ public enum SwrEngine : int
 }
 
 /// <summary>Resampling Filter Types</summary>
-public enum SwrFilterType : int
+public enum _SwrFilterType : int
 {
     /// <summary>Cubic</summary>
     @SWR_FILTER_TYPE_CUBIC = 0,
@@ -2121,7 +2076,7 @@ public enum SwrFilterType : int
     @SWR_FILTER_TYPE_KAISER = 2,
 }
 
-public enum SwsAlphaBlend : int
+public enum _SwsAlphaBlend : int
 {
     @SWS_ALPHA_BLEND_NONE = 0,
     @SWS_ALPHA_BLEND_UNIFORM = 1,
@@ -2130,8 +2085,29 @@ public enum SwsAlphaBlend : int
     @SWS_ALPHA_BLEND_MAX_ENUM = 2147483647,
 }
 
+public enum _SwsBackend : int
+{
+    /// <summary>Legacy bespoke format-specific code</summary>
+    @SWS_BACKEND_LEGACY = 1,
+    @SWS_BACKEND_STABLE = 1,
+    /// <summary>Template-based C reference implementation</summary>
+    @SWS_BACKEND_C = 2,
+    /// <summary>Fast path using libc memcpy() / memset()</summary>
+    @SWS_BACKEND_MEMCPY = 4,
+    /// <summary>Chained x86 SIMD kernels</summary>
+    @SWS_BACKEND_X86 = 8,
+    /// <summary>Chained AArch64 NEON kernels</summary>
+    @SWS_BACKEND_AARCH64 = 16,
+    /// <summary>Vulkan SPIR-V backend</summary>
+    @SWS_BACKEND_SPIRV = 32,
+    @SWS_BACKEND_UNSTABLE = 62,
+    @SWS_BACKEND_ALL = 63,
+    /// <summary>force size to 32 bits, not a valid backend</summary>
+    @SWS_BACKEND_MAX_ENUM = 2147483647,
+}
+
 /// <summary>**************************** Flags and quality settings * ****************************</summary>
-public enum SwsDither : int
+public enum _SwsDither : int
 {
     @SWS_DITHER_NONE = 0,
     @SWS_DITHER_AUTO = 1,
@@ -2143,8 +2119,26 @@ public enum SwsDither : int
     @SWS_DITHER_MAX_ENUM = 2147483647,
 }
 
-public enum SwsFlags : int
+public enum _SwsFlags : int
 {
+    /// <summary>Return an error on underspecified conversions. Without this flag, unspecified fields are defaulted to sensible values.</summary>
+    @SWS_STRICT = 2048,
+    /// <summary>Emit verbose log of scaling parameters.</summary>
+    @SWS_PRINT_INFO = 4096,
+    /// <summary>Perform full chroma upsampling when upscaling to RGB.</summary>
+    @SWS_FULL_CHR_H_INT = 8192,
+    /// <summary>Perform full chroma interpolation when downscaling RGB sources.</summary>
+    @SWS_FULL_CHR_H_INP = 16384,
+    /// <summary>Force bit-exact output. This will prevent the use of platform-specific optimizations that may lead to slight difference in rounding, in favor of always maintaining exact bit output compatibility with the reference C code.</summary>
+    @SWS_ACCURATE_RND = 262144,
+    /// <summary>Force bit-exact output. This will prevent the use of platform-specific optimizations that may lead to slight difference in rounding, in favor of always maintaining exact bit output compatibility with the reference C code.</summary>
+    @SWS_BITEXACT = 524288,
+    /// <summary>Allow/prefer using experimental new code paths. This may be faster, slower, or produce different output, with semantics subject to change at any point in time. For testing and debugging purposes only.</summary>
+    @SWS_UNSTABLE = 1048576,
+    /// <summary>This flag has no effect</summary>
+    @SWS_DIRECT_BGR = 32768,
+    /// <summary>Set `SwsContext.dither` instead</summary>
+    @SWS_ERROR_DIFFUSION = 8388608,
     /// <summary>fast bilinear filtering</summary>
     @SWS_FAST_BILINEAR = 1,
     /// <summary>bilinear filtering</summary>
@@ -2165,29 +2159,11 @@ public enum SwsFlags : int
     @SWS_SINC = 256,
     /// <summary>3-tap sinc/sinc</summary>
     @SWS_LANCZOS = 512,
-    /// <summary>cubic Keys spline</summary>
+    /// <summary>unwindowed natural cubic spline</summary>
     @SWS_SPLINE = 1024,
-    /// <summary>Return an error on underspecified conversions. Without this flag, unspecified fields are defaulted to sensible values.</summary>
-    @SWS_STRICT = 2048,
-    /// <summary>Emit verbose log of scaling parameters.</summary>
-    @SWS_PRINT_INFO = 4096,
-    /// <summary>Perform full chroma upsampling when upscaling to RGB.</summary>
-    @SWS_FULL_CHR_H_INT = 8192,
-    /// <summary>Perform full chroma interpolation when downscaling RGB sources.</summary>
-    @SWS_FULL_CHR_H_INP = 16384,
-    /// <summary>Force bit-exact output. This will prevent the use of platform-specific optimizations that may lead to slight difference in rounding, in favor of always maintaining exact bit output compatibility with the reference C code.</summary>
-    @SWS_ACCURATE_RND = 262144,
-    /// <summary>Force bit-exact output. This will prevent the use of platform-specific optimizations that may lead to slight difference in rounding, in favor of always maintaining exact bit output compatibility with the reference C code.</summary>
-    @SWS_BITEXACT = 524288,
-    /// <summary>Allow using experimental new code paths. This may be faster, slower, or produce different output, with semantics subject to change at any point in time. For testing and debugging purposes only.</summary>
-    @SWS_UNSTABLE = 1048576,
-    /// <summary>This flag has no effect</summary>
-    @SWS_DIRECT_BGR = 32768,
-    /// <summary>Set `SwsContext.dither` instead</summary>
-    @SWS_ERROR_DIFFUSION = 8388608,
 }
 
-public enum SwsIntent : int
+public enum _SwsIntent : int
 {
     /// <summary>Perceptual tone mapping</summary>
     @SWS_INTENT_PERCEPTUAL = 0,
@@ -2199,5 +2175,105 @@ public enum SwsIntent : int
     @SWS_INTENT_ABSOLUTE_COLORIMETRIC = 3,
     /// <summary>not part of the ABI</summary>
     @SWS_INTENT_NB = 4,
+}
+
+public enum _SwsScaler : int
+{
+    @SWS_SCALE_AUTO = 0,
+    /// <summary>bilinear filtering</summary>
+    @SWS_SCALE_BILINEAR = 1,
+    /// <summary>2-tap cubic BC-spline</summary>
+    @SWS_SCALE_BICUBIC = 2,
+    /// <summary>nearest neighbor (point sampling)</summary>
+    @SWS_SCALE_POINT = 3,
+    /// <summary>area averaging</summary>
+    @SWS_SCALE_AREA = 4,
+    /// <summary>2-tap gaussian approximation</summary>
+    @SWS_SCALE_GAUSSIAN = 5,
+    /// <summary>unwindowed sinc</summary>
+    @SWS_SCALE_SINC = 6,
+    /// <summary>3-tap sinc/sinc</summary>
+    @SWS_SCALE_LANCZOS = 7,
+    /// <summary>unwindowned natural cubic spline</summary>
+    @SWS_SCALE_SPLINE = 8,
+    /// <summary>not part of the ABI</summary>
+    @SWS_SCALE_NB = 9,
+    /// <summary>force size to 32 bits, not a valid filter type</summary>
+    @SWS_SCALE_MAX_ENUM = 2147483647,
+}
+
+/// <summary>@{</summary>
+public enum AvBsfSinkFlag : int
+{
+    /// <summary>Tell av_buffersink_get_buffer_ref() to read video/samples buffer reference, but not remove it from the buffer. This is useful if you need only to read a video/samples buffer, without to fetch it.</summary>
+    @AV_BSF_SINK_FLAG_PEEK = 1,
+    /// <summary>Tell av_bsf_sink_get_packet() not to request a packet from its input. If a packet is already buffered, it is read (and removed from the buffer), but if no packet is present, return AVERROR(EAGAIN).</summary>
+    @AV_BSF_SINK_FLAG_NO_REQUEST = 2,
+}
+
+/// <summary>The source filter is there to connect filter graphs to applications They have a single output, connected to the graph, and no input. Packets must be fed to it using av_bsf_source_add_packet(). @{</summary>
+public enum AvBsfSourceFlag : int
+{
+    /// <summary>Immediately push the packet to the output.</summary>
+    @AV_BSF_SOURCE_FLAG_PUSH = 1,
+    /// <summary>Keep a reference to the packet.</summary>
+    @AV_BSF_SOURCE_FLAG_KEEP_REF = 2,
+}
+
+/// <summary>@{</summary>
+public enum AvBuffersrcFlag : int
+{
+    /// <summary>Do not check for format changes.</summary>
+    @AV_BUFFERSRC_FLAG_NO_CHECK_FORMAT = 1,
+    /// <summary>Immediately push the frame to the output.</summary>
+    @AV_BUFFERSRC_FLAG_PUSH = 4,
+    /// <summary>Keep a reference to the frame. If the frame if reference-counted, create a new reference; otherwise copy the frame data.</summary>
+    @AV_BUFFERSRC_FLAG_KEEP_REF = 8,
+}
+
+public enum AvCodecHwConfigMethod : int
+{
+    /// <summary>The codec supports this format via the hw_device_ctx interface.</summary>
+    @AV_CODEC_HW_CONFIG_METHOD_HW_DEVICE_CTX = 1,
+    /// <summary>The codec supports this format via the hw_frames_ctx interface.</summary>
+    @AV_CODEC_HW_CONFIG_METHOD_HW_FRAMES_CTX = 2,
+    /// <summary>The codec supports this format by some internal method.</summary>
+    @AV_CODEC_HW_CONFIG_METHOD_INTERNAL = 4,
+    /// <summary>The codec supports this format by some ad-hoc method.</summary>
+    @AV_CODEC_HW_CONFIG_METHOD_AD_HOC = 8,
+}
+
+public enum AvfilterAutoConvert : int
+{
+    /// <summary>all automatic conversions enabled</summary>
+    @AVFILTER_AUTO_CONVERT_ALL = 0,
+    /// <summary>all automatic conversions disabled</summary>
+    @AVFILTER_AUTO_CONVERT_NONE = -1,
+}
+
+/// <summary>Flags for frame cropping.</summary>
+public enum AvFrameCrop : int
+{
+    /// <summary>Apply the maximum possible cropping, even if it requires setting the AVFrame.data[] entries to unaligned pointers. Passing unaligned data to FFmpeg API is generally not allowed, and causes undefined behavior (such as crashes). You can pass unaligned data only to FFmpeg APIs that are explicitly documented to accept it. Use this flag only if you absolutely know what you are doing.</summary>
+    @AV_FRAME_CROP_UNALIGNED = 1,
+}
+
+/// <summary>Flags to apply to frame mappings.</summary>
+public enum AvHwframeMap : int
+{
+    /// <summary>The mapping must be readable.</summary>
+    @AV_HWFRAME_MAP_READ = 1,
+    /// <summary>The mapping must be writeable.</summary>
+    @AV_HWFRAME_MAP_WRITE = 2,
+    /// <summary>The mapped frame will be overwritten completely in subsequent operations, so the current frame data need not be loaded. Any values which are not overwritten are unspecified.</summary>
+    @AV_HWFRAME_MAP_OVERWRITE = 4,
+    /// <summary>The mapping must be direct. That is, there must not be any copying in the map or unmap steps. Note that performance of direct mappings may be much lower than normal memory.</summary>
+    @AV_HWFRAME_MAP_DIRECT = 8,
+}
+
+public enum AvOptFlagImplicit : int
+{
+    /// <summary>Accept to parse a value without a key; the key will then be returned as NULL.</summary>
+    @AV_OPT_FLAG_IMPLICIT_KEY = 1,
 }
 

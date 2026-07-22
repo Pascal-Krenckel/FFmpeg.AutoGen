@@ -4,6 +4,234 @@ using System.Runtime.InteropServices;
 namespace FFmpeg.AutoGen;
 
 [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public unsafe delegate _AVClass* _AVClass_child_class_iterate (void** @iter);
+public unsafe struct _AVClass_child_class_iterate_func
+{
+    public IntPtr Pointer;
+    public static implicit operator _AVClass_child_class_iterate_func(_AVClass_child_class_iterate func) => new _AVClass_child_class_iterate_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
+}
+
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public unsafe delegate void* _AVClass_child_next (void* @obj, void* @prev);
+public unsafe struct _AVClass_child_next_func
+{
+    public IntPtr Pointer;
+    public static implicit operator _AVClass_child_next_func(_AVClass_child_next func) => new _AVClass_child_next_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
+}
+
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public unsafe delegate _AVClassCategory _AVClass_get_category (void* @ctx);
+public unsafe struct _AVClass_get_category_func
+{
+    public IntPtr Pointer;
+    public static implicit operator _AVClass_get_category_func(_AVClass_get_category func) => new _AVClass_get_category_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
+}
+
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public unsafe delegate byte* _AVClass_item_name (void* @ctx);
+public unsafe struct _AVClass_item_name_func
+{
+    public IntPtr Pointer;
+    public static implicit operator _AVClass_item_name_func(_AVClass_item_name func) => new _AVClass_item_name_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
+}
+
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public unsafe delegate int _AVClass_query_ranges (_AVOptionRanges** @p0, void* @obj,     
+    #if NETSTANDARD2_1_OR_GREATER
+    [MarshalAs(UnmanagedType.LPUTF8Str)]
+    #else
+    [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
+    #endif
+    string @key, int @flags);
+public unsafe struct _AVClass_query_ranges_func
+{
+    public IntPtr Pointer;
+    public static implicit operator _AVClass_query_ranges_func(_AVClass_query_ranges func) => new _AVClass_query_ranges_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
+}
+
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public unsafe delegate void _AVCodecContext_draw_horiz_band (_AVCodecContext* @s, _AVFrame* @src, ref int_array8 @offset, int @y, int @type, int @height);
+public unsafe struct _AVCodecContext_draw_horiz_band_func
+{
+    public IntPtr Pointer;
+    public static implicit operator _AVCodecContext_draw_horiz_band_func(_AVCodecContext_draw_horiz_band func) => new _AVCodecContext_draw_horiz_band_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
+}
+
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public unsafe delegate int _AVCodecContext_execute (_AVCodecContext* @c, func_func @func, void* @arg2, int* @ret, int @count, int @size);
+public unsafe struct _AVCodecContext_execute_func
+{
+    public IntPtr Pointer;
+    public static implicit operator _AVCodecContext_execute_func(_AVCodecContext_execute func) => new _AVCodecContext_execute_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
+}
+
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public unsafe delegate int _AVCodecContext_execute2 (_AVCodecContext* @c, func_func @func, void* @arg2, int* @ret, int @count);
+public unsafe struct _AVCodecContext_execute2_func
+{
+    public IntPtr Pointer;
+    public static implicit operator _AVCodecContext_execute2_func(_AVCodecContext_execute2 func) => new _AVCodecContext_execute2_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
+}
+
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public unsafe delegate int _AVCodecContext_get_buffer2 (_AVCodecContext* @s, _AVFrame* @frame, int @flags);
+public unsafe struct _AVCodecContext_get_buffer2_func
+{
+    public IntPtr Pointer;
+    public static implicit operator _AVCodecContext_get_buffer2_func(_AVCodecContext_get_buffer2 func) => new _AVCodecContext_get_buffer2_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
+}
+
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public unsafe delegate int _AVCodecContext_get_encode_buffer (_AVCodecContext* @s, _AVPacket* @pkt, int @flags);
+public unsafe struct _AVCodecContext_get_encode_buffer_func
+{
+    public IntPtr Pointer;
+    public static implicit operator _AVCodecContext_get_encode_buffer_func(_AVCodecContext_get_encode_buffer func) => new _AVCodecContext_get_encode_buffer_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
+}
+
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public unsafe delegate _AVPixelFormat _AVCodecContext_get_format (_AVCodecContext* @s, _AVPixelFormat* @fmt);
+public unsafe struct _AVCodecContext_get_format_func
+{
+    public IntPtr Pointer;
+    public static implicit operator _AVCodecContext_get_format_func(_AVCodecContext_get_format func) => new _AVCodecContext_get_format_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
+}
+
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public unsafe delegate void _AVD3D11VADeviceContext_lock (void* @lock_ctx);
+public unsafe struct _AVD3D11VADeviceContext_lock_func
+{
+    public IntPtr Pointer;
+    public static implicit operator _AVD3D11VADeviceContext_lock_func(_AVD3D11VADeviceContext_lock func) => new _AVD3D11VADeviceContext_lock_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
+}
+
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public unsafe delegate void _AVD3D11VADeviceContext_unlock (void* @lock_ctx);
+public unsafe struct _AVD3D11VADeviceContext_unlock_func
+{
+    public IntPtr Pointer;
+    public static implicit operator _AVD3D11VADeviceContext_unlock_func(_AVD3D11VADeviceContext_unlock func) => new _AVD3D11VADeviceContext_unlock_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
+}
+
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public unsafe delegate int _AVFilterGraph_execute (_AVFilterContext* @ctx, func_func @func, void* @arg, int* @ret, int @nb_jobs);
+public unsafe struct _AVFilterGraph_execute_func
+{
+    public IntPtr Pointer;
+    public static implicit operator _AVFilterGraph_execute_func(_AVFilterGraph_execute func) => new _AVFilterGraph_execute_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
+}
+
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public unsafe delegate int _AVFormatContext_control_message_cb (_AVFormatContext* @s, int @type, void* @data, ulong @data_size);
+public unsafe struct _AVFormatContext_control_message_cb_func
+{
+    public IntPtr Pointer;
+    public static implicit operator _AVFormatContext_control_message_cb_func(_AVFormatContext_control_message_cb func) => new _AVFormatContext_control_message_cb_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
+}
+
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public unsafe delegate int _AVFormatContext_io_close2 (_AVFormatContext* @s, _AVIOContext* @pb);
+public unsafe struct _AVFormatContext_io_close2_func
+{
+    public IntPtr Pointer;
+    public static implicit operator _AVFormatContext_io_close2_func(_AVFormatContext_io_close2 func) => new _AVFormatContext_io_close2_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
+}
+
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public unsafe delegate int _AVFormatContext_io_open (_AVFormatContext* @s, _AVIOContext** @pb,     
+    #if NETSTANDARD2_1_OR_GREATER
+    [MarshalAs(UnmanagedType.LPUTF8Str)]
+    #else
+    [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
+    #endif
+    string @url, int @flags, _AVDictionary** @options);
+public unsafe struct _AVFormatContext_io_open_func
+{
+    public IntPtr Pointer;
+    public static implicit operator _AVFormatContext_io_open_func(_AVFormatContext_io_open func) => new _AVFormatContext_io_open_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
+}
+
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public unsafe delegate void _AVHWDeviceContext_free (_AVHWDeviceContext* @ctx);
+public unsafe struct _AVHWDeviceContext_free_func
+{
+    public IntPtr Pointer;
+    public static implicit operator _AVHWDeviceContext_free_func(_AVHWDeviceContext_free func) => new _AVHWDeviceContext_free_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
+}
+
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public unsafe delegate void _AVHWFramesContext_free (_AVHWFramesContext* @ctx);
+public unsafe struct _AVHWFramesContext_free_func
+{
+    public IntPtr Pointer;
+    public static implicit operator _AVHWFramesContext_free_func(_AVHWFramesContext_free func) => new _AVHWFramesContext_free_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
+}
+
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public unsafe delegate int _AVIOContext_read_packet (void* @opaque, byte* @buf, int @buf_size);
+public unsafe struct _AVIOContext_read_packet_func
+{
+    public IntPtr Pointer;
+    public static implicit operator _AVIOContext_read_packet_func(_AVIOContext_read_packet func) => new _AVIOContext_read_packet_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
+}
+
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public unsafe delegate int _AVIOContext_read_pause (void* @opaque, int @pause);
+public unsafe struct _AVIOContext_read_pause_func
+{
+    public IntPtr Pointer;
+    public static implicit operator _AVIOContext_read_pause_func(_AVIOContext_read_pause func) => new _AVIOContext_read_pause_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
+}
+
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public unsafe delegate long _AVIOContext_read_seek (void* @opaque, int @stream_index, long @timestamp, int @flags);
+public unsafe struct _AVIOContext_read_seek_func
+{
+    public IntPtr Pointer;
+    public static implicit operator _AVIOContext_read_seek_func(_AVIOContext_read_seek func) => new _AVIOContext_read_seek_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
+}
+
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public unsafe delegate long _AVIOContext_seek (void* @opaque, long @offset, int @whence);
+public unsafe struct _AVIOContext_seek_func
+{
+    public IntPtr Pointer;
+    public static implicit operator _AVIOContext_seek_func(_AVIOContext_seek func) => new _AVIOContext_seek_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
+}
+
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public unsafe delegate ulong _AVIOContext_update_checksum (ulong @checksum, byte* @buf, uint @size);
+public unsafe struct _AVIOContext_update_checksum_func
+{
+    public IntPtr Pointer;
+    public static implicit operator _AVIOContext_update_checksum_func(_AVIOContext_update_checksum func) => new _AVIOContext_update_checksum_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
+}
+
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public unsafe delegate int _AVIOContext_write_data_type (void* @opaque, byte* @buf, int @buf_size, _AVIODataMarkerType @type, long @time);
+public unsafe struct _AVIOContext_write_data_type_func
+{
+    public IntPtr Pointer;
+    public static implicit operator _AVIOContext_write_data_type_func(_AVIOContext_write_data_type func) => new _AVIOContext_write_data_type_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
+}
+
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public unsafe delegate int _AVIOContext_write_packet (void* @opaque, byte* @buf, int @buf_size);
+public unsafe struct _AVIOContext_write_packet_func
+{
+    public IntPtr Pointer;
+    public static implicit operator _AVIOContext_write_packet_func(_AVIOContext_write_packet func) => new _AVIOContext_write_packet_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
+}
+
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public unsafe delegate int _AVIOInterruptCB_callback (void* @p0);
+public unsafe struct _AVIOInterruptCB_callback_func
+{
+    public IntPtr Pointer;
+    public static implicit operator _AVIOInterruptCB_callback_func(_AVIOInterruptCB_callback func) => new _AVIOInterruptCB_callback_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
+}
+
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 public unsafe delegate void av_buffer_create_free (void* @opaque, byte* @data);
 public unsafe struct av_buffer_create_free_func
 {
@@ -12,7 +240,7 @@ public unsafe struct av_buffer_create_free_func
 }
 
 [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-public unsafe delegate AVBufferRef* av_buffer_pool_init_alloc (ulong @size);
+public unsafe delegate _AVBufferRef* av_buffer_pool_init_alloc (ulong @size);
 public unsafe struct av_buffer_pool_init_alloc_func
 {
     public IntPtr Pointer;
@@ -20,7 +248,7 @@ public unsafe struct av_buffer_pool_init_alloc_func
 }
 
 [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-public unsafe delegate AVBufferRef* av_buffer_pool_init2_alloc (void* @opaque, ulong @size);
+public unsafe delegate _AVBufferRef* av_buffer_pool_init2_alloc (void* @opaque, ulong @size);
 public unsafe struct av_buffer_pool_init2_alloc_func
 {
     public IntPtr Pointer;
@@ -82,53 +310,7 @@ public unsafe struct av_tree_insert_cmp_func
 }
 
 [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-public unsafe delegate AVClass* AVClass_child_class_iterate (void** @iter);
-public unsafe struct AVClass_child_class_iterate_func
-{
-    public IntPtr Pointer;
-    public static implicit operator AVClass_child_class_iterate_func(AVClass_child_class_iterate func) => new AVClass_child_class_iterate_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
-}
-
-[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-public unsafe delegate void* AVClass_child_next (void* @obj, void* @prev);
-public unsafe struct AVClass_child_next_func
-{
-    public IntPtr Pointer;
-    public static implicit operator AVClass_child_next_func(AVClass_child_next func) => new AVClass_child_next_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
-}
-
-[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-public unsafe delegate AVClassCategory AVClass_get_category (void* @ctx);
-public unsafe struct AVClass_get_category_func
-{
-    public IntPtr Pointer;
-    public static implicit operator AVClass_get_category_func(AVClass_get_category func) => new AVClass_get_category_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
-}
-
-[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-public unsafe delegate byte* AVClass_item_name (void* @ctx);
-public unsafe struct AVClass_item_name_func
-{
-    public IntPtr Pointer;
-    public static implicit operator AVClass_item_name_func(AVClass_item_name func) => new AVClass_item_name_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
-}
-
-[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-public unsafe delegate int AVClass_query_ranges (AVOptionRanges** @p0, void* @obj,     
-    #if NETSTANDARD2_1_OR_GREATER
-    [MarshalAs(UnmanagedType.LPUTF8Str)]
-    #else
-    [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
-    #endif
-    string @key, int @flags);
-public unsafe struct AVClass_query_ranges_func
-{
-    public IntPtr Pointer;
-    public static implicit operator AVClass_query_ranges_func(AVClass_query_ranges func) => new AVClass_query_ranges_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
-}
-
-[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-public unsafe delegate int avcodec_default_execute_func (AVCodecContext* @c2, void* @arg2);
+public unsafe delegate int avcodec_default_execute_func (_AVCodecContext* @c2, void* @arg2);
 public unsafe struct avcodec_default_execute_func_func
 {
     public IntPtr Pointer;
@@ -136,161 +318,11 @@ public unsafe struct avcodec_default_execute_func_func
 }
 
 [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-public unsafe delegate int avcodec_default_execute2_func (AVCodecContext* @c2, void* @arg2, int @p2, int @p3);
+public unsafe delegate int avcodec_default_execute2_func (_AVCodecContext* @c2, void* @arg2, int @p2, int @p3);
 public unsafe struct avcodec_default_execute2_func_func
 {
     public IntPtr Pointer;
     public static implicit operator avcodec_default_execute2_func_func(avcodec_default_execute2_func func) => new avcodec_default_execute2_func_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
-}
-
-[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-public unsafe delegate void AVCodecContext_draw_horiz_band (AVCodecContext* @s, AVFrame* @src, ref int_array8 @offset, int @y, int @type, int @height);
-public unsafe struct AVCodecContext_draw_horiz_band_func
-{
-    public IntPtr Pointer;
-    public static implicit operator AVCodecContext_draw_horiz_band_func(AVCodecContext_draw_horiz_band func) => new AVCodecContext_draw_horiz_band_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
-}
-
-[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-public unsafe delegate int AVCodecContext_execute (AVCodecContext* @c, func_func @func, void* @arg2, int* @ret, int @count, int @size);
-public unsafe struct AVCodecContext_execute_func
-{
-    public IntPtr Pointer;
-    public static implicit operator AVCodecContext_execute_func(AVCodecContext_execute func) => new AVCodecContext_execute_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
-}
-
-[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-public unsafe delegate int AVCodecContext_execute2 (AVCodecContext* @c, func_func @func, void* @arg2, int* @ret, int @count);
-public unsafe struct AVCodecContext_execute2_func
-{
-    public IntPtr Pointer;
-    public static implicit operator AVCodecContext_execute2_func(AVCodecContext_execute2 func) => new AVCodecContext_execute2_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
-}
-
-[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-public unsafe delegate int AVCodecContext_get_buffer2 (AVCodecContext* @s, AVFrame* @frame, int @flags);
-public unsafe struct AVCodecContext_get_buffer2_func
-{
-    public IntPtr Pointer;
-    public static implicit operator AVCodecContext_get_buffer2_func(AVCodecContext_get_buffer2 func) => new AVCodecContext_get_buffer2_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
-}
-
-[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-public unsafe delegate int AVCodecContext_get_encode_buffer (AVCodecContext* @s, AVPacket* @pkt, int @flags);
-public unsafe struct AVCodecContext_get_encode_buffer_func
-{
-    public IntPtr Pointer;
-    public static implicit operator AVCodecContext_get_encode_buffer_func(AVCodecContext_get_encode_buffer func) => new AVCodecContext_get_encode_buffer_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
-}
-
-[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-public unsafe delegate AVPixelFormat AVCodecContext_get_format (AVCodecContext* @s, AVPixelFormat* @fmt);
-public unsafe struct AVCodecContext_get_format_func
-{
-    public IntPtr Pointer;
-    public static implicit operator AVCodecContext_get_format_func(AVCodecContext_get_format func) => new AVCodecContext_get_format_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
-}
-
-[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-public unsafe delegate void AVCodecParser_parser_close (AVCodecParserContext* @s);
-public unsafe struct AVCodecParser_parser_close_func
-{
-    public IntPtr Pointer;
-    public static implicit operator AVCodecParser_parser_close_func(AVCodecParser_parser_close func) => new AVCodecParser_parser_close_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
-}
-
-[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-public unsafe delegate int AVCodecParser_parser_init (AVCodecParserContext* @s);
-public unsafe struct AVCodecParser_parser_init_func
-{
-    public IntPtr Pointer;
-    public static implicit operator AVCodecParser_parser_init_func(AVCodecParser_parser_init func) => new AVCodecParser_parser_init_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
-}
-
-[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-public unsafe delegate int AVCodecParser_parser_parse (AVCodecParserContext* @s, AVCodecContext* @avctx, byte** @poutbuf, int* @poutbuf_size, byte* @buf, int @buf_size);
-public unsafe struct AVCodecParser_parser_parse_func
-{
-    public IntPtr Pointer;
-    public static implicit operator AVCodecParser_parser_parse_func(AVCodecParser_parser_parse func) => new AVCodecParser_parser_parse_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
-}
-
-[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-public unsafe delegate int AVCodecParser_split (AVCodecContext* @avctx, byte* @buf, int @buf_size);
-public unsafe struct AVCodecParser_split_func
-{
-    public IntPtr Pointer;
-    public static implicit operator AVCodecParser_split_func(AVCodecParser_split func) => new AVCodecParser_split_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
-}
-
-[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-public unsafe delegate void AVD3D11VADeviceContext_lock (void* @lock_ctx);
-public unsafe struct AVD3D11VADeviceContext_lock_func
-{
-    public IntPtr Pointer;
-    public static implicit operator AVD3D11VADeviceContext_lock_func(AVD3D11VADeviceContext_lock func) => new AVD3D11VADeviceContext_lock_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
-}
-
-[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-public unsafe delegate void AVD3D11VADeviceContext_unlock (void* @lock_ctx);
-public unsafe struct AVD3D11VADeviceContext_unlock_func
-{
-    public IntPtr Pointer;
-    public static implicit operator AVD3D11VADeviceContext_unlock_func(AVD3D11VADeviceContext_unlock func) => new AVD3D11VADeviceContext_unlock_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
-}
-
-[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-public unsafe delegate int AVFilterGraph_execute (AVFilterContext* @ctx, func_func @func, void* @arg, int* @ret, int @nb_jobs);
-public unsafe struct AVFilterGraph_execute_func
-{
-    public IntPtr Pointer;
-    public static implicit operator AVFilterGraph_execute_func(AVFilterGraph_execute func) => new AVFilterGraph_execute_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
-}
-
-[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-public unsafe delegate int AVFormatContext_control_message_cb (AVFormatContext* @s, int @type, void* @data, ulong @data_size);
-public unsafe struct AVFormatContext_control_message_cb_func
-{
-    public IntPtr Pointer;
-    public static implicit operator AVFormatContext_control_message_cb_func(AVFormatContext_control_message_cb func) => new AVFormatContext_control_message_cb_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
-}
-
-[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-public unsafe delegate int AVFormatContext_io_close2 (AVFormatContext* @s, AVIOContext* @pb);
-public unsafe struct AVFormatContext_io_close2_func
-{
-    public IntPtr Pointer;
-    public static implicit operator AVFormatContext_io_close2_func(AVFormatContext_io_close2 func) => new AVFormatContext_io_close2_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
-}
-
-[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-public unsafe delegate int AVFormatContext_io_open (AVFormatContext* @s, AVIOContext** @pb,     
-    #if NETSTANDARD2_1_OR_GREATER
-    [MarshalAs(UnmanagedType.LPUTF8Str)]
-    #else
-    [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
-    #endif
-    string @url, int @flags, AVDictionary** @options);
-public unsafe struct AVFormatContext_io_open_func
-{
-    public IntPtr Pointer;
-    public static implicit operator AVFormatContext_io_open_func(AVFormatContext_io_open func) => new AVFormatContext_io_open_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
-}
-
-[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-public unsafe delegate void AVHWDeviceContext_free (AVHWDeviceContext* @ctx);
-public unsafe struct AVHWDeviceContext_free_func
-{
-    public IntPtr Pointer;
-    public static implicit operator AVHWDeviceContext_free_func(AVHWDeviceContext_free func) => new AVHWDeviceContext_free_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
-}
-
-[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-public unsafe delegate void AVHWFramesContext_free (AVHWFramesContext* @ctx);
-public unsafe struct AVHWFramesContext_free_func
-{
-    public IntPtr Pointer;
-    public static implicit operator AVHWFramesContext_free_func(AVHWFramesContext_free func) => new AVHWFramesContext_free_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
 }
 
 [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -318,71 +350,7 @@ public unsafe struct avio_alloc_context_write_packet_func
 }
 
 [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-public unsafe delegate int AVIOContext_read_packet (void* @opaque, byte* @buf, int @buf_size);
-public unsafe struct AVIOContext_read_packet_func
-{
-    public IntPtr Pointer;
-    public static implicit operator AVIOContext_read_packet_func(AVIOContext_read_packet func) => new AVIOContext_read_packet_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
-}
-
-[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-public unsafe delegate int AVIOContext_read_pause (void* @opaque, int @pause);
-public unsafe struct AVIOContext_read_pause_func
-{
-    public IntPtr Pointer;
-    public static implicit operator AVIOContext_read_pause_func(AVIOContext_read_pause func) => new AVIOContext_read_pause_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
-}
-
-[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-public unsafe delegate long AVIOContext_read_seek (void* @opaque, int @stream_index, long @timestamp, int @flags);
-public unsafe struct AVIOContext_read_seek_func
-{
-    public IntPtr Pointer;
-    public static implicit operator AVIOContext_read_seek_func(AVIOContext_read_seek func) => new AVIOContext_read_seek_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
-}
-
-[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-public unsafe delegate long AVIOContext_seek (void* @opaque, long @offset, int @whence);
-public unsafe struct AVIOContext_seek_func
-{
-    public IntPtr Pointer;
-    public static implicit operator AVIOContext_seek_func(AVIOContext_seek func) => new AVIOContext_seek_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
-}
-
-[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-public unsafe delegate ulong AVIOContext_update_checksum (ulong @checksum, byte* @buf, uint @size);
-public unsafe struct AVIOContext_update_checksum_func
-{
-    public IntPtr Pointer;
-    public static implicit operator AVIOContext_update_checksum_func(AVIOContext_update_checksum func) => new AVIOContext_update_checksum_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
-}
-
-[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-public unsafe delegate int AVIOContext_write_data_type (void* @opaque, byte* @buf, int @buf_size, AVIODataMarkerType @type, long @time);
-public unsafe struct AVIOContext_write_data_type_func
-{
-    public IntPtr Pointer;
-    public static implicit operator AVIOContext_write_data_type_func(AVIOContext_write_data_type func) => new AVIOContext_write_data_type_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
-}
-
-[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-public unsafe delegate int AVIOContext_write_packet (void* @opaque, byte* @buf, int @buf_size);
-public unsafe struct AVIOContext_write_packet_func
-{
-    public IntPtr Pointer;
-    public static implicit operator AVIOContext_write_packet_func(AVIOContext_write_packet func) => new AVIOContext_write_packet_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
-}
-
-[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-public unsafe delegate int AVIOInterruptCB_callback (void* @p0);
-public unsafe struct AVIOInterruptCB_callback_func
-{
-    public IntPtr Pointer;
-    public static implicit operator AVIOInterruptCB_callback_func(AVIOInterruptCB_callback func) => new AVIOInterruptCB_callback_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
-}
-
-[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-public unsafe delegate int func (AVFilterContext* @ctx, void* @arg, int @jobnr, int @nb_jobs);
+public unsafe delegate int func (_AVFilterContext* @ctx, void* @arg, int @jobnr, int @nb_jobs);
 public unsafe struct func_func
 {
     public IntPtr Pointer;

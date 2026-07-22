@@ -157,7 +157,7 @@ public static unsafe partial class ffmpeg
     /// <param name="a">First rational</param>
     /// <param name="b">Second rational</param>
     /// <returns>One of the following values: - 0 if `a == b` - 1 if `a &gt; b` - -1 if `a &lt; b` - `INT_MIN` if one of the values is of the form `0 / 0`</returns>
-    public static int av_cmp_q(AVRational @a, AVRational @b)
+    public static int av_cmp_q(_AVRational @a, _AVRational @b)
     {
         long tmp = a.num * (long)b.den - b.num * (long)a.den;
         if (tmp != 0)
@@ -186,14 +186,14 @@ public static unsafe partial class ffmpeg
     // original body hash: uBvsHd8EeFnxDvSdDE1+k5Um29kCuf0aEJhAvDy0wZk=
     
     /// <summary>Wrapper around av_frame_side_data_get_c() to workaround the limitation that for any type T the conversion from T * const * to const T * const * is not performed automatically in C.</summary>
-    public static AVFrameSideData* av_frame_side_data_get(AVFrameSideData** @sd, int @nb_sd, AVFrameSideDataType @type)
+    public static _AVFrameSideData* av_frame_side_data_get(_AVFrameSideData** @sd, int @nb_sd, _AVFrameSideDataType @type)
     {
         return av_frame_side_data_get_c(sd, nb_sd, type);
     }
     // original body hash: nxiyu/BnkvF9Z/fWwpii6qfquOeLA/wdeiuxyQQxS4E=
     
     /// <summary>Wrapper around av_image_copy() to workaround the limitation that the conversion from uint8_t * const * to const uint8_t * const * is not performed automatically in C.</summary>
-    public static void av_image_copy2(ref byte_ptr4 @dst_data, in int4 @dst_linesizes, ref byte_ptr4 @src_data, in int4 @src_linesizes, AVPixelFormat @pix_fmt, int @width, int @height)
+    public static void av_image_copy2(ref byte_ptr4 @dst_data, in int4 @dst_linesizes, ref byte_ptr4 @src_data, in int4 @src_linesizes, _AVPixelFormat @pix_fmt, int @width, int @height)
     {
         av_image_copy(ref dst_data, dst_linesizes, src_data, src_linesizes, pix_fmt, width, height);
     }
@@ -216,9 +216,9 @@ public static unsafe partial class ffmpeg
     /// <summary>Invert a rational.</summary>
     /// <param name="q">value</param>
     /// <returns>1 / q</returns>
-    public static AVRational av_inv_q(AVRational @q)
+    public static _AVRational av_inv_q(_AVRational @q)
     {
-        var r = new AVRational { @num = q.den, @den = q.num };
+        var r = new _AVRational { @num = q.den, @den = q.num };
         return r;
     }
     // original body hash: sXbO4D7vmayAx56EFqz9C0kakcSPSryJHdk0hr0MOFY=
@@ -236,9 +236,9 @@ public static unsafe partial class ffmpeg
     // original body hash: DRHQHyLQNo9pTxA+wRw4zVDrC7Md1u3JWawQX0BVkqE=
     
     /// <summary>Create an AVRational.</summary>
-    public static AVRational av_make_q(int @num, int @den)
+    public static _AVRational av_make_q(int @num, int @den)
     {
-        var r = new AVRational { @num = num, @den = den };
+        var r = new _AVRational { @num = num, @den = den };
         return r;
     }
     // original body hash: IAPYNNcg3GX0PGxINeLQhb41dH921lPVKcnqxCk7ERA=
@@ -281,7 +281,7 @@ public static unsafe partial class ffmpeg
     /// <summary>Convert an AVRational to a `double`.</summary>
     /// <param name="a">AVRational to convert</param>
     /// <returns>`a` in floating-point form</returns>
-    public static double av_q2d(AVRational @a)
+    public static double av_q2d(_AVRational @a)
     {
         return a.num / (double)a.den;
     }
@@ -380,7 +380,7 @@ public static unsafe partial class ffmpeg
     
     /// <summary>ftell() equivalent for AVIOContext.</summary>
     /// <returns>position or AVERROR.</returns>
-    public static long avio_tell(AVIOContext* @s)
+    public static long avio_tell(_AVIOContext* @s)
     {
         return avio_seek(s, 0, 1);
     }
