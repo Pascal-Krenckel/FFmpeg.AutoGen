@@ -22,7 +22,7 @@ FFmpeg auto generated unsafe bindings for C#/.NET and Mono.</Description>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <Title>FFmpeg._AutoGen</Title>
     <Product>FFmpeg._AutoGen</Product>
-    <Version>8.1.2.0</Version>
+    <Version>8.1.2.1</Version>
   </PropertyGroup>
   
   <ItemGroup>
