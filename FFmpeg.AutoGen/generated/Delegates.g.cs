@@ -264,13 +264,8 @@ public unsafe struct av_buffer_pool_init2_pool_free_func
 }
 
 [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-public unsafe delegate void av_log_set_callback_callback (void* @p0, int @p1,     
-    #if NETSTANDARD2_1_OR_GREATER
-    [MarshalAs(UnmanagedType.LPUTF8Str)]
-    #else
-    [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
-    #endif
-    string @p2, byte* @p3);
+public unsafe delegate void av_log_set_callback_callback (void* @avcl, int log_level,     
+    byte* fmt, byte* va_list);
 public unsafe struct av_log_set_callback_callback_func
 {
     public IntPtr Pointer;

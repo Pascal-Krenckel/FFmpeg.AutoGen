@@ -1506,32 +1506,17 @@ public static unsafe partial class vectors
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate void av_log_default_callback_delegate(void* @avcl, int @level,     
-    #if NETSTANDARD2_1_OR_GREATER
-    [MarshalAs(UnmanagedType.LPUTF8Str)]
-    #else
-    [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
-    #endif
-    string @fmt, byte* @vl);
+    byte* @fmt, byte* @vl);
     public static av_log_default_callback_delegate av_log_default_callback;
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate void av_log_format_line_delegate(void* @ptr, int @level,     
-    #if NETSTANDARD2_1_OR_GREATER
-    [MarshalAs(UnmanagedType.LPUTF8Str)]
-    #else
-    [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
-    #endif
-    string @fmt, byte* @vl, byte* @line, int @line_size, int* @print_prefix);
+    public delegate void av_log_format_line_delegate(void* avcl, int @level,     
+    byte* @fmt, byte* @vl, byte* @line, int @line_size, int* @print_prefix);
     public static av_log_format_line_delegate av_log_format_line;
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate int av_log_format_line2_delegate(void* @ptr, int @level,     
-    #if NETSTANDARD2_1_OR_GREATER
-    [MarshalAs(UnmanagedType.LPUTF8Str)]
-    #else
-    [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
-    #endif
-    string @fmt, byte* @vl, byte* @line, int @line_size, int* @print_prefix);
+    public delegate int av_log_format_line2_delegate(void* @ptr, int @level, 
+    byte* @fmt, byte* @vl, byte* @line, int @line_size, int* @print_prefix);
     public static av_log_format_line2_delegate av_log_format_line2;
     
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]

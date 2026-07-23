@@ -1392,19 +1392,19 @@ public static unsafe partial class ffmpeg
     /// <param name="level">The importance level of the message expressed using a &quot;Logging Constant&quot;.</param>
     /// <param name="fmt">The format string (printf-compatible) that specifies how subsequent arguments are converted to output.</param>
     /// <param name="vl">The arguments referenced by the format string.</param>
-    public static void av_log_default_callback(void* @avcl, int @level, string @fmt, byte* @vl) => vectors.av_log_default_callback(@avcl, @level, @fmt, @vl);
+    public static void av_log_default_callback(void* @avcl, int @level, byte* @fmt, byte* @vl) => vectors.av_log_default_callback(@avcl, @level, @fmt, @vl);
     
     /// <summary>Format a line of log the same way as the default callback.</summary>
     /// <param name="line">buffer to receive the formatted line</param>
     /// <param name="line_size">size of the buffer</param>
     /// <param name="print_prefix">used to store whether the prefix must be printed; must point to a persistent integer initially set to 1</param>
-    public static void av_log_format_line(void* @ptr, int @level, string @fmt, byte* @vl, byte* @line, int @line_size, int* @print_prefix) => vectors.av_log_format_line(@ptr, @level, @fmt, @vl, @line, @line_size, @print_prefix);
+    public static void av_log_format_line(void* @ptr, int @level, byte* @fmt, byte* @vl, byte* @line, int @line_size, int* @print_prefix) => vectors.av_log_format_line(@ptr, @level, @fmt, @vl, @line, @line_size, @print_prefix);
     
     /// <summary>Format a line of log the same way as the default callback.</summary>
     /// <param name="line">buffer to receive the formatted line; may be NULL if line_size is 0</param>
     /// <param name="line_size">size of the buffer; at most line_size-1 characters will be written to the buffer, plus one null terminator</param>
     /// <param name="print_prefix">used to store whether the prefix must be printed; must point to a persistent integer initially set to 1</param>
-    public static int av_log_format_line2(void* @ptr, int @level, string @fmt, byte* @vl, byte* @line, int @line_size, int* @print_prefix) => vectors.av_log_format_line2(@ptr, @level, @fmt, @vl, @line, @line_size, @print_prefix);
+    public static int av_log_format_line2(void* @ptr, int @level, byte* @fmt, byte* @vl, byte* @line, int @line_size, int* @print_prefix) => vectors.av_log_format_line2(@ptr, @level, @fmt, @vl, @line, @line_size, @print_prefix);
     
     public static int av_log_get_flags() => vectors.av_log_get_flags();
     

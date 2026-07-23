@@ -1860,19 +1860,19 @@ public static unsafe partial class DynamicallyLoadedBindings
             vectors.av_log(@avcl, @level, @fmt);
         };
         
-        vectors.av_log_default_callback = (void* @avcl, int @level, string @fmt, byte* @vl) =>
+        vectors.av_log_default_callback = (void* @avcl, int @level, byte* @fmt, byte* @vl) =>
         {
             vectors.av_log_default_callback = FunctionResolver.GetFunctionDelegate<vectors.av_log_default_callback_delegate>("avutil", "av_log_default_callback", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             vectors.av_log_default_callback(@avcl, @level, @fmt, @vl);
         };
         
-        vectors.av_log_format_line = (void* @ptr, int @level, string @fmt, byte* @vl, byte* @line, int @line_size, int* @print_prefix) =>
+        vectors.av_log_format_line = (void* @ptr, int @level, byte* @fmt, byte* @vl, byte* @line, int @line_size, int* @print_prefix) =>
         {
             vectors.av_log_format_line = FunctionResolver.GetFunctionDelegate<vectors.av_log_format_line_delegate>("avutil", "av_log_format_line", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             vectors.av_log_format_line(@ptr, @level, @fmt, @vl, @line, @line_size, @print_prefix);
         };
         
-        vectors.av_log_format_line2 = (void* @ptr, int @level, string @fmt, byte* @vl, byte* @line, int @line_size, int* @print_prefix) =>
+        vectors.av_log_format_line2 = (void* @ptr, int @level, byte* @fmt, byte* @vl, byte* @line, int @line_size, int* @print_prefix) =>
         {
             vectors.av_log_format_line2 = FunctionResolver.GetFunctionDelegate<vectors.av_log_format_line2_delegate>("avutil", "av_log_format_line2", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.av_log_format_line2(@ptr, @level, @fmt, @vl, @line, @line_size, @print_prefix);
