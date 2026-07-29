@@ -165,6 +165,8 @@ internal class StructureProcessor
     private TypeDefinition GetFieldTypeForFixedArray(ArrayType arrayType)
     {
         Type elementType = arrayType.Type;
+        if(arrayType.Type is TypedefType t)
+            elementType = t.Declaration.Type;
         TypeDefinition elementTypeDefinition = GetTypeDefinition(elementType);
 
         int fixedSize = (int)arrayType.Size;
