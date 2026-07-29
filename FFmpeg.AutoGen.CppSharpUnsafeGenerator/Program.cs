@@ -34,7 +34,7 @@ internal class Program
         List<ASTContext> astContexts = [.. Parse([options.FFmpegIncludesDir], [cuda, openCL, vulkan]).Where(c => c != null)];
 
         // process
-        FunctionExport[] functionExports = FunctionExportHelper.LoadFunctionExports(options.FFmpegBinDir).ToArray();
+        FunctionExport[] functionExports = [.. FunctionExportHelper.LoadFunctionExports(options.FFmpegBinDir)];
         ProcessingContext processingContext = new()
         {
             IgnoreUnitNames = ["__NSConstantString_tag"],
@@ -71,7 +71,7 @@ internal class Program
                 .Select(x => new { x.LibraryName, x.LibraryVersion })
                 .Distinct()
                 .ToDictionary(x => x.LibraryName, x => x.LibraryVersion),
-            Definitions = processingContext.Definitions.ToArray(),
+            Definitions = [.. processingContext.Definitions],
             ExistingInlineFunctionMap = inlineFunctions.ToDictionary(f => f.Name),
             SolutionDir = options.SolutionDir,
             FileHeader = options.FileHeader,
