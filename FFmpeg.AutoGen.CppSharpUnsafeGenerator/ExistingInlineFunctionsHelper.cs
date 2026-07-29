@@ -11,11 +11,11 @@ namespace FFmpeg.AutoGen.CppSharpUnsafeGenerator;
 internal static class ExistingInlineFunctionsHelper
 {
     private static readonly Regex FunctionNameRegex = new(
-        @"\s+public static .+ (?<name>[\S]+)\(.*?\)",
+        @"^\s+public static .+ (?<name>[\S]+)\(.*?\)",
         RegexOptions.Compiled | RegexOptions.Multiline);
 
     private static readonly Regex FunctionHashRegex = new(
-        @"\s+// original body hash: (?<hash>\S+)",
+        @"^\s+// original body hash: (?<hash>\S+)",
         RegexOptions.Compiled | RegexOptions.Multiline);
 
     public static IEnumerable<InlineFunctionDefinition> LoadInlineFunctions(string path)
