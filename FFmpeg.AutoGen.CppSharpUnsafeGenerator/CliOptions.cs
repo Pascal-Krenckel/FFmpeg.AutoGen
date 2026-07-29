@@ -68,6 +68,15 @@ public class CliOptions
         HelpText = "Don't use custom string marshallers; all strings are marshalled as UnmanagedType.LPUTF8Str regardless of .NET target framework.")]
     public bool NoCustomStringMarshal { get; set; }
 
+    [Option("cuda", Default = null, HelpText = "Path to cuda include dir")]
+    public string Cuda { get; set; }
+
+    [Option("opencl", Default = null, HelpText = "Path to opencl include dir (may be same as cuda)")]
+    public string OpenCL { get; set; }
+
+    [Option("vulkan", Default = null, HelpText = "Path to vulkan include dir")]
+    public string Vulkan { get; set; }
+
     public static CliOptions ParseArgumentsStrict(string[] args)
     {
         ParserResult<CliOptions> result = CommandLine.Parser.Default.ParseArguments<CliOptions>(args);
