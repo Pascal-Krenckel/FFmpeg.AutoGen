@@ -13,11 +13,27 @@ internal sealed class Parser
 
     public string[] Defines { get; init; } = [];
     public string[] IncludeDirs { get; init; } = [];
+    public string[] SystemIncludeDirs { get; init; } = [];
+
+    public ASTContext? Parse(bool throwOnError, params string[] sourceFiles)
+    {
+        try
+        {
+            return Parse(sourceFiles);
+        }
+        catch
+        {
+            if (throwOnError)
+                throw;
+            return null;
+        }
+    }
 
     public ASTContext Parse(params string[] sourceFiles)
     {
         _hasParsingErrors = false;
         ASTContext context = ParseInternal(sourceFiles);
+      
         foreach (TranslationUnit unit in context.TranslationUnits)
         {
             foreach (Class @class in unit.Classes)
@@ -50,6 +66,8 @@ internal sealed class Parser
 
         foreach (var includeDir in IncludeDirs)
             parserOptions.AddIncludeDirs(includeDir);
+        foreach (var systemInclude in SystemIncludeDirs)
+            parserOptions.AddSystemIncludeDirs(systemInclude);
 
         foreach (var define in Defines)
             parserOptions.AddDefines(define);
