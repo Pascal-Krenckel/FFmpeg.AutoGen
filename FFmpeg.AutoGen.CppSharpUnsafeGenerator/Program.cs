@@ -25,8 +25,13 @@ internal class Program
             Console.WriteLine($"Type name: {options.TypeName}");
         }
 
-        // parse headers
-        List<ASTContext> astContexts = Parse(options.FFmpegIncludesDir).ToList();
+        string cuda = options.Cuda;
+        string openCL = options.OpenCL;
+        string vulkan = options.Vulkan;
+
+
+
+        List<ASTContext> astContexts = [.. Parse([options.FFmpegIncludesDir], [cuda, openCL, vulkan]).Where(c => c != null)];
 
         // process
         FunctionExport[] functionExports = FunctionExportHelper.LoadFunctionExports(options.FFmpegBinDir).ToArray();
@@ -79,12 +84,15 @@ internal class Program
         GenerateDynamicallyLoadedBindings(generationContext);
     }
 
-    private static IEnumerable<ASTContext> Parse(string includesDir)
+
+    private static IEnumerable<ASTContext> Parse(string[] includesDirs, string[] systemDirs)
     {
         Parser p = new()
         {
-            IncludeDirs = new[] { includesDir },
-            Defines = new[] { "__STDC_CONSTANT_MACROS" }
+            IncludeDirs = includesDirs,
+            SystemIncludeDirs = systemDirs,
+            Defines = ["__STDC_CONSTANT_MACROS"],
+
         };
 
         // libavutil
