@@ -2,9 +2,16 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.1;netstandard2.0</TargetFrameworks>
-    <Description>Based on FFmpeg.AutoGen by Ruslan Balanukhin with minor changes.
-All classes and structs are renamed to start with '_'.
-FFmpeg auto generated unsafe bindings for C#/.NET and Mono.</Description>
+    <Description>
+		--- Changes ---
+		Added hwcontext for OpenCL, DirectX12, Vulkan and Cuda
+        --- BugFix ---
+		Last version build for FFmpeg 9.0 (pre)
+		
+		Based on FFmpeg.AutoGen by Ruslan Balanukhin with minor changes.
+		All classes and structs are renamed to start with '_'.
+		FFmpeg auto generated unsafe bindings for C#/.NET and Mono.</Description>
+	  <LangVersion>latest</LangVersion>
     <GeneratePackageOnBuild Condition=" $(Configuration) == 'Release' ">true</GeneratePackageOnBuild>
   </PropertyGroup>
 
@@ -22,7 +29,7 @@ FFmpeg auto generated unsafe bindings for C#/.NET and Mono.</Description>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <Title>FFmpeg._AutoGen</Title>
     <Product>FFmpeg._AutoGen</Product>
-    <Version>8.1.2.1</Version>
+    <Version>8.1.2.2</Version>
   </PropertyGroup>
   
   <ItemGroup>
