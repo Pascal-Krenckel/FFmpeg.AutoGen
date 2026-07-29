@@ -108,9 +108,16 @@ internal class Program
         yield return p.Parse("libavutil/time.h");
         yield return p.Parse("libavutil/timecode.h");
         yield return p.Parse("libavutil/tree.h");
+        yield return p.Parse("libavutil/stereo3d.h");
+
         yield return p.Parse("libavutil/hwcontext.h");
         yield return p.Parse("libavutil/hwcontext_dxva2.h");
         yield return p.Parse("libavutil/hwcontext_d3d11va.h");
+        yield return p.Parse("libavutil/hwcontext_d3d12va.h");
+        yield return p.Parse(false, "libavutil/hwcontext_cuda.h");
+        yield return p.Parse(false, "libavutil/hwcontext_opencl.h");
+        yield return p.Parse(false, "libavutil/hwcontext_vulkan.h");
+
         yield return p.Parse("libavutil/hdr_dynamic_metadata.h");
         yield return p.Parse("libavutil/mastering_display_metadata.h");
 
