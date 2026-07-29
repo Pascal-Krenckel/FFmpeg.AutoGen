@@ -35,8 +35,8 @@ internal sealed class InlineFunctionsGenerator : GeneratorBase<InlineFunctionDef
         this.WriteObsoletion(function);
         WriteAggressiveInlining();
         WriteLine($"public static {function.ReturnType.Name} {function.Name}({parameters})");
-
-        var lines = function.Body.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+        var lines = this.Context.ExistingInlineFunctionMap[function.Name]
+            .Body.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries).ToList();
         lines.ForEach(WriteLineWithoutIntent);
         WriteLine($"// original body hash: {function.OriginalBodyHash}");
         WriteLine();
