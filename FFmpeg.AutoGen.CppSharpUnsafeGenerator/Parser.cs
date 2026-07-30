@@ -14,7 +14,7 @@ internal sealed class Parser
     public string[] Defines { get; init; } = [];
     public string[] IncludeDirs { get; init; } = [];
     public string[] SystemIncludeDirs { get; init; } = [];
-
+    
     public ASTContext? Parse(bool throwOnError, params string[] sourceFiles)
     {
         try
