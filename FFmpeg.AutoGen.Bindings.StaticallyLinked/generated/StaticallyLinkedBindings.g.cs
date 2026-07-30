@@ -152,98 +152,15 @@ public static unsafe partial class StaticallyLinkedBindings
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_bsf_get_null_filter(_AVBSFContext** @bsf);
     
-    /// <summary>Allocate a filter graph.</summary>
-    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-    public static extern _AVBitStreamFilterGraph* av_bsf_graph_alloc();
-    
-    /// <summary>Create a new filter instance in a filter graph.</summary>
-    /// <param name="filt_ctx">A pointer into which the pointer to the newly-allocated context will be written on success. May be NULL. Note that it is also retrievable directly through AVBitStreamFilterGraph.filters or with</param>
-    /// <param name="filter">the filter to create an instance of</param>
-    /// <param name="name">Name to give to the new instance (will be copied to AVBitStreamFilterContext.name). This may be used by the caller to identify different filters, libavcodec itself assigns no semantics to this parameter. May be NULL.</param>
-    /// <param name="graph">graph in which the new filter will be used</param>
-    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-    public static extern int av_bsf_graph_alloc_filter(_AVBitStreamFilterContext** @filt_ctx, _AVBitStreamFilter* @filter,     
-    #if NETSTANDARD2_1_OR_GREATER
-    [MarshalAs(UnmanagedType.LPUTF8Str)]
-    #else
-    [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
-    #endif
-    string @name, _AVBitStreamFilterGraph* @graph);
-    
-    /// <summary>Check validity and configure all the links and formats in the graph.</summary>
-    /// <param name="graphctx">the filter graph</param>
-    /// <param name="log_ctx">context used for logging</param>
-    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-    public static extern int av_bsf_graph_config(_AVBitStreamFilterGraph* @graphctx, void* @log_ctx);
-    
-    /// <summary>A convenience wrapper that allocates and initializes a filter in a single step. The filter instance is created from the filter filt and inited with the parameter args.</summary>
-    /// <param name="filt_ctx">A pointer into which the pointer to the newly-allocated context will be written on success. May be NULL. Note that it is also retrievable directly through AVBitStreamFilterGraph.filters or with</param>
-    /// <param name="name">the instance name to give to the created filter instance</param>
-    /// <param name="graph_ctx">the filter graph</param>
-    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-    public static extern int av_bsf_graph_create_filter(_AVBitStreamFilterContext** @filt_ctx, _AVBitStreamFilter* @filt,     
-    #if NETSTANDARD2_1_OR_GREATER
-    [MarshalAs(UnmanagedType.LPUTF8Str)]
-    #else
-    [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
-    #endif
-    string @name, _AVDictionary** @options, _AVBitStreamFilterGraph* @graph_ctx);
-    
-    /// <summary>Free a graph, destroy its links, and set *graph to NULL. If *graph is NULL, do nothing.</summary>
-    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-    public static extern void av_bsf_graph_free(_AVBitStreamFilterGraph** @graph);
-    
-    /// <summary>Get a filter instance identified by instance name from graph.</summary>
-    /// <param name="graph">filter graph to search through.</param>
-    /// <param name="name">filter instance name (should be unique in the graph).</param>
-    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-    public static extern _AVBitStreamFilterContext* av_bsf_graph_get_filter(_AVBitStreamFilterGraph* @graph,     
-    #if NETSTANDARD2_1_OR_GREATER
-    [MarshalAs(UnmanagedType.LPUTF8Str)]
-    #else
-    [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
-    #endif
-    string @name);
-    
-    /// <summary>Get the index of the source filter in the filtergraph that reported needing input more urgently.</summary>
-    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-    public static extern int av_bsf_graph_source_needs_input(_AVBitStreamFilterGraph* @graph);
-    
     /// <summary>Prepare the filter for use, after all the parameters and options have been set.</summary>
     /// <param name="ctx">a AVBSFContext previously allocated with av_bsf_alloc()</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_bsf_init(_AVBSFContext* @ctx);
     
-    /// <summary>Initialize a filter with the supplied dictionary of options.</summary>
-    /// <param name="ctx">uninitialized filter context to initialize</param>
-    /// <param name="options">An AVDictionary filled with options for this filter. On return this parameter will be destroyed and replaced with a dict containing options that were not found. This dictionary must be freed by the caller. May be NULL, then this function is equivalent to av_bsf_init_str() with the second parameter set to NULL.</param>
-    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-    public static extern int av_bsf_init_dict(_AVBitStreamFilterContext* @ctx, _AVDictionary** @options);
-    
-    /// <summary>Initialize a filter with the supplied parameters.</summary>
-    /// <param name="ctx">uninitialized filter context to initialize</param>
-    /// <param name="args">Options to initialize the filter with. This must be a &apos;:&apos;-separated list of options in the &apos;key=value&apos; form. May be NULL if the options have been set directly using the AVOptions API or there are no options that need to be set.</param>
-    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-    public static extern int av_bsf_init_str(_AVBitStreamFilterContext* @ctx,     
-    #if NETSTANDARD2_1_OR_GREATER
-    [MarshalAs(UnmanagedType.LPUTF8Str)]
-    #else
-    [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
-    #endif
-    string @args);
-    
     /// <summary>Iterate over all registered bitstream filters.</summary>
     /// <param name="opaque">a pointer where libavcodec will store the iteration state. Must point to NULL to start the iteration.</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern _AVBitStreamFilter* av_bsf_iterate(void** @opaque);
-    
-    /// <summary>Link two filters together.</summary>
-    /// <param name="src">the source filter</param>
-    /// <param name="srcpad">index of the output pad on the source filter</param>
-    /// <param name="dst">the destination filter</param>
-    /// <param name="dstpad">index of the input pad on the destination filter</param>
-    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-    public static extern int av_bsf_link(_AVBitStreamFilterContext* @src, uint @srcpad, _AVBitStreamFilterContext* @dst, uint @dstpad);
     
     /// <summary>Allocate empty list of bitstream filters. The list must be later freed by av_bsf_list_free() or finalized by av_bsf_list_finalize().</summary>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
@@ -291,19 +208,6 @@ public static unsafe partial class StaticallyLinkedBindings
     #endif
     string @str, _AVBSFContext** @bsf);
     
-    /// <summary>Get the codec ids supported by an AVBitStreamFilterPad.</summary>
-    /// <param name="pads">an array of AVBitStreamFilterPads</param>
-    /// <param name="pad_idx">index of the pad in the array; it is the caller&apos;s responsibility to ensure the index is valid</param>
-    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-    public static extern _AVCodecID* av_bsf_pad_get_codec_ids(_AVBitStreamFilterPad* @pads, int @pad_idx);
-    
-    /// <summary>Get the name of an AVBitStreamFilterPad.</summary>
-    /// <param name="pads">an array of AVBitStreamFilterPads</param>
-    /// <param name="pad_idx">index of the pad in the array; it is the caller&apos;s responsibility to ensure the index is valid</param>
-    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-    [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(ConstCharPtrMarshaler))]
-    public static extern string av_bsf_pad_get_name(_AVBitStreamFilterPad* @pads, int @pad_idx);
-    
     /// <summary>Retrieve a filtered packet.</summary>
     /// <param name="ctx">an initialized AVBSFContext</param>
     /// <param name="pkt">this struct will be filled with the contents of the filtered packet. It is owned by the caller and must be freed using av_packet_unref() when it is no longer needed. This parameter should be &quot;clean&quot; (i.e. freshly allocated with av_packet_alloc() or unreffed with av_packet_unref()) when this function is called. If this function returns successfully, the contents of pkt will be completely overwritten by the returned data. On failure, pkt is not touched.</param>
@@ -315,36 +219,6 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="pkt">the packet to filter. The bitstream filter will take ownership of the packet and reset the contents of pkt. pkt is not touched if an error occurs. If pkt is empty (i.e. NULL, or pkt-&gt;data is NULL and pkt-&gt;side_data_elems zero), it signals the end of the stream (i.e. no more non-empty packets will be sent; sending more empty packets does nothing) and will cause the filter to output any packets it may have buffered internally.</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_bsf_send_packet(_AVBSFContext* @ctx, _AVPacket* @pkt);
-    
-    /// <summary>Get a packet with filtered data from sink and put it in packet.</summary>
-    /// <param name="ctx">pointer to a sink filter context.</param>
-    /// <param name="flags">a combination of AV_BSF_SINK_FLAG_* flags</param>
-    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-    public static extern int av_bsf_sink_get_packet(_AVBitStreamFilterContext* @ctx, _AVPacket* @pkt, int @flags);
-    
-    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-    public static extern _AVCodecParameters* av_bsf_sink_get_parameters(_AVBitStreamFilterContext* @ctx);
-    
-    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-    public static extern _AVRational av_bsf_sink_get_time_base(_AVBitStreamFilterContext* @ctx);
-    
-    /// <summary>Add a packet to the buffer source.</summary>
-    /// <param name="flags">a combination of AV_BSF_FLAG_*</param>
-    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-    public static extern int av_bsf_source_add_packet(_AVBitStreamFilterContext* @ctx, _AVPacket* @pkt, int @flags);
-    
-    /// <summary>Close the source after EOF.</summary>
-    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-    public static extern int av_bsf_source_close(_AVBitStreamFilterContext* @ctx, long @pts, uint @flags);
-    
-    /// <summary>Returns 0 or a negative AVERROR code. Currently, this will only ever return AVERROR(EOF), to indicate that the buffer source has been closed, either as a result of av_bsf_source_close(), or because the downstream filter is no longer accepting new data.</summary>
-    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-    public static extern int av_bsf_source_get_status(_AVBitStreamFilterContext* @ctx);
-    
-    /// <summary>Initialize the source filter with the provided parameters. This function may be called multiple times, the later calls override the previous ones. Some of the parameters may also be set through AVOptions, then whatever method is used last takes precedence.</summary>
-    /// <param name="ctx">an instance of the source filter</param>
-    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-    public static extern int av_bsf_source_parameters_set(_AVBitStreamFilterContext* @ctx, _AVCodecParameters* @par);
     
     /// <summary>Allocate an AVBuffer of the given size using av_malloc().</summary>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
@@ -1061,29 +935,6 @@ public static unsafe partial class StaticallyLinkedBindings
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_dynamic_hdr_plus_to_t35(_AVDynamicHDRPlus* @s, byte** @data, ulong* @size);
     
-    /// <summary>Allocate an AVDynamicHDRSmpte2094App5 structure and set its fields to default values. The resulting struct can be freed using av_freep().</summary>
-    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-    public static extern _AVDynamicHDRSmpte2094App5* av_dynamic_hdr_smpte2094_app5_alloc(ulong* @size);
-    
-    /// <summary>Allocate a complete AVDynamicHDRSmpte2094App5 and add it to the frame.</summary>
-    /// <param name="frame">The frame which side data is added to.</param>
-    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-    public static extern _AVDynamicHDRSmpte2094App5* av_dynamic_hdr_smpte2094_app5_create_side_data(_AVFrame* @frame);
-    
-    /// <summary>Parse the user data formatted as ITU-T T.35 message to AVDynamicHDRSmpte2094App5.</summary>
-    /// <param name="s">A pointer containing the decoded AVDynamicHDRSmpte2094App5 structure.</param>
-    /// <param name="data">The byte array containing the raw ITU-T T.35 data.</param>
-    /// <param name="size">Size of the data array in bytes.</param>
-    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-    public static extern int av_dynamic_hdr_smpte2094_app5_from_t35(_AVDynamicHDRSmpte2094App5* @s, byte* @data, ulong @size);
-    
-    /// <summary>Serialize dynamic SMPTE-2094-50 metadata to a ITU-T T.35 message. Excluding the country_code, provider_code and provider_oriented_code.</summary>
-    /// <param name="s">A pointer containing the AVDynamicHDRSmpte2094App5 data.</param>
-    /// <param name="data">A pointer to pointer to a byte buffer to be filled with the serialized metadata. If *data is NULL, a buffer be will be allocated and a pointer to it stored in its place. The caller assumes ownership of the buffer. May be NULL, in which case the function will only store the required buffer size in *size.</param>
-    /// <param name="size">A pointer to a size to be set to the returned buffer&apos;s size. If *data is not NULL, *size must contain the size of the input buffer. May be NULL only if *data is NULL.</param>
-    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-    public static extern int av_dynamic_hdr_smpte2094_app5_to_t35(_AVDynamicHDRSmpte2094App5* @s, byte** @data, ulong* @size);
-    
     /// <summary>Add the pointer to an element to a dynamic array.</summary>
     /// <param name="tab_ptr">Pointer to the array to grow</param>
     /// <param name="nb_ptr">Pointer to the number of elements in the array</param>
@@ -1392,7 +1243,7 @@ public static unsafe partial class StaticallyLinkedBindings
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_get_audio_frame_duration(_AVCodecContext* @avctx, int @frame_bytes);
     
-    /// <summary>This function is the same as ::av_get_audio_frame_duration(), except it works with ::AVCodecParameters instead of an ::AVCodecContext.</summary>
+    /// <summary>This function is the same as av_get_audio_frame_duration(), except it works with AVCodecParameters instead of an AVCodecContext.</summary>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_get_audio_frame_duration2(_AVCodecParameters* @par, int @frame_bytes);
     
@@ -1940,6 +1791,14 @@ public static unsafe partial class StaticallyLinkedBindings
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern _AVInputFormat* av_input_video_device_next(_AVInputFormat* @d);
     
+    /// <summary>Compute the length of an integer list.</summary>
+    /// <param name="elsize">size in bytes of each list element (only 1, 2, 4 or 8)</param>
+    /// <param name="list">pointer to the list</param>
+    /// <param name="term">list terminator (usually 0 or -1)</param>
+    [Obsolete()]
+    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
+    public static extern uint av_int_list_length_for_size(uint @elsize, void* @list, ulong @term);
+    
     /// <summary>Write a packet to an output media file ensuring correct interleaving.</summary>
     /// <param name="s">media file handle</param>
     /// <param name="pkt">The packet containing the data to be written. If the packet is reference-counted, this function will take ownership of this reference and unreference it later when it sees fit. If the packet is not reference-counted, libavformat will make a copy. The returned packet will be blank (as if returned from av_packet_alloc()), even on error. This parameter can be NULL (at any time, not just at the end), to flush the interleaving queues. Packet&apos;s &quot;stream_index&quot; field must be set to the index of the corresponding stream in &quot;s-&gt;streams&quot;. The timestamps ( &quot;pts&quot;, &quot;dts&quot;) must be set to correct values in the stream&apos;s timebase (unless the output format is flagged with the AVFMT_NOTIMESTAMPS flag, then they can be set to AV_NOPTS_VALUE). The dts for subsequent packets in one stream must be strictly increasing (unless the output format is flagged with the AVFMT_TS_NONSTRICT, then they merely have to be nondecreasing). &quot;duration&quot; should also be set if known.</param>
@@ -2463,6 +2322,17 @@ public static unsafe partial class StaticallyLinkedBindings
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern _AVOption* av_opt_next(void* @obj, _AVOption* @prev);
     
+    /// <summary>Gets a pointer to the requested field in a struct. This function allows accessing a struct even when its fields are moved or renamed since the application making the access has been compiled,</summary>
+    [Obsolete("direct access to AVOption-exported fields is not supported")]
+    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
+    public static extern void* av_opt_ptr(_AVClass* @avclass, void* @obj,     
+    #if NETSTANDARD2_1_OR_GREATER
+    [MarshalAs(UnmanagedType.LPUTF8Str)]
+    #else
+    [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
+    #endif
+    string @name);
+    
     /// <summary>Get a list of allowed ranges for the given option.</summary>
     /// <param name="flags">is a bitmask of flags, undefined flags should not be set and should be ignored AV_OPT_SEARCH_FAKE_OBJ indicates that the obj is a double pointer to a AVClass instead of a full instance AV_OPT_MULTI_COMPONENT_RANGE indicates that function may return more than one component,</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
@@ -2858,7 +2728,7 @@ public static unsafe partial class StaticallyLinkedBindings
     public static extern void av_parser_close(_AVCodecParserContext* @s);
     
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-    public static extern _AVCodecParserContext* av_parser_init(_AVCodecID @codec_id);
+    public static extern _AVCodecParserContext* av_parser_init(int @codec_id);
     
     /// <summary>Iterate over all registered codec parsers.</summary>
     /// <param name="opaque">a pointer where libavcodec will store the iteration state. Must point to NULL to start the iteration.</param>
@@ -2971,21 +2841,6 @@ public static unsafe partial class StaticallyLinkedBindings
     
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern void av_program_add_stream_index(_AVFormatContext* @ac, int @progid, uint @idx);
-    
-    /// <summary>Add the supplied index of a stream to the AVProgram with matching id.</summary>
-    /// <param name="ac">the format context which contains the target AVProgram</param>
-    /// <param name="progid">the ID of the AVProgram whose stream index is to be updated</param>
-    /// <param name="idx">the index of the stream to be added</param>
-    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-    public static extern int av_program_add_stream_index2(_AVFormatContext* @ac, int @progid, uint @idx);
-    
-    /// <summary>Copy an AVProgram from one AVFormatContext to another.</summary>
-    /// <param name="dst">pointer to the target muxer context</param>
-    /// <param name="src">pointer to the source muxer context</param>
-    /// <param name="progid">ID of the program to be copied</param>
-    /// <param name="flags">combination of flags which determine how streams are matched and whether pre-existing AVProgram in target is overwritten. If no match condition is set, streams will be matched by ids if all source stream ids are non-zero and unique, else by index.</param>
-    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-    public static extern int av_program_copy(_AVFormatContext* @dst, _AVFormatContext* @src, int @progid, int @flags);
     
     /// <summary>Convert an AVRational to a IEEE 32-bit `float` expressed in fixed-point format.</summary>
     /// <param name="q">Rational to be converted</param>
@@ -3197,6 +3052,68 @@ public static unsafe partial class StaticallyLinkedBindings
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_size_mult(ulong @a, ulong @b, ulong* @r);
     
+    /// <summary>Allocate an AVStereo3D structure and set its fields to default values. The resulting struct can be freed using av_freep().</summary>
+    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
+    public static extern _AVStereo3D* av_stereo3d_alloc();
+    
+    /// <summary>Allocate an AVStereo3D structure and set its fields to default values. The resulting struct can be freed using av_freep().</summary>
+    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
+    public static extern _AVStereo3D* av_stereo3d_alloc_size(ulong* @size);
+    
+    /// <summary>Allocate a complete AVFrameSideData and add it to the frame.</summary>
+    /// <param name="frame">The frame which side data is added to.</param>
+    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
+    public static extern _AVStereo3D* av_stereo3d_create_side_data(_AVFrame* @frame);
+    
+    /// <summary>Get the AVStereo3DType form a human-readable name.</summary>
+    /// <param name="name">The input string.</param>
+    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_stereo3d_from_name(    
+    #if NETSTANDARD2_1_OR_GREATER
+    [MarshalAs(UnmanagedType.LPUTF8Str)]
+    #else
+    [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
+    #endif
+    string @name);
+    
+    /// <summary>Get the AVStereo3DPrimaryEye form a human-readable name.</summary>
+    /// <param name="name">The input string.</param>
+    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_stereo3d_primary_eye_from_name(    
+    #if NETSTANDARD2_1_OR_GREATER
+    [MarshalAs(UnmanagedType.LPUTF8Str)]
+    #else
+    [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
+    #endif
+    string @name);
+    
+    /// <summary>Provide a human-readable name of a given stereo3d primary eye.</summary>
+    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
+    [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(ConstCharPtrMarshaler))]
+    public static extern string av_stereo3d_primary_eye_name(uint @eye);
+    
+    /// <summary>Provide a human-readable name of a given stereo3d type.</summary>
+    /// <param name="type">The input stereo3d type value.</param>
+    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
+    [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(ConstCharPtrMarshaler))]
+    public static extern string av_stereo3d_type_name(uint @type);
+    
+    /// <summary>Get the AVStereo3DView form a human-readable name.</summary>
+    /// <param name="name">The input string.</param>
+    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_stereo3d_view_from_name(    
+    #if NETSTANDARD2_1_OR_GREATER
+    [MarshalAs(UnmanagedType.LPUTF8Str)]
+    #else
+    [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
+    #endif
+    string @name);
+    
+    /// <summary>Provide a human-readable name of a given stereo3d view.</summary>
+    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
+    [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(ConstCharPtrMarshaler))]
+    public static extern string av_stereo3d_view_name(uint @view);
+    
     /// <summary>Duplicate a string.</summary>
     /// <param name="s">String to be duplicated</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
@@ -3211,6 +3128,10 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <summary>Get the AVClass for AVStream. It can be used in combination with AV_OPT_SEARCH_FAKE_OBJ for examining options.</summary>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern _AVClass* av_stream_get_class();
+    
+    [Obsolete("do not call this function")]
+    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
+    public static extern _AVRational av_stream_get_codec_timebase(_AVStream* @st);
     
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern _AVCodecParserContext* av_stream_get_parser(_AVStream* @s);
@@ -3390,6 +3311,22 @@ public static unsafe partial class StaticallyLinkedBindings
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(ConstCharPtrMarshaler))]
     public static extern string av_version_info();
+    
+    /// <summary>Allocates a single AVVkFrame and initializes everything as 0.</summary>
+    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
+    public static extern _AVVkFrame* av_vk_frame_alloc();
+    
+    /// <summary>Returns an array of optional Vulkan device extensions that FFmpeg may use if enabled.</summary>
+    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
+    public static extern byte** av_vk_get_optional_device_extensions(int* @count);
+    
+    /// <summary>Returns an array of optional Vulkan instance extensions that FFmpeg may use if enabled.</summary>
+    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
+    public static extern byte** av_vk_get_optional_instance_extensions(int* @count);
+    
+    /// <summary>Returns the optimal per-plane Vulkan format for a given sw_format, one for each plane. Returns NULL on unsupported formats.</summary>
+    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
+    public static extern _VkFormat* av_vkfmt_from_pixfmt(_AVPixelFormat @p);
     
     /// <summary>Send the specified message to the log if the level is less than or equal to the current av_log_level. By default, all logging messages are sent to stderr. This behavior can be altered by setting a different logging callback function.</summary>
     /// <param name="avcl">A pointer to an arbitrary struct of which the first field is a pointer to an AVClass struct.</param>
@@ -3624,7 +3561,7 @@ public static unsafe partial class StaticallyLinkedBindings
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int avcodec_open2(_AVCodecContext* @avctx, _AVCodec* @codec, _AVDictionary** @options);
     
-    /// <summary>Allocate a new AVCodecParameters and set its fields to default values (unknown/invalid/0). The returned struct must be freed with ::avcodec_parameters_free().</summary>
+    /// <summary>Allocate a new AVCodecParameters and set its fields to default values (unknown/invalid/0). The returned struct must be freed with avcodec_parameters_free().</summary>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern _AVCodecParameters* avcodec_parameters_alloc();
     
@@ -3632,7 +3569,7 @@ public static unsafe partial class StaticallyLinkedBindings
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int avcodec_parameters_copy(_AVCodecParameters* @dst, _AVCodecParameters* @src);
     
-    /// <summary>Free an AVCodecParameters instance and everything associated with it and write `NULL` to the supplied pointer.</summary>
+    /// <summary>Free an AVCodecParameters instance and everything associated with it and write NULL to the supplied pointer.</summary>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern void avcodec_parameters_free(_AVCodecParameters** @par);
     
@@ -4286,6 +4223,10 @@ public static unsafe partial class StaticallyLinkedBindings
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(ConstCharPtrMarshaler))]
     public static extern string avformat_stream_group_name(_AVStreamGroupParamsType @type);
+    
+    [Obsolete("do not call this function")]
+    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int avformat_transfer_internal_stream_timing_info(_AVOutputFormat* @ofmt, _AVStream* @ost, _AVStream* @ist, _AVTimebaseSource @copy_tb);
     
     /// <summary>Return the LIBAVFORMAT_VERSION_INT constant.</summary>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
@@ -4958,7 +4899,7 @@ public static unsafe partial class StaticallyLinkedBindings
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int sws_test_colorspace(_AVColorSpace @colorspace, int @output);
     
-    /// <summary>Test if a given (software) pixel format is supported by any backend, excluding unstable backends.</summary>
+    /// <summary>Test if a given (software) pixel format is supported.</summary>
     /// <param name="format">The format to check.</param>
     /// <param name="output">If 0, test if compatible with the source/input frame; otherwise, with the destination/output frame.</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
@@ -4968,7 +4909,7 @@ public static unsafe partial class StaticallyLinkedBindings
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int sws_test_frame(_AVFrame* @frame, int @output);
     
-    /// <summary>Test if a given hardware pixel format is supported by any backend, excluding unstable backends.</summary>
+    /// <summary>Test if a given hardware pixel format is supported.</summary>
     /// <param name="format">The hardware format to check, or AV_PIX_FMT_NONE.</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int sws_test_hw_format(_AVPixelFormat @format);
@@ -5025,35 +4966,16 @@ public static unsafe partial class StaticallyLinkedBindings
         vectors.av_bsf_get_by_name = av_bsf_get_by_name;
         vectors.av_bsf_get_class = av_bsf_get_class;
         vectors.av_bsf_get_null_filter = av_bsf_get_null_filter;
-        vectors.av_bsf_graph_alloc = av_bsf_graph_alloc;
-        vectors.av_bsf_graph_alloc_filter = av_bsf_graph_alloc_filter;
-        vectors.av_bsf_graph_config = av_bsf_graph_config;
-        vectors.av_bsf_graph_create_filter = av_bsf_graph_create_filter;
-        vectors.av_bsf_graph_free = av_bsf_graph_free;
-        vectors.av_bsf_graph_get_filter = av_bsf_graph_get_filter;
-        vectors.av_bsf_graph_source_needs_input = av_bsf_graph_source_needs_input;
         vectors.av_bsf_init = av_bsf_init;
-        vectors.av_bsf_init_dict = av_bsf_init_dict;
-        vectors.av_bsf_init_str = av_bsf_init_str;
         vectors.av_bsf_iterate = av_bsf_iterate;
-        vectors.av_bsf_link = av_bsf_link;
         vectors.av_bsf_list_alloc = av_bsf_list_alloc;
         vectors.av_bsf_list_append = av_bsf_list_append;
         vectors.av_bsf_list_append2 = av_bsf_list_append2;
         vectors.av_bsf_list_finalize = av_bsf_list_finalize;
         vectors.av_bsf_list_free = av_bsf_list_free;
         vectors.av_bsf_list_parse_str = av_bsf_list_parse_str;
-        vectors.av_bsf_pad_get_codec_ids = av_bsf_pad_get_codec_ids;
-        vectors.av_bsf_pad_get_name = av_bsf_pad_get_name;
         vectors.av_bsf_receive_packet = av_bsf_receive_packet;
         vectors.av_bsf_send_packet = av_bsf_send_packet;
-        vectors.av_bsf_sink_get_packet = av_bsf_sink_get_packet;
-        vectors.av_bsf_sink_get_parameters = av_bsf_sink_get_parameters;
-        vectors.av_bsf_sink_get_time_base = av_bsf_sink_get_time_base;
-        vectors.av_bsf_source_add_packet = av_bsf_source_add_packet;
-        vectors.av_bsf_source_close = av_bsf_source_close;
-        vectors.av_bsf_source_get_status = av_bsf_source_get_status;
-        vectors.av_bsf_source_parameters_set = av_bsf_source_parameters_set;
         vectors.av_buffer_alloc = av_buffer_alloc;
         vectors.av_buffer_allocz = av_buffer_allocz;
         vectors.av_buffer_create = av_buffer_create;
@@ -5174,10 +5096,6 @@ public static unsafe partial class StaticallyLinkedBindings
         vectors.av_dynamic_hdr_plus_create_side_data = av_dynamic_hdr_plus_create_side_data;
         vectors.av_dynamic_hdr_plus_from_t35 = av_dynamic_hdr_plus_from_t35;
         vectors.av_dynamic_hdr_plus_to_t35 = av_dynamic_hdr_plus_to_t35;
-        vectors.av_dynamic_hdr_smpte2094_app5_alloc = av_dynamic_hdr_smpte2094_app5_alloc;
-        vectors.av_dynamic_hdr_smpte2094_app5_create_side_data = av_dynamic_hdr_smpte2094_app5_create_side_data;
-        vectors.av_dynamic_hdr_smpte2094_app5_from_t35 = av_dynamic_hdr_smpte2094_app5_from_t35;
-        vectors.av_dynamic_hdr_smpte2094_app5_to_t35 = av_dynamic_hdr_smpte2094_app5_to_t35;
         vectors.av_dynarray_add = av_dynarray_add;
         vectors.av_dynarray_add_nofree = av_dynarray_add_nofree;
         vectors.av_dynarray2_add = av_dynarray2_add;
@@ -5306,6 +5224,7 @@ public static unsafe partial class StaticallyLinkedBindings
         vectors.av_init_packet = av_init_packet;
         vectors.av_input_audio_device_next = av_input_audio_device_next;
         vectors.av_input_video_device_next = av_input_video_device_next;
+        vectors.av_int_list_length_for_size = av_int_list_length_for_size;
         vectors.av_interleaved_write_frame = av_interleaved_write_frame;
         vectors.av_interleaved_write_uncoded_frame = av_interleaved_write_uncoded_frame;
         vectors.av_log = av_log;
@@ -5367,6 +5286,7 @@ public static unsafe partial class StaticallyLinkedBindings
         vectors.av_opt_is_set_to_default = av_opt_is_set_to_default;
         vectors.av_opt_is_set_to_default_by_name = av_opt_is_set_to_default_by_name;
         vectors.av_opt_next = av_opt_next;
+        vectors.av_opt_ptr = av_opt_ptr;
         vectors.av_opt_query_ranges = av_opt_query_ranges;
         vectors.av_opt_query_ranges_default = av_opt_query_ranges_default;
         vectors.av_opt_serialize = av_opt_serialize;
@@ -5435,8 +5355,6 @@ public static unsafe partial class StaticallyLinkedBindings
         vectors.av_probe_input_format2 = av_probe_input_format2;
         vectors.av_probe_input_format3 = av_probe_input_format3;
         vectors.av_program_add_stream_index = av_program_add_stream_index;
-        vectors.av_program_add_stream_index2 = av_program_add_stream_index2;
-        vectors.av_program_copy = av_program_copy;
         vectors.av_q2intfloat = av_q2intfloat;
         vectors.av_read_frame = av_read_frame;
         vectors.av_read_image_line = av_read_image_line;
@@ -5466,8 +5384,18 @@ public static unsafe partial class StaticallyLinkedBindings
         vectors.av_set_options_string = av_set_options_string;
         vectors.av_shrink_packet = av_shrink_packet;
         vectors.av_size_mult = av_size_mult;
+        vectors.av_stereo3d_alloc = av_stereo3d_alloc;
+        vectors.av_stereo3d_alloc_size = av_stereo3d_alloc_size;
+        vectors.av_stereo3d_create_side_data = av_stereo3d_create_side_data;
+        vectors.av_stereo3d_from_name = av_stereo3d_from_name;
+        vectors.av_stereo3d_primary_eye_from_name = av_stereo3d_primary_eye_from_name;
+        vectors.av_stereo3d_primary_eye_name = av_stereo3d_primary_eye_name;
+        vectors.av_stereo3d_type_name = av_stereo3d_type_name;
+        vectors.av_stereo3d_view_from_name = av_stereo3d_view_from_name;
+        vectors.av_stereo3d_view_name = av_stereo3d_view_name;
         vectors.av_strdup = av_strdup;
         vectors.av_stream_get_class = av_stream_get_class;
+        vectors.av_stream_get_codec_timebase = av_stream_get_codec_timebase;
         vectors.av_stream_get_parser = av_stream_get_parser;
         vectors.av_stream_group_get_class = av_stream_group_get_class;
         vectors.av_strerror = av_strerror;
@@ -5492,6 +5420,10 @@ public static unsafe partial class StaticallyLinkedBindings
         vectors.av_url_split = av_url_split;
         vectors.av_usleep = av_usleep;
         vectors.av_version_info = av_version_info;
+        vectors.av_vk_frame_alloc = av_vk_frame_alloc;
+        vectors.av_vk_get_optional_device_extensions = av_vk_get_optional_device_extensions;
+        vectors.av_vk_get_optional_instance_extensions = av_vk_get_optional_instance_extensions;
+        vectors.av_vkfmt_from_pixfmt = av_vkfmt_from_pixfmt;
         vectors.av_vlog = av_vlog;
         vectors.av_write_frame = av_write_frame;
         vectors.av_write_image_line = av_write_image_line;
@@ -5624,6 +5556,7 @@ public static unsafe partial class StaticallyLinkedBindings
         vectors.avformat_stream_group_add_stream = avformat_stream_group_add_stream;
         vectors.avformat_stream_group_create = avformat_stream_group_create;
         vectors.avformat_stream_group_name = avformat_stream_group_name;
+        vectors.avformat_transfer_internal_stream_timing_info = avformat_transfer_internal_stream_timing_info;
         vectors.avformat_version = avformat_version;
         vectors.avformat_write_header = avformat_write_header;
         vectors.avio_accept = avio_accept;

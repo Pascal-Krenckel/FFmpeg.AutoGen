@@ -98,6 +98,38 @@ public unsafe struct _AVCodecContext_get_format_func
 }
 
 [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public unsafe delegate void _AVCodecParser_parser_close (_AVCodecParserContext* @s);
+public unsafe struct _AVCodecParser_parser_close_func
+{
+    public IntPtr Pointer;
+    public static implicit operator _AVCodecParser_parser_close_func(_AVCodecParser_parser_close func) => new _AVCodecParser_parser_close_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
+}
+
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public unsafe delegate int _AVCodecParser_parser_init (_AVCodecParserContext* @s);
+public unsafe struct _AVCodecParser_parser_init_func
+{
+    public IntPtr Pointer;
+    public static implicit operator _AVCodecParser_parser_init_func(_AVCodecParser_parser_init func) => new _AVCodecParser_parser_init_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
+}
+
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public unsafe delegate int _AVCodecParser_parser_parse (_AVCodecParserContext* @s, _AVCodecContext* @avctx, byte** @poutbuf, int* @poutbuf_size, byte* @buf, int @buf_size);
+public unsafe struct _AVCodecParser_parser_parse_func
+{
+    public IntPtr Pointer;
+    public static implicit operator _AVCodecParser_parser_parse_func(_AVCodecParser_parser_parse func) => new _AVCodecParser_parser_parse_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
+}
+
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public unsafe delegate int _AVCodecParser_split (_AVCodecContext* @avctx, byte* @buf, int @buf_size);
+public unsafe struct _AVCodecParser_split_func
+{
+    public IntPtr Pointer;
+    public static implicit operator _AVCodecParser_split_func(_AVCodecParser_split func) => new _AVCodecParser_split_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
+}
+
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 public unsafe delegate void _AVD3D11VADeviceContext_lock (void* @lock_ctx);
 public unsafe struct _AVD3D11VADeviceContext_lock_func
 {
@@ -111,6 +143,22 @@ public unsafe struct _AVD3D11VADeviceContext_unlock_func
 {
     public IntPtr Pointer;
     public static implicit operator _AVD3D11VADeviceContext_unlock_func(_AVD3D11VADeviceContext_unlock func) => new _AVD3D11VADeviceContext_unlock_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
+}
+
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public unsafe delegate void _AVD3D12VADeviceContext_lock (void* @lock_ctx);
+public unsafe struct _AVD3D12VADeviceContext_lock_func
+{
+    public IntPtr Pointer;
+    public static implicit operator _AVD3D12VADeviceContext_lock_func(_AVD3D12VADeviceContext_lock func) => new _AVD3D12VADeviceContext_lock_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
+}
+
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public unsafe delegate void _AVD3D12VADeviceContext_unlock (void* @lock_ctx);
+public unsafe struct _AVD3D12VADeviceContext_unlock_func
+{
+    public IntPtr Pointer;
+    public static implicit operator _AVD3D12VADeviceContext_unlock_func(_AVD3D12VADeviceContext_unlock func) => new _AVD3D12VADeviceContext_unlock_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
 }
 
 [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -229,6 +277,38 @@ public unsafe struct _AVIOInterruptCB_callback_func
 {
     public IntPtr Pointer;
     public static implicit operator _AVIOInterruptCB_callback_func(_AVIOInterruptCB_callback func) => new _AVIOInterruptCB_callback_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
+}
+
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public unsafe delegate void _AVVulkanDeviceContext_lock_queue (_AVHWDeviceContext* @ctx, uint @queue_family, uint @index);
+public unsafe struct _AVVulkanDeviceContext_lock_queue_func
+{
+    public IntPtr Pointer;
+    public static implicit operator _AVVulkanDeviceContext_lock_queue_func(_AVVulkanDeviceContext_lock_queue func) => new _AVVulkanDeviceContext_lock_queue_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
+}
+
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public unsafe delegate void _AVVulkanDeviceContext_unlock_queue (_AVHWDeviceContext* @ctx, uint @queue_family, uint @index);
+public unsafe struct _AVVulkanDeviceContext_unlock_queue_func
+{
+    public IntPtr Pointer;
+    public static implicit operator _AVVulkanDeviceContext_unlock_queue_func(_AVVulkanDeviceContext_unlock_queue func) => new _AVVulkanDeviceContext_unlock_queue_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
+}
+
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public unsafe delegate void _AVVulkanFramesContext_lock_frame (_AVHWFramesContext* @fc, _AVVkFrame* @vkf);
+public unsafe struct _AVVulkanFramesContext_lock_frame_func
+{
+    public IntPtr Pointer;
+    public static implicit operator _AVVulkanFramesContext_lock_frame_func(_AVVulkanFramesContext_lock_frame func) => new _AVVulkanFramesContext_lock_frame_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
+}
+
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public unsafe delegate void _AVVulkanFramesContext_unlock_frame (_AVHWFramesContext* @fc, _AVVkFrame* @vkf);
+public unsafe struct _AVVulkanFramesContext_unlock_frame_func
+{
+    public IntPtr Pointer;
+    public static implicit operator _AVVulkanFramesContext_unlock_frame_func(_AVVulkanFramesContext_unlock_frame func) => new _AVVulkanFramesContext_unlock_frame_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
 }
 
 [UnmanagedFunctionPointer(CallingConvention.Cdecl)]

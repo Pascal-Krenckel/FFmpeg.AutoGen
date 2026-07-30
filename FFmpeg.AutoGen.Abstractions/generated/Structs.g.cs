@@ -25,42 +25,6 @@ public unsafe partial struct _AVBitStreamFilter
     public _AVClass* @priv_class;
 }
 
-/// <summary>An instance of a filter</summary>
-public unsafe partial struct _AVBitStreamFilterContext
-{
-    /// <summary>A class for logging and AVOptions</summary>
-    public _AVClass* @av_class;
-    /// <summary>The bitstream filter this context is an instance of.</summary>
-    public _AVBitStreamFilter* @filter;
-    /// <summary>name of this filter instance</summary>
-    public byte* @name;
-    /// <summary>array of input pads</summary>
-    public _AVBitStreamFilterPad* @input_pads;
-    /// <summary>array of pointers to input links</summary>
-    public _AVBitStreamFilterLink** @inputs;
-    /// <summary>number of input pads</summary>
-    public uint @nb_inputs;
-    /// <summary>array of output pads</summary>
-    public _AVBitStreamFilterPad* @output_pads;
-    /// <summary>array of pointers to output links</summary>
-    public _AVBitStreamFilterLink** @outputs;
-    /// <summary>number of output pads</summary>
-    public uint @nb_outputs;
-    /// <summary>Opaque filter-specific private data. If filter-&gt;priv_class is non-NULL, this is an AVOptions-enabled struct.</summary>
-    public void* @priv_data;
-    /// <summary>filtergraph this filter belongs to</summary>
-    public _AVBitStreamFilterGraph* @graph;
-}
-
-public unsafe partial struct _AVBitStreamFilterGraph
-{
-    public _AVClass* @av_class;
-    public _AVBitStreamFilterContext** @filters;
-    public uint @nb_filters;
-    /// <summary>Sets the maximum number of buffered packets in the filtergraph combined.</summary>
-    public uint @max_buffered_packets;
-}
-
 /// <summary>The bitstream filter state.</summary>
 public unsafe partial struct _AVBSFContext
 {
@@ -207,12 +171,23 @@ public unsafe partial struct _AVCodec
     public int @capabilities;
     /// <summary>maximum value for lowres supported by the decoder</summary>
     public byte @max_lowres;
+    [Obsolete("use avcodec_get_supported_config()")]
+    public _AVRational* @supported_framerates;
+    [Obsolete("use avcodec_get_supported_config()")]
+    public _AVPixelFormat* @pix_fmts;
+    [Obsolete("use avcodec_get_supported_config()")]
+    public int* @supported_samplerates;
+    [Obsolete("use avcodec_get_supported_config()")]
+    public _AVSampleFormat* @sample_fmts;
     /// <summary>AVClass for the private context</summary>
     public _AVClass* @priv_class;
     /// <summary>array of recognized profiles, or NULL if unknown, array is terminated by {AV_PROFILE_UNKNOWN}</summary>
     public _AVProfile* @profiles;
     /// <summary>Group name of the codec implementation. This is a short symbolic name of the wrapper backing this codec. A wrapper uses some kind of external implementation for the codec, such as an external library, or a codec implementation provided by the OS or the hardware. If this field is NULL, this is a builtin, libavcodec native codec. If non-NULL, this will be the suffix in AVCodec.name in most cases (usually AVCodec.name will be of the form &quot;&lt;codec_name&gt;_&lt;wrapper_name&gt;&quot;).</summary>
     public byte* @wrapper_name;
+    /// <summary>Array of supported channel layouts, terminated with a zeroed layout.</summary>
+    [Obsolete("use avcodec_get_supported_config()")]
+    public _AVChannelLayout* @ch_layouts;
 }
 
 /// <summary>main external API structure. New fields can be added to the end with minor version bumps. Removal, reordering and changes to existing fields require a major version bump. You can use AVOptions (av_opt* / av_set/get*()) to access these fields from user applications. The name string for AVOptions options matches the associated command line parameter name and can be found in libavcodec/options_table.h The AVOption/command line parameter names differ in some cases from the C structure field names for historic reasons or brevity. sizeof(AVCodecContext) must not be used outside libav*.</summary>
@@ -458,6 +433,8 @@ public unsafe partial struct _AVCodecContext
     public int @profile;
     /// <summary>Encoding level descriptor. - encoding: Set by user, corresponds to a specific level defined by the codec, usually corresponding to the profile level, if not specified it is set to AV_LEVEL_UNKNOWN. - decoding: Set by libavcodec. See AV_LEVEL_* in defs.h.</summary>
     public int @level;
+    /// <summary>Properties of the stream that gets decoded - encoding: unused - decoding: set by libavcodec</summary>
+    public uint @properties;
     /// <summary>Skip loop filtering for selected frames. - encoding: unused - decoding: Set by user.</summary>
     public _AVDiscard @skip_loop_filter;
     /// <summary>Skip IDCT/dequantization for selected frames. - encoding: unused - decoding: Set by user.</summary>
@@ -555,50 +532,49 @@ public unsafe partial struct _AVCodecParameters
     public int @extradata_size;
     /// <summary>Additional data associated with the entire stream.</summary>
     public _AVPacketSideData* @coded_side_data;
-    /// <summary>Amount of entries in #coded_side_data.</summary>
+    /// <summary>Amount of entries in coded_side_data.</summary>
     public int @nb_coded_side_data;
-    /// <summary>- Video: the pixel format, the value corresponds to enum ::AVPixelFormat. - Audio: the sample format, the value corresponds to enum ::AVSampleFormat.</summary>
+    /// <summary>- video: the pixel format, the value corresponds to enum AVPixelFormat. - audio: the sample format, the value corresponds to enum AVSampleFormat.</summary>
     public int @format;
     /// <summary>The average bitrate of the encoded data (in bits per second).</summary>
     public long @bit_rate;
     /// <summary>The number of bits per sample in the codedwords.</summary>
     public int @bits_per_coded_sample;
-    /// <summary>The number of valid bits in each output sample.</summary>
+    /// <summary>This is the number of valid bits in each output sample. If the sample format has more bits, the least significant bits are additional padding bits, which are always 0. Use right shifts to reduce the sample to its actual size. For example, audio formats with 24 bit samples will have bits_per_raw_sample set to 24, and format set to AV_SAMPLE_FMT_S32. To get the original sample use &quot;(int32_t)sample &gt;&gt; 8&quot;.&quot;</summary>
     public int @bits_per_raw_sample;
     /// <summary>Codec-specific bitstream restrictions that the stream conforms to.</summary>
     public int @profile;
     public int @level;
-    /// <summary>The width of the video frame in pixels.</summary>
+    /// <summary>Video only. The dimensions of the video frame in pixels.</summary>
     public int @width;
-    /// <summary>The height of the video frame in pixels.</summary>
     public int @height;
-    /// <summary>The aspect ratio (width/height) which a single pixel should have when displayed.</summary>
+    /// <summary>Video only. The aspect ratio (width / height) which a single pixel should have when displayed.</summary>
     public _AVRational @sample_aspect_ratio;
-    /// <summary>Number of frames per second, for streams with constant frame durations. Should be set to `{ 0, 1 }` when some frames have differing durations or if the value is not known.</summary>
+    /// <summary>Video only. Number of frames per second, for streams with constant frame durations. Should be set to { 0, 1 } when some frames have differing durations or if the value is not known.</summary>
     public _AVRational @framerate;
-    /// <summary>The order of the fields in interlaced video.</summary>
+    /// <summary>Video only. The order of the fields in interlaced video.</summary>
     public _AVFieldOrder @field_order;
-    /// <summary>Additional colorspace characteristics.</summary>
+    /// <summary>Video only. Additional colorspace characteristics.</summary>
     public _AVColorRange @color_range;
     public _AVColorPrimaries @color_primaries;
     public _AVColorTransferCharacteristic @color_trc;
     public _AVColorSpace @color_space;
     public _AVChromaLocation @chroma_location;
-    /// <summary>Number of delayed frames.</summary>
+    /// <summary>Video only. Number of delayed frames.</summary>
     public int @video_delay;
-    /// <summary>The channel layout and number of channels.</summary>
+    /// <summary>Audio only. The channel layout and number of channels.</summary>
     public _AVChannelLayout @ch_layout;
-    /// <summary>The number of audio samples per second.</summary>
+    /// <summary>Audio only. The number of audio samples per second.</summary>
     public int @sample_rate;
-    /// <summary>The number of bytes per coded audio frame, required by some formats.</summary>
+    /// <summary>Audio only. The number of bytes per coded audio frame, required by some formats.</summary>
     public int @block_align;
-    /// <summary>Audio frame size, if known. Required by some formats to be static.</summary>
+    /// <summary>Audio only. Audio frame size, if known. Required by some formats to be static.</summary>
     public int @frame_size;
-    /// <summary>Number of padding audio samples at the start.</summary>
+    /// <summary>Audio only. The amount of padding (in samples) inserted by the encoder at the beginning of the audio. I.e. this number of leading decoded samples must be discarded by the caller to get the original audio without leading padding.</summary>
     public int @initial_padding;
-    /// <summary>Number of padding audio samples at the end.</summary>
+    /// <summary>Audio only. The amount of padding (in samples) appended by the encoder to the end of the audio. I.e. this number of decoded samples must be discarded by the caller from the end of the stream to get the original audio without any trailing padding.</summary>
     public int @trailing_padding;
-    /// <summary>Number of audio samples to skip after a discontinuity.</summary>
+    /// <summary>Audio only. Number of samples to skip after a discontinuity.</summary>
     public int @seek_preroll;
     /// <summary>Video with alpha channel only. Alpha channel handling</summary>
     public _AVAlphaMode @alpha_mode;
@@ -606,7 +582,13 @@ public unsafe partial struct _AVCodecParameters
 
 public unsafe partial struct _AVCodecParser
 {
-    public _AVCodecID7 @codec_ids;
+    public int7 @codec_ids;
+    /// <summary>*************************************************************** All fields below this line are not part of the public API. They may not be used outside of libavcodec and can be changed and removed at will. New public fields should be added right above. ****************************************************************</summary>
+    public int @priv_data_size;
+    public _AVCodecParser_parser_init_func @parser_init;
+    public _AVCodecParser_parser_parse_func @parser_parse;
+    public _AVCodecParser_parser_close_func @parser_close;
+    public _AVCodecParser_split_func @split;
 }
 
 public unsafe partial struct _AVCodecParserContext
@@ -701,6 +683,14 @@ public unsafe partial struct _AVCPBProperties
     public ulong @vbv_delay;
 }
 
+/// <summary>This struct is allocated as AVHWDeviceContext.hwctx</summary>
+public unsafe partial struct _AVCUDADeviceContext
+{
+    public _CUctx_st* @cuda_ctx;
+    public _CUstream_st* @stream;
+    public _AVCUDADeviceContextInternal* @internal;
+}
+
 /// <summary>D3D11 frame descriptor for pool allocation.</summary>
 public unsafe partial struct _AVD3D11FrameDescriptor
 {
@@ -763,6 +753,62 @@ public unsafe partial struct _AVD3D11VAFramesContext
     public uint @MiscFlags;
     /// <summary>In case if texture structure member above is not NULL contains the same texture pointer for all elements and different indexes into the array texture. In case if texture structure member above is NULL, all elements contains pointers to separate non-array textures and 0 indexes. This field is ignored/invalid if a user-allocated texture is provided.</summary>
     public _AVD3D11FrameDescriptor* @texture_infos;
+}
+
+/// <summary>This struct is allocated as AVHWDeviceContext.hwctx</summary>
+public unsafe partial struct _AVD3D12VADeviceContext
+{
+    /// <summary>Device used for objects creation and access. This can also be used to set the libavcodec decoding device.</summary>
+    public _ID3D12Device* @device;
+    /// <summary>If unset, this will be set from the device field on init.</summary>
+    public _ID3D12VideoDevice* @video_device;
+    /// <summary>Callbacks for locking. They protect access to the internal staging texture (for av_hwframe_transfer_data() calls). They do NOT protect access to hwcontext or decoder state in general.</summary>
+    public _AVD3D12VADeviceContext_lock_func @lock;
+    public _AVD3D12VADeviceContext_unlock_func @unlock;
+    public void* @lock_ctx;
+    /// <summary>Resource flags to be applied to D3D12 resources allocated for frames using this device context.</summary>
+    public _D3D12_RESOURCE_FLAGS @resource_flags;
+    /// <summary>Heap flags to be applied to D3D12 resources allocated for frames using this device context.</summary>
+    public _D3D12_HEAP_FLAGS @heap_flags;
+}
+
+/// <summary>D3D12VA frame descriptor for pool allocation.</summary>
+public unsafe partial struct _AVD3D12VAFrame
+{
+    /// <summary>The texture in which the frame is located. The reference count is managed by the AVBufferRef, and destroying the reference will release the interface.</summary>
+    public _ID3D12Resource* @texture;
+    /// <summary>Index of the subresource within the texture.</summary>
+    public int @subresource_index;
+    /// <summary>The sync context for the texture</summary>
+    public _AVD3D12VASyncContext @sync_ctx;
+    /// <summary>A combination of AVD3D12VAFrameFlags. Set by AVD3D12VAFramesContext.</summary>
+    public _AVD3D12VAFrameFlags @flags;
+}
+
+/// <summary>This struct is allocated as AVHWFramesContext.hwctx</summary>
+public unsafe partial struct _AVD3D12VAFramesContext
+{
+    /// <summary>DXGI_FORMAT format. MUST be compatible with the pixel format. If unset, will be automatically set.</summary>
+    public _DXGI_FORMAT @format;
+    /// <summary>Options for working with resources. If unset, this will be D3D12_RESOURCE_FLAG_NONE.</summary>
+    public _D3D12_RESOURCE_FLAGS @resource_flags;
+    /// <summary>Options for working with heaps allocation when creating resources. If unset, this will be D3D12_HEAP_FLAG_NONE.</summary>
+    public _D3D12_HEAP_FLAGS @heap_flags;
+    /// <summary>In texture array mode, the D3D12 uses the same texture array (resource)for all pictures.</summary>
+    public _ID3D12Resource* @texture_array;
+    /// <summary>A combination of AVD3D12VAFrameFlags. Unless AV_D3D12VA_FRAME_FLAG_NONE is set, autodetected flags will be OR&apos;d based on the device and frame features during av_hwframe_ctx_init().</summary>
+    public _AVD3D12VAFrameFlags @flags;
+}
+
+/// <summary>This struct is used to sync d3d12 execution</summary>
+public unsafe partial struct _AVD3D12VASyncContext
+{
+    /// <summary>D3D12 fence object</summary>
+    public _ID3D12Fence* @fence;
+    /// <summary>A handle to the event object that&apos;s raised when the fence reaches a certain value.</summary>
+    public void* @event;
+    /// <summary>The fence value used for sync</summary>
+    public ulong @fence_value;
 }
 
 /// <summary>Structure describes basic parameters of the device.</summary>
@@ -857,37 +903,6 @@ public unsafe partial struct _AVDynamicHDRPlus
     public _AVRational25x25 @mastering_display_actual_peak_luminance;
 }
 
-/// <summary>This struct represents dynamic metadata for color volume transform as specified in the SMPTE 2094-50 standard.</summary>
-public unsafe partial struct _AVDynamicHDRSmpte2094App5
-{
-    /// <summary>Section C.2.1. smpte_st_2094_50_application_info()</summary>
-    public byte @application_version;
-    public byte @minimum_application_version;
-    /// <summary>Section C.2.2 smpte_st_2094_50_color_volume_transform()</summary>
-    public byte @has_custom_hdr_reference_white_flag;
-    public byte @has_adaptive_tone_map_flag;
-    public ushort @hdr_reference_white;
-    /// <summary>Section C.2.3 smpte_st_2094_50_adaptive_tone_map()</summary>
-    public ushort @baseline_hdr_headroom;
-    public byte @use_reference_white_tone_mapping_flag;
-    public byte @num_alternate_images;
-    public byte @gain_application_space_chromaticities_flag;
-    public byte @has_common_component_mix_params_flag;
-    public byte @has_common_curve_params_flag;
-    public ushort8 @gain_application_space_chromaticities;
-    public ushort4 @alternate_hdr_headrooms;
-    /// <summary>Section C.2.4 smpte_st_2094_50_component_mixing()</summary>
-    public byte4 @component_mixing_type;
-    public byte4x6 @has_component_mixing_coefficient_flag;
-    public ushort4x6 @component_mixing_coefficient;
-    /// <summary>Section C.2.5 smpte_st_2094_50_gain_curve()</summary>
-    public byte4 @gain_curve_num_control_points_minus_1;
-    public byte4 @gain_curve_use_pchip_slope_flag;
-    public ushort4x32 @gain_curve_control_points_x;
-    public ushort4x32 @gain_curve_control_points_y;
-    public ushort4x32 @gain_curve_control_points_theta;
-}
-
 /// <summary>Filter definition. This defines the pads a filter contains, and all the callback functions used to interact with the filter.</summary>
 public unsafe partial struct _AVFilter
 {
@@ -941,12 +956,20 @@ public unsafe partial struct _AVFilterContext
     public int @thread_type;
     /// <summary>Max number of threads allowed in this filter instance. If &lt;= 0, its value is ignored. Overrides global number of threads set per filter graph.</summary>
     public int @nb_threads;
+    [Obsolete("unused")]
+    public _AVFilterCommand* @command_queue;
     /// <summary>enable expression string</summary>
     public byte* @enable_str;
+    [Obsolete("unused")]
+    public void* @enable;
+    [Obsolete("unused")]
+    public double* @var_values;
     /// <summary>MUST NOT be accessed from outside avfilter.</summary>
     public int @is_disabled;
     /// <summary>For filters which will create hardware frames, sets the device the filter should create them in. All other filters will ignore this field: in particular, a filter which consumes or processes hardware frames will instead use the hw_frames_ctx field in AVFilterLink to carry the hardware context information.</summary>
     public _AVBufferRef* @hw_device_ctx;
+    [Obsolete("this field should never have been accessed by callers")]
+    public uint @ready;
     /// <summary>Sets the number of extra hardware frames which the filter will allocate on its output links for use in following filters or by the caller.</summary>
     public int @extra_hw_frames;
 }
@@ -1225,8 +1248,6 @@ public unsafe partial struct _AVFormatContext
     public long @duration_probesize;
     /// <summary>Name of this format context, only used for logging purposes.</summary>
     public byte* @name;
-    /// <summary>Depth recursion limit,</summary>
-    public int @recursion_limit;
 }
 
 /// <summary>This structure describes decoded (raw) audio or video data.</summary>
@@ -1467,7 +1488,7 @@ public unsafe partial struct _AVInputFormat
     public byte* @name;
     /// <summary>Descriptive name for the format, meant to be more human-readable than name. You should use the NULL_IF_CONFIG_SMALL() macro to define it.</summary>
     public byte* @long_name;
-    /// <summary>Can use flags: AVFMT_NOFILE, AVFMT_NEEDNUMBER, AVFMT_EXPERIMENTAL, AVFMT_SHOW_IDS, AVFMT_NOTIMESTAMPS, AVFMT_GENERIC_INDEX, AVFMT_TS_DISCONT, AVFMT_NOBINSEARCH, AVFMT_NOGENSEARCH, AVFMT_NO_BYTE_SEEK, AVFMT_SEEK_TO_PTS.</summary>
+    /// <summary>Can use flags: AVFMT_NOFILE, AVFMT_NEEDNUMBER, AVFMT_SHOW_IDS, AVFMT_NOTIMESTAMPS, AVFMT_GENERIC_INDEX, AVFMT_TS_DISCONT, AVFMT_NOBINSEARCH, AVFMT_NOGENSEARCH, AVFMT_NO_BYTE_SEEK, AVFMT_SEEK_TO_PTS.</summary>
     public int @flags;
     /// <summary>If extensions are defined, then no probe is done. You should usually not use extension format guessing because it is not reliable enough</summary>
     public byte* @extensions;
@@ -1583,6 +1604,33 @@ public unsafe partial struct _AVMasteringDisplayMetadata
     public int @has_luminance;
 }
 
+/// <summary>OpenCL device details.</summary>
+public unsafe partial struct _AVOpenCLDeviceContext
+{
+    /// <summary>The primary device ID of the device. If multiple OpenCL devices are associated with the context then this is the one which will be used for all operations internal to FFmpeg.</summary>
+    public __cl_device_id* @device_id;
+    /// <summary>The OpenCL context which will contain all operations and frames on this device.</summary>
+    public __cl_context* @context;
+    /// <summary>The default command queue for this device, which will be used by all frames contexts which do not have their own command queue. If not initialised by the user, a default queue will be created on the primary device.</summary>
+    public __cl_command_queue* @command_queue;
+}
+
+/// <summary>OpenCL frame descriptor for pool allocation.</summary>
+public unsafe partial struct _AVOpenCLFrameDescriptor
+{
+    /// <summary>Number of planes in the frame.</summary>
+    public int @nb_planes;
+    /// <summary>OpenCL image2d objects for each plane of the frame.</summary>
+    public __cl_mem_ptr8 @planes;
+}
+
+/// <summary>OpenCL-specific data associated with a frame pool.</summary>
+public unsafe partial struct _AVOpenCLFramesContext
+{
+    /// <summary>The command queue used for internal asynchronous operations on this device (av_hwframe_transfer_data(), av_hwframe_map()).</summary>
+    public __cl_command_queue* @command_queue;
+}
+
 /// <summary>AVOption</summary>
 public unsafe partial struct _AVOption
 {
@@ -1675,7 +1723,7 @@ public unsafe partial struct _AVOutputFormat
     public _AVCodecID @video_codec;
     /// <summary>default subtitle codec</summary>
     public _AVCodecID @subtitle_codec;
-    /// <summary>can use flags: AVFMT_NOFILE, AVFMT_NEEDNUMBER, AVFMT_EXPERIMENTAL, AVFMT_GLOBALHEADER, AVFMT_NOTIMESTAMPS, AVFMT_VARIABLE_FPS, AVFMT_NODIMENSIONS, AVFMT_NOSTREAMS, AVFMT_TS_NONSTRICT, AVFMT_TS_NEGATIVE, AVFMT_FIXED_FRAMESIZE</summary>
+    /// <summary>can use flags: AVFMT_NOFILE, AVFMT_NEEDNUMBER, AVFMT_GLOBALHEADER, AVFMT_NOTIMESTAMPS, AVFMT_VARIABLE_FPS, AVFMT_NODIMENSIONS, AVFMT_NOSTREAMS, AVFMT_TS_NONSTRICT, AVFMT_TS_NEGATIVE</summary>
     public int @flags;
     /// <summary>List of supported codec_id-codec_tag pairs, ordered by &quot;better choice first&quot;. The arrays are all terminated by AV_CODEC_ID_NONE.</summary>
     public _AVCodecTag** @codec_tag;
@@ -1710,6 +1758,12 @@ public unsafe partial struct _AVPacket
     public _AVBufferRef* @opaque_ref;
     /// <summary>Time base of the packet&apos;s timestamps. In the future, this field may be set on packets output by encoders or demuxers, but its value will be by default ignored on input to decoders or muxers.</summary>
     public _AVRational @time_base;
+}
+
+public unsafe partial struct _AVPacketList
+{
+    public _AVPacket @pkt;
+    public _AVPacketList* @next;
 }
 
 /// <summary>This structure stores auxiliary information for decoding, presenting, or otherwise processing the coded stream. It is typically exported by demuxers and encoders and can be fed to decoders and muxers either in a per packet basis, or as global side data (applying to the entire coded stream).</summary>
@@ -1870,6 +1924,25 @@ public unsafe partial struct _AVSideDataDescriptor
     public uint @props;
 }
 
+/// <summary>Stereo 3D type: this structure describes how two videos are packed within a single video surface, with additional information as needed.</summary>
+public unsafe partial struct _AVStereo3D
+{
+    /// <summary>How views are packed within the video.</summary>
+    public _AVStereo3DType @type;
+    /// <summary>Additional information about the frame packing.</summary>
+    public int @flags;
+    /// <summary>Determines which views are packed.</summary>
+    public _AVStereo3DView @view;
+    /// <summary>Which eye is the primary eye when rendering in 2D.</summary>
+    public _AVStereo3DPrimaryEye @primary_eye;
+    /// <summary>The distance between the centres of the lenses of the camera system, in micrometers. Zero if unset.</summary>
+    public uint @baseline;
+    /// <summary>Relative shift of the left and right images, which changes the zero parallax plane. Range is -1.0 to 1.0. Zero if unset.</summary>
+    public _AVRational @horizontal_disparity_adjustment;
+    /// <summary>Horizontal field of view, in degrees. Zero if unset.</summary>
+    public _AVRational @horizontal_field_of_view;
+}
+
 /// <summary>Stream structure. New fields can be added to the end with minor version bumps. Removal, reordering and changes to existing fields require a major version bump. sizeof(AVStream) must not be used outside libav*.</summary>
 public unsafe partial struct _AVStream
 {
@@ -1942,25 +2015,20 @@ public unsafe partial struct _AVStreamGroup_params
     [FieldOffset(0)]
     public _AVStreamGroupTileGrid* @tile_grid;
     [FieldOffset(0)]
-    public _AVStreamGroupLayeredVideo* @layered_video;
-    /// <summary>deprecated, use layered_video.</summary>
-    [FieldOffset(0)]
-    public _AVStreamGroupLayeredVideo* @lcevc;
-    [FieldOffset(0)]
-    public _AVStreamGroupTREF* @tref;
+    public _AVStreamGroupLCEVC* @lcevc;
 }
 
-/// <summary>AVStreamGroupLayeredVideo is meant to define the relation between a base layer video stream and a separate enhancement layer stream that together form a single layered video presentation (for example a video stream and a data stream containing LCEVC enhancement layer NALUs, or Dolby Vision Profile 7 dual-layer encoding).</summary>
-public unsafe partial struct _AVStreamGroupLayeredVideo
+/// <summary>AVStreamGroupLCEVC is meant to define the relation between video streams and a data stream containing LCEVC enhancement layer NALUs.</summary>
+public unsafe partial struct _AVStreamGroupLCEVC
 {
     public _AVClass* @av_class;
-    public uint @el_index;
+    /// <summary>Index of the LCEVC data stream in AVStreamGroup.</summary>
+    public uint @lcevc_index;
     /// <summary>Width of the final stream for presentation.</summary>
     public int @width;
     /// <summary>Height of the final image for presentation.</summary>
     public int @height;
 }
-
 
 /// <summary>AVStreamGroupTileGrid holds information on how to combine several independent images on a single canvas for presentation.</summary>
 public unsafe partial struct _AVStreamGroupTileGrid
@@ -1998,14 +2066,6 @@ public unsafe partial struct _AVStreamGroupTileGrid_offsets
     public int @horizontal;
     /// <summary>Offset in pixels from the top edge of the canvas where the tile should be placed.</summary>
     public int @vertical;
-}
-
-/// <summary>AVStreamGroupTREF is meant to define the relation between video, audio, or subtitle streams, and a data stream containing metadata.</summary>
-public unsafe partial struct _AVStreamGroupTREF
-{
-    public _AVClass* @av_class;
-    /// <summary>Index of the metadata stream in the AVStreamGroup.</summary>
-    public uint @metadata_index;
 }
 
 public unsafe partial struct _AVSubtitle
@@ -2052,6 +2112,110 @@ public unsafe partial struct _AVTimecode
     public _AVRational @rate;
     /// <summary>frame per second; must be consistent with the rate field</summary>
     public uint @fps;
+}
+
+public unsafe partial struct _AVVkFrame
+{
+    /// <summary>Vulkan images to which the memory is bound to. May be one for multiplane formats, or multiple.</summary>
+    public _VkImage_T_ptr8 @img;
+    /// <summary>Tiling for the frame.</summary>
+    public _VkImageTiling @tiling;
+    /// <summary>Memory backing the images. Either one, or as many as there are planes in the sw_format. In case of having multiple VkImages, but one memory, the offset field will indicate the bound offset for each image.</summary>
+    public _VkDeviceMemory_T_ptr8 @mem;
+    public ulong8 @size;
+    /// <summary>OR&apos;d flags for all memory allocated</summary>
+    public _VkMemoryPropertyFlagBits @flags;
+    /// <summary>Updated after every barrier. One per VkImage.</summary>
+    public _VkAccessFlagBits8 @access;
+    public _VkImageLayout8 @layout;
+    /// <summary>Synchronization timeline semaphores, one for each VkImage. Must not be freed manually. Must be waited on at every submission using the value in sem_value, and must be signalled at every submission, using an incremented value.</summary>
+    public _VkSemaphore_T_ptr8 @sem;
+    /// <summary>Up to date semaphore value at which each image becomes accessible. One per VkImage. Clients must wait on this value when submitting a command queue, and increment it when signalling.</summary>
+    public ulong8 @sem_value;
+    /// <summary>Internal data.</summary>
+    public _AVVkFrameInternal* @internal;
+    /// <summary>Describes the binding offset of each image to the VkDeviceMemory. One per VkImage.</summary>
+    public long8 @offset;
+    /// <summary>Queue family of the images. Must be VK_QUEUE_FAMILY_IGNORED if the image was allocated with the CONCURRENT concurrency option. One per VkImage.</summary>
+    public uint8 @queue_family;
+}
+
+/// <summary>Main Vulkan context, allocated as AVHWDeviceContext.hwctx. All of these can be set before init to change what the context uses</summary>
+public unsafe partial struct _AVVulkanDeviceContext
+{
+    /// <summary>Custom memory allocator, else NULL</summary>
+    public _VkAllocationCallbacks* @alloc;
+    /// <summary>Pointer to a vkGetInstanceProcAddr loading function. If unset, will dynamically load and use libvulkan.</summary>
+    public void* @get_proc_addr;
+    /// <summary>Vulkan instance. Must be at least version 1.3.</summary>
+    public _VkInstance_T* @inst;
+    /// <summary>Physical device</summary>
+    public _VkPhysicalDevice_T* @phys_dev;
+    /// <summary>Active device</summary>
+    public _VkDevice_T* @act_dev;
+    /// <summary>This structure should be set to the set of features that present and enabled during device creation. When a device is created by FFmpeg, it will default to enabling all that are present of the shaderImageGatherExtended, fragmentStoresAndAtomics, shaderInt64 and vertexPipelineStoresAndAtomics features.</summary>
+    public _VkPhysicalDeviceFeatures2 @device_features;
+    /// <summary>Enabled instance extensions. If supplying your own device context, set this to an array of strings, with each entry containing the specified Vulkan extension string to enable. Duplicates are possible and accepted. If no extensions are enabled, set these fields to NULL, and 0 respectively. av_vk_get_optional_instance_extensions() can be used to enumerate extensions that FFmpeg may use if enabled.</summary>
+    public byte** @enabled_inst_extensions;
+    public int @nb_enabled_inst_extensions;
+    /// <summary>Enabled device extensions. By default, VK_KHR_external_memory_fd, VK_EXT_external_memory_dma_buf, VK_EXT_image_drm_format_modifier, VK_KHR_external_semaphore_fd and VK_EXT_external_memory_host are enabled if found. If supplying your own device context, these fields takes the same format as the above fields, with the same conditions that duplicates are possible and accepted, and that NULL and 0 respectively means no extensions are enabled. av_vk_get_optional_device_extensions() can be used to enumerate extensions that FFmpeg may use if enabled.</summary>
+    public byte** @enabled_dev_extensions;
+    public int @nb_enabled_dev_extensions;
+    /// <summary>Queue family index for graphics operations, and the number of queues enabled for it. If unavailable, will be set to -1. Not required. av_hwdevice_create() will attempt to find a dedicated queue for each queue family, or pick the one with the least unrelated flags set. Queue indices here may overlap if a queue has to share capabilities.</summary>
+    public int @queue_family_index;
+    public int @nb_graphics_queues;
+    /// <summary>Queue family index for transfer operations and the number of queues enabled. Required.</summary>
+    public int @queue_family_tx_index;
+    public int @nb_tx_queues;
+    /// <summary>Queue family index for compute operations and the number of queues enabled. Required.</summary>
+    public int @queue_family_comp_index;
+    public int @nb_comp_queues;
+    /// <summary>Queue family index for video encode ops, and the amount of queues enabled. If the device doesn&apos;t support such, queue_family_encode_index will be -1. Not required.</summary>
+    public int @queue_family_encode_index;
+    public int @nb_encode_queues;
+    /// <summary>Queue family index for video decode ops, and the amount of queues enabled. If the device doesn&apos;t support such, queue_family_decode_index will be -1. Not required.</summary>
+    public int @queue_family_decode_index;
+    public int @nb_decode_queues;
+    /// <summary>Locks a queue, preventing other threads from submitting any command buffers to this queue. If set to NULL, will be set to lavu-internal functions that utilize a mutex.</summary>
+    public _AVVulkanDeviceContext_lock_queue_func @lock_queue;
+    /// <summary>Similar to lock_queue(), unlocks a queue. Must only be called after locking.</summary>
+    public _AVVulkanDeviceContext_unlock_queue_func @unlock_queue;
+    /// <summary>Queue families used. Must be preferentially ordered. List may contain duplicates.</summary>
+    public _AVVulkanDeviceQueueFamily64 @qf;
+    public int @nb_qf;
+}
+
+public unsafe partial struct _AVVulkanDeviceQueueFamily
+{
+    public int @idx;
+    public int @num;
+    public _VkQueueFlagBits @flags;
+    public _VkVideoCodecOperationFlagBitsKHR @video_caps;
+}
+
+/// <summary>Allocated as AVHWFramesContext.hwctx, used to set pool-specific options</summary>
+public unsafe partial struct _AVVulkanFramesContext
+{
+    /// <summary>Controls the tiling of allocated frames. If left as VK_IMAGE_TILING_OPTIMAL (0), will use optimal tiling. Can be set to VK_IMAGE_TILING_LINEAR to force linear images, or VK_IMAGE_TILING_DRM_FORMAT_MODIFIER_EXT to force DMABUF-backed images.</summary>
+    public _VkImageTiling @tiling;
+    /// <summary>Defines extra usage of output frames. If non-zero, all flags MUST be supported by the VkFormat. Regardless, frames will always have the following usage flags enabled, if supported by the format: - VK_IMAGE_USAGE_SAMPLED_BIT - VK_IMAGE_USAGE_STORAGE_BIT - VK_IMAGE_USAGE_TRANSFER_SRC_BIT - VK_IMAGE_USAGE_TRANSFER_DST_BIT</summary>
+    public _VkImageUsageFlagBits @usage;
+    /// <summary>Extension data for image creation. If DRM tiling is used, a VkImageDrmFormatModifierListCreateInfoEXT structure can be added to specify the exact modifier to use.</summary>
+    public void* @create_pnext;
+    /// <summary>Extension data for memory allocation. Must have as many entries as the number of planes of the sw_format. This will be chained to VkExportMemoryAllocateInfo, which is used to make all pool images exportable to other APIs if the necessary extensions are present in enabled_dev_extensions.</summary>
+    public void_ptr8 @alloc_pnext;
+    /// <summary>A combination of AVVkFrameFlags. Unless AV_VK_FRAME_FLAG_NONE is set, autodetected flags will be OR&apos;d based on the device and tiling during av_hwframe_ctx_init().</summary>
+    public _AVVkFrameFlags @flags;
+    /// <summary>Flags to set during image creation. If unset, defaults to VK_IMAGE_CREATE_ALIAS_BIT.</summary>
+    public uint @img_flags;
+    /// <summary>Vulkan format for each image. MUST be compatible with the pixel format. If unset, will be automatically set. There are at most two compatible formats for a frame - a multiplane format, and a single-plane multi-image format.</summary>
+    public _VkFormat8 @format;
+    /// <summary>Number of layers each image will have.</summary>
+    public int @nb_layers;
+    /// <summary>Locks a frame, preventing other threads from changing frame properties. Users SHOULD only ever lock just before command submission in order to get accurate frame properties, and unlock immediately after command submission without waiting for it to finish.</summary>
+    public _AVVulkanFramesContext_lock_frame_func @lock_frame;
+    /// <summary>Similar to lock_frame(), unlocks a frame. Must only be called after locking.</summary>
+    public _AVVulkanFramesContext_unlock_frame_func @unlock_frame;
 }
 
 public unsafe partial struct _D3D11_VIDEO_DECODER_CONFIG
@@ -2410,6 +2574,119 @@ public unsafe partial struct _ID3D11VideoDeviceVtbl
     public void* @SetPrivateDataInterface;
 }
 
+public unsafe partial struct _ID3D12Device
+{
+    public _ID3D12DeviceVtbl* @lpVtbl;
+}
+
+public unsafe partial struct _ID3D12DeviceVtbl
+{
+    public void* @QueryInterface;
+    public void* @AddRef;
+    public void* @Release;
+    public void* @GetPrivateData;
+    public void* @SetPrivateData;
+    public void* @SetPrivateDataInterface;
+    public void* @SetName;
+    public void* @GetNodeCount;
+    public void* @CreateCommandQueue;
+    public void* @CreateCommandAllocator;
+    public void* @CreateGraphicsPipelineState;
+    public void* @CreateComputePipelineState;
+    public void* @CreateCommandList;
+    public void* @CheckFeatureSupport;
+    public void* @CreateDescriptorHeap;
+    public void* @GetDescriptorHandleIncrementSize;
+    public void* @CreateRootSignature;
+    public void* @CreateConstantBufferView;
+    public void* @CreateShaderResourceView;
+    public void* @CreateUnorderedAccessView;
+    public void* @CreateRenderTargetView;
+    public void* @CreateDepthStencilView;
+    public void* @CreateSampler;
+    public void* @CopyDescriptors;
+    public void* @CopyDescriptorsSimple;
+    public void* @GetResourceAllocationInfo;
+    public void* @GetCustomHeapProperties;
+    public void* @CreateCommittedResource;
+    public void* @CreateHeap;
+    public void* @CreatePlacedResource;
+    public void* @CreateReservedResource;
+    public void* @CreateSharedHandle;
+    public void* @OpenSharedHandle;
+    public void* @OpenSharedHandleByName;
+    public void* @MakeResident;
+    public void* @Evict;
+    public void* @CreateFence;
+    public void* @GetDeviceRemovedReason;
+    public void* @GetCopyableFootprints;
+    public void* @CreateQueryHeap;
+    public void* @SetStablePowerState;
+    public void* @CreateCommandSignature;
+    public void* @GetResourceTiling;
+    public void* @GetAdapterLuid;
+}
+
+public unsafe partial struct _ID3D12Fence
+{
+    public _ID3D12FenceVtbl* @lpVtbl;
+}
+
+public unsafe partial struct _ID3D12FenceVtbl
+{
+    public void* @QueryInterface;
+    public void* @AddRef;
+    public void* @Release;
+    public void* @GetPrivateData;
+    public void* @SetPrivateData;
+    public void* @SetPrivateDataInterface;
+    public void* @SetName;
+    public void* @GetDevice;
+    public void* @GetCompletedValue;
+    public void* @SetEventOnCompletion;
+    public void* @Signal;
+}
+
+public unsafe partial struct _ID3D12Resource
+{
+    public _ID3D12ResourceVtbl* @lpVtbl;
+}
+
+public unsafe partial struct _ID3D12ResourceVtbl
+{
+    public void* @QueryInterface;
+    public void* @AddRef;
+    public void* @Release;
+    public void* @GetPrivateData;
+    public void* @SetPrivateData;
+    public void* @SetPrivateDataInterface;
+    public void* @SetName;
+    public void* @GetDevice;
+    public void* @Map;
+    public void* @Unmap;
+    public void* @GetDesc;
+    public void* @GetGPUVirtualAddress;
+    public void* @WriteToSubresource;
+    public void* @ReadFromSubresource;
+    public void* @GetHeapProperties;
+}
+
+public unsafe partial struct _ID3D12VideoDevice
+{
+    public _ID3D12VideoDeviceVtbl* @lpVtbl;
+}
+
+public unsafe partial struct _ID3D12VideoDeviceVtbl
+{
+    public void* @QueryInterface;
+    public void* @AddRef;
+    public void* @Release;
+    public void* @CheckFeatureSupport;
+    public void* @CreateVideoDecoder;
+    public void* @CreateVideoDecoderHeap;
+    public void* @CreateVideoProcessor;
+}
+
 public unsafe partial struct _IDirect3DDeviceManager9
 {
     public _IDirect3DDeviceManager9Vtbl* @lpVtbl;
@@ -2490,6 +2767,7 @@ public unsafe partial struct _SwsContext
     public void* @opaque;
     /// <summary>Bitmask of SWS_*. See `SwsFlags` for details.</summary>
     public uint @flags;
+    /// <summary>Extra parameters for fine-tuning certain scalers.</summary>
     public double2 @scaler_params;
     /// <summary>How many threads to use for processing, or 0 for automatic selection.</summary>
     public int @threads;
@@ -2525,12 +2803,6 @@ public unsafe partial struct _SwsContext
     public int @dst_h_chr_pos;
     /// <summary>Desired ICC intent for color space conversions.</summary>
     public int @intent;
-    /// <summary>Scaling filter. If set to something other than SWS_SCALE_AUTO, this will override the filter implied by `SwsContext.flags`.</summary>
-    public _SwsScaler @scaler;
-    /// <summary>Scaler used specifically for up/downsampling subsampled (chroma) planes. If set to something other than SWS_SCALE_AUTO, this will override the filter implied by `SwsContext.scaler`. Otherwise, the same filter will be used for both main scaling and chroma subsampling.</summary>
-    public _SwsScaler @scaler_sub;
-    /// <summary>Bitmask of SWS_BACKEND_*. If non-zero, this will restrict the available backends to the specified set. If left as zero, a default set of backends will be selected automatically (based on SWS_UNSTABLE).</summary>
-    public _SwsBackend @backends;
 }
 
 public unsafe partial struct _SwsFilter
@@ -2549,21 +2821,105 @@ public unsafe partial struct _SwsVector
     public int @length;
 }
 
+public unsafe partial struct _VkAllocationCallbacks
+{
+    public void* @pUserData;
+    public void* @pfnAllocation;
+    public void* @pfnReallocation;
+    public void* @pfnFree;
+    public void* @pfnInternalAllocation;
+    public void* @pfnInternalFree;
+}
+
+public unsafe partial struct _VkPhysicalDeviceFeatures
+{
+    public uint @robustBufferAccess;
+    public uint @fullDrawIndexUint32;
+    public uint @imageCubeArray;
+    public uint @independentBlend;
+    public uint @geometryShader;
+    public uint @tessellationShader;
+    public uint @sampleRateShading;
+    public uint @dualSrcBlend;
+    public uint @logicOp;
+    public uint @multiDrawIndirect;
+    public uint @drawIndirectFirstInstance;
+    public uint @depthClamp;
+    public uint @depthBiasClamp;
+    public uint @fillModeNonSolid;
+    public uint @depthBounds;
+    public uint @wideLines;
+    public uint @largePoints;
+    public uint @alphaToOne;
+    public uint @multiViewport;
+    public uint @samplerAnisotropy;
+    public uint @textureCompressionETC2;
+    public uint @textureCompressionASTC_LDR;
+    public uint @textureCompressionBC;
+    public uint @occlusionQueryPrecise;
+    public uint @pipelineStatisticsQuery;
+    public uint @vertexPipelineStoresAndAtomics;
+    public uint @fragmentStoresAndAtomics;
+    public uint @shaderTessellationAndGeometryPointSize;
+    public uint @shaderImageGatherExtended;
+    public uint @shaderStorageImageExtendedFormats;
+    public uint @shaderStorageImageMultisample;
+    public uint @shaderStorageImageReadWithoutFormat;
+    public uint @shaderStorageImageWriteWithoutFormat;
+    public uint @shaderUniformBufferArrayDynamicIndexing;
+    public uint @shaderSampledImageArrayDynamicIndexing;
+    public uint @shaderStorageBufferArrayDynamicIndexing;
+    public uint @shaderStorageImageArrayDynamicIndexing;
+    public uint @shaderClipDistance;
+    public uint @shaderCullDistance;
+    public uint @shaderFloat64;
+    public uint @shaderInt64;
+    public uint @shaderInt16;
+    public uint @shaderResourceResidency;
+    public uint @shaderResourceMinLod;
+    public uint @sparseBinding;
+    public uint @sparseResidencyBuffer;
+    public uint @sparseResidencyImage2D;
+    public uint @sparseResidencyImage3D;
+    public uint @sparseResidency2Samples;
+    public uint @sparseResidency4Samples;
+    public uint @sparseResidency8Samples;
+    public uint @sparseResidency16Samples;
+    public uint @sparseResidencyAliased;
+    public uint @variableMultisampleRate;
+    public uint @inheritedQueries;
+}
+
+public unsafe partial struct _VkPhysicalDeviceFeatures2
+{
+    public _VkStructureType @sType;
+    public void* @pNext;
+    public _VkPhysicalDeviceFeatures @features;
+}
+
+/// <remarks>This struct is incomplete.</remarks>
+public unsafe partial struct __cl_command_queue
+{
+}
+
+/// <remarks>This struct is incomplete.</remarks>
+public unsafe partial struct __cl_context
+{
+}
+
+/// <remarks>This struct is incomplete.</remarks>
+public unsafe partial struct __cl_device_id
+{
+}
+
+/// <remarks>This struct is incomplete.</remarks>
+public unsafe partial struct __cl_mem
+{
+}
+
 /// <summary>Context for an Audio FIFO Buffer.</summary>
 /// <remarks>This struct is incomplete.</remarks>
 public unsafe partial struct _AVAudioFifo
-{
-}
-
-/// <summary>A link between two filters. This contains pointers to the source and destination filters between which this link exists, and the indexes of the pads involved.</summary>
-/// <remarks>This struct is incomplete.</remarks>
-public unsafe partial struct _AVBitStreamFilterLink
-{
-}
-
-/// <summary>A filter pad used for either input or output.</summary>
-/// <remarks>This struct is incomplete.</remarks>
-public unsafe partial struct _AVBitStreamFilterPad
 {
 }
 
@@ -2607,6 +2963,12 @@ public unsafe partial struct _AVContainerFifo
 {
 }
 
+/// <summary>An API-specific header for AV_HWDEVICE_TYPE_CUDA.</summary>
+/// <remarks>This struct is incomplete.</remarks>
+public unsafe partial struct _AVCUDADeviceContextInternal
+{
+}
+
 /// <remarks>This struct is incomplete.</remarks>
 public unsafe partial struct _AVDictionary
 {
@@ -2614,6 +2976,11 @@ public unsafe partial struct _AVDictionary
 
 /// <remarks>This struct is incomplete.</remarks>
 public unsafe partial struct _AVFilterChannelLayouts
+{
+}
+
+/// <remarks>This struct is incomplete.</remarks>
+public unsafe partial struct _AVFilterCommand
 {
 }
 
@@ -2648,9 +3015,54 @@ public unsafe partial struct _AVTreeNode
 {
 }
 
+/// <remarks>This struct is incomplete.</remarks>
+public unsafe partial struct _AVVkFrameInternal
+{
+}
+
+/// <remarks>This struct is incomplete.</remarks>
+public unsafe partial struct _CUctx_st
+{
+}
+
+/// <remarks>This struct is incomplete.</remarks>
+public unsafe partial struct _CUstream_st
+{
+}
+
 /// <summary>The libswresample context. Unlike libavcodec and libavformat, this structure is opaque. This means that if you would like to set options, you must use the avoptions API and cannot directly set values to members of the structure.</summary>
 /// <remarks>This struct is incomplete.</remarks>
 public unsafe partial struct _SwrContext
+{
+}
+
+/// <remarks>This struct is incomplete.</remarks>
+public unsafe partial struct _VkDevice_T
+{
+}
+
+/// <remarks>This struct is incomplete.</remarks>
+public unsafe partial struct _VkDeviceMemory_T
+{
+}
+
+/// <remarks>This struct is incomplete.</remarks>
+public unsafe partial struct _VkImage_T
+{
+}
+
+/// <remarks>This struct is incomplete.</remarks>
+public unsafe partial struct _VkInstance_T
+{
+}
+
+/// <remarks>This struct is incomplete.</remarks>
+public unsafe partial struct _VkPhysicalDevice_T
+{
+}
+
+/// <remarks>This struct is incomplete.</remarks>
+public unsafe partial struct _VkSemaphore_T
 {
 }
 

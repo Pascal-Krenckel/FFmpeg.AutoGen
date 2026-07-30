@@ -244,28 +244,6 @@ public unsafe struct byte4 : IFixedArray<byte>
     public static implicit operator byte[](byte4 @struct) => @struct.ToArray();
 }
 
-public unsafe struct byte4x6 : IFixedArray<byte6>
-{
-    public static readonly int ArrayLength = 4;
-    public int Length => 4;
-    byte6 _0; byte6 _1; byte6 _2; byte6 _3;
-    
-    public byte6 this[uint i]
-    {
-        get { if (i >= 4) throw new ArgumentOutOfRangeException(); fixed (byte6* p0 = &_0) { return *(p0 + i); } }
-        set { if (i >= 4) throw new ArgumentOutOfRangeException(); fixed (byte6* p0 = &_0) { *(p0 + i) = value;  } }
-    }
-    public byte6[] ToArray()
-    {
-        fixed (byte6* p0 = &_0) { var a = new byte6[4]; for (uint i = 0; i < 4; i++) a[i] = *(p0 + i); return a; }
-    }
-    public void UpdateFrom(byte6[] array)
-    {
-        fixed (byte6* p0 = &_0) { uint i = 0; foreach(var value in array) { *(p0 + i++) = value; if (i >= 4) return; } }
-    }
-    public static implicit operator byte6[](byte4x6 @struct) => @struct.ToArray();
-}
-
 public unsafe struct int4 : IFixedArray<int>
 {
     public static readonly int ArrayLength = 4;
@@ -354,136 +332,48 @@ public unsafe struct ulong4 : IFixedArray<ulong>
     public static implicit operator ulong[](ulong4 @struct) => @struct.ToArray();
 }
 
-public unsafe struct ushort4 : IFixedArray<ushort>
-{
-    public static readonly int ArrayLength = 4;
-    public int Length => 4;
-    fixed ushort _[4];
-    
-    public ushort this[uint i]
-    {
-        get => _[i];
-        set => _[i] = value;
-    }
-    public ushort[] ToArray()
-    {
-        var a = new ushort[4]; for (uint i = 0; i < 4; i++) a[i] = _[i]; return a;
-    }
-    public void UpdateFrom(ushort[] array)
-    {
-        uint i = 0; foreach(var value in array) { _[i++] = value; if (i >= 4) return; }
-    }
-    public static implicit operator ushort[](ushort4 @struct) => @struct.ToArray();
-}
-
-public unsafe struct ushort4x32 : IFixedArray<ushort32>
-{
-    public static readonly int ArrayLength = 4;
-    public int Length => 4;
-    ushort32 _0; ushort32 _1; ushort32 _2; ushort32 _3;
-    
-    public ushort32 this[uint i]
-    {
-        get { if (i >= 4) throw new ArgumentOutOfRangeException(); fixed (ushort32* p0 = &_0) { return *(p0 + i); } }
-        set { if (i >= 4) throw new ArgumentOutOfRangeException(); fixed (ushort32* p0 = &_0) { *(p0 + i) = value;  } }
-    }
-    public ushort32[] ToArray()
-    {
-        fixed (ushort32* p0 = &_0) { var a = new ushort32[4]; for (uint i = 0; i < 4; i++) a[i] = *(p0 + i); return a; }
-    }
-    public void UpdateFrom(ushort32[] array)
-    {
-        fixed (ushort32* p0 = &_0) { uint i = 0; foreach(var value in array) { *(p0 + i++) = value; if (i >= 4) return; } }
-    }
-    public static implicit operator ushort32[](ushort4x32 @struct) => @struct.ToArray();
-}
-
-public unsafe struct ushort4x6 : IFixedArray<ushort6>
-{
-    public static readonly int ArrayLength = 4;
-    public int Length => 4;
-    ushort6 _0; ushort6 _1; ushort6 _2; ushort6 _3;
-    
-    public ushort6 this[uint i]
-    {
-        get { if (i >= 4) throw new ArgumentOutOfRangeException(); fixed (ushort6* p0 = &_0) { return *(p0 + i); } }
-        set { if (i >= 4) throw new ArgumentOutOfRangeException(); fixed (ushort6* p0 = &_0) { *(p0 + i) = value;  } }
-    }
-    public ushort6[] ToArray()
-    {
-        fixed (ushort6* p0 = &_0) { var a = new ushort6[4]; for (uint i = 0; i < 4; i++) a[i] = *(p0 + i); return a; }
-    }
-    public void UpdateFrom(ushort6[] array)
-    {
-        fixed (ushort6* p0 = &_0) { uint i = 0; foreach(var value in array) { *(p0 + i++) = value; if (i >= 4) return; } }
-    }
-    public static implicit operator ushort6[](ushort4x6 @struct) => @struct.ToArray();
-}
-
-public unsafe struct byte6 : IFixedArray<byte>
-{
-    public static readonly int ArrayLength = 6;
-    public int Length => 6;
-    fixed byte _[6];
-    
-    public byte this[uint i]
-    {
-        get => _[i];
-        set => _[i] = value;
-    }
-    public byte[] ToArray()
-    {
-        var a = new byte[6]; for (uint i = 0; i < 6; i++) a[i] = _[i]; return a;
-    }
-    public void UpdateFrom(byte[] array)
-    {
-        uint i = 0; foreach(var value in array) { _[i++] = value; if (i >= 6) return; }
-    }
-    public static implicit operator byte[](byte6 @struct) => @struct.ToArray();
-}
-
-public unsafe struct ushort6 : IFixedArray<ushort>
-{
-    public static readonly int ArrayLength = 6;
-    public int Length => 6;
-    fixed ushort _[6];
-    
-    public ushort this[uint i]
-    {
-        get => _[i];
-        set => _[i] = value;
-    }
-    public ushort[] ToArray()
-    {
-        var a = new ushort[6]; for (uint i = 0; i < 6; i++) a[i] = _[i]; return a;
-    }
-    public void UpdateFrom(ushort[] array)
-    {
-        uint i = 0; foreach(var value in array) { _[i++] = value; if (i >= 6) return; }
-    }
-    public static implicit operator ushort[](ushort6 @struct) => @struct.ToArray();
-}
-
-public unsafe struct _AVCodecID7 : IFixedArray<_AVCodecID>
+public unsafe struct int7 : IFixedArray<int>
 {
     public static readonly int ArrayLength = 7;
     public int Length => 7;
-    _AVCodecID _0; _AVCodecID _1; _AVCodecID _2; _AVCodecID _3; _AVCodecID _4; _AVCodecID _5; _AVCodecID _6;
+    fixed int _[7];
     
-    public _AVCodecID this[uint i]
+    public int this[uint i]
     {
-        get { if (i >= 7) throw new ArgumentOutOfRangeException(); fixed (_AVCodecID* p0 = &_0) { return *(p0 + i); } }
-        set { if (i >= 7) throw new ArgumentOutOfRangeException(); fixed (_AVCodecID* p0 = &_0) { *(p0 + i) = value;  } }
+        get => _[i];
+        set => _[i] = value;
     }
-    public _AVCodecID[] ToArray()
+    public int[] ToArray()
     {
-        fixed (_AVCodecID* p0 = &_0) { var a = new _AVCodecID[7]; for (uint i = 0; i < 7; i++) a[i] = *(p0 + i); return a; }
+        var a = new int[7]; for (uint i = 0; i < 7; i++) a[i] = _[i]; return a;
     }
-    public void UpdateFrom(_AVCodecID[] array)
+    public void UpdateFrom(int[] array)
     {
-        fixed (_AVCodecID* p0 = &_0) { uint i = 0; foreach(var value in array) { *(p0 + i++) = value; if (i >= 7) return; } }
+        uint i = 0; foreach(var value in array) { _[i++] = value; if (i >= 7) return; }
     }
-    public static implicit operator _AVCodecID[](_AVCodecID7 @struct) => @struct.ToArray();
+    public static implicit operator int[](int7 @struct) => @struct.ToArray();
+}
+
+public unsafe struct __cl_mem_ptr8 : IFixedArray
+{
+    public static readonly int ArrayLength = 8;
+    public int Length => 8;
+    __cl_mem* _0; __cl_mem* _1; __cl_mem* _2; __cl_mem* _3; __cl_mem* _4; __cl_mem* _5; __cl_mem* _6; __cl_mem* _7;
+    
+    public __cl_mem* this[uint i]
+    {
+        get { if (i >= 8) throw new ArgumentOutOfRangeException(); fixed (__cl_mem** p0 = &_0) { return *(p0 + i); } }
+        set { if (i >= 8) throw new ArgumentOutOfRangeException(); fixed (__cl_mem** p0 = &_0) { *(p0 + i) = value;  } }
+    }
+    public __cl_mem*[] ToArray()
+    {
+        fixed (__cl_mem** p0 = &_0) { var a = new __cl_mem*[8]; for (uint i = 0; i < 8; i++) a[i] = *(p0 + i); return a; }
+    }
+    public void UpdateFrom(__cl_mem*[] array)
+    {
+        fixed (__cl_mem** p0 = &_0) { uint i = 0; foreach(var value in array) { *(p0 + i++) = value; if (i >= 8) return; } }
+    }
+    public static implicit operator __cl_mem*[](__cl_mem_ptr8 @struct) => @struct.ToArray();
 }
 
 public unsafe struct _AVBufferRef_ptr8 : IFixedArray
@@ -506,6 +396,138 @@ public unsafe struct _AVBufferRef_ptr8 : IFixedArray
         fixed (_AVBufferRef** p0 = &_0) { uint i = 0; foreach(var value in array) { *(p0 + i++) = value; if (i >= 8) return; } }
     }
     public static implicit operator _AVBufferRef*[](_AVBufferRef_ptr8 @struct) => @struct.ToArray();
+}
+
+public unsafe struct _VkAccessFlagBits8 : IFixedArray<_VkAccessFlagBits>
+{
+    public static readonly int ArrayLength = 8;
+    public int Length => 8;
+    _VkAccessFlagBits _0; _VkAccessFlagBits _1; _VkAccessFlagBits _2; _VkAccessFlagBits _3; _VkAccessFlagBits _4; _VkAccessFlagBits _5; _VkAccessFlagBits _6; _VkAccessFlagBits _7;
+    
+    public _VkAccessFlagBits this[uint i]
+    {
+        get { if (i >= 8) throw new ArgumentOutOfRangeException(); fixed (_VkAccessFlagBits* p0 = &_0) { return *(p0 + i); } }
+        set { if (i >= 8) throw new ArgumentOutOfRangeException(); fixed (_VkAccessFlagBits* p0 = &_0) { *(p0 + i) = value;  } }
+    }
+    public _VkAccessFlagBits[] ToArray()
+    {
+        fixed (_VkAccessFlagBits* p0 = &_0) { var a = new _VkAccessFlagBits[8]; for (uint i = 0; i < 8; i++) a[i] = *(p0 + i); return a; }
+    }
+    public void UpdateFrom(_VkAccessFlagBits[] array)
+    {
+        fixed (_VkAccessFlagBits* p0 = &_0) { uint i = 0; foreach(var value in array) { *(p0 + i++) = value; if (i >= 8) return; } }
+    }
+    public static implicit operator _VkAccessFlagBits[](_VkAccessFlagBits8 @struct) => @struct.ToArray();
+}
+
+public unsafe struct _VkDeviceMemory_T_ptr8 : IFixedArray
+{
+    public static readonly int ArrayLength = 8;
+    public int Length => 8;
+    _VkDeviceMemory_T* _0; _VkDeviceMemory_T* _1; _VkDeviceMemory_T* _2; _VkDeviceMemory_T* _3; _VkDeviceMemory_T* _4; _VkDeviceMemory_T* _5; _VkDeviceMemory_T* _6; _VkDeviceMemory_T* _7;
+    
+    public _VkDeviceMemory_T* this[uint i]
+    {
+        get { if (i >= 8) throw new ArgumentOutOfRangeException(); fixed (_VkDeviceMemory_T** p0 = &_0) { return *(p0 + i); } }
+        set { if (i >= 8) throw new ArgumentOutOfRangeException(); fixed (_VkDeviceMemory_T** p0 = &_0) { *(p0 + i) = value;  } }
+    }
+    public _VkDeviceMemory_T*[] ToArray()
+    {
+        fixed (_VkDeviceMemory_T** p0 = &_0) { var a = new _VkDeviceMemory_T*[8]; for (uint i = 0; i < 8; i++) a[i] = *(p0 + i); return a; }
+    }
+    public void UpdateFrom(_VkDeviceMemory_T*[] array)
+    {
+        fixed (_VkDeviceMemory_T** p0 = &_0) { uint i = 0; foreach(var value in array) { *(p0 + i++) = value; if (i >= 8) return; } }
+    }
+    public static implicit operator _VkDeviceMemory_T*[](_VkDeviceMemory_T_ptr8 @struct) => @struct.ToArray();
+}
+
+public unsafe struct _VkFormat8 : IFixedArray<_VkFormat>
+{
+    public static readonly int ArrayLength = 8;
+    public int Length => 8;
+    _VkFormat _0; _VkFormat _1; _VkFormat _2; _VkFormat _3; _VkFormat _4; _VkFormat _5; _VkFormat _6; _VkFormat _7;
+    
+    public _VkFormat this[uint i]
+    {
+        get { if (i >= 8) throw new ArgumentOutOfRangeException(); fixed (_VkFormat* p0 = &_0) { return *(p0 + i); } }
+        set { if (i >= 8) throw new ArgumentOutOfRangeException(); fixed (_VkFormat* p0 = &_0) { *(p0 + i) = value;  } }
+    }
+    public _VkFormat[] ToArray()
+    {
+        fixed (_VkFormat* p0 = &_0) { var a = new _VkFormat[8]; for (uint i = 0; i < 8; i++) a[i] = *(p0 + i); return a; }
+    }
+    public void UpdateFrom(_VkFormat[] array)
+    {
+        fixed (_VkFormat* p0 = &_0) { uint i = 0; foreach(var value in array) { *(p0 + i++) = value; if (i >= 8) return; } }
+    }
+    public static implicit operator _VkFormat[](_VkFormat8 @struct) => @struct.ToArray();
+}
+
+public unsafe struct _VkImage_T_ptr8 : IFixedArray
+{
+    public static readonly int ArrayLength = 8;
+    public int Length => 8;
+    _VkImage_T* _0; _VkImage_T* _1; _VkImage_T* _2; _VkImage_T* _3; _VkImage_T* _4; _VkImage_T* _5; _VkImage_T* _6; _VkImage_T* _7;
+    
+    public _VkImage_T* this[uint i]
+    {
+        get { if (i >= 8) throw new ArgumentOutOfRangeException(); fixed (_VkImage_T** p0 = &_0) { return *(p0 + i); } }
+        set { if (i >= 8) throw new ArgumentOutOfRangeException(); fixed (_VkImage_T** p0 = &_0) { *(p0 + i) = value;  } }
+    }
+    public _VkImage_T*[] ToArray()
+    {
+        fixed (_VkImage_T** p0 = &_0) { var a = new _VkImage_T*[8]; for (uint i = 0; i < 8; i++) a[i] = *(p0 + i); return a; }
+    }
+    public void UpdateFrom(_VkImage_T*[] array)
+    {
+        fixed (_VkImage_T** p0 = &_0) { uint i = 0; foreach(var value in array) { *(p0 + i++) = value; if (i >= 8) return; } }
+    }
+    public static implicit operator _VkImage_T*[](_VkImage_T_ptr8 @struct) => @struct.ToArray();
+}
+
+public unsafe struct _VkImageLayout8 : IFixedArray<_VkImageLayout>
+{
+    public static readonly int ArrayLength = 8;
+    public int Length => 8;
+    _VkImageLayout _0; _VkImageLayout _1; _VkImageLayout _2; _VkImageLayout _3; _VkImageLayout _4; _VkImageLayout _5; _VkImageLayout _6; _VkImageLayout _7;
+    
+    public _VkImageLayout this[uint i]
+    {
+        get { if (i >= 8) throw new ArgumentOutOfRangeException(); fixed (_VkImageLayout* p0 = &_0) { return *(p0 + i); } }
+        set { if (i >= 8) throw new ArgumentOutOfRangeException(); fixed (_VkImageLayout* p0 = &_0) { *(p0 + i) = value;  } }
+    }
+    public _VkImageLayout[] ToArray()
+    {
+        fixed (_VkImageLayout* p0 = &_0) { var a = new _VkImageLayout[8]; for (uint i = 0; i < 8; i++) a[i] = *(p0 + i); return a; }
+    }
+    public void UpdateFrom(_VkImageLayout[] array)
+    {
+        fixed (_VkImageLayout* p0 = &_0) { uint i = 0; foreach(var value in array) { *(p0 + i++) = value; if (i >= 8) return; } }
+    }
+    public static implicit operator _VkImageLayout[](_VkImageLayout8 @struct) => @struct.ToArray();
+}
+
+public unsafe struct _VkSemaphore_T_ptr8 : IFixedArray
+{
+    public static readonly int ArrayLength = 8;
+    public int Length => 8;
+    _VkSemaphore_T* _0; _VkSemaphore_T* _1; _VkSemaphore_T* _2; _VkSemaphore_T* _3; _VkSemaphore_T* _4; _VkSemaphore_T* _5; _VkSemaphore_T* _6; _VkSemaphore_T* _7;
+    
+    public _VkSemaphore_T* this[uint i]
+    {
+        get { if (i >= 8) throw new ArgumentOutOfRangeException(); fixed (_VkSemaphore_T** p0 = &_0) { return *(p0 + i); } }
+        set { if (i >= 8) throw new ArgumentOutOfRangeException(); fixed (_VkSemaphore_T** p0 = &_0) { *(p0 + i) = value;  } }
+    }
+    public _VkSemaphore_T*[] ToArray()
+    {
+        fixed (_VkSemaphore_T** p0 = &_0) { var a = new _VkSemaphore_T*[8]; for (uint i = 0; i < 8; i++) a[i] = *(p0 + i); return a; }
+    }
+    public void UpdateFrom(_VkSemaphore_T*[] array)
+    {
+        fixed (_VkSemaphore_T** p0 = &_0) { uint i = 0; foreach(var value in array) { *(p0 + i++) = value; if (i >= 8) return; } }
+    }
+    public static implicit operator _VkSemaphore_T*[](_VkSemaphore_T_ptr8 @struct) => @struct.ToArray();
 }
 
 public unsafe struct byte_ptr8 : IFixedArray
@@ -574,6 +596,50 @@ public unsafe struct int8 : IFixedArray<int>
     public static implicit operator int[](int8 @struct) => @struct.ToArray();
 }
 
+public unsafe struct long8 : IFixedArray<long>
+{
+    public static readonly int ArrayLength = 8;
+    public int Length => 8;
+    fixed long _[8];
+    
+    public long this[uint i]
+    {
+        get => _[i];
+        set => _[i] = value;
+    }
+    public long[] ToArray()
+    {
+        var a = new long[8]; for (uint i = 0; i < 8; i++) a[i] = _[i]; return a;
+    }
+    public void UpdateFrom(long[] array)
+    {
+        uint i = 0; foreach(var value in array) { _[i++] = value; if (i >= 8) return; }
+    }
+    public static implicit operator long[](long8 @struct) => @struct.ToArray();
+}
+
+public unsafe struct uint8 : IFixedArray<uint>
+{
+    public static readonly int ArrayLength = 8;
+    public int Length => 8;
+    fixed uint _[8];
+    
+    public uint this[uint i]
+    {
+        get => _[i];
+        set => _[i] = value;
+    }
+    public uint[] ToArray()
+    {
+        var a = new uint[8]; for (uint i = 0; i < 8; i++) a[i] = _[i]; return a;
+    }
+    public void UpdateFrom(uint[] array)
+    {
+        uint i = 0; foreach(var value in array) { _[i++] = value; if (i >= 8) return; }
+    }
+    public static implicit operator uint[](uint8 @struct) => @struct.ToArray();
+}
+
 public unsafe struct ulong8 : IFixedArray<ulong>
 {
     public static readonly int ArrayLength = 8;
@@ -596,26 +662,26 @@ public unsafe struct ulong8 : IFixedArray<ulong>
     public static implicit operator ulong[](ulong8 @struct) => @struct.ToArray();
 }
 
-public unsafe struct ushort8 : IFixedArray<ushort>
+public unsafe struct void_ptr8 : IFixedArray
 {
     public static readonly int ArrayLength = 8;
     public int Length => 8;
-    fixed ushort _[8];
+    void* _0; void* _1; void* _2; void* _3; void* _4; void* _5; void* _6; void* _7;
     
-    public ushort this[uint i]
+    public void* this[uint i]
     {
-        get => _[i];
-        set => _[i] = value;
+        get { if (i >= 8) throw new ArgumentOutOfRangeException(); fixed (void** p0 = &_0) { return *(p0 + i); } }
+        set { if (i >= 8) throw new ArgumentOutOfRangeException(); fixed (void** p0 = &_0) { *(p0 + i) = value;  } }
     }
-    public ushort[] ToArray()
+    public void*[] ToArray()
     {
-        var a = new ushort[8]; for (uint i = 0; i < 8; i++) a[i] = _[i]; return a;
+        fixed (void** p0 = &_0) { var a = new void*[8]; for (uint i = 0; i < 8; i++) a[i] = *(p0 + i); return a; }
     }
-    public void UpdateFrom(ushort[] array)
+    public void UpdateFrom(void*[] array)
     {
-        uint i = 0; foreach(var value in array) { _[i++] = value; if (i >= 8) return; }
+        fixed (void** p0 = &_0) { uint i = 0; foreach(var value in array) { *(p0 + i++) = value; if (i >= 8) return; } }
     }
-    public static implicit operator ushort[](ushort8 @struct) => @struct.ToArray();
+    public static implicit operator void*[](void_ptr8 @struct) => @struct.ToArray();
 }
 
 public unsafe struct int9 : IFixedArray<int>
@@ -750,25 +816,25 @@ public unsafe struct _AVRational25x25 : IFixedArray<_AVRational25>
     public static implicit operator _AVRational25[](_AVRational25x25 @struct) => @struct.ToArray();
 }
 
-public unsafe struct ushort32 : IFixedArray<ushort>
+public unsafe struct _AVVulkanDeviceQueueFamily64 : IFixedArray<_AVVulkanDeviceQueueFamily>
 {
-    public static readonly int ArrayLength = 32;
-    public int Length => 32;
-    fixed ushort _[32];
+    public static readonly int ArrayLength = 64;
+    public int Length => 64;
+    _AVVulkanDeviceQueueFamily _0; _AVVulkanDeviceQueueFamily _1; _AVVulkanDeviceQueueFamily _2; _AVVulkanDeviceQueueFamily _3; _AVVulkanDeviceQueueFamily _4; _AVVulkanDeviceQueueFamily _5; _AVVulkanDeviceQueueFamily _6; _AVVulkanDeviceQueueFamily _7; _AVVulkanDeviceQueueFamily _8; _AVVulkanDeviceQueueFamily _9; _AVVulkanDeviceQueueFamily _10; _AVVulkanDeviceQueueFamily _11; _AVVulkanDeviceQueueFamily _12; _AVVulkanDeviceQueueFamily _13; _AVVulkanDeviceQueueFamily _14; _AVVulkanDeviceQueueFamily _15; _AVVulkanDeviceQueueFamily _16; _AVVulkanDeviceQueueFamily _17; _AVVulkanDeviceQueueFamily _18; _AVVulkanDeviceQueueFamily _19; _AVVulkanDeviceQueueFamily _20; _AVVulkanDeviceQueueFamily _21; _AVVulkanDeviceQueueFamily _22; _AVVulkanDeviceQueueFamily _23; _AVVulkanDeviceQueueFamily _24; _AVVulkanDeviceQueueFamily _25; _AVVulkanDeviceQueueFamily _26; _AVVulkanDeviceQueueFamily _27; _AVVulkanDeviceQueueFamily _28; _AVVulkanDeviceQueueFamily _29; _AVVulkanDeviceQueueFamily _30; _AVVulkanDeviceQueueFamily _31; _AVVulkanDeviceQueueFamily _32; _AVVulkanDeviceQueueFamily _33; _AVVulkanDeviceQueueFamily _34; _AVVulkanDeviceQueueFamily _35; _AVVulkanDeviceQueueFamily _36; _AVVulkanDeviceQueueFamily _37; _AVVulkanDeviceQueueFamily _38; _AVVulkanDeviceQueueFamily _39; _AVVulkanDeviceQueueFamily _40; _AVVulkanDeviceQueueFamily _41; _AVVulkanDeviceQueueFamily _42; _AVVulkanDeviceQueueFamily _43; _AVVulkanDeviceQueueFamily _44; _AVVulkanDeviceQueueFamily _45; _AVVulkanDeviceQueueFamily _46; _AVVulkanDeviceQueueFamily _47; _AVVulkanDeviceQueueFamily _48; _AVVulkanDeviceQueueFamily _49; _AVVulkanDeviceQueueFamily _50; _AVVulkanDeviceQueueFamily _51; _AVVulkanDeviceQueueFamily _52; _AVVulkanDeviceQueueFamily _53; _AVVulkanDeviceQueueFamily _54; _AVVulkanDeviceQueueFamily _55; _AVVulkanDeviceQueueFamily _56; _AVVulkanDeviceQueueFamily _57; _AVVulkanDeviceQueueFamily _58; _AVVulkanDeviceQueueFamily _59; _AVVulkanDeviceQueueFamily _60; _AVVulkanDeviceQueueFamily _61; _AVVulkanDeviceQueueFamily _62; _AVVulkanDeviceQueueFamily _63;
     
-    public ushort this[uint i]
+    public _AVVulkanDeviceQueueFamily this[uint i]
     {
-        get => _[i];
-        set => _[i] = value;
+        get { if (i >= 64) throw new ArgumentOutOfRangeException(); fixed (_AVVulkanDeviceQueueFamily* p0 = &_0) { return *(p0 + i); } }
+        set { if (i >= 64) throw new ArgumentOutOfRangeException(); fixed (_AVVulkanDeviceQueueFamily* p0 = &_0) { *(p0 + i) = value;  } }
     }
-    public ushort[] ToArray()
+    public _AVVulkanDeviceQueueFamily[] ToArray()
     {
-        var a = new ushort[32]; for (uint i = 0; i < 32; i++) a[i] = _[i]; return a;
+        fixed (_AVVulkanDeviceQueueFamily* p0 = &_0) { var a = new _AVVulkanDeviceQueueFamily[64]; for (uint i = 0; i < 64; i++) a[i] = *(p0 + i); return a; }
     }
-    public void UpdateFrom(ushort[] array)
+    public void UpdateFrom(_AVVulkanDeviceQueueFamily[] array)
     {
-        uint i = 0; foreach(var value in array) { _[i++] = value; if (i >= 32) return; }
+        fixed (_AVVulkanDeviceQueueFamily* p0 = &_0) { uint i = 0; foreach(var value in array) { *(p0 + i++) = value; if (i >= 64) return; } }
     }
-    public static implicit operator ushort[](ushort32 @struct) => @struct.ToArray();
+    public static implicit operator _AVVulkanDeviceQueueFamily[](_AVVulkanDeviceQueueFamily64 @struct) => @struct.ToArray();
 }
 
