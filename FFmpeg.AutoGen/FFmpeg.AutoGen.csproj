@@ -2,13 +2,17 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.1;netstandard2.0</TargetFrameworks>
+	  <PackageReleaseNotes>
+		  --- Changes (last) ---
+		  Correct description -> release notes are now in the package release note section
+		  --- Changes ---
+		  Added hwcontext for OpenCL, DirectX12, Vulkan and Cuda
+		  --- BugFix ---
+		  Last version build for FFmpeg 9.0 (pre)
+
+	  </PackageReleaseNotes>
     <Description>
-		--- Changes ---
-		Added hwcontext for OpenCL, DirectX12, Vulkan and Cuda
-        --- BugFix ---
-		Last version build for FFmpeg 9.0 (pre)
-		
-		Based on FFmpeg.AutoGen by Ruslan Balanukhin with minor changes.
+		Based on FFmpeg.AutoGen by Ruslan Balanukhin with minor changes to use with FFmpegDotNet. 
 		All classes and structs are renamed to start with '_'.
 		FFmpeg auto generated unsafe bindings for C#/.NET and Mono.</Description>
 	  <LangVersion>latest</LangVersion>
@@ -29,7 +33,7 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <Title>FFmpeg._AutoGen</Title>
     <Product>FFmpeg._AutoGen</Product>
-    <Version>8.1.2.2</Version>
+    <Version>8.1.2.3</Version>
   </PropertyGroup>
   
   <ItemGroup>
