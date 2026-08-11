@@ -4,7 +4,7 @@
     <TargetFrameworks>netstandard2.1;netstandard2.0</TargetFrameworks>
 	  <PackageReleaseNotes>
 		  --- Changes (last) ---
-		  Correct description -> release notes are now in the package release note section
+		  Correct description -&gt; release notes are now in the package release note section
 		  --- Changes ---
 		  Added hwcontext for OpenCL, DirectX12, Vulkan and Cuda
 		  --- BugFix ---
