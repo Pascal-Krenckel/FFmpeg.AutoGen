@@ -10,16 +10,11 @@ public class UTF8Marshaler : ICustomMarshaler
 
     public virtual object MarshalNativeToManaged(IntPtr pNativeData) => FromNative(Encoding.UTF8, pNativeData);
 
-    public virtual IntPtr MarshalManagedToNative(object managedObj)
-    {
-        if (managedObj == null)
-            return IntPtr.Zero;
-
-        if (managedObj is not string str)
-            throw new MarshalDirectiveException($"{GetType().Name} must be used on a string.");
-
-        return FromManaged(Encoding.UTF8, str);
-    }
+    public virtual IntPtr MarshalManagedToNative(object managedObj) => managedObj == null
+            ? IntPtr.Zero
+            : managedObj is not string str
+            ? throw new MarshalDirectiveException($"{GetType().Name} must be used on a string.")
+            : FromManaged(Encoding.UTF8, str);
 
     public virtual void CleanUpNativeData(IntPtr pNativeData)
     {
@@ -47,16 +42,14 @@ public class UTF8Marshaler : ICustomMarshaler
         if (pNativeData == null)
             return null;
 
-        var start = pNativeData;
-        var walk = start;
+        byte* start = pNativeData;
+        byte* walk = start;
 
         // Find the end of the string
-        while (*walk != 0) walk++;
+        while (*walk != 0)
+            walk++;
 
-        if (walk == start)
-            return string.Empty;
-
-        return new string((sbyte*)pNativeData, 0, (int)(walk - start), encoding);
+        return walk == start ? string.Empty : new string((sbyte*)pNativeData, 0, (int)(walk - start), encoding);
     }
 
     public static unsafe IntPtr FromManaged(Encoding encoding, string value)
@@ -64,14 +57,14 @@ public class UTF8Marshaler : ICustomMarshaler
         if (encoding == null || value == null)
             return IntPtr.Zero;
 
-        var length = encoding.GetByteCount(value);
-        var buffer = (byte*)Marshal.AllocHGlobal(length + 1).ToPointer();
+        int length = encoding.GetByteCount(value);
+        byte* buffer = (byte*)Marshal.AllocHGlobal(length + 1).ToPointer();
 
         if (length > 0)
         {
             fixed (char* pValue = value)
             {
-                encoding.GetBytes(pValue, value.Length, buffer, length);
+                _ = encoding.GetBytes(pValue, value.Length, buffer, length);
             }
         }
 

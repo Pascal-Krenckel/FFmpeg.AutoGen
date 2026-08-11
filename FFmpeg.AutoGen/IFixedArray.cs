@@ -7,7 +7,7 @@ public interface IFixedArray
 
 public interface IFixedArray<T> : IFixedArray
 {
-    ref T this[int index] { get;}
+    ref T this[int index] { get; }
     ref T this[uint index] { get; }
 
     T[] ToArray();
