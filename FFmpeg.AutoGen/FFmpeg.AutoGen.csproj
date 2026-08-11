@@ -3,7 +3,11 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.1;netstandard2.0</TargetFrameworks>
 	  <PackageReleaseNotes>
-		  --- Changes (last) ---
+		  ___ Changes  ---
+		  Fixed arrays are now pinnable and use ref this[...]
+		  Added FixedPtrArry they are also pinnable, but no ref this[...]
+		  Added function overloads named *_str which accept byte* instead of string
+		  --- Changes  ---
 		  Correct description -&gt; release notes are now in the package release note section
 		  --- Changes ---
 		  Added hwcontext for OpenCL, DirectX12, Vulkan and Cuda
@@ -33,11 +37,12 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <Title>FFmpeg._AutoGen</Title>
     <Product>FFmpeg._AutoGen</Product>
-    <Version>8.1.2.3</Version>
+    <Version>8.1.2.4</Version>
   </PropertyGroup>
   
   <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="all" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" />
   </ItemGroup>
   
 </Project>
