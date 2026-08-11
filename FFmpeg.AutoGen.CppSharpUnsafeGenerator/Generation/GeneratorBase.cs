@@ -13,11 +13,11 @@ internal abstract class GeneratorBase<TDefinition> : GeneratorBase where TDefini
     {
     }
 
-    protected override void GenerateBody() => GenerateDefinitions(Query(Context.Definitions.OfType<TDefinition>()).ToArray());
+    protected override void GenerateBody() => GenerateDefinitions([.. Query(Context.Definitions.OfType<TDefinition>())]);
 
     protected virtual IEnumerable<TDefinition> Query(IEnumerable<TDefinition> definitions) => definitions.OrderBy(d => d.Name);
 
-    protected virtual void GenerateDefinitions(TDefinition[] definitions) => definitions.ToList().ForEach(GenerateDefinition);
+    protected virtual void GenerateDefinitions(TDefinition[] definitions) => Array.ForEach(definitions,GenerateDefinition);
 
     protected abstract void GenerateDefinition(TDefinition definition);
 }
@@ -59,7 +59,7 @@ internal abstract class GeneratorBase : IDisposable
             WriteLine();
         }
 
-        List<string> usings = Usings().ToList();
+        List<string> usings = [.. Usings()];
         usings.ForEach(ns => WriteLine($"using {ns};"));
         if (usings.Count > 0)
             WriteLine();

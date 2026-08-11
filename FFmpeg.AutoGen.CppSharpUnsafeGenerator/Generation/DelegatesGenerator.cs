@@ -1,4 +1,5 @@
 ﻿using FFmpeg.AutoGen.CppSharpUnsafeGenerator.Definitions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -24,7 +25,7 @@ internal sealed class DelegatesGenerator : GeneratorBase<DelegateDefinition>
 
     protected override void GenerateDefinition(DelegateDefinition @delegate)
     {
-        @delegate.Parameters.ToList().ForEach(x => this.WriteParam(x, x.Name));
+        Array.ForEach(@delegate.Parameters, x => this.WriteParam(x, x.Name));
 
         string parameters = ParametersHelper.GetParameters(@delegate.Parameters, Context.IsLegacyGenerationOn);
         WriteLine("[UnmanagedFunctionPointer(CallingConvention.Cdecl)]");

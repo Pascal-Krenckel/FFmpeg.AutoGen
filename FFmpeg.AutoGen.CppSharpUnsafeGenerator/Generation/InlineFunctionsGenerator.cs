@@ -25,11 +25,11 @@ internal sealed class InlineFunctionsGenerator : GeneratorBase<InlineFunctionDef
 
     protected override void GenerateDefinition(InlineFunctionDefinition function)
     {
-        function.ReturnType.Attributes.ToList().ForEach(WriteLine);
+        Array.ForEach(function.ReturnType.Attributes, WriteLine);
         string parameters = ParametersHelper.GetParameters(function.Parameters, Context.IsLegacyGenerationOn, false);
 
         this.WriteSummary(function);
-        function.Parameters.ToList().ForEach(p => this.WriteParam(p, p.Name));
+        Array.ForEach(function.Parameters, p => this.WriteParam(p, p.Name));
         this.WriteReturnComment(function);
 
         this.WriteObsoletion(function);

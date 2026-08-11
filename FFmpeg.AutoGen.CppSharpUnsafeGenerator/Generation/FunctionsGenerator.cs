@@ -1,4 +1,5 @@
 ﻿using FFmpeg.AutoGen.CppSharpUnsafeGenerator.Definitions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -80,10 +81,10 @@ internal sealed partial class FunctionsGenerator : GeneratorBase<ExportFunctionD
                 {
                     WriteLine("if (FunctionResolver == null) FunctionResolver = FunctionResolverFactory.Create();");
                     WriteLine();
-                    functions.ToList().ForEach(GenerateDynamicallyLoaded);
+                    Array.ForEach(functions,GenerateDynamicallyLoaded);
                 }
                 else
-                    functions.ToList().ForEach(f => WriteLine($"vectors.{f.Name} = {f.Name};"));
+                    Array.ForEach(functions, f => WriteLine($"vectors.{f.Name} = {f.Name};"));
         }
     }
 
@@ -106,7 +107,7 @@ internal sealed partial class FunctionsGenerator : GeneratorBase<ExportFunctionD
 
 
         this.WriteSummary(function);
-        function.Parameters.ToList().ForEach(p => this.WriteParam(p, p.Name));
+        Array.ForEach(function.Parameters, p => this.WriteParam(p, p.Name));
         this.WriteReturnComment(function);
         this.WriteObsoletion(function);
         WriteLine($"public static {function.ReturnType.Name} {function.Name}({parameters}) => vectors.{function.DelegateName}({parameterNames});");
@@ -116,7 +117,7 @@ internal sealed partial class FunctionsGenerator : GeneratorBase<ExportFunctionD
         {
             parameters = parameters.Replace("[]", "*");
             this.WriteSummary(function);
-            function.Parameters.ToList().ForEach(p => this.WriteParam(p, p.Name));
+            Array.ForEach(function.Parameters, p => this.WriteParam(p, p.Name));
             this.WriteReturnComment(function);
             this.WriteObsoletion(function);
             WriteLine($"public static {function.ReturnType.Name} {function.Name}({parameters}) => vectors.{function.DelegateName}_ptr({parameterNames});");
@@ -143,7 +144,7 @@ internal sealed partial class FunctionsGenerator : GeneratorBase<ExportFunctionD
     private void GenerateDllImport(ExportFunctionDefinition function, string libraryName)
     {
         this.WriteSummary(function);
-        function.Parameters.ToList().ForEach(x => this.WriteParam(x, x.Name));
+        Array.ForEach(function.Parameters, x => this.WriteParam(x, x.Name));
         this.WriteReturnComment(function);
 
         this.WriteObsoletion(function);
@@ -151,7 +152,7 @@ internal sealed partial class FunctionsGenerator : GeneratorBase<ExportFunctionD
             WriteLine(SuppressUnmanagedCodeSecurityAttribute);
 
         WriteLine($"[DllImport(\"{libraryName}\", CallingConvention = CallingConvention.Cdecl)]");
-        function.ReturnType.Attributes.ToList().ForEach(WriteLine);
+        Array.ForEach(function.ReturnType.Attributes, WriteLine);
 
         string parameters = ParametersHelper.GetParameters(function.Parameters, Context.IsLegacyGenerationOn);
         WriteLine($"public static extern {function.ReturnType.Name} {function.Name}({parameters});");
@@ -208,7 +209,7 @@ internal sealed partial class FunctionsGenerator : GeneratorBase<ExportFunctionD
         if (Context.SuppressUnmanagedCodeSecurity)
             WriteLine(SuppressUnmanagedCodeSecurityAttribute);
         WriteLine(UnmanagedFunctionPointerAttribute);
-        function.ReturnType.Attributes.ToList().ForEach(WriteLine);
+        Array.ForEach(function.ReturnType.Attributes, WriteLine);
         string parameters = ParametersHelper.GetParameters(function.Parameters, Context.IsLegacyGenerationOn);
         WriteLine($"public delegate {function.ReturnType.Name} {functionDelegateName}({parameters});");
         if (parameters.Contains("[]"))
@@ -217,7 +218,7 @@ internal sealed partial class FunctionsGenerator : GeneratorBase<ExportFunctionD
             if (Context.SuppressUnmanagedCodeSecurity)
                 WriteLine(SuppressUnmanagedCodeSecurityAttribute);
             WriteLine(UnmanagedFunctionPointerAttribute);
-            function.ReturnType.Attributes.ToList().ForEach(WriteLine);
+            Array.ForEach(function.ReturnType.Attributes, WriteLine);
             WriteLine($"public delegate {function.ReturnType.Name} {functionDelegateName + "_ptr"}({parameters});");
 
         }
