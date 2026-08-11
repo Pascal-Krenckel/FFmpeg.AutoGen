@@ -10,7 +10,7 @@ namespace FFmpeg.AutoGen.ClangMacroParser.Tokenization
         private static readonly HashSet<char> HexDigits = new("abcdef");
         private static readonly HashSet<char> Separators = new(" \\\r\n\t");
         private static readonly HashSet<char> NumberEnd = new("ulfd");
-        private static readonly HashSet<char> Operators = new("+-*/<>=|~!^&#");
+        private static readonly HashSet<char> Operators = new("+-*/<>=|~!^&#?:");
         private static readonly HashSet<char> Punctuators = new(",()[]{}");
 
         private static readonly HashSet<string> Keywords = new()
