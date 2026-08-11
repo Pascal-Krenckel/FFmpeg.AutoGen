@@ -7,7 +7,7 @@ namespace FFmpeg.AutoGen.ClangMacroParser.Test
     {
         private void CastExpression<T>(IExpression e, params Action<T>[] tests) where T : IExpression
         {
-            if (e is T) tests.ToList().ForEach(test => test((T)e));
+            if (e is T) Array.ForEach(tests, test => test((T)e));
             Assert.IsInstanceOfType(e, typeof(T));
         }
 
