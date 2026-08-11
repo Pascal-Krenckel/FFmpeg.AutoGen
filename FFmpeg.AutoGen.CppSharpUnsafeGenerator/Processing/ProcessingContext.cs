@@ -18,10 +18,13 @@ internal sealed record ProcessingContext
     {
         if (IgnoreUnitNames.Contains(definition.Name))
             return;
-        IDefinition existing = Definitions.FirstOrDefault(x => x.Name == definition.Name);
 
-        if (existing != null)
-            _ = Definitions.Remove(existing);
+        int index = Definitions.FindIndex(definition.Equals);
+        if (index >= 0)
+        {
+            Definitions[index] = definition;
+            return;
+        }
 
         Definitions.Add(definition);
     }

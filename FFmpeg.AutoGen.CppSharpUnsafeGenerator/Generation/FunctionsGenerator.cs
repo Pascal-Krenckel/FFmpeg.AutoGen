@@ -109,7 +109,7 @@ internal sealed partial class FunctionsGenerator : GeneratorBase<ExportFunctionD
         function.Parameters.ToList().ForEach(p => this.WriteParam(p, p.Name));
         this.WriteReturnComment(function);
         this.WriteObsoletion(function);
-        WriteLine($"public static {function.ReturnType.Name} {function.Name}({parameters}) => vectors.{function.Name}({parameterNames});");
+        WriteLine($"public static {function.ReturnType.Name} {function.Name}({parameters}) => vectors.{function.DelegateName}({parameterNames});");
         WriteLine();
 
         if (parameters.Contains("[]"))
@@ -119,7 +119,7 @@ internal sealed partial class FunctionsGenerator : GeneratorBase<ExportFunctionD
             function.Parameters.ToList().ForEach(p => this.WriteParam(p, p.Name));
             this.WriteReturnComment(function);
             this.WriteObsoletion(function);
-            WriteLine($"public static {function.ReturnType.Name} {function.Name}({parameters}) => vectors.{function.Name}_ptr({parameterNames});");
+            WriteLine($"public static {function.ReturnType.Name} {function.Name}({parameters}) => vectors.{function.DelegateName}_ptr({parameterNames});");
             WriteLine();
         }
 
@@ -129,13 +129,13 @@ internal sealed partial class FunctionsGenerator : GeneratorBase<ExportFunctionD
     {
         GenerateDelegateType(function);
         string functionDelegateName = GetFunctionDelegateName(function);
-        WriteLine($"public static {functionDelegateName} {function.Name};"); // todo => throw new NotSupportedException();");
+        WriteLine($"public static {functionDelegateName} {function.DelegateName};"); // todo => throw new NotSupportedException();");
         WriteLine();
 
         string parameters = ParametersHelper.GetParameters(function.Parameters, Context.IsLegacyGenerationOn);
         if (parameters.Contains("[]"))
         {
-            WriteLine($"public static {functionDelegateName}_ptr {function.Name}_ptr;"); // todo => throw new NotSupportedException();");
+            WriteLine($"public static {functionDelegateName}_ptr {function.DelegateName}_ptr;"); // todo => throw new NotSupportedException();");
             WriteLine();
         }
     }
@@ -162,7 +162,7 @@ internal sealed partial class FunctionsGenerator : GeneratorBase<ExportFunctionD
     {
         string delegateParameters = ParametersHelper.GetParameters(function.Parameters, Context.IsLegacyGenerationOn, false);
 
-        string functionFieldName = $"vectors.{function.Name}";
+        string functionFieldName = $"vectors.{function.DelegateName}";
         WriteLine($"{functionFieldName} = ({delegateParameters}) =>");
 
         using (BeginBlock(true))
@@ -223,6 +223,6 @@ internal sealed partial class FunctionsGenerator : GeneratorBase<ExportFunctionD
         }
     }
 
-    private static string GetFunctionDelegateName(ExportFunctionDefinition function) => $"{function.Name}_delegate";
+    private static string GetFunctionDelegateName(ExportFunctionDefinition function) => $"{function.DelegateName}_delegate";
 
 }

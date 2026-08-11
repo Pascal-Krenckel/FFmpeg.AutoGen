@@ -38,13 +38,13 @@ internal class FunctionProcessor
         {
             string functionName = function.Name;
 
-            void PopulateCommon(FunctionDefinitionBase inline)
+            void PopulateCommon(FunctionDefinitionBase inline, bool useString = true)
             {
                 inline.Name = functionName;
                 inline.ReturnType = GetReturnType(function.ReturnType.Type, functionName);
                 inline.Content = function.Comment?.BriefText;
                 inline.ReturnComment = GetReturnComment(function);
-                inline.Parameters = function.Parameters.Select((x, i) => GetParameter(function, x, i)).ToArray();
+                inline.Parameters = [.. function.Parameters.Select((x, i) => GetParameter(function, x, i, useString))];
                 inline.Obsoletion = ObsoletionHelper.CreateObsoletion(function);
             }
 
@@ -73,6 +73,17 @@ internal class FunctionProcessor
             };
             PopulateCommon(exportDefinition);
             _context.AddDefinition(exportDefinition);
+            if(exportDefinition.Parameters.Any(p => p.Type.Name == "string"))
+            {
+                var buildInExportDefinition = new ExportFunctionDefinition
+                {
+                    LibraryName = export.LibraryName,
+                    LibraryVersion = export.LibraryVersion,                    
+                };
+                PopulateCommon(buildInExportDefinition,false);
+                buildInExportDefinition.DelegateName = buildInExportDefinition.Name + "_str";
+                _context.AddDefinition(buildInExportDefinition);
+            }
         }
     }
 
@@ -114,10 +125,10 @@ internal class FunctionProcessor
         };
     }
 
-    private FunctionParameter GetParameter(Function function, Parameter parameter, int position)
+    private FunctionParameter GetParameter(Function function, Parameter parameter, int position, bool useString)
     {
         string name = string.IsNullOrEmpty(parameter.Name) ? $"p{position}" : parameter.Name;
-        TypeDefinition parameterType = GetParameterType(parameter.Type, $"{function.Name}_{name}");
+        TypeDefinition parameterType = GetParameterType(parameter.Type, $"{function.Name}_{name}", useString);
         return new FunctionParameter
         {
             Name = name,
@@ -129,16 +140,23 @@ internal class FunctionProcessor
         };
     }
 
-    private TypeDefinition GetParameterType(Type type, string name) => type is PointerType pointerType &&
+    private TypeDefinition GetParameterType(Type type, string name, bool useString = true) => type is PointerType pointerType &&
             pointerType.QualifiedPointee.Qualifiers.IsConst &&
             pointerType.Pointee is BuiltinType builtinType
             ? builtinType.Type switch
             {
-                PrimitiveType.Char => new TypeDefinition
+                PrimitiveType.Char =>
+                    useString ?
+                    new TypeDefinition
+                    {
+                        Name = "string",
+                        Attributes = new[] { _context.NoCustomStringMarshal ? MarshalAsLPUTF8Str : MarshalAsUTF8Macros }
+                    } :
+                new TypeDefinition
                 {
-                    Name = "string",
-                    Attributes = new[] { _context.NoCustomStringMarshal ? MarshalAsLPUTF8Str : MarshalAsUTF8Macros }
-                },
+                    Name = "byte*",
+                }
+                ,
                 PrimitiveType.Void => new TypeDefinition
                 {
                     Name = "void*"
