@@ -37,6 +37,12 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.av_alpha_mode_from_name(@name);
         };
         
+        vectors.av_alpha_mode_from_name_str = (byte* @name) =>
+        {
+            vectors.av_alpha_mode_from_name_str = FunctionResolver.GetFunctionDelegate<vectors.av_alpha_mode_from_name_str_delegate>("avutil", "av_alpha_mode_from_name", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_alpha_mode_from_name_str(@name);
+        };
+        
         vectors.av_alpha_mode_name = (_AVAlphaMode @mode) =>
         {
             vectors.av_alpha_mode_name = FunctionResolver.GetFunctionDelegate<vectors.av_alpha_mode_name_delegate>("avutil", "av_alpha_mode_name", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
@@ -145,6 +151,12 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.av_bsf_get_by_name(@name);
         };
         
+        vectors.av_bsf_get_by_name_str = (byte* @name) =>
+        {
+            vectors.av_bsf_get_by_name_str = FunctionResolver.GetFunctionDelegate<vectors.av_bsf_get_by_name_str_delegate>("avcodec", "av_bsf_get_by_name", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_bsf_get_by_name_str(@name);
+        };
+        
         vectors.av_bsf_get_class = () =>
         {
             vectors.av_bsf_get_class = FunctionResolver.GetFunctionDelegate<vectors.av_bsf_get_class_delegate>("avcodec", "av_bsf_get_class", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
@@ -187,6 +199,12 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.av_bsf_list_append2(@lst, @bsf_name, @options);
         };
         
+        vectors.av_bsf_list_append2_str = (_AVBSFList* @lst, byte* @bsf_name, _AVDictionary** @options) =>
+        {
+            vectors.av_bsf_list_append2_str = FunctionResolver.GetFunctionDelegate<vectors.av_bsf_list_append2_str_delegate>("avcodec", "av_bsf_list_append2", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_bsf_list_append2_str(@lst, @bsf_name, @options);
+        };
+        
         vectors.av_bsf_list_finalize = (_AVBSFList** @lst, _AVBSFContext** @bsf) =>
         {
             vectors.av_bsf_list_finalize = FunctionResolver.GetFunctionDelegate<vectors.av_bsf_list_finalize_delegate>("avcodec", "av_bsf_list_finalize", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
@@ -203,6 +221,12 @@ public static unsafe partial class DynamicallyLoadedBindings
         {
             vectors.av_bsf_list_parse_str = FunctionResolver.GetFunctionDelegate<vectors.av_bsf_list_parse_str_delegate>("avcodec", "av_bsf_list_parse_str", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.av_bsf_list_parse_str(@str, @bsf);
+        };
+        
+        vectors.av_bsf_list_parse_str_str = (byte* @str, _AVBSFContext** @bsf) =>
+        {
+            vectors.av_bsf_list_parse_str_str = FunctionResolver.GetFunctionDelegate<vectors.av_bsf_list_parse_str_str_delegate>("avcodec", "av_bsf_list_parse_str", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_bsf_list_parse_str_str(@str, @bsf);
         };
         
         vectors.av_bsf_receive_packet = (_AVBSFContext* @ctx, _AVPacket* @pkt) =>
@@ -505,6 +529,12 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.av_channel_from_string(@name);
         };
         
+        vectors.av_channel_from_string_str = (byte* @name) =>
+        {
+            vectors.av_channel_from_string_str = FunctionResolver.GetFunctionDelegate<vectors.av_channel_from_string_str_delegate>("avutil", "av_channel_from_string", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_channel_from_string_str(@name);
+        };
+        
         vectors.av_channel_layout_ambisonic_order = (_AVChannelLayout* @channel_layout) =>
         {
             vectors.av_channel_layout_ambisonic_order = FunctionResolver.GetFunctionDelegate<vectors.av_channel_layout_ambisonic_order_delegate>("avutil", "av_channel_layout_ambisonic_order", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
@@ -521,6 +551,12 @@ public static unsafe partial class DynamicallyLoadedBindings
         {
             vectors.av_channel_layout_channel_from_string = FunctionResolver.GetFunctionDelegate<vectors.av_channel_layout_channel_from_string_delegate>("avutil", "av_channel_layout_channel_from_string", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.av_channel_layout_channel_from_string(@channel_layout, @name);
+        };
+        
+        vectors.av_channel_layout_channel_from_string_str = (_AVChannelLayout* @channel_layout, byte* @name) =>
+        {
+            vectors.av_channel_layout_channel_from_string_str = FunctionResolver.GetFunctionDelegate<vectors.av_channel_layout_channel_from_string_str_delegate>("avutil", "av_channel_layout_channel_from_string", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_channel_layout_channel_from_string_str(@channel_layout, @name);
         };
         
         vectors.av_channel_layout_check = (_AVChannelLayout* @channel_layout) =>
@@ -577,6 +613,12 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.av_channel_layout_from_string(@channel_layout, @str);
         };
         
+        vectors.av_channel_layout_from_string_str = (_AVChannelLayout* @channel_layout, byte* @str) =>
+        {
+            vectors.av_channel_layout_from_string_str = FunctionResolver.GetFunctionDelegate<vectors.av_channel_layout_from_string_str_delegate>("avutil", "av_channel_layout_from_string", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_channel_layout_from_string_str(@channel_layout, @str);
+        };
+        
         vectors.av_channel_layout_index_from_channel = (_AVChannelLayout* @channel_layout, _AVChannel @channel) =>
         {
             vectors.av_channel_layout_index_from_channel = FunctionResolver.GetFunctionDelegate<vectors.av_channel_layout_index_from_channel_delegate>("avutil", "av_channel_layout_index_from_channel", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
@@ -587,6 +629,12 @@ public static unsafe partial class DynamicallyLoadedBindings
         {
             vectors.av_channel_layout_index_from_string = FunctionResolver.GetFunctionDelegate<vectors.av_channel_layout_index_from_string_delegate>("avutil", "av_channel_layout_index_from_string", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.av_channel_layout_index_from_string(@channel_layout, @name);
+        };
+        
+        vectors.av_channel_layout_index_from_string_str = (_AVChannelLayout* @channel_layout, byte* @name) =>
+        {
+            vectors.av_channel_layout_index_from_string_str = FunctionResolver.GetFunctionDelegate<vectors.av_channel_layout_index_from_string_str_delegate>("avutil", "av_channel_layout_index_from_string", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_channel_layout_index_from_string_str(@channel_layout, @name);
         };
         
         vectors.av_channel_layout_retype = (_AVChannelLayout* @channel_layout, _AVChannelOrder @order, int @flags) =>
@@ -635,6 +683,12 @@ public static unsafe partial class DynamicallyLoadedBindings
         {
             vectors.av_chroma_location_from_name = FunctionResolver.GetFunctionDelegate<vectors.av_chroma_location_from_name_delegate>("avutil", "av_chroma_location_from_name", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.av_chroma_location_from_name(@name);
+        };
+        
+        vectors.av_chroma_location_from_name_str = (byte* @name) =>
+        {
+            vectors.av_chroma_location_from_name_str = FunctionResolver.GetFunctionDelegate<vectors.av_chroma_location_from_name_str_delegate>("avutil", "av_chroma_location_from_name", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_chroma_location_from_name_str(@name);
         };
         
         vectors.av_chroma_location_name = (_AVChromaLocation @location) =>
@@ -691,6 +745,12 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.av_color_primaries_from_name(@name);
         };
         
+        vectors.av_color_primaries_from_name_str = (byte* @name) =>
+        {
+            vectors.av_color_primaries_from_name_str = FunctionResolver.GetFunctionDelegate<vectors.av_color_primaries_from_name_str_delegate>("avutil", "av_color_primaries_from_name", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_color_primaries_from_name_str(@name);
+        };
+        
         vectors.av_color_primaries_name = (_AVColorPrimaries @primaries) =>
         {
             vectors.av_color_primaries_name = FunctionResolver.GetFunctionDelegate<vectors.av_color_primaries_name_delegate>("avutil", "av_color_primaries_name", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
@@ -701,6 +761,12 @@ public static unsafe partial class DynamicallyLoadedBindings
         {
             vectors.av_color_range_from_name = FunctionResolver.GetFunctionDelegate<vectors.av_color_range_from_name_delegate>("avutil", "av_color_range_from_name", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.av_color_range_from_name(@name);
+        };
+        
+        vectors.av_color_range_from_name_str = (byte* @name) =>
+        {
+            vectors.av_color_range_from_name_str = FunctionResolver.GetFunctionDelegate<vectors.av_color_range_from_name_str_delegate>("avutil", "av_color_range_from_name", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_color_range_from_name_str(@name);
         };
         
         vectors.av_color_range_name = (_AVColorRange @range) =>
@@ -715,6 +781,12 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.av_color_space_from_name(@name);
         };
         
+        vectors.av_color_space_from_name_str = (byte* @name) =>
+        {
+            vectors.av_color_space_from_name_str = FunctionResolver.GetFunctionDelegate<vectors.av_color_space_from_name_str_delegate>("avutil", "av_color_space_from_name", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_color_space_from_name_str(@name);
+        };
+        
         vectors.av_color_space_name = (_AVColorSpace @space) =>
         {
             vectors.av_color_space_name = FunctionResolver.GetFunctionDelegate<vectors.av_color_space_name_delegate>("avutil", "av_color_space_name", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
@@ -725,6 +797,12 @@ public static unsafe partial class DynamicallyLoadedBindings
         {
             vectors.av_color_transfer_from_name = FunctionResolver.GetFunctionDelegate<vectors.av_color_transfer_from_name_delegate>("avutil", "av_color_transfer_from_name", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.av_color_transfer_from_name(@name);
+        };
+        
+        vectors.av_color_transfer_from_name_str = (byte* @name) =>
+        {
+            vectors.av_color_transfer_from_name_str = FunctionResolver.GetFunctionDelegate<vectors.av_color_transfer_from_name_str_delegate>("avutil", "av_color_transfer_from_name", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_color_transfer_from_name_str(@name);
         };
         
         vectors.av_color_transfer_name = (_AVColorTransferCharacteristic @transfer) =>
@@ -841,6 +919,12 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.av_dict_get(@m, @key, @prev, @flags);
         };
         
+        vectors.av_dict_get_str = (_AVDictionary* @m, byte* @key, _AVDictionaryEntry* @prev, int @flags) =>
+        {
+            vectors.av_dict_get_str = FunctionResolver.GetFunctionDelegate<vectors.av_dict_get_str_delegate>("avutil", "av_dict_get", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_dict_get_str(@m, @key, @prev, @flags);
+        };
+        
         vectors.av_dict_get_string = (_AVDictionary* @m, byte** @buffer, byte @key_val_sep, byte @pairs_sep) =>
         {
             vectors.av_dict_get_string = FunctionResolver.GetFunctionDelegate<vectors.av_dict_get_string_delegate>("avutil", "av_dict_get_string", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
@@ -859,16 +943,34 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.av_dict_parse_string(@pm, @str, @key_val_sep, @pairs_sep, @flags);
         };
         
+        vectors.av_dict_parse_string_str = (_AVDictionary** @pm, byte* @str, byte* @key_val_sep, byte* @pairs_sep, int @flags) =>
+        {
+            vectors.av_dict_parse_string_str = FunctionResolver.GetFunctionDelegate<vectors.av_dict_parse_string_str_delegate>("avutil", "av_dict_parse_string", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_dict_parse_string_str(@pm, @str, @key_val_sep, @pairs_sep, @flags);
+        };
+        
         vectors.av_dict_set = (_AVDictionary** @pm, string @key, string @value, int @flags) =>
         {
             vectors.av_dict_set = FunctionResolver.GetFunctionDelegate<vectors.av_dict_set_delegate>("avutil", "av_dict_set", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.av_dict_set(@pm, @key, @value, @flags);
         };
         
+        vectors.av_dict_set_str = (_AVDictionary** @pm, byte* @key, byte* @value, int @flags) =>
+        {
+            vectors.av_dict_set_str = FunctionResolver.GetFunctionDelegate<vectors.av_dict_set_str_delegate>("avutil", "av_dict_set", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_dict_set_str(@pm, @key, @value, @flags);
+        };
+        
         vectors.av_dict_set_int = (_AVDictionary** @pm, string @key, long @value, int @flags) =>
         {
             vectors.av_dict_set_int = FunctionResolver.GetFunctionDelegate<vectors.av_dict_set_int_delegate>("avutil", "av_dict_set_int", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.av_dict_set_int(@pm, @key, @value, @flags);
+        };
+        
+        vectors.av_dict_set_int_str = (_AVDictionary** @pm, byte* @key, long @value, int @flags) =>
+        {
+            vectors.av_dict_set_int_str = FunctionResolver.GetFunctionDelegate<vectors.av_dict_set_int_str_delegate>("avutil", "av_dict_set_int", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_dict_set_int_str(@pm, @key, @value, @flags);
         };
         
         vectors.av_display_matrix_flip = (ref int9 @matrix, int @hflip, int @vflip) =>
@@ -895,6 +997,12 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.av_disposition_from_string(@disp);
         };
         
+        vectors.av_disposition_from_string_str = (byte* @disp) =>
+        {
+            vectors.av_disposition_from_string_str = FunctionResolver.GetFunctionDelegate<vectors.av_disposition_from_string_str_delegate>("avformat", "av_disposition_from_string", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_disposition_from_string_str(@disp);
+        };
+        
         vectors.av_disposition_to_string = (int @disposition) =>
         {
             vectors.av_disposition_to_string = FunctionResolver.GetFunctionDelegate<vectors.av_disposition_to_string_delegate>("avformat", "av_disposition_to_string", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
@@ -911,6 +1019,12 @@ public static unsafe partial class DynamicallyLoadedBindings
         {
             vectors.av_dump_format = FunctionResolver.GetFunctionDelegate<vectors.av_dump_format_delegate>("avformat", "av_dump_format", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             vectors.av_dump_format(@ic, @index, @url, @is_output);
+        };
+        
+        vectors.av_dump_format_str = (_AVFormatContext* @ic, int @index, byte* @url, int @is_output) =>
+        {
+            vectors.av_dump_format_str = FunctionResolver.GetFunctionDelegate<vectors.av_dump_format_str_delegate>("avformat", "av_dump_format", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            vectors.av_dump_format_str(@ic, @index, @url, @is_output);
         };
         
         vectors.av_dynamic_hdr_plus_alloc = (ulong* @size) =>
@@ -991,6 +1105,12 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.av_file_map(@filename, @bufptr, @size, @log_offset, @log_ctx);
         };
         
+        vectors.av_file_map_str = (byte* @filename, byte** @bufptr, ulong* @size, int @log_offset, void* @log_ctx) =>
+        {
+            vectors.av_file_map_str = FunctionResolver.GetFunctionDelegate<vectors.av_file_map_str_delegate>("avutil", "av_file_map", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_file_map_str(@filename, @bufptr, @size, @log_offset, @log_ctx);
+        };
+        
         vectors.av_file_unmap = (byte* @bufptr, ulong @size) =>
         {
             vectors.av_file_unmap = FunctionResolver.GetFunctionDelegate<vectors.av_file_unmap_delegate>("avutil", "av_file_unmap", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
@@ -1001,6 +1121,12 @@ public static unsafe partial class DynamicallyLoadedBindings
         {
             vectors.av_filename_number_test = FunctionResolver.GetFunctionDelegate<vectors.av_filename_number_test_delegate>("avformat", "av_filename_number_test", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.av_filename_number_test(@filename);
+        };
+        
+        vectors.av_filename_number_test_str = (byte* @filename) =>
+        {
+            vectors.av_filename_number_test_str = FunctionResolver.GetFunctionDelegate<vectors.av_filename_number_test_str_delegate>("avformat", "av_filename_number_test", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_filename_number_test_str(@filename);
         };
         
         vectors.av_filter_iterate = (void** @opaque) =>
@@ -1031,6 +1157,12 @@ public static unsafe partial class DynamicallyLoadedBindings
         {
             vectors.av_find_input_format = FunctionResolver.GetFunctionDelegate<vectors.av_find_input_format_delegate>("avformat", "av_find_input_format", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.av_find_input_format(@short_name);
+        };
+        
+        vectors.av_find_input_format_str = (byte* @short_name) =>
+        {
+            vectors.av_find_input_format_str = FunctionResolver.GetFunctionDelegate<vectors.av_find_input_format_str_delegate>("avformat", "av_find_input_format", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_find_input_format_str(@short_name);
         };
         
         vectors.av_find_nearest_q_idx = (_AVRational @q, _AVRational* @q_list) =>
@@ -1297,10 +1429,22 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.av_get_frame_filename(@buf, @buf_size, @path, @number);
         };
         
+        vectors.av_get_frame_filename_str = (byte* @buf, int @buf_size, byte* @path, int @number) =>
+        {
+            vectors.av_get_frame_filename_str = FunctionResolver.GetFunctionDelegate<vectors.av_get_frame_filename_str_delegate>("avformat", "av_get_frame_filename", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_get_frame_filename_str(@buf, @buf_size, @path, @number);
+        };
+        
         vectors.av_get_frame_filename2 = (byte* @buf, int @buf_size, string @path, int @number, int @flags) =>
         {
             vectors.av_get_frame_filename2 = FunctionResolver.GetFunctionDelegate<vectors.av_get_frame_filename2_delegate>("avformat", "av_get_frame_filename2", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.av_get_frame_filename2(@buf, @buf_size, @path, @number, @flags);
+        };
+        
+        vectors.av_get_frame_filename2_str = (byte* @buf, int @buf_size, byte* @path, int @number, int @flags) =>
+        {
+            vectors.av_get_frame_filename2_str = FunctionResolver.GetFunctionDelegate<vectors.av_get_frame_filename2_str_delegate>("avformat", "av_get_frame_filename2", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_get_frame_filename2_str(@buf, @buf_size, @path, @number, @flags);
         };
         
         vectors.av_get_media_type_string = (_AVMediaType @media_type) =>
@@ -1351,6 +1495,12 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.av_get_pix_fmt(@name);
         };
         
+        vectors.av_get_pix_fmt_str = (byte* @name) =>
+        {
+            vectors.av_get_pix_fmt_str = FunctionResolver.GetFunctionDelegate<vectors.av_get_pix_fmt_str_delegate>("avutil", "av_get_pix_fmt", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_get_pix_fmt_str(@name);
+        };
+        
         vectors.av_get_pix_fmt_loss = (_AVPixelFormat @dst_pix_fmt, _AVPixelFormat @src_pix_fmt, int @has_alpha) =>
         {
             vectors.av_get_pix_fmt_loss = FunctionResolver.GetFunctionDelegate<vectors.av_get_pix_fmt_loss_delegate>("avutil", "av_get_pix_fmt_loss", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
@@ -1385,6 +1535,12 @@ public static unsafe partial class DynamicallyLoadedBindings
         {
             vectors.av_get_sample_fmt = FunctionResolver.GetFunctionDelegate<vectors.av_get_sample_fmt_delegate>("avutil", "av_get_sample_fmt", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.av_get_sample_fmt(@name);
+        };
+        
+        vectors.av_get_sample_fmt_str = (byte* @name) =>
+        {
+            vectors.av_get_sample_fmt_str = FunctionResolver.GetFunctionDelegate<vectors.av_get_sample_fmt_str_delegate>("avutil", "av_get_sample_fmt", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_get_sample_fmt_str(@name);
         };
         
         vectors.av_get_sample_fmt_name = (_AVSampleFormat @sample_fmt) =>
@@ -1435,10 +1591,22 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.av_guess_codec(@fmt, @short_name, @filename, @mime_type, @type);
         };
         
+        vectors.av_guess_codec_str = (_AVOutputFormat* @fmt, byte* @short_name, byte* @filename, byte* @mime_type, _AVMediaType @type) =>
+        {
+            vectors.av_guess_codec_str = FunctionResolver.GetFunctionDelegate<vectors.av_guess_codec_str_delegate>("avformat", "av_guess_codec", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_guess_codec_str(@fmt, @short_name, @filename, @mime_type, @type);
+        };
+        
         vectors.av_guess_format = (string @short_name, string @filename, string @mime_type) =>
         {
             vectors.av_guess_format = FunctionResolver.GetFunctionDelegate<vectors.av_guess_format_delegate>("avformat", "av_guess_format", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.av_guess_format(@short_name, @filename, @mime_type);
+        };
+        
+        vectors.av_guess_format_str = (byte* @short_name, byte* @filename, byte* @mime_type) =>
+        {
+            vectors.av_guess_format_str = FunctionResolver.GetFunctionDelegate<vectors.av_guess_format_str_delegate>("avformat", "av_guess_format", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_guess_format_str(@short_name, @filename, @mime_type);
         };
         
         vectors.av_guess_frame_rate = (_AVFormatContext* @ctx, _AVStream* @stream, _AVFrame* @frame) =>
@@ -1477,6 +1645,12 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.av_hwdevice_ctx_create(@device_ctx, @type, @device, @opts, @flags);
         };
         
+        vectors.av_hwdevice_ctx_create_str = (_AVBufferRef** @device_ctx, _AVHWDeviceType @type, byte* @device, _AVDictionary* @opts, int @flags) =>
+        {
+            vectors.av_hwdevice_ctx_create_str = FunctionResolver.GetFunctionDelegate<vectors.av_hwdevice_ctx_create_str_delegate>("avutil", "av_hwdevice_ctx_create", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_hwdevice_ctx_create_str(@device_ctx, @type, @device, @opts, @flags);
+        };
+        
         vectors.av_hwdevice_ctx_create_derived = (_AVBufferRef** @dst_ctx, _AVHWDeviceType @type, _AVBufferRef* @src_ctx, int @flags) =>
         {
             vectors.av_hwdevice_ctx_create_derived = FunctionResolver.GetFunctionDelegate<vectors.av_hwdevice_ctx_create_derived_delegate>("avutil", "av_hwdevice_ctx_create_derived", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
@@ -1499,6 +1673,12 @@ public static unsafe partial class DynamicallyLoadedBindings
         {
             vectors.av_hwdevice_find_type_by_name = FunctionResolver.GetFunctionDelegate<vectors.av_hwdevice_find_type_by_name_delegate>("avutil", "av_hwdevice_find_type_by_name", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.av_hwdevice_find_type_by_name(@name);
+        };
+        
+        vectors.av_hwdevice_find_type_by_name_str = (byte* @name) =>
+        {
+            vectors.av_hwdevice_find_type_by_name_str = FunctionResolver.GetFunctionDelegate<vectors.av_hwdevice_find_type_by_name_str_delegate>("avutil", "av_hwdevice_find_type_by_name", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_hwdevice_find_type_by_name_str(@name);
         };
         
         vectors.av_hwdevice_get_hwframe_constraints = (_AVBufferRef* @ref, void* @hwconfig) =>
@@ -1729,10 +1909,22 @@ public static unsafe partial class DynamicallyLoadedBindings
             vectors.av_log(@avcl, @level, @fmt);
         };
         
+        vectors.av_log_str = (void* @avcl, int @level, byte* @fmt) =>
+        {
+            vectors.av_log_str = FunctionResolver.GetFunctionDelegate<vectors.av_log_str_delegate>("avutil", "av_log", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            vectors.av_log_str(@avcl, @level, @fmt);
+        };
+        
         vectors.av_log_default_callback = (void* @avcl, int @level, string @fmt, byte* @vl) =>
         {
             vectors.av_log_default_callback = FunctionResolver.GetFunctionDelegate<vectors.av_log_default_callback_delegate>("avutil", "av_log_default_callback", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             vectors.av_log_default_callback(@avcl, @level, @fmt, @vl);
+        };
+        
+        vectors.av_log_default_callback_str = (void* @avcl, int @level, byte* @fmt, byte* @vl) =>
+        {
+            vectors.av_log_default_callback_str = FunctionResolver.GetFunctionDelegate<vectors.av_log_default_callback_str_delegate>("avutil", "av_log_default_callback", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            vectors.av_log_default_callback_str(@avcl, @level, @fmt, @vl);
         };
         
         vectors.av_log_format_line = (void* @ptr, int @level, string @fmt, byte* @vl, byte* @line, int @line_size, int* @print_prefix) =>
@@ -1741,10 +1933,22 @@ public static unsafe partial class DynamicallyLoadedBindings
             vectors.av_log_format_line(@ptr, @level, @fmt, @vl, @line, @line_size, @print_prefix);
         };
         
+        vectors.av_log_format_line_str = (void* @ptr, int @level, byte* @fmt, byte* @vl, byte* @line, int @line_size, int* @print_prefix) =>
+        {
+            vectors.av_log_format_line_str = FunctionResolver.GetFunctionDelegate<vectors.av_log_format_line_str_delegate>("avutil", "av_log_format_line", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            vectors.av_log_format_line_str(@ptr, @level, @fmt, @vl, @line, @line_size, @print_prefix);
+        };
+        
         vectors.av_log_format_line2 = (void* @ptr, int @level, string @fmt, byte* @vl, byte* @line, int @line_size, int* @print_prefix) =>
         {
             vectors.av_log_format_line2 = FunctionResolver.GetFunctionDelegate<vectors.av_log_format_line2_delegate>("avutil", "av_log_format_line2", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.av_log_format_line2(@ptr, @level, @fmt, @vl, @line, @line_size, @print_prefix);
+        };
+        
+        vectors.av_log_format_line2_str = (void* @ptr, int @level, byte* @fmt, byte* @vl, byte* @line, int @line_size, int* @print_prefix) =>
+        {
+            vectors.av_log_format_line2_str = FunctionResolver.GetFunctionDelegate<vectors.av_log_format_line2_str_delegate>("avutil", "av_log_format_line2", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_log_format_line2_str(@ptr, @level, @fmt, @vl, @line, @line_size, @print_prefix);
         };
         
         vectors.av_log_get_flags = () =>
@@ -1763,6 +1967,12 @@ public static unsafe partial class DynamicallyLoadedBindings
         {
             vectors.av_log_once = FunctionResolver.GetFunctionDelegate<vectors.av_log_once_delegate>("avutil", "av_log_once", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             vectors.av_log_once(@avcl, @initial_level, @subsequent_level, @state, @fmt);
+        };
+        
+        vectors.av_log_once_str = (void* @avcl, int @initial_level, int @subsequent_level, int* @state, byte* @fmt) =>
+        {
+            vectors.av_log_once_str = FunctionResolver.GetFunctionDelegate<vectors.av_log_once_str_delegate>("avutil", "av_log_once", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            vectors.av_log_once_str(@avcl, @initial_level, @subsequent_level, @state, @fmt);
         };
         
         vectors.av_log_set_callback = (av_log_set_callback_callback_func @callback) =>
@@ -1835,6 +2045,12 @@ public static unsafe partial class DynamicallyLoadedBindings
         {
             vectors.av_match_ext = FunctionResolver.GetFunctionDelegate<vectors.av_match_ext_delegate>("avformat", "av_match_ext", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.av_match_ext(@filename, @extensions);
+        };
+        
+        vectors.av_match_ext_str = (byte* @filename, byte* @extensions) =>
+        {
+            vectors.av_match_ext_str = FunctionResolver.GetFunctionDelegate<vectors.av_match_ext_str_delegate>("avformat", "av_match_ext", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_match_ext_str(@filename, @extensions);
         };
         
         vectors.av_max_alloc = (ulong @max) =>
@@ -1915,10 +2131,22 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.av_opt_eval_double(@obj, @o, @val, @double_out);
         };
         
+        vectors.av_opt_eval_double_str = (void* @obj, _AVOption* @o, byte* @val, double* @double_out) =>
+        {
+            vectors.av_opt_eval_double_str = FunctionResolver.GetFunctionDelegate<vectors.av_opt_eval_double_str_delegate>("avutil", "av_opt_eval_double", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_opt_eval_double_str(@obj, @o, @val, @double_out);
+        };
+        
         vectors.av_opt_eval_flags = (void* @obj, _AVOption* @o, string @val, int* @flags_out) =>
         {
             vectors.av_opt_eval_flags = FunctionResolver.GetFunctionDelegate<vectors.av_opt_eval_flags_delegate>("avutil", "av_opt_eval_flags", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.av_opt_eval_flags(@obj, @o, @val, @flags_out);
+        };
+        
+        vectors.av_opt_eval_flags_str = (void* @obj, _AVOption* @o, byte* @val, int* @flags_out) =>
+        {
+            vectors.av_opt_eval_flags_str = FunctionResolver.GetFunctionDelegate<vectors.av_opt_eval_flags_str_delegate>("avutil", "av_opt_eval_flags", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_opt_eval_flags_str(@obj, @o, @val, @flags_out);
         };
         
         vectors.av_opt_eval_float = (void* @obj, _AVOption* @o, string @val, float* @float_out) =>
@@ -1927,10 +2155,22 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.av_opt_eval_float(@obj, @o, @val, @float_out);
         };
         
+        vectors.av_opt_eval_float_str = (void* @obj, _AVOption* @o, byte* @val, float* @float_out) =>
+        {
+            vectors.av_opt_eval_float_str = FunctionResolver.GetFunctionDelegate<vectors.av_opt_eval_float_str_delegate>("avutil", "av_opt_eval_float", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_opt_eval_float_str(@obj, @o, @val, @float_out);
+        };
+        
         vectors.av_opt_eval_int = (void* @obj, _AVOption* @o, string @val, int* @int_out) =>
         {
             vectors.av_opt_eval_int = FunctionResolver.GetFunctionDelegate<vectors.av_opt_eval_int_delegate>("avutil", "av_opt_eval_int", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.av_opt_eval_int(@obj, @o, @val, @int_out);
+        };
+        
+        vectors.av_opt_eval_int_str = (void* @obj, _AVOption* @o, byte* @val, int* @int_out) =>
+        {
+            vectors.av_opt_eval_int_str = FunctionResolver.GetFunctionDelegate<vectors.av_opt_eval_int_str_delegate>("avutil", "av_opt_eval_int", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_opt_eval_int_str(@obj, @o, @val, @int_out);
         };
         
         vectors.av_opt_eval_int64 = (void* @obj, _AVOption* @o, string @val, long* @int64_out) =>
@@ -1939,10 +2179,22 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.av_opt_eval_int64(@obj, @o, @val, @int64_out);
         };
         
+        vectors.av_opt_eval_int64_str = (void* @obj, _AVOption* @o, byte* @val, long* @int64_out) =>
+        {
+            vectors.av_opt_eval_int64_str = FunctionResolver.GetFunctionDelegate<vectors.av_opt_eval_int64_str_delegate>("avutil", "av_opt_eval_int64", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_opt_eval_int64_str(@obj, @o, @val, @int64_out);
+        };
+        
         vectors.av_opt_eval_q = (void* @obj, _AVOption* @o, string @val, _AVRational* @q_out) =>
         {
             vectors.av_opt_eval_q = FunctionResolver.GetFunctionDelegate<vectors.av_opt_eval_q_delegate>("avutil", "av_opt_eval_q", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.av_opt_eval_q(@obj, @o, @val, @q_out);
+        };
+        
+        vectors.av_opt_eval_q_str = (void* @obj, _AVOption* @o, byte* @val, _AVRational* @q_out) =>
+        {
+            vectors.av_opt_eval_q_str = FunctionResolver.GetFunctionDelegate<vectors.av_opt_eval_q_str_delegate>("avutil", "av_opt_eval_q", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_opt_eval_q_str(@obj, @o, @val, @q_out);
         };
         
         vectors.av_opt_eval_uint = (void* @obj, _AVOption* @o, string @val, uint* @uint_out) =>
@@ -1951,10 +2203,22 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.av_opt_eval_uint(@obj, @o, @val, @uint_out);
         };
         
+        vectors.av_opt_eval_uint_str = (void* @obj, _AVOption* @o, byte* @val, uint* @uint_out) =>
+        {
+            vectors.av_opt_eval_uint_str = FunctionResolver.GetFunctionDelegate<vectors.av_opt_eval_uint_str_delegate>("avutil", "av_opt_eval_uint", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_opt_eval_uint_str(@obj, @o, @val, @uint_out);
+        };
+        
         vectors.av_opt_find = (void* @obj, string @name, string @unit, int @opt_flags, int @search_flags) =>
         {
             vectors.av_opt_find = FunctionResolver.GetFunctionDelegate<vectors.av_opt_find_delegate>("avutil", "av_opt_find", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.av_opt_find(@obj, @name, @unit, @opt_flags, @search_flags);
+        };
+        
+        vectors.av_opt_find_str = (void* @obj, byte* @name, byte* @unit, int @opt_flags, int @search_flags) =>
+        {
+            vectors.av_opt_find_str = FunctionResolver.GetFunctionDelegate<vectors.av_opt_find_str_delegate>("avutil", "av_opt_find", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_opt_find_str(@obj, @name, @unit, @opt_flags, @search_flags);
         };
         
         vectors.av_opt_find2 = (void* @obj, string @name, string @unit, int @opt_flags, int @search_flags, void** @target_obj) =>
@@ -1963,10 +2227,22 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.av_opt_find2(@obj, @name, @unit, @opt_flags, @search_flags, @target_obj);
         };
         
+        vectors.av_opt_find2_str = (void* @obj, byte* @name, byte* @unit, int @opt_flags, int @search_flags, void** @target_obj) =>
+        {
+            vectors.av_opt_find2_str = FunctionResolver.GetFunctionDelegate<vectors.av_opt_find2_str_delegate>("avutil", "av_opt_find2", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_opt_find2_str(@obj, @name, @unit, @opt_flags, @search_flags, @target_obj);
+        };
+        
         vectors.av_opt_flag_is_set = (void* @obj, string @field_name, string @flag_name) =>
         {
             vectors.av_opt_flag_is_set = FunctionResolver.GetFunctionDelegate<vectors.av_opt_flag_is_set_delegate>("avutil", "av_opt_flag_is_set", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.av_opt_flag_is_set(@obj, @field_name, @flag_name);
+        };
+        
+        vectors.av_opt_flag_is_set_str = (void* @obj, byte* @field_name, byte* @flag_name) =>
+        {
+            vectors.av_opt_flag_is_set_str = FunctionResolver.GetFunctionDelegate<vectors.av_opt_flag_is_set_str_delegate>("avutil", "av_opt_flag_is_set", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_opt_flag_is_set_str(@obj, @field_name, @flag_name);
         };
         
         vectors.av_opt_free = (void* @obj) =>
@@ -1987,10 +2263,22 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.av_opt_get(@obj, @name, @search_flags, @out_val);
         };
         
+        vectors.av_opt_get_str = (void* @obj, byte* @name, int @search_flags, byte** @out_val) =>
+        {
+            vectors.av_opt_get_str = FunctionResolver.GetFunctionDelegate<vectors.av_opt_get_str_delegate>("avutil", "av_opt_get", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_opt_get_str(@obj, @name, @search_flags, @out_val);
+        };
+        
         vectors.av_opt_get_array = (void* @obj, string @name, int @search_flags, uint @start_elem, uint @nb_elems, _AVOptionType @out_type, void* @out_val) =>
         {
             vectors.av_opt_get_array = FunctionResolver.GetFunctionDelegate<vectors.av_opt_get_array_delegate>("avutil", "av_opt_get_array", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.av_opt_get_array(@obj, @name, @search_flags, @start_elem, @nb_elems, @out_type, @out_val);
+        };
+        
+        vectors.av_opt_get_array_str = (void* @obj, byte* @name, int @search_flags, uint @start_elem, uint @nb_elems, _AVOptionType @out_type, void* @out_val) =>
+        {
+            vectors.av_opt_get_array_str = FunctionResolver.GetFunctionDelegate<vectors.av_opt_get_array_str_delegate>("avutil", "av_opt_get_array", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_opt_get_array_str(@obj, @name, @search_flags, @start_elem, @nb_elems, @out_type, @out_val);
         };
         
         vectors.av_opt_get_array_size = (void* @obj, string @name, int @search_flags, uint* @out_val) =>
@@ -1999,10 +2287,22 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.av_opt_get_array_size(@obj, @name, @search_flags, @out_val);
         };
         
+        vectors.av_opt_get_array_size_str = (void* @obj, byte* @name, int @search_flags, uint* @out_val) =>
+        {
+            vectors.av_opt_get_array_size_str = FunctionResolver.GetFunctionDelegate<vectors.av_opt_get_array_size_str_delegate>("avutil", "av_opt_get_array_size", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_opt_get_array_size_str(@obj, @name, @search_flags, @out_val);
+        };
+        
         vectors.av_opt_get_chlayout = (void* @obj, string @name, int @search_flags, _AVChannelLayout* @layout) =>
         {
             vectors.av_opt_get_chlayout = FunctionResolver.GetFunctionDelegate<vectors.av_opt_get_chlayout_delegate>("avutil", "av_opt_get_chlayout", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.av_opt_get_chlayout(@obj, @name, @search_flags, @layout);
+        };
+        
+        vectors.av_opt_get_chlayout_str = (void* @obj, byte* @name, int @search_flags, _AVChannelLayout* @layout) =>
+        {
+            vectors.av_opt_get_chlayout_str = FunctionResolver.GetFunctionDelegate<vectors.av_opt_get_chlayout_str_delegate>("avutil", "av_opt_get_chlayout", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_opt_get_chlayout_str(@obj, @name, @search_flags, @layout);
         };
         
         vectors.av_opt_get_dict_val = (void* @obj, string @name, int @search_flags, _AVDictionary** @out_val) =>
@@ -2011,10 +2311,22 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.av_opt_get_dict_val(@obj, @name, @search_flags, @out_val);
         };
         
+        vectors.av_opt_get_dict_val_str = (void* @obj, byte* @name, int @search_flags, _AVDictionary** @out_val) =>
+        {
+            vectors.av_opt_get_dict_val_str = FunctionResolver.GetFunctionDelegate<vectors.av_opt_get_dict_val_str_delegate>("avutil", "av_opt_get_dict_val", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_opt_get_dict_val_str(@obj, @name, @search_flags, @out_val);
+        };
+        
         vectors.av_opt_get_double = (void* @obj, string @name, int @search_flags, double* @out_val) =>
         {
             vectors.av_opt_get_double = FunctionResolver.GetFunctionDelegate<vectors.av_opt_get_double_delegate>("avutil", "av_opt_get_double", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.av_opt_get_double(@obj, @name, @search_flags, @out_val);
+        };
+        
+        vectors.av_opt_get_double_str = (void* @obj, byte* @name, int @search_flags, double* @out_val) =>
+        {
+            vectors.av_opt_get_double_str = FunctionResolver.GetFunctionDelegate<vectors.av_opt_get_double_str_delegate>("avutil", "av_opt_get_double", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_opt_get_double_str(@obj, @name, @search_flags, @out_val);
         };
         
         vectors.av_opt_get_image_size = (void* @obj, string @name, int @search_flags, int* @w_out, int* @h_out) =>
@@ -2023,10 +2335,22 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.av_opt_get_image_size(@obj, @name, @search_flags, @w_out, @h_out);
         };
         
+        vectors.av_opt_get_image_size_str = (void* @obj, byte* @name, int @search_flags, int* @w_out, int* @h_out) =>
+        {
+            vectors.av_opt_get_image_size_str = FunctionResolver.GetFunctionDelegate<vectors.av_opt_get_image_size_str_delegate>("avutil", "av_opt_get_image_size", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_opt_get_image_size_str(@obj, @name, @search_flags, @w_out, @h_out);
+        };
+        
         vectors.av_opt_get_int = (void* @obj, string @name, int @search_flags, long* @out_val) =>
         {
             vectors.av_opt_get_int = FunctionResolver.GetFunctionDelegate<vectors.av_opt_get_int_delegate>("avutil", "av_opt_get_int", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.av_opt_get_int(@obj, @name, @search_flags, @out_val);
+        };
+        
+        vectors.av_opt_get_int_str = (void* @obj, byte* @name, int @search_flags, long* @out_val) =>
+        {
+            vectors.av_opt_get_int_str = FunctionResolver.GetFunctionDelegate<vectors.av_opt_get_int_str_delegate>("avutil", "av_opt_get_int", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_opt_get_int_str(@obj, @name, @search_flags, @out_val);
         };
         
         vectors.av_opt_get_key_value = (byte** @ropts, string @key_val_sep, string @pairs_sep, uint @flags, byte** @rkey, byte** @rval) =>
@@ -2035,10 +2359,22 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.av_opt_get_key_value(@ropts, @key_val_sep, @pairs_sep, @flags, @rkey, @rval);
         };
         
+        vectors.av_opt_get_key_value_str = (byte** @ropts, byte* @key_val_sep, byte* @pairs_sep, uint @flags, byte** @rkey, byte** @rval) =>
+        {
+            vectors.av_opt_get_key_value_str = FunctionResolver.GetFunctionDelegate<vectors.av_opt_get_key_value_str_delegate>("avutil", "av_opt_get_key_value", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_opt_get_key_value_str(@ropts, @key_val_sep, @pairs_sep, @flags, @rkey, @rval);
+        };
+        
         vectors.av_opt_get_pixel_fmt = (void* @obj, string @name, int @search_flags, _AVPixelFormat* @out_fmt) =>
         {
             vectors.av_opt_get_pixel_fmt = FunctionResolver.GetFunctionDelegate<vectors.av_opt_get_pixel_fmt_delegate>("avutil", "av_opt_get_pixel_fmt", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.av_opt_get_pixel_fmt(@obj, @name, @search_flags, @out_fmt);
+        };
+        
+        vectors.av_opt_get_pixel_fmt_str = (void* @obj, byte* @name, int @search_flags, _AVPixelFormat* @out_fmt) =>
+        {
+            vectors.av_opt_get_pixel_fmt_str = FunctionResolver.GetFunctionDelegate<vectors.av_opt_get_pixel_fmt_str_delegate>("avutil", "av_opt_get_pixel_fmt", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_opt_get_pixel_fmt_str(@obj, @name, @search_flags, @out_fmt);
         };
         
         vectors.av_opt_get_q = (void* @obj, string @name, int @search_flags, _AVRational* @out_val) =>
@@ -2047,16 +2383,34 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.av_opt_get_q(@obj, @name, @search_flags, @out_val);
         };
         
+        vectors.av_opt_get_q_str = (void* @obj, byte* @name, int @search_flags, _AVRational* @out_val) =>
+        {
+            vectors.av_opt_get_q_str = FunctionResolver.GetFunctionDelegate<vectors.av_opt_get_q_str_delegate>("avutil", "av_opt_get_q", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_opt_get_q_str(@obj, @name, @search_flags, @out_val);
+        };
+        
         vectors.av_opt_get_sample_fmt = (void* @obj, string @name, int @search_flags, _AVSampleFormat* @out_fmt) =>
         {
             vectors.av_opt_get_sample_fmt = FunctionResolver.GetFunctionDelegate<vectors.av_opt_get_sample_fmt_delegate>("avutil", "av_opt_get_sample_fmt", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.av_opt_get_sample_fmt(@obj, @name, @search_flags, @out_fmt);
         };
         
+        vectors.av_opt_get_sample_fmt_str = (void* @obj, byte* @name, int @search_flags, _AVSampleFormat* @out_fmt) =>
+        {
+            vectors.av_opt_get_sample_fmt_str = FunctionResolver.GetFunctionDelegate<vectors.av_opt_get_sample_fmt_str_delegate>("avutil", "av_opt_get_sample_fmt", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_opt_get_sample_fmt_str(@obj, @name, @search_flags, @out_fmt);
+        };
+        
         vectors.av_opt_get_video_rate = (void* @obj, string @name, int @search_flags, _AVRational* @out_val) =>
         {
             vectors.av_opt_get_video_rate = FunctionResolver.GetFunctionDelegate<vectors.av_opt_get_video_rate_delegate>("avutil", "av_opt_get_video_rate", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.av_opt_get_video_rate(@obj, @name, @search_flags, @out_val);
+        };
+        
+        vectors.av_opt_get_video_rate_str = (void* @obj, byte* @name, int @search_flags, _AVRational* @out_val) =>
+        {
+            vectors.av_opt_get_video_rate_str = FunctionResolver.GetFunctionDelegate<vectors.av_opt_get_video_rate_str_delegate>("avutil", "av_opt_get_video_rate", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_opt_get_video_rate_str(@obj, @name, @search_flags, @out_val);
         };
         
         vectors.av_opt_is_set_to_default = (void* @obj, _AVOption* @o) =>
@@ -2071,6 +2425,12 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.av_opt_is_set_to_default_by_name(@obj, @name, @search_flags);
         };
         
+        vectors.av_opt_is_set_to_default_by_name_str = (void* @obj, byte* @name, int @search_flags) =>
+        {
+            vectors.av_opt_is_set_to_default_by_name_str = FunctionResolver.GetFunctionDelegate<vectors.av_opt_is_set_to_default_by_name_str_delegate>("avutil", "av_opt_is_set_to_default_by_name", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_opt_is_set_to_default_by_name_str(@obj, @name, @search_flags);
+        };
+        
         vectors.av_opt_next = (void* @obj, _AVOption* @prev) =>
         {
             vectors.av_opt_next = FunctionResolver.GetFunctionDelegate<vectors.av_opt_next_delegate>("avutil", "av_opt_next", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
@@ -2083,16 +2443,34 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.av_opt_ptr(@avclass, @obj, @name);
         };
         
+        vectors.av_opt_ptr_str = (_AVClass* @avclass, void* @obj, byte* @name) =>
+        {
+            vectors.av_opt_ptr_str = FunctionResolver.GetFunctionDelegate<vectors.av_opt_ptr_str_delegate>("avutil", "av_opt_ptr", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_opt_ptr_str(@avclass, @obj, @name);
+        };
+        
         vectors.av_opt_query_ranges = (_AVOptionRanges** @p0, void* @obj, string @key, int @flags) =>
         {
             vectors.av_opt_query_ranges = FunctionResolver.GetFunctionDelegate<vectors.av_opt_query_ranges_delegate>("avutil", "av_opt_query_ranges", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.av_opt_query_ranges(@p0, @obj, @key, @flags);
         };
         
+        vectors.av_opt_query_ranges_str = (_AVOptionRanges** @p0, void* @obj, byte* @key, int @flags) =>
+        {
+            vectors.av_opt_query_ranges_str = FunctionResolver.GetFunctionDelegate<vectors.av_opt_query_ranges_str_delegate>("avutil", "av_opt_query_ranges", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_opt_query_ranges_str(@p0, @obj, @key, @flags);
+        };
+        
         vectors.av_opt_query_ranges_default = (_AVOptionRanges** @p0, void* @obj, string @key, int @flags) =>
         {
             vectors.av_opt_query_ranges_default = FunctionResolver.GetFunctionDelegate<vectors.av_opt_query_ranges_default_delegate>("avutil", "av_opt_query_ranges_default", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.av_opt_query_ranges_default(@p0, @obj, @key, @flags);
+        };
+        
+        vectors.av_opt_query_ranges_default_str = (_AVOptionRanges** @p0, void* @obj, byte* @key, int @flags) =>
+        {
+            vectors.av_opt_query_ranges_default_str = FunctionResolver.GetFunctionDelegate<vectors.av_opt_query_ranges_default_str_delegate>("avutil", "av_opt_query_ranges_default", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_opt_query_ranges_default_str(@p0, @obj, @key, @flags);
         };
         
         vectors.av_opt_serialize = (void* @obj, int @opt_flags, int @flags, byte** @buffer, byte @key_val_sep, byte @pairs_sep) =>
@@ -2107,10 +2485,22 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.av_opt_set(@obj, @name, @val, @search_flags);
         };
         
+        vectors.av_opt_set_str = (void* @obj, byte* @name, byte* @val, int @search_flags) =>
+        {
+            vectors.av_opt_set_str = FunctionResolver.GetFunctionDelegate<vectors.av_opt_set_str_delegate>("avutil", "av_opt_set", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_opt_set_str(@obj, @name, @val, @search_flags);
+        };
+        
         vectors.av_opt_set_array = (void* @obj, string @name, int @search_flags, uint @start_elem, uint @nb_elems, _AVOptionType @val_type, void* @val) =>
         {
             vectors.av_opt_set_array = FunctionResolver.GetFunctionDelegate<vectors.av_opt_set_array_delegate>("avutil", "av_opt_set_array", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.av_opt_set_array(@obj, @name, @search_flags, @start_elem, @nb_elems, @val_type, @val);
+        };
+        
+        vectors.av_opt_set_array_str = (void* @obj, byte* @name, int @search_flags, uint @start_elem, uint @nb_elems, _AVOptionType @val_type, void* @val) =>
+        {
+            vectors.av_opt_set_array_str = FunctionResolver.GetFunctionDelegate<vectors.av_opt_set_array_str_delegate>("avutil", "av_opt_set_array", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_opt_set_array_str(@obj, @name, @search_flags, @start_elem, @nb_elems, @val_type, @val);
         };
         
         vectors.av_opt_set_bin = (void* @obj, string @name, byte* @val, int @size, int @search_flags) =>
@@ -2119,10 +2509,22 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.av_opt_set_bin(@obj, @name, @val, @size, @search_flags);
         };
         
+        vectors.av_opt_set_bin_str = (void* @obj, byte* @name, byte* @val, int @size, int @search_flags) =>
+        {
+            vectors.av_opt_set_bin_str = FunctionResolver.GetFunctionDelegate<vectors.av_opt_set_bin_str_delegate>("avutil", "av_opt_set_bin", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_opt_set_bin_str(@obj, @name, @val, @size, @search_flags);
+        };
+        
         vectors.av_opt_set_chlayout = (void* @obj, string @name, _AVChannelLayout* @layout, int @search_flags) =>
         {
             vectors.av_opt_set_chlayout = FunctionResolver.GetFunctionDelegate<vectors.av_opt_set_chlayout_delegate>("avutil", "av_opt_set_chlayout", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.av_opt_set_chlayout(@obj, @name, @layout, @search_flags);
+        };
+        
+        vectors.av_opt_set_chlayout_str = (void* @obj, byte* @name, _AVChannelLayout* @layout, int @search_flags) =>
+        {
+            vectors.av_opt_set_chlayout_str = FunctionResolver.GetFunctionDelegate<vectors.av_opt_set_chlayout_str_delegate>("avutil", "av_opt_set_chlayout", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_opt_set_chlayout_str(@obj, @name, @layout, @search_flags);
         };
         
         vectors.av_opt_set_defaults = (void* @s) =>
@@ -2149,6 +2551,12 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.av_opt_set_dict_val(@obj, @name, @val, @search_flags);
         };
         
+        vectors.av_opt_set_dict_val_str = (void* @obj, byte* @name, _AVDictionary* @val, int @search_flags) =>
+        {
+            vectors.av_opt_set_dict_val_str = FunctionResolver.GetFunctionDelegate<vectors.av_opt_set_dict_val_str_delegate>("avutil", "av_opt_set_dict_val", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_opt_set_dict_val_str(@obj, @name, @val, @search_flags);
+        };
+        
         vectors.av_opt_set_dict2 = (void* @obj, _AVDictionary** @options, int @search_flags) =>
         {
             vectors.av_opt_set_dict2 = FunctionResolver.GetFunctionDelegate<vectors.av_opt_set_dict2_delegate>("avutil", "av_opt_set_dict2", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
@@ -2161,10 +2569,22 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.av_opt_set_double(@obj, @name, @val, @search_flags);
         };
         
+        vectors.av_opt_set_double_str = (void* @obj, byte* @name, double @val, int @search_flags) =>
+        {
+            vectors.av_opt_set_double_str = FunctionResolver.GetFunctionDelegate<vectors.av_opt_set_double_str_delegate>("avutil", "av_opt_set_double", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_opt_set_double_str(@obj, @name, @val, @search_flags);
+        };
+        
         vectors.av_opt_set_from_string = (void* @ctx, string @opts, byte** @shorthand, string @key_val_sep, string @pairs_sep) =>
         {
             vectors.av_opt_set_from_string = FunctionResolver.GetFunctionDelegate<vectors.av_opt_set_from_string_delegate>("avutil", "av_opt_set_from_string", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.av_opt_set_from_string(@ctx, @opts, @shorthand, @key_val_sep, @pairs_sep);
+        };
+        
+        vectors.av_opt_set_from_string_str = (void* @ctx, byte* @opts, byte** @shorthand, byte* @key_val_sep, byte* @pairs_sep) =>
+        {
+            vectors.av_opt_set_from_string_str = FunctionResolver.GetFunctionDelegate<vectors.av_opt_set_from_string_str_delegate>("avutil", "av_opt_set_from_string", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_opt_set_from_string_str(@ctx, @opts, @shorthand, @key_val_sep, @pairs_sep);
         };
         
         vectors.av_opt_set_image_size = (void* @obj, string @name, int @w, int @h, int @search_flags) =>
@@ -2173,10 +2593,22 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.av_opt_set_image_size(@obj, @name, @w, @h, @search_flags);
         };
         
+        vectors.av_opt_set_image_size_str = (void* @obj, byte* @name, int @w, int @h, int @search_flags) =>
+        {
+            vectors.av_opt_set_image_size_str = FunctionResolver.GetFunctionDelegate<vectors.av_opt_set_image_size_str_delegate>("avutil", "av_opt_set_image_size", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_opt_set_image_size_str(@obj, @name, @w, @h, @search_flags);
+        };
+        
         vectors.av_opt_set_int = (void* @obj, string @name, long @val, int @search_flags) =>
         {
             vectors.av_opt_set_int = FunctionResolver.GetFunctionDelegate<vectors.av_opt_set_int_delegate>("avutil", "av_opt_set_int", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.av_opt_set_int(@obj, @name, @val, @search_flags);
+        };
+        
+        vectors.av_opt_set_int_str = (void* @obj, byte* @name, long @val, int @search_flags) =>
+        {
+            vectors.av_opt_set_int_str = FunctionResolver.GetFunctionDelegate<vectors.av_opt_set_int_str_delegate>("avutil", "av_opt_set_int", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_opt_set_int_str(@obj, @name, @val, @search_flags);
         };
         
         vectors.av_opt_set_pixel_fmt = (void* @obj, string @name, _AVPixelFormat @fmt, int @search_flags) =>
@@ -2185,10 +2617,22 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.av_opt_set_pixel_fmt(@obj, @name, @fmt, @search_flags);
         };
         
+        vectors.av_opt_set_pixel_fmt_str = (void* @obj, byte* @name, _AVPixelFormat @fmt, int @search_flags) =>
+        {
+            vectors.av_opt_set_pixel_fmt_str = FunctionResolver.GetFunctionDelegate<vectors.av_opt_set_pixel_fmt_str_delegate>("avutil", "av_opt_set_pixel_fmt", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_opt_set_pixel_fmt_str(@obj, @name, @fmt, @search_flags);
+        };
+        
         vectors.av_opt_set_q = (void* @obj, string @name, _AVRational @val, int @search_flags) =>
         {
             vectors.av_opt_set_q = FunctionResolver.GetFunctionDelegate<vectors.av_opt_set_q_delegate>("avutil", "av_opt_set_q", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.av_opt_set_q(@obj, @name, @val, @search_flags);
+        };
+        
+        vectors.av_opt_set_q_str = (void* @obj, byte* @name, _AVRational @val, int @search_flags) =>
+        {
+            vectors.av_opt_set_q_str = FunctionResolver.GetFunctionDelegate<vectors.av_opt_set_q_str_delegate>("avutil", "av_opt_set_q", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_opt_set_q_str(@obj, @name, @val, @search_flags);
         };
         
         vectors.av_opt_set_sample_fmt = (void* @obj, string @name, _AVSampleFormat @fmt, int @search_flags) =>
@@ -2197,10 +2641,22 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.av_opt_set_sample_fmt(@obj, @name, @fmt, @search_flags);
         };
         
+        vectors.av_opt_set_sample_fmt_str = (void* @obj, byte* @name, _AVSampleFormat @fmt, int @search_flags) =>
+        {
+            vectors.av_opt_set_sample_fmt_str = FunctionResolver.GetFunctionDelegate<vectors.av_opt_set_sample_fmt_str_delegate>("avutil", "av_opt_set_sample_fmt", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_opt_set_sample_fmt_str(@obj, @name, @fmt, @search_flags);
+        };
+        
         vectors.av_opt_set_video_rate = (void* @obj, string @name, _AVRational @val, int @search_flags) =>
         {
             vectors.av_opt_set_video_rate = FunctionResolver.GetFunctionDelegate<vectors.av_opt_set_video_rate_delegate>("avutil", "av_opt_set_video_rate", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.av_opt_set_video_rate(@obj, @name, @val, @search_flags);
+        };
+        
+        vectors.av_opt_set_video_rate_str = (void* @obj, byte* @name, _AVRational @val, int @search_flags) =>
+        {
+            vectors.av_opt_set_video_rate_str = FunctionResolver.GetFunctionDelegate<vectors.av_opt_set_video_rate_str_delegate>("avutil", "av_opt_set_video_rate", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_opt_set_video_rate_str(@obj, @name, @val, @search_flags);
         };
         
         vectors.av_opt_show2 = (void* @obj, void* @av_log_obj, int @req_flags, int @rej_flags) =>
@@ -2383,6 +2839,12 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.av_parse_cpu_caps(@flags, @s);
         };
         
+        vectors.av_parse_cpu_caps_str = (uint* @flags, byte* @s) =>
+        {
+            vectors.av_parse_cpu_caps_str = FunctionResolver.GetFunctionDelegate<vectors.av_parse_cpu_caps_str_delegate>("avutil", "av_parse_cpu_caps", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_parse_cpu_caps_str(@flags, @s);
+        };
+        
         vectors.av_parser_close = (_AVCodecParserContext* @s) =>
         {
             vectors.av_parser_close = FunctionResolver.GetFunctionDelegate<vectors.av_parser_close_delegate>("avcodec", "av_parser_close", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
@@ -2461,10 +2923,22 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.av_probe_input_buffer(@pb, @fmt, @url, @logctx, @offset, @max_probe_size);
         };
         
+        vectors.av_probe_input_buffer_str = (_AVIOContext* @pb, _AVInputFormat** @fmt, byte* @url, void* @logctx, uint @offset, uint @max_probe_size) =>
+        {
+            vectors.av_probe_input_buffer_str = FunctionResolver.GetFunctionDelegate<vectors.av_probe_input_buffer_str_delegate>("avformat", "av_probe_input_buffer", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_probe_input_buffer_str(@pb, @fmt, @url, @logctx, @offset, @max_probe_size);
+        };
+        
         vectors.av_probe_input_buffer2 = (_AVIOContext* @pb, _AVInputFormat** @fmt, string @url, void* @logctx, uint @offset, uint @max_probe_size) =>
         {
             vectors.av_probe_input_buffer2 = FunctionResolver.GetFunctionDelegate<vectors.av_probe_input_buffer2_delegate>("avformat", "av_probe_input_buffer2", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.av_probe_input_buffer2(@pb, @fmt, @url, @logctx, @offset, @max_probe_size);
+        };
+        
+        vectors.av_probe_input_buffer2_str = (_AVIOContext* @pb, _AVInputFormat** @fmt, byte* @url, void* @logctx, uint @offset, uint @max_probe_size) =>
+        {
+            vectors.av_probe_input_buffer2_str = FunctionResolver.GetFunctionDelegate<vectors.av_probe_input_buffer2_str_delegate>("avformat", "av_probe_input_buffer2", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_probe_input_buffer2_str(@pb, @fmt, @url, @logctx, @offset, @max_probe_size);
         };
         
         vectors.av_probe_input_format = (_AVProbeData* @pd, int @is_opened) =>
@@ -2653,6 +3127,12 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.av_set_options_string(@ctx, @opts, @key_val_sep, @pairs_sep);
         };
         
+        vectors.av_set_options_string_str = (void* @ctx, byte* @opts, byte* @key_val_sep, byte* @pairs_sep) =>
+        {
+            vectors.av_set_options_string_str = FunctionResolver.GetFunctionDelegate<vectors.av_set_options_string_str_delegate>("avutil", "av_set_options_string", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_set_options_string_str(@ctx, @opts, @key_val_sep, @pairs_sep);
+        };
+        
         vectors.av_shrink_packet = (_AVPacket* @pkt, int @size) =>
         {
             vectors.av_shrink_packet = FunctionResolver.GetFunctionDelegate<vectors.av_shrink_packet_delegate>("avcodec", "av_shrink_packet", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
@@ -2689,10 +3169,22 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.av_stereo3d_from_name(@name);
         };
         
+        vectors.av_stereo3d_from_name_str = (byte* @name) =>
+        {
+            vectors.av_stereo3d_from_name_str = FunctionResolver.GetFunctionDelegate<vectors.av_stereo3d_from_name_str_delegate>("avutil", "av_stereo3d_from_name", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_stereo3d_from_name_str(@name);
+        };
+        
         vectors.av_stereo3d_primary_eye_from_name = (string @name) =>
         {
             vectors.av_stereo3d_primary_eye_from_name = FunctionResolver.GetFunctionDelegate<vectors.av_stereo3d_primary_eye_from_name_delegate>("avutil", "av_stereo3d_primary_eye_from_name", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.av_stereo3d_primary_eye_from_name(@name);
+        };
+        
+        vectors.av_stereo3d_primary_eye_from_name_str = (byte* @name) =>
+        {
+            vectors.av_stereo3d_primary_eye_from_name_str = FunctionResolver.GetFunctionDelegate<vectors.av_stereo3d_primary_eye_from_name_str_delegate>("avutil", "av_stereo3d_primary_eye_from_name", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_stereo3d_primary_eye_from_name_str(@name);
         };
         
         vectors.av_stereo3d_primary_eye_name = (uint @eye) =>
@@ -2713,6 +3205,12 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.av_stereo3d_view_from_name(@name);
         };
         
+        vectors.av_stereo3d_view_from_name_str = (byte* @name) =>
+        {
+            vectors.av_stereo3d_view_from_name_str = FunctionResolver.GetFunctionDelegate<vectors.av_stereo3d_view_from_name_str_delegate>("avutil", "av_stereo3d_view_from_name", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_stereo3d_view_from_name_str(@name);
+        };
+        
         vectors.av_stereo3d_view_name = (uint @view) =>
         {
             vectors.av_stereo3d_view_name = FunctionResolver.GetFunctionDelegate<vectors.av_stereo3d_view_name_delegate>("avutil", "av_stereo3d_view_name", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
@@ -2723,6 +3221,12 @@ public static unsafe partial class DynamicallyLoadedBindings
         {
             vectors.av_strdup = FunctionResolver.GetFunctionDelegate<vectors.av_strdup_delegate>("avutil", "av_strdup", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.av_strdup(@s);
+        };
+        
+        vectors.av_strdup_str = (byte* @s) =>
+        {
+            vectors.av_strdup_str = FunctionResolver.GetFunctionDelegate<vectors.av_strdup_str_delegate>("avutil", "av_strdup", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_strdup_str(@s);
         };
         
         vectors.av_stream_get_class = () =>
@@ -2759,6 +3263,12 @@ public static unsafe partial class DynamicallyLoadedBindings
         {
             vectors.av_strndup = FunctionResolver.GetFunctionDelegate<vectors.av_strndup_delegate>("avutil", "av_strndup", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.av_strndup(@s, @len);
+        };
+        
+        vectors.av_strndup_str = (byte* @s, ulong @len) =>
+        {
+            vectors.av_strndup_str = FunctionResolver.GetFunctionDelegate<vectors.av_strndup_str_delegate>("avutil", "av_strndup", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_strndup_str(@s, @len);
         };
         
         vectors.av_sub_q = (_AVRational @b, _AVRational @c) =>
@@ -2807,6 +3317,12 @@ public static unsafe partial class DynamicallyLoadedBindings
         {
             vectors.av_timecode_init_from_string = FunctionResolver.GetFunctionDelegate<vectors.av_timecode_init_from_string_delegate>("avutil", "av_timecode_init_from_string", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.av_timecode_init_from_string(@tc, @rate, @str, @log_ctx);
+        };
+        
+        vectors.av_timecode_init_from_string_str = (_AVTimecode* @tc, _AVRational @rate, byte* @str, void* @log_ctx) =>
+        {
+            vectors.av_timecode_init_from_string_str = FunctionResolver.GetFunctionDelegate<vectors.av_timecode_init_from_string_str_delegate>("avutil", "av_timecode_init_from_string", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.av_timecode_init_from_string_str(@tc, @rate, @str, @log_ctx);
         };
         
         vectors.av_timecode_make_mpeg_tc_string = (byte* @buf, uint @tc25bit) =>
@@ -2869,6 +3385,12 @@ public static unsafe partial class DynamicallyLoadedBindings
             vectors.av_url_split(@proto, @proto_size, @authorization, @authorization_size, @hostname, @hostname_size, @port_ptr, @path, @path_size, @url);
         };
         
+        vectors.av_url_split_str = (byte* @proto, int @proto_size, byte* @authorization, int @authorization_size, byte* @hostname, int @hostname_size, int* @port_ptr, byte* @path, int @path_size, byte* @url) =>
+        {
+            vectors.av_url_split_str = FunctionResolver.GetFunctionDelegate<vectors.av_url_split_str_delegate>("avformat", "av_url_split", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            vectors.av_url_split_str(@proto, @proto_size, @authorization, @authorization_size, @hostname, @hostname_size, @port_ptr, @path, @path_size, @url);
+        };
+        
         vectors.av_usleep = (uint @usec) =>
         {
             vectors.av_usleep = FunctionResolver.GetFunctionDelegate<vectors.av_usleep_delegate>("avutil", "av_usleep", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
@@ -2909,6 +3431,12 @@ public static unsafe partial class DynamicallyLoadedBindings
         {
             vectors.av_vlog = FunctionResolver.GetFunctionDelegate<vectors.av_vlog_delegate>("avutil", "av_vlog", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             vectors.av_vlog(@avcl, @level, @fmt, @vl);
+        };
+        
+        vectors.av_vlog_str = (void* @avcl, int @level, byte* @fmt, byte* @vl) =>
+        {
+            vectors.av_vlog_str = FunctionResolver.GetFunctionDelegate<vectors.av_vlog_str_delegate>("avutil", "av_vlog", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            vectors.av_vlog_str(@avcl, @level, @fmt, @vl);
         };
         
         vectors.av_write_frame = (_AVFormatContext* @s, _AVPacket* @pkt) =>
@@ -3025,6 +3553,12 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.avcodec_descriptor_get_by_name(@name);
         };
         
+        vectors.avcodec_descriptor_get_by_name_str = (byte* @name) =>
+        {
+            vectors.avcodec_descriptor_get_by_name_str = FunctionResolver.GetFunctionDelegate<vectors.avcodec_descriptor_get_by_name_str_delegate>("avcodec", "avcodec_descriptor_get_by_name", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.avcodec_descriptor_get_by_name_str(@name);
+        };
+        
         vectors.avcodec_descriptor_next = (_AVCodecDescriptor* @prev) =>
         {
             vectors.avcodec_descriptor_next = FunctionResolver.GetFunctionDelegate<vectors.avcodec_descriptor_next_delegate>("avcodec", "avcodec_descriptor_next", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
@@ -3061,6 +3595,12 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.avcodec_find_decoder_by_name(@name);
         };
         
+        vectors.avcodec_find_decoder_by_name_str = (byte* @name) =>
+        {
+            vectors.avcodec_find_decoder_by_name_str = FunctionResolver.GetFunctionDelegate<vectors.avcodec_find_decoder_by_name_str_delegate>("avcodec", "avcodec_find_decoder_by_name", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.avcodec_find_decoder_by_name_str(@name);
+        };
+        
         vectors.avcodec_find_encoder = (_AVCodecID @id) =>
         {
             vectors.avcodec_find_encoder = FunctionResolver.GetFunctionDelegate<vectors.avcodec_find_encoder_delegate>("avcodec", "avcodec_find_encoder", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
@@ -3071,6 +3611,12 @@ public static unsafe partial class DynamicallyLoadedBindings
         {
             vectors.avcodec_find_encoder_by_name = FunctionResolver.GetFunctionDelegate<vectors.avcodec_find_encoder_by_name_delegate>("avcodec", "avcodec_find_encoder_by_name", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.avcodec_find_encoder_by_name(@name);
+        };
+        
+        vectors.avcodec_find_encoder_by_name_str = (byte* @name) =>
+        {
+            vectors.avcodec_find_encoder_by_name_str = FunctionResolver.GetFunctionDelegate<vectors.avcodec_find_encoder_by_name_str_delegate>("avcodec", "avcodec_find_encoder_by_name", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.avcodec_find_encoder_by_name_str(@name);
         };
         
         vectors.avcodec_flush_buffers = (_AVCodecContext* @avctx) =>
@@ -3271,10 +3817,22 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.avdevice_list_input_sources(@device, @device_name, @device_options, @device_list);
         };
         
+        vectors.avdevice_list_input_sources_str = (_AVInputFormat* @device, byte* @device_name, _AVDictionary* @device_options, _AVDeviceInfoList** @device_list) =>
+        {
+            vectors.avdevice_list_input_sources_str = FunctionResolver.GetFunctionDelegate<vectors.avdevice_list_input_sources_str_delegate>("avdevice", "avdevice_list_input_sources", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.avdevice_list_input_sources_str(@device, @device_name, @device_options, @device_list);
+        };
+        
         vectors.avdevice_list_output_sinks = (_AVOutputFormat* @device, string @device_name, _AVDictionary* @device_options, _AVDeviceInfoList** @device_list) =>
         {
             vectors.avdevice_list_output_sinks = FunctionResolver.GetFunctionDelegate<vectors.avdevice_list_output_sinks_delegate>("avdevice", "avdevice_list_output_sinks", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.avdevice_list_output_sinks(@device, @device_name, @device_options, @device_list);
+        };
+        
+        vectors.avdevice_list_output_sinks_str = (_AVOutputFormat* @device, byte* @device_name, _AVDictionary* @device_options, _AVDeviceInfoList** @device_list) =>
+        {
+            vectors.avdevice_list_output_sinks_str = FunctionResolver.GetFunctionDelegate<vectors.avdevice_list_output_sinks_str_delegate>("avdevice", "avdevice_list_output_sinks", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.avdevice_list_output_sinks_str(@device, @device_name, @device_options, @device_list);
         };
         
         vectors.avdevice_register_all = () =>
@@ -3313,6 +3871,12 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.avfilter_get_by_name(@name);
         };
         
+        vectors.avfilter_get_by_name_str = (byte* @name) =>
+        {
+            vectors.avfilter_get_by_name_str = FunctionResolver.GetFunctionDelegate<vectors.avfilter_get_by_name_str_delegate>("avfilter", "avfilter_get_by_name", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.avfilter_get_by_name_str(@name);
+        };
+        
         vectors.avfilter_get_class = () =>
         {
             vectors.avfilter_get_class = FunctionResolver.GetFunctionDelegate<vectors.avfilter_get_class_delegate>("avfilter", "avfilter_get_class", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
@@ -3331,6 +3895,12 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.avfilter_graph_alloc_filter(@graph, @filter, @name);
         };
         
+        vectors.avfilter_graph_alloc_filter_str = (_AVFilterGraph* @graph, _AVFilter* @filter, byte* @name) =>
+        {
+            vectors.avfilter_graph_alloc_filter_str = FunctionResolver.GetFunctionDelegate<vectors.avfilter_graph_alloc_filter_str_delegate>("avfilter", "avfilter_graph_alloc_filter", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.avfilter_graph_alloc_filter_str(@graph, @filter, @name);
+        };
+        
         vectors.avfilter_graph_config = (_AVFilterGraph* @graphctx, void* @log_ctx) =>
         {
             vectors.avfilter_graph_config = FunctionResolver.GetFunctionDelegate<vectors.avfilter_graph_config_delegate>("avfilter", "avfilter_graph_config", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
@@ -3343,10 +3913,22 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.avfilter_graph_create_filter(@filt_ctx, @filt, @name, @args, @opaque, @graph_ctx);
         };
         
+        vectors.avfilter_graph_create_filter_str = (_AVFilterContext** @filt_ctx, _AVFilter* @filt, byte* @name, byte* @args, void* @opaque, _AVFilterGraph* @graph_ctx) =>
+        {
+            vectors.avfilter_graph_create_filter_str = FunctionResolver.GetFunctionDelegate<vectors.avfilter_graph_create_filter_str_delegate>("avfilter", "avfilter_graph_create_filter", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.avfilter_graph_create_filter_str(@filt_ctx, @filt, @name, @args, @opaque, @graph_ctx);
+        };
+        
         vectors.avfilter_graph_dump = (_AVFilterGraph* @graph, string @options) =>
         {
             vectors.avfilter_graph_dump = FunctionResolver.GetFunctionDelegate<vectors.avfilter_graph_dump_delegate>("avfilter", "avfilter_graph_dump", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.avfilter_graph_dump(@graph, @options);
+        };
+        
+        vectors.avfilter_graph_dump_str = (_AVFilterGraph* @graph, byte* @options) =>
+        {
+            vectors.avfilter_graph_dump_str = FunctionResolver.GetFunctionDelegate<vectors.avfilter_graph_dump_str_delegate>("avfilter", "avfilter_graph_dump", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.avfilter_graph_dump_str(@graph, @options);
         };
         
         vectors.avfilter_graph_free = (_AVFilterGraph** @graph) =>
@@ -3361,10 +3943,22 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.avfilter_graph_get_filter(@graph, @name);
         };
         
+        vectors.avfilter_graph_get_filter_str = (_AVFilterGraph* @graph, byte* @name) =>
+        {
+            vectors.avfilter_graph_get_filter_str = FunctionResolver.GetFunctionDelegate<vectors.avfilter_graph_get_filter_str_delegate>("avfilter", "avfilter_graph_get_filter", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.avfilter_graph_get_filter_str(@graph, @name);
+        };
+        
         vectors.avfilter_graph_parse = (_AVFilterGraph* @graph, string @filters, _AVFilterInOut* @inputs, _AVFilterInOut* @outputs, void* @log_ctx) =>
         {
             vectors.avfilter_graph_parse = FunctionResolver.GetFunctionDelegate<vectors.avfilter_graph_parse_delegate>("avfilter", "avfilter_graph_parse", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.avfilter_graph_parse(@graph, @filters, @inputs, @outputs, @log_ctx);
+        };
+        
+        vectors.avfilter_graph_parse_str = (_AVFilterGraph* @graph, byte* @filters, _AVFilterInOut* @inputs, _AVFilterInOut* @outputs, void* @log_ctx) =>
+        {
+            vectors.avfilter_graph_parse_str = FunctionResolver.GetFunctionDelegate<vectors.avfilter_graph_parse_str_delegate>("avfilter", "avfilter_graph_parse", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.avfilter_graph_parse_str(@graph, @filters, @inputs, @outputs, @log_ctx);
         };
         
         vectors.avfilter_graph_parse_ptr = (_AVFilterGraph* @graph, string @filters, _AVFilterInOut** @inputs, _AVFilterInOut** @outputs, void* @log_ctx) =>
@@ -3373,16 +3967,34 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.avfilter_graph_parse_ptr(@graph, @filters, @inputs, @outputs, @log_ctx);
         };
         
+        vectors.avfilter_graph_parse_ptr_str = (_AVFilterGraph* @graph, byte* @filters, _AVFilterInOut** @inputs, _AVFilterInOut** @outputs, void* @log_ctx) =>
+        {
+            vectors.avfilter_graph_parse_ptr_str = FunctionResolver.GetFunctionDelegate<vectors.avfilter_graph_parse_ptr_str_delegate>("avfilter", "avfilter_graph_parse_ptr", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.avfilter_graph_parse_ptr_str(@graph, @filters, @inputs, @outputs, @log_ctx);
+        };
+        
         vectors.avfilter_graph_parse2 = (_AVFilterGraph* @graph, string @filters, _AVFilterInOut** @inputs, _AVFilterInOut** @outputs) =>
         {
             vectors.avfilter_graph_parse2 = FunctionResolver.GetFunctionDelegate<vectors.avfilter_graph_parse2_delegate>("avfilter", "avfilter_graph_parse2", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.avfilter_graph_parse2(@graph, @filters, @inputs, @outputs);
         };
         
+        vectors.avfilter_graph_parse2_str = (_AVFilterGraph* @graph, byte* @filters, _AVFilterInOut** @inputs, _AVFilterInOut** @outputs) =>
+        {
+            vectors.avfilter_graph_parse2_str = FunctionResolver.GetFunctionDelegate<vectors.avfilter_graph_parse2_str_delegate>("avfilter", "avfilter_graph_parse2", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.avfilter_graph_parse2_str(@graph, @filters, @inputs, @outputs);
+        };
+        
         vectors.avfilter_graph_queue_command = (_AVFilterGraph* @graph, string @target, string @cmd, string @arg, int @flags, double @ts) =>
         {
             vectors.avfilter_graph_queue_command = FunctionResolver.GetFunctionDelegate<vectors.avfilter_graph_queue_command_delegate>("avfilter", "avfilter_graph_queue_command", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.avfilter_graph_queue_command(@graph, @target, @cmd, @arg, @flags, @ts);
+        };
+        
+        vectors.avfilter_graph_queue_command_str = (_AVFilterGraph* @graph, byte* @target, byte* @cmd, byte* @arg, int @flags, double @ts) =>
+        {
+            vectors.avfilter_graph_queue_command_str = FunctionResolver.GetFunctionDelegate<vectors.avfilter_graph_queue_command_str_delegate>("avfilter", "avfilter_graph_queue_command", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.avfilter_graph_queue_command_str(@graph, @target, @cmd, @arg, @flags, @ts);
         };
         
         vectors.avfilter_graph_request_oldest = (_AVFilterGraph* @graph) =>
@@ -3433,10 +4045,22 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.avfilter_graph_segment_parse(@graph, @graph_str, @flags, @seg);
         };
         
+        vectors.avfilter_graph_segment_parse_str = (_AVFilterGraph* @graph, byte* @graph_str, int @flags, _AVFilterGraphSegment** @seg) =>
+        {
+            vectors.avfilter_graph_segment_parse_str = FunctionResolver.GetFunctionDelegate<vectors.avfilter_graph_segment_parse_str_delegate>("avfilter", "avfilter_graph_segment_parse", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.avfilter_graph_segment_parse_str(@graph, @graph_str, @flags, @seg);
+        };
+        
         vectors.avfilter_graph_send_command = (_AVFilterGraph* @graph, string @target, string @cmd, string @arg, byte* @res, int @res_len, int @flags) =>
         {
             vectors.avfilter_graph_send_command = FunctionResolver.GetFunctionDelegate<vectors.avfilter_graph_send_command_delegate>("avfilter", "avfilter_graph_send_command", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.avfilter_graph_send_command(@graph, @target, @cmd, @arg, @res, @res_len, @flags);
+        };
+        
+        vectors.avfilter_graph_send_command_str = (_AVFilterGraph* @graph, byte* @target, byte* @cmd, byte* @arg, byte* @res, int @res_len, int @flags) =>
+        {
+            vectors.avfilter_graph_send_command_str = FunctionResolver.GetFunctionDelegate<vectors.avfilter_graph_send_command_str_delegate>("avfilter", "avfilter_graph_send_command", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.avfilter_graph_send_command_str(@graph, @target, @cmd, @arg, @res, @res_len, @flags);
         };
         
         vectors.avfilter_graph_set_auto_convert = (_AVFilterGraph* @graph, uint @flags) =>
@@ -3455,6 +4079,12 @@ public static unsafe partial class DynamicallyLoadedBindings
         {
             vectors.avfilter_init_str = FunctionResolver.GetFunctionDelegate<vectors.avfilter_init_str_delegate>("avfilter", "avfilter_init_str", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.avfilter_init_str(@ctx, @args);
+        };
+        
+        vectors.avfilter_init_str_str = (_AVFilterContext* @ctx, byte* @args) =>
+        {
+            vectors.avfilter_init_str_str = FunctionResolver.GetFunctionDelegate<vectors.avfilter_init_str_str_delegate>("avfilter", "avfilter_init_str", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.avfilter_init_str_str(@ctx, @args);
         };
         
         vectors.avfilter_inout_alloc = () =>
@@ -3511,6 +4141,12 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.avfilter_process_command(@filter, @cmd, @arg, @res, @res_len, @flags);
         };
         
+        vectors.avfilter_process_command_str = (_AVFilterContext* @filter, byte* @cmd, byte* @arg, byte* @res, int @res_len, int @flags) =>
+        {
+            vectors.avfilter_process_command_str = FunctionResolver.GetFunctionDelegate<vectors.avfilter_process_command_str_delegate>("avfilter", "avfilter_process_command", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.avfilter_process_command_str(@filter, @cmd, @arg, @res, @res_len, @flags);
+        };
+        
         vectors.avfilter_version = () =>
         {
             vectors.avfilter_version = FunctionResolver.GetFunctionDelegate<vectors.avfilter_version_delegate>("avfilter", "avfilter_version", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
@@ -3527,6 +4163,12 @@ public static unsafe partial class DynamicallyLoadedBindings
         {
             vectors.avformat_alloc_output_context2 = FunctionResolver.GetFunctionDelegate<vectors.avformat_alloc_output_context2_delegate>("avformat", "avformat_alloc_output_context2", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.avformat_alloc_output_context2(@ctx, @oformat, @format_name, @filename);
+        };
+        
+        vectors.avformat_alloc_output_context2_str = (_AVFormatContext** @ctx, _AVOutputFormat* @oformat, byte* @format_name, byte* @filename) =>
+        {
+            vectors.avformat_alloc_output_context2_str = FunctionResolver.GetFunctionDelegate<vectors.avformat_alloc_output_context2_str_delegate>("avformat", "avformat_alloc_output_context2", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.avformat_alloc_output_context2_str(@ctx, @oformat, @format_name, @filename);
         };
         
         vectors.avformat_close_input = (_AVFormatContext** @s) =>
@@ -3625,6 +4267,12 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.avformat_match_stream_specifier(@s, @st, @spec);
         };
         
+        vectors.avformat_match_stream_specifier_str = (_AVFormatContext* @s, _AVStream* @st, byte* @spec) =>
+        {
+            vectors.avformat_match_stream_specifier_str = FunctionResolver.GetFunctionDelegate<vectors.avformat_match_stream_specifier_str_delegate>("avformat", "avformat_match_stream_specifier", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.avformat_match_stream_specifier_str(@s, @st, @spec);
+        };
+        
         vectors.avformat_network_deinit = () =>
         {
             vectors.avformat_network_deinit = FunctionResolver.GetFunctionDelegate<vectors.avformat_network_deinit_delegate>("avformat", "avformat_network_deinit", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
@@ -3647,6 +4295,12 @@ public static unsafe partial class DynamicallyLoadedBindings
         {
             vectors.avformat_open_input = FunctionResolver.GetFunctionDelegate<vectors.avformat_open_input_delegate>("avformat", "avformat_open_input", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.avformat_open_input(@ps, @url, @fmt, @options);
+        };
+        
+        vectors.avformat_open_input_str = (_AVFormatContext** @ps, byte* @url, _AVInputFormat* @fmt, _AVDictionary** @options) =>
+        {
+            vectors.avformat_open_input_str = FunctionResolver.GetFunctionDelegate<vectors.avformat_open_input_str_delegate>("avformat", "avformat_open_input", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.avformat_open_input_str(@ps, @url, @fmt, @options);
         };
         
         vectors.avformat_query_codec = (_AVOutputFormat* @ofmt, _AVCodecID @codec_id, int @std_compliance) =>
@@ -3733,6 +4387,12 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.avio_check(@url, @flags);
         };
         
+        vectors.avio_check_str = (byte* @url, int @flags) =>
+        {
+            vectors.avio_check_str = FunctionResolver.GetFunctionDelegate<vectors.avio_check_str_delegate>("avformat", "avio_check", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.avio_check_str(@url, @flags);
+        };
+        
         vectors.avio_close = (_AVIOContext* @s) =>
         {
             vectors.avio_close = FunctionResolver.GetFunctionDelegate<vectors.avio_close_delegate>("avformat", "avio_close", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
@@ -3779,6 +4439,12 @@ public static unsafe partial class DynamicallyLoadedBindings
         {
             vectors.avio_find_protocol_name = FunctionResolver.GetFunctionDelegate<vectors.avio_find_protocol_name_delegate>("avformat", "avio_find_protocol_name", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.avio_find_protocol_name(@url);
+        };
+        
+        vectors.avio_find_protocol_name_str = (byte* @url) =>
+        {
+            vectors.avio_find_protocol_name_str = FunctionResolver.GetFunctionDelegate<vectors.avio_find_protocol_name_str_delegate>("avformat", "avio_find_protocol_name", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.avio_find_protocol_name_str(@url);
         };
         
         vectors.avio_flush = (_AVIOContext* @s) =>
@@ -3829,10 +4495,22 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.avio_open(@s, @url, @flags);
         };
         
+        vectors.avio_open_str = (_AVIOContext** @s, byte* @url, int @flags) =>
+        {
+            vectors.avio_open_str = FunctionResolver.GetFunctionDelegate<vectors.avio_open_str_delegate>("avformat", "avio_open", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.avio_open_str(@s, @url, @flags);
+        };
+        
         vectors.avio_open_dir = (_AVIODirContext** @s, string @url, _AVDictionary** @options) =>
         {
             vectors.avio_open_dir = FunctionResolver.GetFunctionDelegate<vectors.avio_open_dir_delegate>("avformat", "avio_open_dir", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.avio_open_dir(@s, @url, @options);
+        };
+        
+        vectors.avio_open_dir_str = (_AVIODirContext** @s, byte* @url, _AVDictionary** @options) =>
+        {
+            vectors.avio_open_dir_str = FunctionResolver.GetFunctionDelegate<vectors.avio_open_dir_str_delegate>("avformat", "avio_open_dir", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.avio_open_dir_str(@s, @url, @options);
         };
         
         vectors.avio_open_dyn_buf = (_AVIOContext** @s) =>
@@ -3845,6 +4523,12 @@ public static unsafe partial class DynamicallyLoadedBindings
         {
             vectors.avio_open2 = FunctionResolver.GetFunctionDelegate<vectors.avio_open2_delegate>("avformat", "avio_open2", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.avio_open2(@s, @url, @flags, @int_cb, @options);
+        };
+        
+        vectors.avio_open2_str = (_AVIOContext** @s, byte* @url, int @flags, _AVIOInterruptCB* @int_cb, _AVDictionary** @options) =>
+        {
+            vectors.avio_open2_str = FunctionResolver.GetFunctionDelegate<vectors.avio_open2_str_delegate>("avformat", "avio_open2", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.avio_open2_str(@s, @url, @flags, @int_cb, @options);
         };
         
         vectors.avio_pause = (_AVIOContext* @h, int @pause) =>
@@ -3871,10 +4555,22 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.avio_printf(@s, @fmt);
         };
         
+        vectors.avio_printf_str = (_AVIOContext* @s, byte* @fmt) =>
+        {
+            vectors.avio_printf_str = FunctionResolver.GetFunctionDelegate<vectors.avio_printf_str_delegate>("avformat", "avio_printf", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.avio_printf_str(@s, @fmt);
+        };
+        
         vectors.avio_protocol_get_class = (string @name) =>
         {
             vectors.avio_protocol_get_class = FunctionResolver.GetFunctionDelegate<vectors.avio_protocol_get_class_delegate>("avformat", "avio_protocol_get_class", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.avio_protocol_get_class(@name);
+        };
+        
+        vectors.avio_protocol_get_class_str = (byte* @name) =>
+        {
+            vectors.avio_protocol_get_class_str = FunctionResolver.GetFunctionDelegate<vectors.avio_protocol_get_class_str_delegate>("avformat", "avio_protocol_get_class", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.avio_protocol_get_class_str(@name);
         };
         
         vectors.avio_put_str = (_AVIOContext* @s, string @str) =>
@@ -3883,16 +4579,34 @@ public static unsafe partial class DynamicallyLoadedBindings
             return vectors.avio_put_str(@s, @str);
         };
         
+        vectors.avio_put_str_str = (_AVIOContext* @s, byte* @str) =>
+        {
+            vectors.avio_put_str_str = FunctionResolver.GetFunctionDelegate<vectors.avio_put_str_str_delegate>("avformat", "avio_put_str", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.avio_put_str_str(@s, @str);
+        };
+        
         vectors.avio_put_str16be = (_AVIOContext* @s, string @str) =>
         {
             vectors.avio_put_str16be = FunctionResolver.GetFunctionDelegate<vectors.avio_put_str16be_delegate>("avformat", "avio_put_str16be", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.avio_put_str16be(@s, @str);
         };
         
+        vectors.avio_put_str16be_str = (_AVIOContext* @s, byte* @str) =>
+        {
+            vectors.avio_put_str16be_str = FunctionResolver.GetFunctionDelegate<vectors.avio_put_str16be_str_delegate>("avformat", "avio_put_str16be", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.avio_put_str16be_str(@s, @str);
+        };
+        
         vectors.avio_put_str16le = (_AVIOContext* @s, string @str) =>
         {
             vectors.avio_put_str16le = FunctionResolver.GetFunctionDelegate<vectors.avio_put_str16le_delegate>("avformat", "avio_put_str16le", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.avio_put_str16le(@s, @str);
+        };
+        
+        vectors.avio_put_str16le_str = (_AVIOContext* @s, byte* @str) =>
+        {
+            vectors.avio_put_str16le_str = FunctionResolver.GetFunctionDelegate<vectors.avio_put_str16le_str_delegate>("avformat", "avio_put_str16le", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.avio_put_str16le_str(@s, @str);
         };
         
         vectors.avio_r8 = (_AVIOContext* @s) =>
@@ -4001,6 +4715,12 @@ public static unsafe partial class DynamicallyLoadedBindings
         {
             vectors.avio_vprintf = FunctionResolver.GetFunctionDelegate<vectors.avio_vprintf_delegate>("avformat", "avio_vprintf", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
             return vectors.avio_vprintf(@s, @fmt, @ap);
+        };
+        
+        vectors.avio_vprintf_str = (_AVIOContext* @s, byte* @fmt, byte* @ap) =>
+        {
+            vectors.avio_vprintf_str = FunctionResolver.GetFunctionDelegate<vectors.avio_vprintf_str_delegate>("avformat", "avio_vprintf", ThrowErrorIfFunctionNotFound) ?? delegate { throw new NotSupportedException(); };
+            return vectors.avio_vprintf_str(@s, @fmt, @ap);
         };
         
         vectors.avio_w8 = (_AVIOContext* @s, int @b) =>

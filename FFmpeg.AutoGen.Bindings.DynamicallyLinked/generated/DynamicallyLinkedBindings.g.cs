@@ -35,6 +35,10 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @name);
     
+    /// <summary>Returns the AVAlphaMode value for name or an AVError if not found.</summary>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern _AVAlphaMode av_alpha_mode_from_name(byte* @name);
+    
     /// <summary>Returns the name for provided alpha mode or NULL if unknown.</summary>
     [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
     [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(ConstCharPtrMarshaler))]
@@ -143,6 +147,10 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @name);
     
+    /// <summary>Returns a bitstream filter with the specified name or NULL if no such bitstream filter exists.</summary>
+    [DllImport("avcodec-62", CallingConvention = CallingConvention.Cdecl)]
+    public static extern _AVBitStreamFilter* av_bsf_get_by_name(byte* @name);
+    
     /// <summary>Get the AVClass for AVBSFContext. It can be used in combination with AV_OPT_SEARCH_FAKE_OBJ for examining options.</summary>
     [DllImport("avcodec-62", CallingConvention = CallingConvention.Cdecl)]
     public static extern _AVClass* av_bsf_get_class();
@@ -185,6 +193,13 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @bsf_name, _AVDictionary** @options);
     
+    /// <summary>Construct new bitstream filter context given it&apos;s name and options and append it to the list of bitstream filters.</summary>
+    /// <param name="lst">List to append to</param>
+    /// <param name="bsf_name">Name of the bitstream filter</param>
+    /// <param name="options">Options for the bitstream filter, can be set to NULL</param>
+    [DllImport("avcodec-62", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_bsf_list_append2(_AVBSFList* @lst, byte* @bsf_name, _AVDictionary** @options);
+    
     /// <summary>Finalize list of bitstream filters.</summary>
     /// <param name="lst">Filter list structure to be transformed</param>
     /// <param name="bsf">Pointer to be set to newly created structure representing the chain of bitstream filters</param>
@@ -207,6 +222,12 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @str, _AVBSFContext** @bsf);
+    
+    /// <summary>Parse string describing list of bitstream filters and create single AVBSFContext describing the whole chain of bitstream filters. Resulting AVBSFContext can be treated as any other AVBSFContext freshly allocated by av_bsf_alloc().</summary>
+    /// <param name="str">String describing chain of bitstream filters in format `bsf1[=opt1=val1:opt2=val2][,bsf2]`</param>
+    /// <param name="bsf">Pointer to be set to newly created structure representing the chain of bitstream filters</param>
+    [DllImport("avcodec-62", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_bsf_list_parse_str(byte* @str, _AVBSFContext** @bsf);
     
     /// <summary>Retrieve a filtered packet.</summary>
     /// <param name="ctx">an initialized AVBSFContext</param>
@@ -443,6 +464,10 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @name);
     
+    /// <summary>This is the inverse function of av_channel_name().</summary>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern _AVChannel av_channel_from_string(byte* @name);
+    
     /// <summary>Return the order if the layout is n-th order standard-order ambisonic. The presence of optional extra non-diegetic channels at the end is not taken into account.</summary>
     /// <param name="channel_layout">input channel layout</param>
     [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
@@ -465,6 +490,12 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @name);
+    
+    /// <summary>Get a channel described by the given string.</summary>
+    /// <param name="channel_layout">input channel layout</param>
+    /// <param name="name">string describing the channel to obtain</param>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern _AVChannel av_channel_layout_channel_from_string(_AVChannelLayout* @channel_layout, byte* @name);
     
     /// <summary>Check whether a channel layout is valid, i.e. can possibly describe audio data.</summary>
     /// <param name="channel_layout">input channel layout</param>
@@ -524,6 +555,12 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @str);
     
+    /// <summary>Initialize a channel layout from a given string description. The input string can be represented by: - the formal channel layout name (returned by av_channel_layout_describe()) - single or multiple channel names (returned by av_channel_name(), eg. &quot;FL&quot;, or concatenated with &quot;+&quot;, each optionally containing a custom name after a &quot;@&quot;, eg. &quot;FL@Left+FR@Right+LFE&quot;) - a decimal or hexadecimal value of a native channel layout (eg. &quot;4&quot; or &quot;0x4&quot;) - the number of channels with default layout (eg. &quot;4c&quot;) - the number of unordered channels (eg. &quot;4C&quot; or &quot;4 channels&quot;) - the ambisonic order followed by optional non-diegetic channels (eg. &quot;ambisonic 2+stereo&quot;) On error, the channel layout will remain uninitialized, but not necessarily untouched.</summary>
+    /// <param name="channel_layout">uninitialized channel layout for the result</param>
+    /// <param name="str">string describing the channel layout</param>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_channel_layout_from_string(_AVChannelLayout* @channel_layout, byte* @str);
+    
     /// <summary>Get the index of a given channel in a channel layout. In case multiple channels are found, only the first match will be returned.</summary>
     /// <param name="channel_layout">input channel layout</param>
     /// <param name="channel">the channel whose index to obtain</param>
@@ -541,6 +578,12 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @name);
+    
+    /// <summary>Get the index in a channel layout of a channel described by the given string. In case multiple channels are found, only the first match will be returned.</summary>
+    /// <param name="channel_layout">input channel layout</param>
+    /// <param name="name">string describing the channel whose index to obtain</param>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_channel_layout_index_from_string(_AVChannelLayout* @channel_layout, byte* @name);
     
     /// <summary>Change the AVChannelOrder of a channel layout.</summary>
     /// <param name="channel_layout">channel layout which will be changed</param>
@@ -591,6 +634,10 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @name);
+    
+    /// <summary>Returns the AVChromaLocation value for name or an AVError if not found.</summary>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_chroma_location_from_name(byte* @name);
     
     /// <summary>Returns the name for provided chroma location or NULL if unknown.</summary>
     [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
@@ -645,6 +692,10 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @name);
     
+    /// <summary>Returns the AVColorPrimaries value for name or an AVError if not found.</summary>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_color_primaries_from_name(byte* @name);
+    
     /// <summary>Returns the name for provided color primaries or NULL if unknown.</summary>
     [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
     [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(ConstCharPtrMarshaler))]
@@ -659,6 +710,10 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @name);
+    
+    /// <summary>Returns the AVColorRange value for name or an AVError if not found.</summary>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_color_range_from_name(byte* @name);
     
     /// <summary>Returns the name for provided color range or NULL if unknown.</summary>
     [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
@@ -675,6 +730,10 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @name);
     
+    /// <summary>Returns the AVColorSpace value for name or an AVError if not found.</summary>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_color_space_from_name(byte* @name);
+    
     /// <summary>Returns the name for provided color space or NULL if unknown.</summary>
     [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
     [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(ConstCharPtrMarshaler))]
@@ -689,6 +748,10 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @name);
+    
+    /// <summary>Returns the AVColorTransferCharacteristic value for name or an AVError if not found.</summary>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_color_transfer_from_name(byte* @name);
     
     /// <summary>Returns the name for provided color transfer or NULL if unknown.</summary>
     [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
@@ -790,6 +853,13 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @key, _AVDictionaryEntry* @prev, int @flags);
     
+    /// <summary>Get a dictionary entry with matching key.</summary>
+    /// <param name="key">Matching key</param>
+    /// <param name="prev">Set to the previous matching element to find the next. If set to NULL the first matching element is returned.</param>
+    /// <param name="flags">A collection of AV_DICT_* flags controlling how the entry is retrieved</param>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern _AVDictionaryEntry* av_dict_get(_AVDictionary* @m, byte* @key, _AVDictionaryEntry* @prev, int @flags);
+    
     /// <summary>Get dictionary entries as a string.</summary>
     /// <param name="m">The dictionary</param>
     /// <param name="buffer">Pointer to buffer that will be allocated with string containing entries. Buffer must be freed by the caller when is no longer needed.</param>
@@ -829,6 +899,13 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @pairs_sep, int @flags);
     
+    /// <summary>Parse the key/value pairs list and add the parsed entries to a dictionary.</summary>
+    /// <param name="key_val_sep">A 0-terminated list of characters used to separate key from value</param>
+    /// <param name="pairs_sep">A 0-terminated list of characters used to separate two pairs from each other</param>
+    /// <param name="flags">Flags to use when adding to the dictionary. ::AV_DICT_DONT_STRDUP_KEY and ::AV_DICT_DONT_STRDUP_VAL are ignored since the key/value tokens will always be duplicated.</param>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_dict_parse_string(_AVDictionary** @pm, byte* @str, byte* @key_val_sep, byte* @pairs_sep, int @flags);
+    
     /// <summary>Set the given entry in *pm, overwriting an existing entry.</summary>
     /// <param name="pm">Pointer to a pointer to a dictionary struct. If *pm is NULL a dictionary struct is allocated and put in *pm.</param>
     /// <param name="key">Entry key to add to *pm (will either be av_strduped or added as a new key depending on flags)</param>
@@ -848,6 +925,13 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @value, int @flags);
     
+    /// <summary>Set the given entry in *pm, overwriting an existing entry.</summary>
+    /// <param name="pm">Pointer to a pointer to a dictionary struct. If *pm is NULL a dictionary struct is allocated and put in *pm.</param>
+    /// <param name="key">Entry key to add to *pm (will either be av_strduped or added as a new key depending on flags)</param>
+    /// <param name="value">Entry value to add to *pm (will be av_strduped or added as a new key depending on flags). Passing a NULL value will cause an existing entry to be deleted.</param>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_dict_set(_AVDictionary** @pm, byte* @key, byte* @value, int @flags);
+    
     /// <summary>Convenience wrapper for av_dict_set() that converts the value to a string and stores it.</summary>
     [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_dict_set_int(_AVDictionary** @pm,     
@@ -857,6 +941,10 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @key, long @value, int @flags);
+    
+    /// <summary>Convenience wrapper for av_dict_set() that converts the value to a string and stores it.</summary>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_dict_set_int(_AVDictionary** @pm, byte* @key, long @value, int @flags);
     
     /// <summary>Flip the input matrix horizontally and/or vertically.</summary>
     /// <param name="matrix">a transformation matrix</param>
@@ -886,6 +974,10 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @disp);
     
+    /// <summary>Returns The AV_DISPOSITION_* flag corresponding to disp or a negative error code if disp does not correspond to a known stream disposition.</summary>
+    [DllImport("avformat-62", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_disposition_from_string(byte* @disp);
+    
     /// <summary>Returns The string description corresponding to the lowest set bit in disposition. NULL when the lowest set bit does not correspond to a known disposition or when disposition is 0.</summary>
     /// <param name="disposition">a combination of AV_DISPOSITION_* values</param>
     [DllImport("avformat-62", CallingConvention = CallingConvention.Cdecl)]
@@ -911,6 +1003,14 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @url, int @is_output);
+    
+    /// <summary>Print detailed information about the input or output format, such as duration, bitrate, streams, container, programs, metadata, side data, codec and time base.</summary>
+    /// <param name="ic">the context to analyze</param>
+    /// <param name="index">index of the stream to dump information about</param>
+    /// <param name="url">the URL to print, such as source or destination file</param>
+    /// <param name="is_output">Select whether the specified context is an input(0) or output(1)</param>
+    [DllImport("avformat-62", CallingConvention = CallingConvention.Cdecl)]
+    public static extern void av_dump_format(_AVFormatContext* @ic, int @index, byte* @url, int @is_output);
     
     /// <summary>Allocate an AVDynamicHDRPlus structure and set its fields to default values. The resulting struct can be freed using av_freep().</summary>
     [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
@@ -998,6 +1098,15 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @filename, byte** @bufptr, ulong* @size, int @log_offset, void* @log_ctx);
     
+    /// <summary>Read the file with name filename, and put its content in a newly allocated buffer or map it with mmap() when available. In case of success set *bufptr to the read or mmapped buffer, and *size to the size in bytes of the buffer in *bufptr. Unlike mmap this function succeeds with zero sized files, in this case *bufptr will be set to NULL and *size will be set to 0. The returned buffer must be released with av_file_unmap().</summary>
+    /// <param name="filename">path to the file</param>
+    /// <param name="bufptr">pointee is set to the mapped or allocated buffer</param>
+    /// <param name="size">pointee is set to the size in bytes of the buffer</param>
+    /// <param name="log_offset">loglevel offset used for logging</param>
+    /// <param name="log_ctx">context used for logging</param>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_file_map(byte* @filename, byte** @bufptr, ulong* @size, int @log_offset, void* @log_ctx);
+    
     /// <summary>Unmap or free the buffer bufptr created by av_file_map().</summary>
     /// <param name="bufptr">the buffer previously created with av_file_map()</param>
     /// <param name="size">size in bytes of bufptr, must be the same as returned by av_file_map()</param>
@@ -1014,6 +1123,11 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @filename);
+    
+    /// <summary>Check whether filename actually is a numbered sequence generator.</summary>
+    /// <param name="filename">possible numbered sequence string</param>
+    [DllImport("avformat-62", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_filename_number_test(byte* @filename);
     
     /// <summary>Iterate over all registered filters.</summary>
     /// <param name="opaque">a pointer where libavfilter will store the iteration state. Must point to NULL to start the iteration.</param>
@@ -1048,6 +1162,10 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @short_name);
+    
+    /// <summary>Find AVInputFormat based on the short name of the input format.</summary>
+    [DllImport("avformat-62", CallingConvention = CallingConvention.Cdecl)]
+    public static extern _AVInputFormat* av_find_input_format(byte* @short_name);
     
     /// <summary>Find the value in a list of rationals nearest a given reference rational.</summary>
     /// <param name="q">Reference rational</param>
@@ -1279,6 +1397,9 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @path, int @number);
     
+    [DllImport("avformat-62", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_get_frame_filename(byte* @buf, int @buf_size, byte* @path, int @number);
+    
     /// <summary>Return in &apos;buf&apos; the path with &apos;%d&apos; replaced by a number.</summary>
     /// <param name="buf">destination buffer</param>
     /// <param name="buf_size">destination buffer size</param>
@@ -1293,6 +1414,15 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @path, int @number, int @flags);
+    
+    /// <summary>Return in &apos;buf&apos; the path with &apos;%d&apos; replaced by a number.</summary>
+    /// <param name="buf">destination buffer</param>
+    /// <param name="buf_size">destination buffer size</param>
+    /// <param name="path">numbered sequence string</param>
+    /// <param name="number">frame number</param>
+    /// <param name="flags">AV_FRAME_FILENAME_FLAGS_*</param>
+    [DllImport("avformat-62", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_get_frame_filename2(byte* @buf, int @buf_size, byte* @path, int @number, int @flags);
     
     /// <summary>Return a string describing the media_type enum, NULL if media_type is unknown.</summary>
     [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
@@ -1342,6 +1472,10 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @name);
     
+    /// <summary>Return the pixel format corresponding to name.</summary>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern _AVPixelFormat av_get_pix_fmt(byte* @name);
+    
     /// <summary>Compute what kind of losses will occur when converting from one specific pixel format to another. When converting from one pixel format to another, information loss may occur. For example, when converting from RGB24 to GRAY, the color information will be lost. Similarly, other losses occur when converting from some formats to other formats. These losses can involve loss of chroma, but also loss of resolution, loss of color depth, loss due to the color space conversion, loss of the alpha bits or loss due to color quantization. av_get_fix_fmt_loss() informs you about the various types of losses which will occur when converting from one pixel format to another.</summary>
     /// <param name="dst_pix_fmt">destination pixel format</param>
     /// <param name="src_pix_fmt">source pixel format</param>
@@ -1381,6 +1515,10 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @name);
+    
+    /// <summary>Return a sample format corresponding to name, or AV_SAMPLE_FMT_NONE on error.</summary>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern _AVSampleFormat av_get_sample_fmt(byte* @name);
     
     /// <summary>Return the name of sample_fmt, or NULL if sample_fmt is not recognized.</summary>
     [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
@@ -1438,6 +1576,10 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @mime_type, _AVMediaType @type);
     
+    /// <summary>Guess the codec ID based upon muxer and filename.</summary>
+    [DllImport("avformat-62", CallingConvention = CallingConvention.Cdecl)]
+    public static extern _AVCodecID av_guess_codec(_AVOutputFormat* @fmt, byte* @short_name, byte* @filename, byte* @mime_type, _AVMediaType @type);
+    
     /// <summary>Return the output format in the list of registered output formats which best matches the provided parameters, or return NULL if there is no match.</summary>
     /// <param name="short_name">if non-NULL checks if short_name matches with the names of the registered formats</param>
     /// <param name="filename">if non-NULL checks if filename terminates with the extensions of the registered formats</param>
@@ -1462,6 +1604,13 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @mime_type);
+    
+    /// <summary>Return the output format in the list of registered output formats which best matches the provided parameters, or return NULL if there is no match.</summary>
+    /// <param name="short_name">if non-NULL checks if short_name matches with the names of the registered formats</param>
+    /// <param name="filename">if non-NULL checks if filename terminates with the extensions of the registered formats</param>
+    /// <param name="mime_type">if non-NULL checks if mime_type matches with the MIME type of the registered formats</param>
+    [DllImport("avformat-62", CallingConvention = CallingConvention.Cdecl)]
+    public static extern _AVOutputFormat* av_guess_format(byte* @short_name, byte* @filename, byte* @mime_type);
     
     /// <summary>Guess the frame rate, based on both the container and codec information.</summary>
     /// <param name="ctx">the format context which the stream is part of</param>
@@ -1512,6 +1661,15 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @device, _AVDictionary* @opts, int @flags);
     
+    /// <summary>Open a device of the specified type and create an AVHWDeviceContext for it.</summary>
+    /// <param name="device_ctx">On success, a reference to the newly-created device context will be written here. The reference is owned by the caller and must be released with av_buffer_unref() when no longer needed. On failure, NULL will be written to this pointer.</param>
+    /// <param name="type">The type of the device to create.</param>
+    /// <param name="device">A type-specific string identifying the device to open.</param>
+    /// <param name="opts">A dictionary of additional (type-specific) options to use in opening the device. The dictionary remains owned by the caller.</param>
+    /// <param name="flags">currently unused</param>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_hwdevice_ctx_create(_AVBufferRef** @device_ctx, _AVHWDeviceType @type, byte* @device, _AVDictionary* @opts, int @flags);
+    
     /// <summary>Create a new device of the specified type from an existing device.</summary>
     /// <param name="dst_ctx">On success, a reference to the newly-created AVHWDeviceContext.</param>
     /// <param name="type">The type of the new device to create.</param>
@@ -1544,6 +1702,11 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @name);
+    
+    /// <summary>Look up an AVHWDeviceType by name.</summary>
+    /// <param name="name">String name of the device type (case-insensitive).</param>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern _AVHWDeviceType av_hwdevice_find_type_by_name(byte* @name);
     
     /// <summary>Get the constraints on HW frames given a device and the HW-specific configuration to be used with that device. If no HW-specific configuration is provided, returns the maximum possible capabilities of the device.</summary>
     /// <param name="ref">a reference to the associated AVHWDeviceContext.</param>
@@ -1822,6 +1985,13 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @fmt);
     
+    /// <summary>Send the specified message to the log if the level is less than or equal to the current av_log_level. By default, all logging messages are sent to stderr. This behavior can be altered by setting a different logging callback function.</summary>
+    /// <param name="avcl">A pointer to an arbitrary struct of which the first field is a pointer to an AVClass struct or NULL if general log.</param>
+    /// <param name="level">The importance level of the message expressed using a &quot;Logging Constant&quot;.</param>
+    /// <param name="fmt">The format string (printf-compatible) that specifies how subsequent arguments are converted to output.</param>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern void av_log(void* @avcl, int @level, byte* @fmt);
+    
     /// <summary>Default logging callback</summary>
     /// <param name="avcl">A pointer to an arbitrary struct of which the first field is a pointer to an AVClass struct.</param>
     /// <param name="level">The importance level of the message expressed using a &quot;Logging Constant&quot;.</param>
@@ -1835,6 +2005,14 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @fmt, byte* @vl);
+    
+    /// <summary>Default logging callback</summary>
+    /// <param name="avcl">A pointer to an arbitrary struct of which the first field is a pointer to an AVClass struct.</param>
+    /// <param name="level">The importance level of the message expressed using a &quot;Logging Constant&quot;.</param>
+    /// <param name="fmt">The format string (printf-compatible) that specifies how subsequent arguments are converted to output.</param>
+    /// <param name="vl">The arguments referenced by the format string.</param>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern void av_log_default_callback(void* @avcl, int @level, byte* @fmt, byte* @vl);
     
     /// <summary>Format a line of log the same way as the default callback.</summary>
     /// <param name="line">buffer to receive the formatted line</param>
@@ -1850,6 +2028,13 @@ public static unsafe partial class DynamicallyLinkedBindings
     string @fmt, byte* @vl, byte* @line, int @line_size, int* @print_prefix);
     
     /// <summary>Format a line of log the same way as the default callback.</summary>
+    /// <param name="line">buffer to receive the formatted line</param>
+    /// <param name="line_size">size of the buffer</param>
+    /// <param name="print_prefix">used to store whether the prefix must be printed; must point to a persistent integer initially set to 1</param>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern void av_log_format_line(void* @ptr, int @level, byte* @fmt, byte* @vl, byte* @line, int @line_size, int* @print_prefix);
+    
+    /// <summary>Format a line of log the same way as the default callback.</summary>
     /// <param name="line">buffer to receive the formatted line; may be NULL if line_size is 0</param>
     /// <param name="line_size">size of the buffer; at most line_size-1 characters will be written to the buffer, plus one null terminator</param>
     /// <param name="print_prefix">used to store whether the prefix must be printed; must point to a persistent integer initially set to 1</param>
@@ -1861,6 +2046,13 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @fmt, byte* @vl, byte* @line, int @line_size, int* @print_prefix);
+    
+    /// <summary>Format a line of log the same way as the default callback.</summary>
+    /// <param name="line">buffer to receive the formatted line; may be NULL if line_size is 0</param>
+    /// <param name="line_size">size of the buffer; at most line_size-1 characters will be written to the buffer, plus one null terminator</param>
+    /// <param name="print_prefix">used to store whether the prefix must be printed; must point to a persistent integer initially set to 1</param>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_log_format_line2(void* @ptr, int @level, byte* @fmt, byte* @vl, byte* @line, int @line_size, int* @print_prefix);
     
     [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_log_get_flags();
@@ -1883,6 +2075,15 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @fmt);
+    
+    /// <summary>Send the specified message to the log once with the initial_level and then with the subsequent_level. By default, all logging messages are sent to stderr. This behavior can be altered by setting a different logging callback function.</summary>
+    /// <param name="avcl">A pointer to an arbitrary struct of which the first field is a pointer to an AVClass struct or NULL if general log.</param>
+    /// <param name="initial_level">importance level of the message expressed using a &quot;Logging Constant&quot; for the first occurrence.</param>
+    /// <param name="subsequent_level">importance level of the message expressed using a &quot;Logging Constant&quot; after the first occurrence.</param>
+    /// <param name="state">a variable to keep trak of if a message has already been printed this must be initialized to 0 before the first use. The same state must not be accessed by 2 Threads simultaneously.</param>
+    /// <param name="fmt">The format string (printf-compatible) that specifies how subsequent arguments are converted to output.</param>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern void av_log_once(void* @avcl, int @initial_level, int @subsequent_level, int* @state, byte* @fmt);
     
     /// <summary>Set the logging callback</summary>
     /// <param name="callback">A logging function with a compatible signature.</param>
@@ -1949,6 +2150,12 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @extensions);
+    
+    /// <summary>Return a positive value if the given filename has one of the given extensions, 0 otherwise.</summary>
+    /// <param name="filename">file name to check against the given extensions</param>
+    /// <param name="extensions">a comma-separated list of filename extensions</param>
+    [DllImport("avformat-62", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_match_ext(byte* @filename, byte* @extensions);
     
     /// <summary>Set the maximum size that may be allocated in one block.</summary>
     /// <param name="max">Value to be set as the new maximum size</param>
@@ -2027,6 +2234,9 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @val, double* @double_out);
     
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_opt_eval_double(void* @obj, _AVOption* @o, byte* @val, double* @double_out);
+    
     /// <summary>@{ This group of functions can be used to evaluate option strings and get numbers out of them. They do the same thing as av_opt_set(), except the result is written into the caller-supplied pointer.</summary>
     /// <param name="obj">a struct whose first element is a pointer to AVClass.</param>
     /// <param name="o">an option for which the string is to be evaluated.</param>
@@ -2040,6 +2250,13 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @val, int* @flags_out);
     
+    /// <summary>@{ This group of functions can be used to evaluate option strings and get numbers out of them. They do the same thing as av_opt_set(), except the result is written into the caller-supplied pointer.</summary>
+    /// <param name="obj">a struct whose first element is a pointer to AVClass.</param>
+    /// <param name="o">an option for which the string is to be evaluated.</param>
+    /// <param name="val">string to be evaluated.</param>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_opt_eval_flags(void* @obj, _AVOption* @o, byte* @val, int* @flags_out);
+    
     [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_eval_float(void* @obj, _AVOption* @o,     
     #if NETSTANDARD2_1_OR_GREATER
@@ -2048,6 +2265,9 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @val, float* @float_out);
+    
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_opt_eval_float(void* @obj, _AVOption* @o, byte* @val, float* @float_out);
     
     [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_eval_int(void* @obj, _AVOption* @o,     
@@ -2059,6 +2279,9 @@ public static unsafe partial class DynamicallyLinkedBindings
     string @val, int* @int_out);
     
     [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_opt_eval_int(void* @obj, _AVOption* @o, byte* @val, int* @int_out);
+    
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_eval_int64(void* @obj, _AVOption* @o,     
     #if NETSTANDARD2_1_OR_GREATER
     [MarshalAs(UnmanagedType.LPUTF8Str)]
@@ -2066,6 +2289,9 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @val, long* @int64_out);
+    
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_opt_eval_int64(void* @obj, _AVOption* @o, byte* @val, long* @int64_out);
     
     [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_eval_q(void* @obj, _AVOption* @o,     
@@ -2077,6 +2303,9 @@ public static unsafe partial class DynamicallyLinkedBindings
     string @val, _AVRational* @q_out);
     
     [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_opt_eval_q(void* @obj, _AVOption* @o, byte* @val, _AVRational* @q_out);
+    
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_eval_uint(void* @obj, _AVOption* @o,     
     #if NETSTANDARD2_1_OR_GREATER
     [MarshalAs(UnmanagedType.LPUTF8Str)]
@@ -2084,6 +2313,9 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @val, uint* @uint_out);
+    
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_opt_eval_uint(void* @obj, _AVOption* @o, byte* @val, uint* @uint_out);
     
     /// <summary>Look for an option in an object. Consider only options which have all the specified flags set.</summary>
     /// <param name="obj">A pointer to a struct whose first element is a pointer to an AVClass. Alternatively a double pointer to an AVClass, if AV_OPT_SEARCH_FAKE_OBJ search flag is set.</param>
@@ -2112,6 +2344,15 @@ public static unsafe partial class DynamicallyLinkedBindings
     /// <param name="unit">When searching for named constants, name of the unit it belongs to.</param>
     /// <param name="opt_flags">Find only options with all the specified flags set (AV_OPT_FLAG).</param>
     /// <param name="search_flags">A combination of AV_OPT_SEARCH_*.</param>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern _AVOption* av_opt_find(void* @obj, byte* @name, byte* @unit, int @opt_flags, int @search_flags);
+    
+    /// <summary>Look for an option in an object. Consider only options which have all the specified flags set.</summary>
+    /// <param name="obj">A pointer to a struct whose first element is a pointer to an AVClass. Alternatively a double pointer to an AVClass, if AV_OPT_SEARCH_FAKE_OBJ search flag is set.</param>
+    /// <param name="name">The name of the option to look for.</param>
+    /// <param name="unit">When searching for named constants, name of the unit it belongs to.</param>
+    /// <param name="opt_flags">Find only options with all the specified flags set (AV_OPT_FLAG).</param>
+    /// <param name="search_flags">A combination of AV_OPT_SEARCH_*.</param>
     /// <param name="target_obj">if non-NULL, an object to which the option belongs will be written here. It may be different from obj if AV_OPT_SEARCH_CHILDREN is present in search_flags. This parameter is ignored if search_flags contain AV_OPT_SEARCH_FAKE_OBJ.</param>
     [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
     public static extern _AVOption* av_opt_find2(void* @obj,     
@@ -2127,6 +2368,16 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @unit, int @opt_flags, int @search_flags, void** @target_obj);
+    
+    /// <summary>Look for an option in an object. Consider only options which have all the specified flags set.</summary>
+    /// <param name="obj">A pointer to a struct whose first element is a pointer to an AVClass. Alternatively a double pointer to an AVClass, if AV_OPT_SEARCH_FAKE_OBJ search flag is set.</param>
+    /// <param name="name">The name of the option to look for.</param>
+    /// <param name="unit">When searching for named constants, name of the unit it belongs to.</param>
+    /// <param name="opt_flags">Find only options with all the specified flags set (AV_OPT_FLAG).</param>
+    /// <param name="search_flags">A combination of AV_OPT_SEARCH_*.</param>
+    /// <param name="target_obj">if non-NULL, an object to which the option belongs will be written here. It may be different from obj if AV_OPT_SEARCH_CHILDREN is present in search_flags. This parameter is ignored if search_flags contain AV_OPT_SEARCH_FAKE_OBJ.</param>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern _AVOption* av_opt_find2(void* @obj, byte* @name, byte* @unit, int @opt_flags, int @search_flags, void** @target_obj);
     
     /// <summary>Check whether a particular flag is set in a flags field.</summary>
     /// <param name="field_name">the name of the flag field option</param>
@@ -2145,6 +2396,12 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @flag_name);
+    
+    /// <summary>Check whether a particular flag is set in a flags field.</summary>
+    /// <param name="field_name">the name of the flag field option</param>
+    /// <param name="flag_name">the name of the flag to check</param>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_opt_flag_is_set(void* @obj, byte* @field_name, byte* @flag_name);
     
     /// <summary>Free all allocated objects in obj.</summary>
     [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
@@ -2168,6 +2425,14 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @name, int @search_flags, byte** @out_val);
     
+    /// <summary>@{ Those functions get a value of the option with the given name from an object.</summary>
+    /// <param name="obj">a struct whose first element is a pointer to an AVClass.</param>
+    /// <param name="name">name of the option to get.</param>
+    /// <param name="search_flags">flags passed to av_opt_find2. I.e. if AV_OPT_SEARCH_CHILDREN is passed here, then the option may be found in a child of obj.</param>
+    /// <param name="out_val">value of the option will be written here</param>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_opt_get(void* @obj, byte* @name, int @search_flags, byte** @out_val);
+    
     /// <summary>For an array-type option, retrieve the values of one or more array elements.</summary>
     /// <param name="start_elem">index of the first array element to retrieve</param>
     /// <param name="nb_elems">number of array elements to retrieve; start_elem+nb_elems must not be larger than array size as returned by av_opt_get_array_size()</param>
@@ -2182,6 +2447,14 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @name, int @search_flags, uint @start_elem, uint @nb_elems, _AVOptionType @out_type, void* @out_val);
     
+    /// <summary>For an array-type option, retrieve the values of one or more array elements.</summary>
+    /// <param name="start_elem">index of the first array element to retrieve</param>
+    /// <param name="nb_elems">number of array elements to retrieve; start_elem+nb_elems must not be larger than array size as returned by av_opt_get_array_size()</param>
+    /// <param name="out_type">Option type corresponding to the desired output.</param>
+    /// <param name="out_val">Array with nb_elems members into which the output will be written. The array type must match the underlying C type as documented for out_type, and be zeroed on entry to this function.</param>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_opt_get_array(void* @obj, byte* @name, int @search_flags, uint @start_elem, uint @nb_elems, _AVOptionType @out_type, void* @out_val);
+    
     /// <summary>For an array-type option, get the number of elements in the array.</summary>
     [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_get_array_size(void* @obj,     
@@ -2191,6 +2464,10 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @name, int @search_flags, uint* @out_val);
+    
+    /// <summary>For an array-type option, get the number of elements in the array.</summary>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_opt_get_array_size(void* @obj, byte* @name, int @search_flags, uint* @out_val);
     
     /// <param name="layout">The returned layout is a copy of the actual value and must be freed with av_channel_layout_uninit() by the caller</param>
     [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
@@ -2202,6 +2479,10 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @name, int @search_flags, _AVChannelLayout* @layout);
     
+    /// <param name="layout">The returned layout is a copy of the actual value and must be freed with av_channel_layout_uninit() by the caller</param>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_opt_get_chlayout(void* @obj, byte* @name, int @search_flags, _AVChannelLayout* @layout);
+    
     /// <param name="out_val">The returned dictionary is a copy of the actual value and must be freed with av_dict_free() by the caller</param>
     [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_get_dict_val(void* @obj,     
@@ -2211,6 +2492,10 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @name, int @search_flags, _AVDictionary** @out_val);
+    
+    /// <param name="out_val">The returned dictionary is a copy of the actual value and must be freed with av_dict_free() by the caller</param>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_opt_get_dict_val(void* @obj, byte* @name, int @search_flags, _AVDictionary** @out_val);
     
     [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_get_double(void* @obj,     
@@ -2222,6 +2507,9 @@ public static unsafe partial class DynamicallyLinkedBindings
     string @name, int @search_flags, double* @out_val);
     
     [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_opt_get_double(void* @obj, byte* @name, int @search_flags, double* @out_val);
+    
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_get_image_size(void* @obj,     
     #if NETSTANDARD2_1_OR_GREATER
     [MarshalAs(UnmanagedType.LPUTF8Str)]
@@ -2231,6 +2519,9 @@ public static unsafe partial class DynamicallyLinkedBindings
     string @name, int @search_flags, int* @w_out, int* @h_out);
     
     [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_opt_get_image_size(void* @obj, byte* @name, int @search_flags, int* @w_out, int* @h_out);
+    
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_get_int(void* @obj,     
     #if NETSTANDARD2_1_OR_GREATER
     [MarshalAs(UnmanagedType.LPUTF8Str)]
@@ -2238,6 +2529,9 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @name, int @search_flags, long* @out_val);
+    
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_opt_get_int(void* @obj, byte* @name, int @search_flags, long* @out_val);
     
     /// <summary>Extract a key-value pair from the beginning of a string.</summary>
     /// <param name="ropts">pointer to the options string, will be updated to point to the rest of the string (one of the pairs_sep or the final NUL)</param>
@@ -2261,6 +2555,16 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @pairs_sep, uint @flags, byte** @rkey, byte** @rval);
     
+    /// <summary>Extract a key-value pair from the beginning of a string.</summary>
+    /// <param name="ropts">pointer to the options string, will be updated to point to the rest of the string (one of the pairs_sep or the final NUL)</param>
+    /// <param name="key_val_sep">a 0-terminated list of characters used to separate key from value, for example &apos;=&apos;</param>
+    /// <param name="pairs_sep">a 0-terminated list of characters used to separate two pairs from each other, for example &apos;:&apos; or &apos;,&apos;</param>
+    /// <param name="flags">flags; see the AV_OPT_FLAG_* values below</param>
+    /// <param name="rkey">parsed key; must be freed using av_free()</param>
+    /// <param name="rval">parsed value; must be freed using av_free()</param>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_opt_get_key_value(byte** @ropts, byte* @key_val_sep, byte* @pairs_sep, uint @flags, byte** @rkey, byte** @rval);
+    
     [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_get_pixel_fmt(void* @obj,     
     #if NETSTANDARD2_1_OR_GREATER
@@ -2269,6 +2573,9 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @name, int @search_flags, _AVPixelFormat* @out_fmt);
+    
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_opt_get_pixel_fmt(void* @obj, byte* @name, int @search_flags, _AVPixelFormat* @out_fmt);
     
     [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_get_q(void* @obj,     
@@ -2280,6 +2587,9 @@ public static unsafe partial class DynamicallyLinkedBindings
     string @name, int @search_flags, _AVRational* @out_val);
     
     [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_opt_get_q(void* @obj, byte* @name, int @search_flags, _AVRational* @out_val);
+    
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_get_sample_fmt(void* @obj,     
     #if NETSTANDARD2_1_OR_GREATER
     [MarshalAs(UnmanagedType.LPUTF8Str)]
@@ -2289,6 +2599,9 @@ public static unsafe partial class DynamicallyLinkedBindings
     string @name, int @search_flags, _AVSampleFormat* @out_fmt);
     
     [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_opt_get_sample_fmt(void* @obj, byte* @name, int @search_flags, _AVSampleFormat* @out_fmt);
+    
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_get_video_rate(void* @obj,     
     #if NETSTANDARD2_1_OR_GREATER
     [MarshalAs(UnmanagedType.LPUTF8Str)]
@@ -2296,6 +2609,9 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @name, int @search_flags, _AVRational* @out_val);
+    
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_opt_get_video_rate(void* @obj, byte* @name, int @search_flags, _AVRational* @out_val);
     
     /// <summary>Check if given option is set to its default value.</summary>
     /// <param name="obj">AVClass object to check option on</param>
@@ -2316,6 +2632,13 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @name, int @search_flags);
     
+    /// <summary>Check if given option is set to its default value.</summary>
+    /// <param name="obj">AVClass object to check option on</param>
+    /// <param name="name">option name</param>
+    /// <param name="search_flags">combination of AV_OPT_SEARCH_*</param>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_opt_is_set_to_default_by_name(void* @obj, byte* @name, int @search_flags);
+    
     /// <summary>Iterate over all AVOptions belonging to obj.</summary>
     /// <param name="obj">an AVOptions-enabled struct or a double pointer to an AVClass describing it.</param>
     /// <param name="prev">result of the previous call to av_opt_next() on this object or NULL</param>
@@ -2333,6 +2656,11 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @name);
     
+    /// <summary>Gets a pointer to the requested field in a struct. This function allows accessing a struct even when its fields are moved or renamed since the application making the access has been compiled,</summary>
+    [Obsolete("direct access to AVOption-exported fields is not supported")]
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern void* av_opt_ptr(_AVClass* @avclass, void* @obj, byte* @name);
+    
     /// <summary>Get a list of allowed ranges for the given option.</summary>
     /// <param name="flags">is a bitmask of flags, undefined flags should not be set and should be ignored AV_OPT_SEARCH_FAKE_OBJ indicates that the obj is a double pointer to a AVClass instead of a full instance AV_OPT_MULTI_COMPONENT_RANGE indicates that function may return more than one component,</param>
     [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
@@ -2344,6 +2672,11 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @key, int @flags);
     
+    /// <summary>Get a list of allowed ranges for the given option.</summary>
+    /// <param name="flags">is a bitmask of flags, undefined flags should not be set and should be ignored AV_OPT_SEARCH_FAKE_OBJ indicates that the obj is a double pointer to a AVClass instead of a full instance AV_OPT_MULTI_COMPONENT_RANGE indicates that function may return more than one component,</param>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_opt_query_ranges(_AVOptionRanges** @p0, void* @obj, byte* @key, int @flags);
+    
     /// <summary>Get a default list of allowed ranges for the given option.</summary>
     /// <param name="flags">is a bitmask of flags, undefined flags should not be set and should be ignored AV_OPT_SEARCH_FAKE_OBJ indicates that the obj is a double pointer to a AVClass instead of a full instance AV_OPT_MULTI_COMPONENT_RANGE indicates that function may return more than one component,</param>
     [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
@@ -2354,6 +2687,11 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @key, int @flags);
+    
+    /// <summary>Get a default list of allowed ranges for the given option.</summary>
+    /// <param name="flags">is a bitmask of flags, undefined flags should not be set and should be ignored AV_OPT_SEARCH_FAKE_OBJ indicates that the obj is a double pointer to a AVClass instead of a full instance AV_OPT_MULTI_COMPONENT_RANGE indicates that function may return more than one component,</param>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_opt_query_ranges_default(_AVOptionRanges** @p0, void* @obj, byte* @key, int @flags);
     
     /// <summary>Serialize object&apos;s options.</summary>
     /// <param name="obj">AVClass object to serialize</param>
@@ -2385,6 +2723,14 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @val, int @search_flags);
     
+    /// <summary>@{ Those functions set the field of obj with the given name to value.</summary>
+    /// <param name="obj">A struct whose first element is a pointer to an AVClass.</param>
+    /// <param name="name">the name of the field to set</param>
+    /// <param name="val">The value to set. In case of av_opt_set() if the field is not of a string type, then the given string is parsed. SI postfixes and some named scalars are supported. If the field is of a numeric type, it has to be a numeric or named scalar. Behavior with more than one scalar and +- infix operators is undefined. If the field is of a flags type, it has to be a sequence of numeric scalars or named flags separated by &apos;+&apos; or &apos;-&apos;. Prefixing a flag with &apos;+&apos; causes it to be set without affecting the other flags; similarly, &apos;-&apos; unsets a flag. If the field is of a dictionary type, it has to be a &apos;:&apos; separated list of key=value parameters. Values containing &apos;:&apos; special characters must be escaped.</param>
+    /// <param name="search_flags">flags passed to av_opt_find2. I.e. if AV_OPT_SEARCH_CHILDREN is passed here, then the option may be set on a child of obj.</param>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_opt_set(void* @obj, byte* @name, byte* @val, int @search_flags);
+    
     /// <summary>Add, replace, or remove elements for an array option. Which of these operations is performed depends on the values of val and search_flags.</summary>
     /// <param name="start_elem">Index of the first array element to modify; must not be larger than array size as returned by av_opt_get_array_size().</param>
     /// <param name="nb_elems">number of array elements to modify; when val is NULL, start_elem+nb_elems must not be larger than array size as returned by av_opt_get_array_size()</param>
@@ -2399,6 +2745,14 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @name, int @search_flags, uint @start_elem, uint @nb_elems, _AVOptionType @val_type, void* @val);
     
+    /// <summary>Add, replace, or remove elements for an array option. Which of these operations is performed depends on the values of val and search_flags.</summary>
+    /// <param name="start_elem">Index of the first array element to modify; must not be larger than array size as returned by av_opt_get_array_size().</param>
+    /// <param name="nb_elems">number of array elements to modify; when val is NULL, start_elem+nb_elems must not be larger than array size as returned by av_opt_get_array_size()</param>
+    /// <param name="val_type">Option type corresponding to the type of val, ignored when val is NULL.</param>
+    /// <param name="val">Array with nb_elems elements or NULL.</param>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_opt_set_array(void* @obj, byte* @name, int @search_flags, uint @start_elem, uint @nb_elems, _AVOptionType @val_type, void* @val);
+    
     [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_set_bin(void* @obj,     
     #if NETSTANDARD2_1_OR_GREATER
@@ -2409,6 +2763,9 @@ public static unsafe partial class DynamicallyLinkedBindings
     string @name, byte* @val, int @size, int @search_flags);
     
     [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_opt_set_bin(void* @obj, byte* @name, byte* @val, int @size, int @search_flags);
+    
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_set_chlayout(void* @obj,     
     #if NETSTANDARD2_1_OR_GREATER
     [MarshalAs(UnmanagedType.LPUTF8Str)]
@@ -2416,6 +2773,9 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @name, _AVChannelLayout* @layout, int @search_flags);
+    
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_opt_set_chlayout(void* @obj, byte* @name, _AVChannelLayout* @layout, int @search_flags);
     
     /// <summary>Set the values of all AVOption fields to their default values.</summary>
     /// <param name="s">an AVOption-enabled struct (its first member must be a pointer to AVClass)</param>
@@ -2444,6 +2804,9 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @name, _AVDictionary* @val, int @search_flags);
     
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_opt_set_dict_val(void* @obj, byte* @name, _AVDictionary* @val, int @search_flags);
+    
     /// <summary>Set all the options from a given dictionary on an object.</summary>
     /// <param name="obj">a struct whose first element is a pointer to AVClass</param>
     /// <param name="options">options to process. This dictionary will be freed and replaced by a new one containing all options not found in obj. Of course this new dictionary needs to be freed by caller with av_dict_free().</param>
@@ -2459,6 +2822,9 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @name, double @val, int @search_flags);
+    
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_opt_set_double(void* @obj, byte* @name, double @val, int @search_flags);
     
     /// <summary>Parse the key-value pairs list in opts. For each key=value pair found, set the value of the corresponding option in ctx.</summary>
     /// <param name="ctx">the AVClass object to set options on</param>
@@ -2487,6 +2853,15 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @pairs_sep);
     
+    /// <summary>Parse the key-value pairs list in opts. For each key=value pair found, set the value of the corresponding option in ctx.</summary>
+    /// <param name="ctx">the AVClass object to set options on</param>
+    /// <param name="opts">the options string, key-value pairs separated by a delimiter</param>
+    /// <param name="shorthand">a NULL-terminated array of options names for shorthand notation: if the first field in opts has no key part, the key is taken from the first element of shorthand; then again for the second, etc., until either opts is finished, shorthand is finished or a named option is found; after that, all options must be named</param>
+    /// <param name="key_val_sep">a 0-terminated list of characters used to separate key from value, for example &apos;=&apos;</param>
+    /// <param name="pairs_sep">a 0-terminated list of characters used to separate two pairs from each other, for example &apos;:&apos; or &apos;,&apos;</param>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_opt_set_from_string(void* @ctx, byte* @opts, byte** @shorthand, byte* @key_val_sep, byte* @pairs_sep);
+    
     [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_set_image_size(void* @obj,     
     #if NETSTANDARD2_1_OR_GREATER
@@ -2495,6 +2870,9 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @name, int @w, int @h, int @search_flags);
+    
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_opt_set_image_size(void* @obj, byte* @name, int @w, int @h, int @search_flags);
     
     [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_set_int(void* @obj,     
@@ -2506,6 +2884,9 @@ public static unsafe partial class DynamicallyLinkedBindings
     string @name, long @val, int @search_flags);
     
     [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_opt_set_int(void* @obj, byte* @name, long @val, int @search_flags);
+    
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_set_pixel_fmt(void* @obj,     
     #if NETSTANDARD2_1_OR_GREATER
     [MarshalAs(UnmanagedType.LPUTF8Str)]
@@ -2513,6 +2894,9 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @name, _AVPixelFormat @fmt, int @search_flags);
+    
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_opt_set_pixel_fmt(void* @obj, byte* @name, _AVPixelFormat @fmt, int @search_flags);
     
     [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_set_q(void* @obj,     
@@ -2524,6 +2908,9 @@ public static unsafe partial class DynamicallyLinkedBindings
     string @name, _AVRational @val, int @search_flags);
     
     [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_opt_set_q(void* @obj, byte* @name, _AVRational @val, int @search_flags);
+    
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_set_sample_fmt(void* @obj,     
     #if NETSTANDARD2_1_OR_GREATER
     [MarshalAs(UnmanagedType.LPUTF8Str)]
@@ -2533,6 +2920,9 @@ public static unsafe partial class DynamicallyLinkedBindings
     string @name, _AVSampleFormat @fmt, int @search_flags);
     
     [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_opt_set_sample_fmt(void* @obj, byte* @name, _AVSampleFormat @fmt, int @search_flags);
+    
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_set_video_rate(void* @obj,     
     #if NETSTANDARD2_1_OR_GREATER
     [MarshalAs(UnmanagedType.LPUTF8Str)]
@@ -2540,6 +2930,9 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @name, _AVRational @val, int @search_flags);
+    
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_opt_set_video_rate(void* @obj, byte* @name, _AVRational @val, int @search_flags);
     
     /// <summary>Show the obj options.</summary>
     /// <param name="av_log_obj">log context to use for showing the options</param>
@@ -2724,6 +3117,10 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @s);
     
+    /// <summary>Parse CPU caps from a string and update the given AV_CPU_* flags based on that.</summary>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_parse_cpu_caps(uint* @flags, byte* @s);
+    
     [DllImport("avcodec-62", CallingConvention = CallingConvention.Cdecl)]
     public static extern void av_parser_close(_AVCodecParserContext* @s);
     
@@ -2804,6 +3201,10 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @url, void* @logctx, uint @offset, uint @max_probe_size);
     
+    /// <summary>Like av_probe_input_buffer2() but returns 0 on success</summary>
+    [DllImport("avformat-62", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_probe_input_buffer(_AVIOContext* @pb, _AVInputFormat** @fmt, byte* @url, void* @logctx, uint @offset, uint @max_probe_size);
+    
     /// <summary>Probe a bytestream to determine the input format. Each time a probe returns with a score that is too low, the probe buffer size is increased and another attempt is made. When the maximum probe size is reached, the input format with the highest score is returned.</summary>
     /// <param name="pb">the bytestream to probe</param>
     /// <param name="fmt">the input format is put here</param>
@@ -2819,6 +3220,16 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @url, void* @logctx, uint @offset, uint @max_probe_size);
+    
+    /// <summary>Probe a bytestream to determine the input format. Each time a probe returns with a score that is too low, the probe buffer size is increased and another attempt is made. When the maximum probe size is reached, the input format with the highest score is returned.</summary>
+    /// <param name="pb">the bytestream to probe</param>
+    /// <param name="fmt">the input format is put here</param>
+    /// <param name="url">the url of the stream</param>
+    /// <param name="logctx">the log context</param>
+    /// <param name="offset">the offset within the bytestream to probe from</param>
+    /// <param name="max_probe_size">the maximum probe buffer size (zero for default)</param>
+    [DllImport("avformat-62", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_probe_input_buffer2(_AVIOContext* @pb, _AVInputFormat** @fmt, byte* @url, void* @logctx, uint @offset, uint @max_probe_size);
     
     /// <summary>Guess the file format.</summary>
     /// <param name="pd">data to be probed</param>
@@ -3039,6 +3450,13 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @pairs_sep);
     
+    /// <summary>Parse the key/value pairs list in opts. For each key/value pair found, stores the value in the field in ctx that is named like the key. ctx must be an AVClass context, storing is done using AVOptions.</summary>
+    /// <param name="opts">options string to parse, may be NULL</param>
+    /// <param name="key_val_sep">a 0-terminated list of characters used to separate key from value</param>
+    /// <param name="pairs_sep">a 0-terminated list of characters used to separate two pairs from each other</param>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_set_options_string(void* @ctx, byte* @opts, byte* @key_val_sep, byte* @pairs_sep);
+    
     /// <summary>Reduce packet size, correctly zeroing padding</summary>
     /// <param name="pkt">packet</param>
     /// <param name="size">new size</param>
@@ -3076,6 +3494,11 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @name);
     
+    /// <summary>Get the AVStereo3DType form a human-readable name.</summary>
+    /// <param name="name">The input string.</param>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_stereo3d_from_name(byte* @name);
+    
     /// <summary>Get the AVStereo3DPrimaryEye form a human-readable name.</summary>
     /// <param name="name">The input string.</param>
     [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
@@ -3086,6 +3509,11 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @name);
+    
+    /// <summary>Get the AVStereo3DPrimaryEye form a human-readable name.</summary>
+    /// <param name="name">The input string.</param>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_stereo3d_primary_eye_from_name(byte* @name);
     
     /// <summary>Provide a human-readable name of a given stereo3d primary eye.</summary>
     [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
@@ -3109,6 +3537,11 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @name);
     
+    /// <summary>Get the AVStereo3DView form a human-readable name.</summary>
+    /// <param name="name">The input string.</param>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_stereo3d_view_from_name(byte* @name);
+    
     /// <summary>Provide a human-readable name of a given stereo3d view.</summary>
     [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
     [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(ConstCharPtrMarshaler))]
@@ -3124,6 +3557,11 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @s);
+    
+    /// <summary>Duplicate a string.</summary>
+    /// <param name="s">String to be duplicated</param>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern byte* av_strdup(byte* @s);
     
     /// <summary>Get the AVClass for AVStream. It can be used in combination with AV_OPT_SEARCH_FAKE_OBJ for examining options.</summary>
     [DllImport("avformat-62", CallingConvention = CallingConvention.Cdecl)]
@@ -3158,6 +3596,12 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @s, ulong @len);
+    
+    /// <summary>Duplicate a substring of a string.</summary>
+    /// <param name="s">String to be duplicated</param>
+    /// <param name="len">Maximum length of the resulting string (not counting the terminating byte)</param>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern byte* av_strndup(byte* @s, ulong @len);
     
     /// <summary>Subtract one rational from another.</summary>
     /// <param name="b">First rational</param>
@@ -3225,6 +3669,14 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @str, void* @log_ctx);
+    
+    /// <summary>Parse timecode representation (hh:mm:ss[:;.]ff).</summary>
+    /// <param name="tc">pointer to an allocated AVTimecode</param>
+    /// <param name="rate">frame rate in rational form</param>
+    /// <param name="str">timecode string which will determine the frame start</param>
+    /// <param name="log_ctx">a pointer to an arbitrary struct of which the first field is a pointer to an AVClass struct (used for av_log).</param>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_timecode_init_from_string(_AVTimecode* @tc, _AVRational @rate, byte* @str, void* @log_ctx);
     
     /// <summary>Get the timecode string from the 25-bit timecode format (MPEG GOP format).</summary>
     /// <param name="buf">destination buffer, must be at least AV_TIMECODE_STR_SIZE long</param>
@@ -3302,6 +3754,20 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @url);
     
+    /// <summary>Split a URL string into components.</summary>
+    /// <param name="proto">the buffer for the protocol</param>
+    /// <param name="proto_size">the size of the proto buffer</param>
+    /// <param name="authorization">the buffer for the authorization</param>
+    /// <param name="authorization_size">the size of the authorization buffer</param>
+    /// <param name="hostname">the buffer for the host name</param>
+    /// <param name="hostname_size">the size of the hostname buffer</param>
+    /// <param name="port_ptr">a pointer to store the port number in</param>
+    /// <param name="path">the buffer for the path</param>
+    /// <param name="path_size">the size of the path buffer</param>
+    /// <param name="url">the URL to split</param>
+    [DllImport("avformat-62", CallingConvention = CallingConvention.Cdecl)]
+    public static extern void av_url_split(byte* @proto, int @proto_size, byte* @authorization, int @authorization_size, byte* @hostname, int @hostname_size, int* @port_ptr, byte* @path, int @path_size, byte* @url);
+    
     /// <summary>Sleep for a period of time. Although the duration is expressed in microseconds, the actual delay may be rounded to the precision of the system timer.</summary>
     /// <param name="usec">Number of microseconds to sleep.</param>
     [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
@@ -3341,6 +3807,14 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @fmt, byte* @vl);
+    
+    /// <summary>Send the specified message to the log if the level is less than or equal to the current av_log_level. By default, all logging messages are sent to stderr. This behavior can be altered by setting a different logging callback function.</summary>
+    /// <param name="avcl">A pointer to an arbitrary struct of which the first field is a pointer to an AVClass struct.</param>
+    /// <param name="level">The importance level of the message expressed using a &quot;Logging Constant&quot;.</param>
+    /// <param name="fmt">The format string (printf-compatible) that specifies how subsequent arguments are converted to output.</param>
+    /// <param name="vl">The arguments referenced by the format string.</param>
+    [DllImport("avutil-60", CallingConvention = CallingConvention.Cdecl)]
+    public static extern void av_vlog(void* @avcl, int @level, byte* @fmt, byte* @vl);
     
     /// <summary>Write a packet to an output media file.</summary>
     /// <param name="s">media file handle</param>
@@ -3439,6 +3913,10 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @name);
     
+    /// <summary>Returns codec descriptor with the given name or NULL if no such descriptor exists.</summary>
+    [DllImport("avcodec-62", CallingConvention = CallingConvention.Cdecl)]
+    public static extern _AVCodecDescriptor* avcodec_descriptor_get_by_name(byte* @name);
+    
     /// <summary>Iterate over all codec descriptors known to libavcodec.</summary>
     /// <param name="prev">previous descriptor. NULL to get the first descriptor.</param>
     [DllImport("avcodec-62", CallingConvention = CallingConvention.Cdecl)]
@@ -3482,6 +3960,11 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @name);
     
+    /// <summary>Find a registered decoder with the specified name.</summary>
+    /// <param name="name">name of the requested decoder</param>
+    [DllImport("avcodec-62", CallingConvention = CallingConvention.Cdecl)]
+    public static extern _AVCodec* avcodec_find_decoder_by_name(byte* @name);
+    
     /// <summary>Find a registered encoder with a matching codec ID.</summary>
     /// <param name="id">AVCodecID of the requested encoder</param>
     [DllImport("avcodec-62", CallingConvention = CallingConvention.Cdecl)]
@@ -3497,6 +3980,11 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @name);
+    
+    /// <summary>Find a registered encoder with the specified name.</summary>
+    /// <param name="name">name of the requested encoder</param>
+    [DllImport("avcodec-62", CallingConvention = CallingConvention.Cdecl)]
+    public static extern _AVCodec* avcodec_find_encoder_by_name(byte* @name);
     
     /// <summary>Reset the internal codec state / flush internal buffers. Should be called e.g. when seeking or when switching to a different stream.</summary>
     [DllImport("avcodec-62", CallingConvention = CallingConvention.Cdecl)]
@@ -3680,6 +4168,14 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @device_name, _AVDictionary* @device_options, _AVDeviceInfoList** @device_list);
     
+    /// <summary>List devices.</summary>
+    /// <param name="device">device format. May be NULL if device name is set.</param>
+    /// <param name="device_name">device name. May be NULL if device format is set.</param>
+    /// <param name="device_options">An AVDictionary filled with device-private options. May be NULL. The same options must be passed later to avformat_write_header() for output devices or avformat_open_input() for input devices, or at any other place that affects device-private options.</param>
+    /// <param name="device_list">list of autodetected devices</param>
+    [DllImport("avdevice-62", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int avdevice_list_input_sources(_AVInputFormat* @device, byte* @device_name, _AVDictionary* @device_options, _AVDeviceInfoList** @device_list);
+    
     [DllImport("avdevice-62", CallingConvention = CallingConvention.Cdecl)]
     public static extern int avdevice_list_output_sinks(_AVOutputFormat* @device,     
     #if NETSTANDARD2_1_OR_GREATER
@@ -3688,6 +4184,9 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @device_name, _AVDictionary* @device_options, _AVDeviceInfoList** @device_list);
+    
+    [DllImport("avdevice-62", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int avdevice_list_output_sinks(_AVOutputFormat* @device, byte* @device_name, _AVDictionary* @device_options, _AVDeviceInfoList** @device_list);
     
     /// <summary>Initialize libavdevice and register all the input and output devices.</summary>
     [DllImport("avdevice-62", CallingConvention = CallingConvention.Cdecl)]
@@ -3722,6 +4221,11 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @name);
     
+    /// <summary>Get a filter definition matching the given name.</summary>
+    /// <param name="name">the filter name to find</param>
+    [DllImport("avfilter-11", CallingConvention = CallingConvention.Cdecl)]
+    public static extern _AVFilter* avfilter_get_by_name(byte* @name);
+    
     /// <summary>Returns AVClass for AVFilterContext.</summary>
     [DllImport("avfilter-11", CallingConvention = CallingConvention.Cdecl)]
     public static extern _AVClass* avfilter_get_class();
@@ -3742,6 +4246,13 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @name);
+    
+    /// <summary>Create a new filter instance in a filter graph.</summary>
+    /// <param name="graph">graph in which the new filter will be used</param>
+    /// <param name="filter">the filter to create an instance of</param>
+    /// <param name="name">Name to give to the new instance (will be copied to AVFilterContext.name). This may be used by the caller to identify different filters, libavfilter itself assigns no semantics to this parameter. May be NULL.</param>
+    [DllImport("avfilter-11", CallingConvention = CallingConvention.Cdecl)]
+    public static extern _AVFilterContext* avfilter_graph_alloc_filter(_AVFilterGraph* @graph, _AVFilter* @filter, byte* @name);
     
     /// <summary>Check validity and configure all the links and formats in the graph.</summary>
     /// <param name="graphctx">the filter graph</param>
@@ -3767,6 +4278,12 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @args, void* @opaque, _AVFilterGraph* @graph_ctx);
     
+    /// <summary>A convenience wrapper that allocates and initializes a filter in a single step. The filter instance is created from the filter filt and inited with the parameter args. opaque is currently ignored.</summary>
+    /// <param name="name">the instance name to give to the created filter instance</param>
+    /// <param name="graph_ctx">the filter graph</param>
+    [DllImport("avfilter-11", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int avfilter_graph_create_filter(_AVFilterContext** @filt_ctx, _AVFilter* @filt, byte* @name, byte* @args, void* @opaque, _AVFilterGraph* @graph_ctx);
+    
     /// <summary>Dump a graph into a human-readable string representation.</summary>
     /// <param name="graph">the graph to dump</param>
     /// <param name="options">formatting options; currently ignored</param>
@@ -3778,6 +4295,12 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @options);
+    
+    /// <summary>Dump a graph into a human-readable string representation.</summary>
+    /// <param name="graph">the graph to dump</param>
+    /// <param name="options">formatting options; currently ignored</param>
+    [DllImport("avfilter-11", CallingConvention = CallingConvention.Cdecl)]
+    public static extern byte* avfilter_graph_dump(_AVFilterGraph* @graph, byte* @options);
     
     /// <summary>Free a graph, destroy its links, and set *graph to NULL. If *graph is NULL, do nothing.</summary>
     [DllImport("avfilter-11", CallingConvention = CallingConvention.Cdecl)]
@@ -3794,6 +4317,12 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @name);
+    
+    /// <summary>Get a filter instance identified by instance name from graph.</summary>
+    /// <param name="graph">filter graph to search through.</param>
+    /// <param name="name">filter instance name (should be unique in the graph).</param>
+    [DllImport("avfilter-11", CallingConvention = CallingConvention.Cdecl)]
+    public static extern _AVFilterContext* avfilter_graph_get_filter(_AVFilterGraph* @graph, byte* @name);
     
     /// <summary>Add a graph described by a string to a graph.</summary>
     /// <param name="graph">the filter graph where to link the parsed graph context</param>
@@ -3812,6 +4341,14 @@ public static unsafe partial class DynamicallyLinkedBindings
     /// <summary>Add a graph described by a string to a graph.</summary>
     /// <param name="graph">the filter graph where to link the parsed graph context</param>
     /// <param name="filters">string to be parsed</param>
+    /// <param name="inputs">linked list to the inputs of the graph</param>
+    /// <param name="outputs">linked list to the outputs of the graph</param>
+    [DllImport("avfilter-11", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int avfilter_graph_parse(_AVFilterGraph* @graph, byte* @filters, _AVFilterInOut* @inputs, _AVFilterInOut* @outputs, void* @log_ctx);
+    
+    /// <summary>Add a graph described by a string to a graph.</summary>
+    /// <param name="graph">the filter graph where to link the parsed graph context</param>
+    /// <param name="filters">string to be parsed</param>
     /// <param name="inputs">pointer to a linked list to the inputs of the graph, may be NULL. If non-NULL, *inputs is updated to contain the list of open inputs after the parsing, should be freed with avfilter_inout_free().</param>
     /// <param name="outputs">pointer to a linked list to the outputs of the graph, may be NULL. If non-NULL, *outputs is updated to contain the list of open outputs after the parsing, should be freed with avfilter_inout_free().</param>
     [DllImport("avfilter-11", CallingConvention = CallingConvention.Cdecl)]
@@ -3826,6 +4363,14 @@ public static unsafe partial class DynamicallyLinkedBindings
     /// <summary>Add a graph described by a string to a graph.</summary>
     /// <param name="graph">the filter graph where to link the parsed graph context</param>
     /// <param name="filters">string to be parsed</param>
+    /// <param name="inputs">pointer to a linked list to the inputs of the graph, may be NULL. If non-NULL, *inputs is updated to contain the list of open inputs after the parsing, should be freed with avfilter_inout_free().</param>
+    /// <param name="outputs">pointer to a linked list to the outputs of the graph, may be NULL. If non-NULL, *outputs is updated to contain the list of open outputs after the parsing, should be freed with avfilter_inout_free().</param>
+    [DllImport("avfilter-11", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int avfilter_graph_parse_ptr(_AVFilterGraph* @graph, byte* @filters, _AVFilterInOut** @inputs, _AVFilterInOut** @outputs, void* @log_ctx);
+    
+    /// <summary>Add a graph described by a string to a graph.</summary>
+    /// <param name="graph">the filter graph where to link the parsed graph context</param>
+    /// <param name="filters">string to be parsed</param>
     /// <param name="inputs">a linked list of all free (unlinked) inputs of the parsed graph will be returned here. It is to be freed by the caller using avfilter_inout_free().</param>
     /// <param name="outputs">a linked list of all free (unlinked) outputs of the parsed graph will be returned here. It is to be freed by the caller using avfilter_inout_free().</param>
     [DllImport("avfilter-11", CallingConvention = CallingConvention.Cdecl)]
@@ -3836,6 +4381,14 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @filters, _AVFilterInOut** @inputs, _AVFilterInOut** @outputs);
+    
+    /// <summary>Add a graph described by a string to a graph.</summary>
+    /// <param name="graph">the filter graph where to link the parsed graph context</param>
+    /// <param name="filters">string to be parsed</param>
+    /// <param name="inputs">a linked list of all free (unlinked) inputs of the parsed graph will be returned here. It is to be freed by the caller using avfilter_inout_free().</param>
+    /// <param name="outputs">a linked list of all free (unlinked) outputs of the parsed graph will be returned here. It is to be freed by the caller using avfilter_inout_free().</param>
+    [DllImport("avfilter-11", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int avfilter_graph_parse2(_AVFilterGraph* @graph, byte* @filters, _AVFilterInOut** @inputs, _AVFilterInOut** @outputs);
     
     /// <summary>Queue a command for one or more filter instances.</summary>
     /// <param name="graph">the filter graph</param>
@@ -3863,6 +4416,15 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @arg, int @flags, double @ts);
+    
+    /// <summary>Queue a command for one or more filter instances.</summary>
+    /// <param name="graph">the filter graph</param>
+    /// <param name="target">the filter(s) to which the command should be sent &quot;all&quot; sends to all filters otherwise it can be a filter or filter instance name which will send the command to all matching filters.</param>
+    /// <param name="cmd">the command to sent, for handling simplicity all commands must be alphanumeric only</param>
+    /// <param name="arg">the argument for the command</param>
+    /// <param name="ts">time at which the command should be sent to the filter</param>
+    [DllImport("avfilter-11", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int avfilter_graph_queue_command(_AVFilterGraph* @graph, byte* @target, byte* @cmd, byte* @arg, int @flags, double @ts);
     
     /// <summary>Request a frame on the oldest sink link.</summary>
     [DllImport("avfilter-11", CallingConvention = CallingConvention.Cdecl)]
@@ -3921,6 +4483,14 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @graph_str, int @flags, _AVFilterGraphSegment** @seg);
     
+    /// <summary>Parse a textual filtergraph description into an intermediate form.</summary>
+    /// <param name="graph">Filter graph the parsed segment is associated with. Will only be used for logging and similar auxiliary purposes. The graph will not be actually modified by this function - the parsing results are instead stored in seg for further processing.</param>
+    /// <param name="graph_str">a string describing the filtergraph segment</param>
+    /// <param name="flags">reserved for future use, caller must set to 0 for now</param>
+    /// <param name="seg">A pointer to the newly-created AVFilterGraphSegment is written here on success. The graph segment is owned by the caller and must be freed with avfilter_graph_segment_free() before graph itself is freed.</param>
+    [DllImport("avfilter-11", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int avfilter_graph_segment_parse(_AVFilterGraph* @graph, byte* @graph_str, int @flags, _AVFilterGraphSegment** @seg);
+    
     /// <summary>Send a command to one or more filter instances.</summary>
     /// <param name="graph">the filter graph</param>
     /// <param name="target">the filter(s) to which the command should be sent &quot;all&quot; sends to all filters otherwise it can be a filter or filter instance name which will send the command to all matching filters.</param>
@@ -3948,6 +4518,15 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @arg, byte* @res, int @res_len, int @flags);
     
+    /// <summary>Send a command to one or more filter instances.</summary>
+    /// <param name="graph">the filter graph</param>
+    /// <param name="target">the filter(s) to which the command should be sent &quot;all&quot; sends to all filters otherwise it can be a filter or filter instance name which will send the command to all matching filters.</param>
+    /// <param name="cmd">the command to send, for handling simplicity all commands must be alphanumeric only</param>
+    /// <param name="arg">the argument for the command</param>
+    /// <param name="res">a buffer with size res_size where the filter(s) can return a response.</param>
+    [DllImport("avfilter-11", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int avfilter_graph_send_command(_AVFilterGraph* @graph, byte* @target, byte* @cmd, byte* @arg, byte* @res, int @res_len, int @flags);
+    
     /// <summary>Enable or disable automatic format conversion inside the graph.</summary>
     /// <param name="flags">any of the AVFILTER_AUTO_CONVERT_* constants</param>
     [DllImport("avfilter-11", CallingConvention = CallingConvention.Cdecl)]
@@ -3970,6 +4549,12 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @args);
+    
+    /// <summary>Initialize a filter with the supplied parameters.</summary>
+    /// <param name="ctx">uninitialized filter context to initialize</param>
+    /// <param name="args">Options to initialize the filter with. This must be a &apos;:&apos;-separated list of options in the &apos;key=value&apos; form. May be NULL if the options have been set directly using the AVOptions API or there are no options that need to be set.</param>
+    [DllImport("avfilter-11", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int avfilter_init_str(_AVFilterContext* @ctx, byte* @args);
     
     /// <summary>Allocate a single AVFilterInOut entry. Must be freed with avfilter_inout_free().</summary>
     [DllImport("avfilter-11", CallingConvention = CallingConvention.Cdecl)]
@@ -4034,6 +4619,10 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @arg, byte* @res, int @res_len, int @flags);
     
+    /// <summary>Make the filter instance process a command. It is recommended to use avfilter_graph_send_command().</summary>
+    [DllImport("avfilter-11", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int avfilter_process_command(_AVFilterContext* @filter, byte* @cmd, byte* @arg, byte* @res, int @res_len, int @flags);
+    
     /// <summary>Return the LIBAVFILTER_VERSION_INT constant.</summary>
     [DllImport("avfilter-11", CallingConvention = CallingConvention.Cdecl)]
     public static extern uint avfilter_version();
@@ -4061,6 +4650,14 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @filename);
+    
+    /// <summary>Allocate an AVFormatContext for an output format. avformat_free_context() can be used to free the context and everything allocated by the framework within it.</summary>
+    /// <param name="ctx">pointee is set to the created format context, or to NULL in case of failure</param>
+    /// <param name="oformat">format to use for allocating the context, if NULL format_name and filename are used instead</param>
+    /// <param name="format_name">the name of output format to use for allocating the context, if NULL filename is used instead</param>
+    /// <param name="filename">the name of the filename to use for allocating the context, may be NULL</param>
+    [DllImport("avformat-62", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int avformat_alloc_output_context2(_AVFormatContext** @ctx, _AVOutputFormat* @oformat, byte* @format_name, byte* @filename);
     
     /// <summary>Close an opened input AVFormatContext. Free it and all its contents and set *s to NULL.</summary>
     [DllImport("avformat-62", CallingConvention = CallingConvention.Cdecl)]
@@ -4146,6 +4743,10 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @spec);
     
+    /// <summary>Check if the stream st contained in s is matched by the stream specifier spec.</summary>
+    [DllImport("avformat-62", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int avformat_match_stream_specifier(_AVFormatContext* @s, _AVStream* @st, byte* @spec);
+    
     /// <summary>Undo the initialization done by avformat_network_init. Call it only once for each time you called avformat_network_init.</summary>
     [DllImport("avformat-62", CallingConvention = CallingConvention.Cdecl)]
     public static extern int avformat_network_deinit();
@@ -4173,6 +4774,14 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @url, _AVInputFormat* @fmt, _AVDictionary** @options);
+    
+    /// <summary>Open an input stream and read the header. The codecs are not opened. The stream must be closed with avformat_close_input().</summary>
+    /// <param name="ps">Pointer to user-supplied AVFormatContext (allocated by avformat_alloc_context). May be a pointer to NULL, in which case an AVFormatContext is allocated by this function and written into ps. Note that a user-supplied AVFormatContext will be freed on failure and its pointer set to NULL.</param>
+    /// <param name="url">URL of the stream to open.</param>
+    /// <param name="fmt">If non-NULL, this parameter forces a specific input format. Otherwise the format is autodetected.</param>
+    /// <param name="options">A dictionary filled with AVFormatContext and demuxer-private options. On return this parameter will be destroyed and replaced with a dict containing options that were not found. May be NULL.</param>
+    [DllImport("avformat-62", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int avformat_open_input(_AVFormatContext** @ps, byte* @url, _AVInputFormat* @fmt, _AVDictionary** @options);
     
     /// <summary>Test if the given container can store a codec.</summary>
     /// <param name="ofmt">container to check for compatibility</param>
@@ -4265,6 +4874,10 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @url, int @flags);
     
+    /// <summary>Return AVIO_FLAG_* access flags corresponding to the access permissions of the resource in url, or a negative value corresponding to an AVERROR code in case of failure. The returned access flags are masked by the value in flags.</summary>
+    [DllImport("avformat-62", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int avio_check(byte* @url, int @flags);
+    
     /// <summary>Close the resource accessed by the AVIOContext s and free it. This function can only be used if s was opened by avio_open().</summary>
     [DllImport("avformat-62", CallingConvention = CallingConvention.Cdecl)]
     public static extern int avio_close(_AVIOContext* @s);
@@ -4311,6 +4924,11 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @url);
     
+    /// <summary>Return the name of the protocol that will handle the passed URL.</summary>
+    [DllImport("avformat-62", CallingConvention = CallingConvention.Cdecl)]
+    [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(ConstCharPtrMarshaler))]
+    public static extern string avio_find_protocol_name(byte* @url);
+    
     /// <summary>Force flushing of buffered data.</summary>
     [DllImport("avformat-62", CallingConvention = CallingConvention.Cdecl)]
     public static extern void avio_flush(_AVIOContext* @s);
@@ -4355,6 +4973,13 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @url, int @flags);
     
+    /// <summary>Create and initialize a AVIOContext for accessing the resource indicated by url.</summary>
+    /// <param name="s">Used to return the pointer to the created AVIOContext. In case of failure the pointed to value is set to NULL.</param>
+    /// <param name="url">resource to access</param>
+    /// <param name="flags">flags which control how the resource indicated by url is to be opened</param>
+    [DllImport("avformat-62", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int avio_open(_AVIOContext** @s, byte* @url, int @flags);
+    
     /// <summary>Open directory for reading.</summary>
     /// <param name="s">directory read context. Pointer to a NULL pointer must be passed.</param>
     /// <param name="url">directory to be listed.</param>
@@ -4367,6 +4992,13 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @url, _AVDictionary** @options);
+    
+    /// <summary>Open directory for reading.</summary>
+    /// <param name="s">directory read context. Pointer to a NULL pointer must be passed.</param>
+    /// <param name="url">directory to be listed.</param>
+    /// <param name="options">A dictionary filled with protocol-private options. On return this parameter will be destroyed and replaced with a dictionary containing options that were not found. May be NULL.</param>
+    [DllImport("avformat-62", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int avio_open_dir(_AVIODirContext** @s, byte* @url, _AVDictionary** @options);
     
     /// <summary>Open a write only memory stream.</summary>
     /// <param name="s">new IO context</param>
@@ -4388,6 +5020,15 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @url, int @flags, _AVIOInterruptCB* @int_cb, _AVDictionary** @options);
     
+    /// <summary>Create and initialize a AVIOContext for accessing the resource indicated by url.</summary>
+    /// <param name="s">Used to return the pointer to the created AVIOContext. In case of failure the pointed to value is set to NULL.</param>
+    /// <param name="url">resource to access</param>
+    /// <param name="flags">flags which control how the resource indicated by url is to be opened</param>
+    /// <param name="int_cb">an interrupt callback to be used at the protocols level</param>
+    /// <param name="options">A dictionary filled with protocol-private options. On return this parameter will be destroyed and replaced with a dict containing options that were not found. May be NULL.</param>
+    [DllImport("avformat-62", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int avio_open2(_AVIOContext** @s, byte* @url, int @flags, _AVIOInterruptCB* @int_cb, _AVDictionary** @options);
+    
     /// <summary>Pause and resume playing - only meaningful if using a network streaming protocol (e.g. MMS).</summary>
     /// <param name="h">IO context from which to call the read_pause function pointer</param>
     /// <param name="pause">1 for pause, 0 for resume</param>
@@ -4408,6 +5049,10 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @fmt);
     
+    /// <summary>Writes a formatted string to the context.</summary>
+    [DllImport("avformat-62", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int avio_printf(_AVIOContext* @s, byte* @fmt);
+    
     /// <summary>Get AVClass by names of available protocols.</summary>
     [DllImport("avformat-62", CallingConvention = CallingConvention.Cdecl)]
     public static extern _AVClass* avio_protocol_get_class(    
@@ -4418,6 +5063,10 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @name);
     
+    /// <summary>Get AVClass by names of available protocols.</summary>
+    [DllImport("avformat-62", CallingConvention = CallingConvention.Cdecl)]
+    public static extern _AVClass* avio_protocol_get_class(byte* @name);
+    
     /// <summary>Write a NULL-terminated string.</summary>
     [DllImport("avformat-62", CallingConvention = CallingConvention.Cdecl)]
     public static extern int avio_put_str(_AVIOContext* @s,     
@@ -4427,6 +5076,10 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @str);
+    
+    /// <summary>Write a NULL-terminated string.</summary>
+    [DllImport("avformat-62", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int avio_put_str(_AVIOContext* @s, byte* @str);
     
     /// <summary>Convert an UTF-8 string to UTF-16BE and write it.</summary>
     /// <param name="s">the AVIOContext</param>
@@ -4440,6 +5093,12 @@ public static unsafe partial class DynamicallyLinkedBindings
     #endif
     string @str);
     
+    /// <summary>Convert an UTF-8 string to UTF-16BE and write it.</summary>
+    /// <param name="s">the AVIOContext</param>
+    /// <param name="str">NULL-terminated UTF-8 string</param>
+    [DllImport("avformat-62", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int avio_put_str16be(_AVIOContext* @s, byte* @str);
+    
     /// <summary>Convert an UTF-8 string to UTF-16LE and write it.</summary>
     /// <param name="s">the AVIOContext</param>
     /// <param name="str">NULL-terminated UTF-8 string</param>
@@ -4451,6 +5110,12 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @str);
+    
+    /// <summary>Convert an UTF-8 string to UTF-16LE and write it.</summary>
+    /// <param name="s">the AVIOContext</param>
+    /// <param name="str">NULL-terminated UTF-8 string</param>
+    [DllImport("avformat-62", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int avio_put_str16le(_AVIOContext* @s, byte* @str);
     
     /// <summary>@{</summary>
     [DllImport("avformat-62", CallingConvention = CallingConvention.Cdecl)]
@@ -4527,6 +5192,10 @@ public static unsafe partial class DynamicallyLinkedBindings
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @fmt, byte* @ap);
+    
+    /// <summary>Writes a formatted string to the context taking a va_list.</summary>
+    [DllImport("avformat-62", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int avio_vprintf(_AVIOContext* @s, byte* @fmt, byte* @ap);
     
     [DllImport("avformat-62", CallingConvention = CallingConvention.Cdecl)]
     public static extern void avio_w8(_AVIOContext* @s, int @b);
@@ -4946,6 +5615,7 @@ public static unsafe partial class DynamicallyLinkedBindings
         vectors.av_add_q = av_add_q;
         vectors.av_add_stable = av_add_stable;
         vectors.av_alpha_mode_from_name = av_alpha_mode_from_name;
+        vectors.av_alpha_mode_from_name = av_alpha_mode_from_name;
         vectors.av_alpha_mode_name = av_alpha_mode_name;
         vectors.av_append_packet = av_append_packet;
         vectors.av_audio_fifo_alloc = av_audio_fifo_alloc;
@@ -4964,6 +5634,7 @@ public static unsafe partial class DynamicallyLinkedBindings
         vectors.av_bsf_flush = av_bsf_flush;
         vectors.av_bsf_free = av_bsf_free;
         vectors.av_bsf_get_by_name = av_bsf_get_by_name;
+        vectors.av_bsf_get_by_name = av_bsf_get_by_name;
         vectors.av_bsf_get_class = av_bsf_get_class;
         vectors.av_bsf_get_null_filter = av_bsf_get_null_filter;
         vectors.av_bsf_init = av_bsf_init;
@@ -4971,8 +5642,10 @@ public static unsafe partial class DynamicallyLinkedBindings
         vectors.av_bsf_list_alloc = av_bsf_list_alloc;
         vectors.av_bsf_list_append = av_bsf_list_append;
         vectors.av_bsf_list_append2 = av_bsf_list_append2;
+        vectors.av_bsf_list_append2 = av_bsf_list_append2;
         vectors.av_bsf_list_finalize = av_bsf_list_finalize;
         vectors.av_bsf_list_free = av_bsf_list_free;
+        vectors.av_bsf_list_parse_str = av_bsf_list_parse_str;
         vectors.av_bsf_list_parse_str = av_bsf_list_parse_str;
         vectors.av_bsf_receive_packet = av_bsf_receive_packet;
         vectors.av_bsf_send_packet = av_bsf_send_packet;
@@ -5024,8 +5697,10 @@ public static unsafe partial class DynamicallyLinkedBindings
         vectors.av_channel_description = av_channel_description;
         vectors.av_channel_description_bprint = av_channel_description_bprint;
         vectors.av_channel_from_string = av_channel_from_string;
+        vectors.av_channel_from_string = av_channel_from_string;
         vectors.av_channel_layout_ambisonic_order = av_channel_layout_ambisonic_order;
         vectors.av_channel_layout_channel_from_index = av_channel_layout_channel_from_index;
+        vectors.av_channel_layout_channel_from_string = av_channel_layout_channel_from_string;
         vectors.av_channel_layout_channel_from_string = av_channel_layout_channel_from_string;
         vectors.av_channel_layout_check = av_channel_layout_check;
         vectors.av_channel_layout_compare = av_channel_layout_compare;
@@ -5036,7 +5711,9 @@ public static unsafe partial class DynamicallyLinkedBindings
         vectors.av_channel_layout_describe_bprint = av_channel_layout_describe_bprint;
         vectors.av_channel_layout_from_mask = av_channel_layout_from_mask;
         vectors.av_channel_layout_from_string = av_channel_layout_from_string;
+        vectors.av_channel_layout_from_string = av_channel_layout_from_string;
         vectors.av_channel_layout_index_from_channel = av_channel_layout_index_from_channel;
+        vectors.av_channel_layout_index_from_string = av_channel_layout_index_from_string;
         vectors.av_channel_layout_index_from_string = av_channel_layout_index_from_string;
         vectors.av_channel_layout_retype = av_channel_layout_retype;
         vectors.av_channel_layout_standard = av_channel_layout_standard;
@@ -5045,6 +5722,7 @@ public static unsafe partial class DynamicallyLinkedBindings
         vectors.av_channel_name = av_channel_name;
         vectors.av_channel_name_bprint = av_channel_name_bprint;
         vectors.av_chroma_location_enum_to_pos = av_chroma_location_enum_to_pos;
+        vectors.av_chroma_location_from_name = av_chroma_location_from_name;
         vectors.av_chroma_location_from_name = av_chroma_location_from_name;
         vectors.av_chroma_location_name = av_chroma_location_name;
         vectors.av_chroma_location_pos_to_enum = av_chroma_location_pos_to_enum;
@@ -5055,11 +5733,15 @@ public static unsafe partial class DynamicallyLinkedBindings
         vectors.av_codec_is_encoder = av_codec_is_encoder;
         vectors.av_codec_iterate = av_codec_iterate;
         vectors.av_color_primaries_from_name = av_color_primaries_from_name;
+        vectors.av_color_primaries_from_name = av_color_primaries_from_name;
         vectors.av_color_primaries_name = av_color_primaries_name;
+        vectors.av_color_range_from_name = av_color_range_from_name;
         vectors.av_color_range_from_name = av_color_range_from_name;
         vectors.av_color_range_name = av_color_range_name;
         vectors.av_color_space_from_name = av_color_space_from_name;
+        vectors.av_color_space_from_name = av_color_space_from_name;
         vectors.av_color_space_name = av_color_space_name;
+        vectors.av_color_transfer_from_name = av_color_transfer_from_name;
         vectors.av_color_transfer_from_name = av_color_transfer_from_name;
         vectors.av_color_transfer_name = av_color_transfer_name;
         vectors.av_compare_mod = av_compare_mod;
@@ -5080,17 +5762,23 @@ public static unsafe partial class DynamicallyLinkedBindings
         vectors.av_dict_count = av_dict_count;
         vectors.av_dict_free = av_dict_free;
         vectors.av_dict_get = av_dict_get;
+        vectors.av_dict_get = av_dict_get;
         vectors.av_dict_get_string = av_dict_get_string;
         vectors.av_dict_iterate = av_dict_iterate;
         vectors.av_dict_parse_string = av_dict_parse_string;
+        vectors.av_dict_parse_string = av_dict_parse_string;
         vectors.av_dict_set = av_dict_set;
+        vectors.av_dict_set = av_dict_set;
+        vectors.av_dict_set_int = av_dict_set_int;
         vectors.av_dict_set_int = av_dict_set_int;
         vectors.av_display_matrix_flip = av_display_matrix_flip;
         vectors.av_display_rotation_get = av_display_rotation_get;
         vectors.av_display_rotation_set = av_display_rotation_set;
         vectors.av_disposition_from_string = av_disposition_from_string;
+        vectors.av_disposition_from_string = av_disposition_from_string;
         vectors.av_disposition_to_string = av_disposition_to_string;
         vectors.av_div_q = av_div_q;
+        vectors.av_dump_format = av_dump_format;
         vectors.av_dump_format = av_dump_format;
         vectors.av_dynamic_hdr_plus_alloc = av_dynamic_hdr_plus_alloc;
         vectors.av_dynamic_hdr_plus_create_side_data = av_dynamic_hdr_plus_create_side_data;
@@ -5105,12 +5793,15 @@ public static unsafe partial class DynamicallyLinkedBindings
         vectors.av_fast_padded_mallocz = av_fast_padded_mallocz;
         vectors.av_fast_realloc = av_fast_realloc;
         vectors.av_file_map = av_file_map;
+        vectors.av_file_map = av_file_map;
         vectors.av_file_unmap = av_file_unmap;
+        vectors.av_filename_number_test = av_filename_number_test;
         vectors.av_filename_number_test = av_filename_number_test;
         vectors.av_filter_iterate = av_filter_iterate;
         vectors.av_find_best_pix_fmt_of_2 = av_find_best_pix_fmt_of_2;
         vectors.av_find_best_stream = av_find_best_stream;
         vectors.av_find_default_stream_index = av_find_default_stream_index;
+        vectors.av_find_input_format = av_find_input_format;
         vectors.av_find_input_format = av_find_input_format;
         vectors.av_find_nearest_q_idx = av_find_nearest_q_idx;
         vectors.av_find_program_from_stream = av_find_program_from_stream;
@@ -5156,6 +5847,8 @@ public static unsafe partial class DynamicallyLinkedBindings
         vectors.av_get_cpu_flags = av_get_cpu_flags;
         vectors.av_get_exact_bits_per_sample = av_get_exact_bits_per_sample;
         vectors.av_get_frame_filename = av_get_frame_filename;
+        vectors.av_get_frame_filename = av_get_frame_filename;
+        vectors.av_get_frame_filename2 = av_get_frame_filename2;
         vectors.av_get_frame_filename2 = av_get_frame_filename2;
         vectors.av_get_media_type_string = av_get_media_type_string;
         vectors.av_get_output_timestamp = av_get_output_timestamp;
@@ -5165,11 +5858,13 @@ public static unsafe partial class DynamicallyLinkedBindings
         vectors.av_get_pcm_codec = av_get_pcm_codec;
         vectors.av_get_picture_type_char = av_get_picture_type_char;
         vectors.av_get_pix_fmt = av_get_pix_fmt;
+        vectors.av_get_pix_fmt = av_get_pix_fmt;
         vectors.av_get_pix_fmt_loss = av_get_pix_fmt_loss;
         vectors.av_get_pix_fmt_name = av_get_pix_fmt_name;
         vectors.av_get_pix_fmt_string = av_get_pix_fmt_string;
         vectors.av_get_planar_sample_fmt = av_get_planar_sample_fmt;
         vectors.av_get_profile_name = av_get_profile_name;
+        vectors.av_get_sample_fmt = av_get_sample_fmt;
         vectors.av_get_sample_fmt = av_get_sample_fmt;
         vectors.av_get_sample_fmt_name = av_get_sample_fmt_name;
         vectors.av_get_sample_fmt_string = av_get_sample_fmt_string;
@@ -5179,6 +5874,8 @@ public static unsafe partial class DynamicallyLinkedBindings
         vectors.av_gettime_relative_is_monotonic = av_gettime_relative_is_monotonic;
         vectors.av_grow_packet = av_grow_packet;
         vectors.av_guess_codec = av_guess_codec;
+        vectors.av_guess_codec = av_guess_codec;
+        vectors.av_guess_format = av_guess_format;
         vectors.av_guess_format = av_guess_format;
         vectors.av_guess_frame_rate = av_guess_frame_rate;
         vectors.av_guess_sample_aspect_ratio = av_guess_sample_aspect_ratio;
@@ -5186,9 +5883,11 @@ public static unsafe partial class DynamicallyLinkedBindings
         vectors.av_hex_dump_log = av_hex_dump_log;
         vectors.av_hwdevice_ctx_alloc = av_hwdevice_ctx_alloc;
         vectors.av_hwdevice_ctx_create = av_hwdevice_ctx_create;
+        vectors.av_hwdevice_ctx_create = av_hwdevice_ctx_create;
         vectors.av_hwdevice_ctx_create_derived = av_hwdevice_ctx_create_derived;
         vectors.av_hwdevice_ctx_create_derived_opts = av_hwdevice_ctx_create_derived_opts;
         vectors.av_hwdevice_ctx_init = av_hwdevice_ctx_init;
+        vectors.av_hwdevice_find_type_by_name = av_hwdevice_find_type_by_name;
         vectors.av_hwdevice_find_type_by_name = av_hwdevice_find_type_by_name;
         vectors.av_hwdevice_get_hwframe_constraints = av_hwdevice_get_hwframe_constraints;
         vectors.av_hwdevice_get_type_name = av_hwdevice_get_type_name;
@@ -5228,11 +5927,16 @@ public static unsafe partial class DynamicallyLinkedBindings
         vectors.av_interleaved_write_frame = av_interleaved_write_frame;
         vectors.av_interleaved_write_uncoded_frame = av_interleaved_write_uncoded_frame;
         vectors.av_log = av_log;
+        vectors.av_log = av_log;
+        vectors.av_log_default_callback = av_log_default_callback;
         vectors.av_log_default_callback = av_log_default_callback;
         vectors.av_log_format_line = av_log_format_line;
+        vectors.av_log_format_line = av_log_format_line;
+        vectors.av_log_format_line2 = av_log_format_line2;
         vectors.av_log_format_line2 = av_log_format_line2;
         vectors.av_log_get_flags = av_log_get_flags;
         vectors.av_log_get_level = av_log_get_level;
+        vectors.av_log_once = av_log_once;
         vectors.av_log_once = av_log_once;
         vectors.av_log_set_callback = av_log_set_callback;
         vectors.av_log_set_flags = av_log_set_flags;
@@ -5245,6 +5949,7 @@ public static unsafe partial class DynamicallyLinkedBindings
         vectors.av_mastering_display_metadata_alloc = av_mastering_display_metadata_alloc;
         vectors.av_mastering_display_metadata_alloc_size = av_mastering_display_metadata_alloc_size;
         vectors.av_mastering_display_metadata_create_side_data = av_mastering_display_metadata_create_side_data;
+        vectors.av_match_ext = av_match_ext;
         vectors.av_match_ext = av_match_ext;
         vectors.av_max_alloc = av_max_alloc;
         vectors.av_memcpy_backptr = av_memcpy_backptr;
@@ -5259,53 +5964,93 @@ public static unsafe partial class DynamicallyLinkedBindings
         vectors.av_opt_child_next = av_opt_child_next;
         vectors.av_opt_copy = av_opt_copy;
         vectors.av_opt_eval_double = av_opt_eval_double;
+        vectors.av_opt_eval_double = av_opt_eval_double;
+        vectors.av_opt_eval_flags = av_opt_eval_flags;
         vectors.av_opt_eval_flags = av_opt_eval_flags;
         vectors.av_opt_eval_float = av_opt_eval_float;
+        vectors.av_opt_eval_float = av_opt_eval_float;
+        vectors.av_opt_eval_int = av_opt_eval_int;
         vectors.av_opt_eval_int = av_opt_eval_int;
         vectors.av_opt_eval_int64 = av_opt_eval_int64;
+        vectors.av_opt_eval_int64 = av_opt_eval_int64;
+        vectors.av_opt_eval_q = av_opt_eval_q;
         vectors.av_opt_eval_q = av_opt_eval_q;
         vectors.av_opt_eval_uint = av_opt_eval_uint;
+        vectors.av_opt_eval_uint = av_opt_eval_uint;
+        vectors.av_opt_find = av_opt_find;
         vectors.av_opt_find = av_opt_find;
         vectors.av_opt_find2 = av_opt_find2;
+        vectors.av_opt_find2 = av_opt_find2;
+        vectors.av_opt_flag_is_set = av_opt_flag_is_set;
         vectors.av_opt_flag_is_set = av_opt_flag_is_set;
         vectors.av_opt_free = av_opt_free;
         vectors.av_opt_freep_ranges = av_opt_freep_ranges;
         vectors.av_opt_get = av_opt_get;
+        vectors.av_opt_get = av_opt_get;
+        vectors.av_opt_get_array = av_opt_get_array;
         vectors.av_opt_get_array = av_opt_get_array;
         vectors.av_opt_get_array_size = av_opt_get_array_size;
+        vectors.av_opt_get_array_size = av_opt_get_array_size;
+        vectors.av_opt_get_chlayout = av_opt_get_chlayout;
         vectors.av_opt_get_chlayout = av_opt_get_chlayout;
         vectors.av_opt_get_dict_val = av_opt_get_dict_val;
+        vectors.av_opt_get_dict_val = av_opt_get_dict_val;
+        vectors.av_opt_get_double = av_opt_get_double;
         vectors.av_opt_get_double = av_opt_get_double;
         vectors.av_opt_get_image_size = av_opt_get_image_size;
+        vectors.av_opt_get_image_size = av_opt_get_image_size;
+        vectors.av_opt_get_int = av_opt_get_int;
         vectors.av_opt_get_int = av_opt_get_int;
         vectors.av_opt_get_key_value = av_opt_get_key_value;
+        vectors.av_opt_get_key_value = av_opt_get_key_value;
+        vectors.av_opt_get_pixel_fmt = av_opt_get_pixel_fmt;
         vectors.av_opt_get_pixel_fmt = av_opt_get_pixel_fmt;
         vectors.av_opt_get_q = av_opt_get_q;
+        vectors.av_opt_get_q = av_opt_get_q;
         vectors.av_opt_get_sample_fmt = av_opt_get_sample_fmt;
+        vectors.av_opt_get_sample_fmt = av_opt_get_sample_fmt;
+        vectors.av_opt_get_video_rate = av_opt_get_video_rate;
         vectors.av_opt_get_video_rate = av_opt_get_video_rate;
         vectors.av_opt_is_set_to_default = av_opt_is_set_to_default;
         vectors.av_opt_is_set_to_default_by_name = av_opt_is_set_to_default_by_name;
+        vectors.av_opt_is_set_to_default_by_name = av_opt_is_set_to_default_by_name;
         vectors.av_opt_next = av_opt_next;
         vectors.av_opt_ptr = av_opt_ptr;
+        vectors.av_opt_ptr = av_opt_ptr;
         vectors.av_opt_query_ranges = av_opt_query_ranges;
+        vectors.av_opt_query_ranges = av_opt_query_ranges;
+        vectors.av_opt_query_ranges_default = av_opt_query_ranges_default;
         vectors.av_opt_query_ranges_default = av_opt_query_ranges_default;
         vectors.av_opt_serialize = av_opt_serialize;
         vectors.av_opt_set = av_opt_set;
+        vectors.av_opt_set = av_opt_set;
+        vectors.av_opt_set_array = av_opt_set_array;
         vectors.av_opt_set_array = av_opt_set_array;
         vectors.av_opt_set_bin = av_opt_set_bin;
+        vectors.av_opt_set_bin = av_opt_set_bin;
+        vectors.av_opt_set_chlayout = av_opt_set_chlayout;
         vectors.av_opt_set_chlayout = av_opt_set_chlayout;
         vectors.av_opt_set_defaults = av_opt_set_defaults;
         vectors.av_opt_set_defaults2 = av_opt_set_defaults2;
         vectors.av_opt_set_dict = av_opt_set_dict;
         vectors.av_opt_set_dict_val = av_opt_set_dict_val;
+        vectors.av_opt_set_dict_val = av_opt_set_dict_val;
         vectors.av_opt_set_dict2 = av_opt_set_dict2;
         vectors.av_opt_set_double = av_opt_set_double;
+        vectors.av_opt_set_double = av_opt_set_double;
+        vectors.av_opt_set_from_string = av_opt_set_from_string;
         vectors.av_opt_set_from_string = av_opt_set_from_string;
         vectors.av_opt_set_image_size = av_opt_set_image_size;
+        vectors.av_opt_set_image_size = av_opt_set_image_size;
+        vectors.av_opt_set_int = av_opt_set_int;
         vectors.av_opt_set_int = av_opt_set_int;
         vectors.av_opt_set_pixel_fmt = av_opt_set_pixel_fmt;
+        vectors.av_opt_set_pixel_fmt = av_opt_set_pixel_fmt;
+        vectors.av_opt_set_q = av_opt_set_q;
         vectors.av_opt_set_q = av_opt_set_q;
         vectors.av_opt_set_sample_fmt = av_opt_set_sample_fmt;
+        vectors.av_opt_set_sample_fmt = av_opt_set_sample_fmt;
+        vectors.av_opt_set_video_rate = av_opt_set_video_rate;
         vectors.av_opt_set_video_rate = av_opt_set_video_rate;
         vectors.av_opt_show2 = av_opt_show2;
         vectors.av_output_audio_device_next = av_output_audio_device_next;
@@ -5337,6 +6082,7 @@ public static unsafe partial class DynamicallyLinkedBindings
         vectors.av_packet_unpack_dictionary = av_packet_unpack_dictionary;
         vectors.av_packet_unref = av_packet_unref;
         vectors.av_parse_cpu_caps = av_parse_cpu_caps;
+        vectors.av_parse_cpu_caps = av_parse_cpu_caps;
         vectors.av_parser_close = av_parser_close;
         vectors.av_parser_init = av_parser_init;
         vectors.av_parser_iterate = av_parser_iterate;
@@ -5350,6 +6096,8 @@ public static unsafe partial class DynamicallyLinkedBindings
         vectors.av_pkt_dump_log2 = av_pkt_dump_log2;
         vectors.av_pkt_dump2 = av_pkt_dump2;
         vectors.av_probe_input_buffer = av_probe_input_buffer;
+        vectors.av_probe_input_buffer = av_probe_input_buffer;
+        vectors.av_probe_input_buffer2 = av_probe_input_buffer2;
         vectors.av_probe_input_buffer2 = av_probe_input_buffer2;
         vectors.av_probe_input_format = av_probe_input_format;
         vectors.av_probe_input_format2 = av_probe_input_format2;
@@ -5382,23 +6130,29 @@ public static unsafe partial class DynamicallyLinkedBindings
         vectors.av_sdp_create = av_sdp_create;
         vectors.av_seek_frame = av_seek_frame;
         vectors.av_set_options_string = av_set_options_string;
+        vectors.av_set_options_string = av_set_options_string;
         vectors.av_shrink_packet = av_shrink_packet;
         vectors.av_size_mult = av_size_mult;
         vectors.av_stereo3d_alloc = av_stereo3d_alloc;
         vectors.av_stereo3d_alloc_size = av_stereo3d_alloc_size;
         vectors.av_stereo3d_create_side_data = av_stereo3d_create_side_data;
         vectors.av_stereo3d_from_name = av_stereo3d_from_name;
+        vectors.av_stereo3d_from_name = av_stereo3d_from_name;
+        vectors.av_stereo3d_primary_eye_from_name = av_stereo3d_primary_eye_from_name;
         vectors.av_stereo3d_primary_eye_from_name = av_stereo3d_primary_eye_from_name;
         vectors.av_stereo3d_primary_eye_name = av_stereo3d_primary_eye_name;
         vectors.av_stereo3d_type_name = av_stereo3d_type_name;
         vectors.av_stereo3d_view_from_name = av_stereo3d_view_from_name;
+        vectors.av_stereo3d_view_from_name = av_stereo3d_view_from_name;
         vectors.av_stereo3d_view_name = av_stereo3d_view_name;
+        vectors.av_strdup = av_strdup;
         vectors.av_strdup = av_strdup;
         vectors.av_stream_get_class = av_stream_get_class;
         vectors.av_stream_get_codec_timebase = av_stream_get_codec_timebase;
         vectors.av_stream_get_parser = av_stream_get_parser;
         vectors.av_stream_group_get_class = av_stream_group_get_class;
         vectors.av_strerror = av_strerror;
+        vectors.av_strndup = av_strndup;
         vectors.av_strndup = av_strndup;
         vectors.av_sub_q = av_sub_q;
         vectors.av_timecode_adjust_ntsc_framenum2 = av_timecode_adjust_ntsc_framenum2;
@@ -5407,6 +6161,7 @@ public static unsafe partial class DynamicallyLinkedBindings
         vectors.av_timecode_get_smpte_from_framenum = av_timecode_get_smpte_from_framenum;
         vectors.av_timecode_init = av_timecode_init;
         vectors.av_timecode_init_from_components = av_timecode_init_from_components;
+        vectors.av_timecode_init_from_string = av_timecode_init_from_string;
         vectors.av_timecode_init_from_string = av_timecode_init_from_string;
         vectors.av_timecode_make_mpeg_tc_string = av_timecode_make_mpeg_tc_string;
         vectors.av_timecode_make_smpte_tc_string = av_timecode_make_smpte_tc_string;
@@ -5418,12 +6173,14 @@ public static unsafe partial class DynamicallyLinkedBindings
         vectors.av_tree_insert = av_tree_insert;
         vectors.av_tree_node_alloc = av_tree_node_alloc;
         vectors.av_url_split = av_url_split;
+        vectors.av_url_split = av_url_split;
         vectors.av_usleep = av_usleep;
         vectors.av_version_info = av_version_info;
         vectors.av_vk_frame_alloc = av_vk_frame_alloc;
         vectors.av_vk_get_optional_device_extensions = av_vk_get_optional_device_extensions;
         vectors.av_vk_get_optional_instance_extensions = av_vk_get_optional_instance_extensions;
         vectors.av_vkfmt_from_pixfmt = av_vkfmt_from_pixfmt;
+        vectors.av_vlog = av_vlog;
         vectors.av_vlog = av_vlog;
         vectors.av_write_frame = av_write_frame;
         vectors.av_write_image_line = av_write_image_line;
@@ -5444,13 +6201,16 @@ public static unsafe partial class DynamicallyLinkedBindings
         vectors.avcodec_default_get_format = avcodec_default_get_format;
         vectors.avcodec_descriptor_get = avcodec_descriptor_get;
         vectors.avcodec_descriptor_get_by_name = avcodec_descriptor_get_by_name;
+        vectors.avcodec_descriptor_get_by_name = avcodec_descriptor_get_by_name;
         vectors.avcodec_descriptor_next = avcodec_descriptor_next;
         vectors.avcodec_encode_subtitle = avcodec_encode_subtitle;
         vectors.avcodec_fill_audio_frame = avcodec_fill_audio_frame;
         vectors.avcodec_find_best_pix_fmt_of_list = avcodec_find_best_pix_fmt_of_list;
         vectors.avcodec_find_decoder = avcodec_find_decoder;
         vectors.avcodec_find_decoder_by_name = avcodec_find_decoder_by_name;
+        vectors.avcodec_find_decoder_by_name = avcodec_find_decoder_by_name;
         vectors.avcodec_find_encoder = avcodec_find_encoder;
+        vectors.avcodec_find_encoder_by_name = avcodec_find_encoder_by_name;
         vectors.avcodec_find_encoder_by_name = avcodec_find_encoder_by_name;
         vectors.avcodec_flush_buffers = avcodec_flush_buffers;
         vectors.avcodec_free_context = avcodec_free_context;
@@ -5485,6 +6245,8 @@ public static unsafe partial class DynamicallyLinkedBindings
         vectors.avdevice_license = avdevice_license;
         vectors.avdevice_list_devices = avdevice_list_devices;
         vectors.avdevice_list_input_sources = avdevice_list_input_sources;
+        vectors.avdevice_list_input_sources = avdevice_list_input_sources;
+        vectors.avdevice_list_output_sinks = avdevice_list_output_sinks;
         vectors.avdevice_list_output_sinks = avdevice_list_output_sinks;
         vectors.avdevice_register_all = avdevice_register_all;
         vectors.avdevice_version = avdevice_version;
@@ -5492,17 +6254,26 @@ public static unsafe partial class DynamicallyLinkedBindings
         vectors.avfilter_filter_pad_count = avfilter_filter_pad_count;
         vectors.avfilter_free = avfilter_free;
         vectors.avfilter_get_by_name = avfilter_get_by_name;
+        vectors.avfilter_get_by_name = avfilter_get_by_name;
         vectors.avfilter_get_class = avfilter_get_class;
         vectors.avfilter_graph_alloc = avfilter_graph_alloc;
         vectors.avfilter_graph_alloc_filter = avfilter_graph_alloc_filter;
+        vectors.avfilter_graph_alloc_filter = avfilter_graph_alloc_filter;
         vectors.avfilter_graph_config = avfilter_graph_config;
         vectors.avfilter_graph_create_filter = avfilter_graph_create_filter;
+        vectors.avfilter_graph_create_filter = avfilter_graph_create_filter;
+        vectors.avfilter_graph_dump = avfilter_graph_dump;
         vectors.avfilter_graph_dump = avfilter_graph_dump;
         vectors.avfilter_graph_free = avfilter_graph_free;
         vectors.avfilter_graph_get_filter = avfilter_graph_get_filter;
+        vectors.avfilter_graph_get_filter = avfilter_graph_get_filter;
+        vectors.avfilter_graph_parse = avfilter_graph_parse;
         vectors.avfilter_graph_parse = avfilter_graph_parse;
         vectors.avfilter_graph_parse_ptr = avfilter_graph_parse_ptr;
+        vectors.avfilter_graph_parse_ptr = avfilter_graph_parse_ptr;
         vectors.avfilter_graph_parse2 = avfilter_graph_parse2;
+        vectors.avfilter_graph_parse2 = avfilter_graph_parse2;
+        vectors.avfilter_graph_queue_command = avfilter_graph_queue_command;
         vectors.avfilter_graph_queue_command = avfilter_graph_queue_command;
         vectors.avfilter_graph_request_oldest = avfilter_graph_request_oldest;
         vectors.avfilter_graph_segment_apply = avfilter_graph_segment_apply;
@@ -5512,9 +6283,12 @@ public static unsafe partial class DynamicallyLinkedBindings
         vectors.avfilter_graph_segment_init = avfilter_graph_segment_init;
         vectors.avfilter_graph_segment_link = avfilter_graph_segment_link;
         vectors.avfilter_graph_segment_parse = avfilter_graph_segment_parse;
+        vectors.avfilter_graph_segment_parse = avfilter_graph_segment_parse;
+        vectors.avfilter_graph_send_command = avfilter_graph_send_command;
         vectors.avfilter_graph_send_command = avfilter_graph_send_command;
         vectors.avfilter_graph_set_auto_convert = avfilter_graph_set_auto_convert;
         vectors.avfilter_init_dict = avfilter_init_dict;
+        vectors.avfilter_init_str = avfilter_init_str;
         vectors.avfilter_init_str = avfilter_init_str;
         vectors.avfilter_inout_alloc = avfilter_inout_alloc;
         vectors.avfilter_inout_free = avfilter_inout_free;
@@ -5525,8 +6299,10 @@ public static unsafe partial class DynamicallyLinkedBindings
         vectors.avfilter_pad_get_name = avfilter_pad_get_name;
         vectors.avfilter_pad_get_type = avfilter_pad_get_type;
         vectors.avfilter_process_command = avfilter_process_command;
+        vectors.avfilter_process_command = avfilter_process_command;
         vectors.avfilter_version = avfilter_version;
         vectors.avformat_alloc_context = avformat_alloc_context;
+        vectors.avformat_alloc_output_context2 = avformat_alloc_output_context2;
         vectors.avformat_alloc_output_context2 = avformat_alloc_output_context2;
         vectors.avformat_close_input = avformat_close_input;
         vectors.avformat_configuration = avformat_configuration;
@@ -5544,9 +6320,11 @@ public static unsafe partial class DynamicallyLinkedBindings
         vectors.avformat_init_output = avformat_init_output;
         vectors.avformat_license = avformat_license;
         vectors.avformat_match_stream_specifier = avformat_match_stream_specifier;
+        vectors.avformat_match_stream_specifier = avformat_match_stream_specifier;
         vectors.avformat_network_deinit = avformat_network_deinit;
         vectors.avformat_network_init = avformat_network_init;
         vectors.avformat_new_stream = avformat_new_stream;
+        vectors.avformat_open_input = avformat_open_input;
         vectors.avformat_open_input = avformat_open_input;
         vectors.avformat_query_codec = avformat_query_codec;
         vectors.avformat_queue_attached_pictures = avformat_queue_attached_pictures;
@@ -5562,6 +6340,7 @@ public static unsafe partial class DynamicallyLinkedBindings
         vectors.avio_accept = avio_accept;
         vectors.avio_alloc_context = avio_alloc_context;
         vectors.avio_check = avio_check;
+        vectors.avio_check = avio_check;
         vectors.avio_close = avio_close;
         vectors.avio_close_dir = avio_close_dir;
         vectors.avio_close_dyn_buf = avio_close_dyn_buf;
@@ -5569,6 +6348,7 @@ public static unsafe partial class DynamicallyLinkedBindings
         vectors.avio_context_free = avio_context_free;
         vectors.avio_enum_protocols = avio_enum_protocols;
         vectors.avio_feof = avio_feof;
+        vectors.avio_find_protocol_name = avio_find_protocol_name;
         vectors.avio_find_protocol_name = avio_find_protocol_name;
         vectors.avio_flush = avio_flush;
         vectors.avio_free_directory_entry = avio_free_directory_entry;
@@ -5578,15 +6358,23 @@ public static unsafe partial class DynamicallyLinkedBindings
         vectors.avio_get_str16le = avio_get_str16le;
         vectors.avio_handshake = avio_handshake;
         vectors.avio_open = avio_open;
+        vectors.avio_open = avio_open;
+        vectors.avio_open_dir = avio_open_dir;
         vectors.avio_open_dir = avio_open_dir;
         vectors.avio_open_dyn_buf = avio_open_dyn_buf;
+        vectors.avio_open2 = avio_open2;
         vectors.avio_open2 = avio_open2;
         vectors.avio_pause = avio_pause;
         vectors.avio_print_string_array = avio_print_string_array;
         vectors.avio_printf = avio_printf;
+        vectors.avio_printf = avio_printf;
+        vectors.avio_protocol_get_class = avio_protocol_get_class;
         vectors.avio_protocol_get_class = avio_protocol_get_class;
         vectors.avio_put_str = avio_put_str;
+        vectors.avio_put_str = avio_put_str;
         vectors.avio_put_str16be = avio_put_str16be;
+        vectors.avio_put_str16be = avio_put_str16be;
+        vectors.avio_put_str16le = avio_put_str16le;
         vectors.avio_put_str16le = avio_put_str16le;
         vectors.avio_r8 = avio_r8;
         vectors.avio_rb16 = avio_rb16;
@@ -5605,6 +6393,7 @@ public static unsafe partial class DynamicallyLinkedBindings
         vectors.avio_seek_time = avio_seek_time;
         vectors.avio_size = avio_size;
         vectors.avio_skip = avio_skip;
+        vectors.avio_vprintf = avio_vprintf;
         vectors.avio_vprintf = avio_vprintf;
         vectors.avio_w8 = avio_w8;
         vectors.avio_wb16 = avio_wb16;

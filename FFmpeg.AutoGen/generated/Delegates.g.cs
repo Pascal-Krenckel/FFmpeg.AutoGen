@@ -344,8 +344,7 @@ public unsafe struct av_buffer_pool_init2_pool_free_func
 }
 
 [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-public unsafe delegate void av_log_set_callback_callback (void* @p0, int @p1,    
-
+public unsafe delegate void av_log_set_callback_callback (void* @p0, int @p1,     
     byte* @p2, byte* @p3);
 public unsafe struct av_log_set_callback_callback_func
 {
@@ -426,10 +425,9 @@ public unsafe struct avio_alloc_context_write_packet_func
 }
 
 [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-public unsafe delegate int func (_AVFilterContext* @ctx, void* @arg, int @jobnr, int @nb_jobs);
+public unsafe delegate int func (_AVCodecContext* @c2, void* @arg);
 public unsafe struct func_func
 {
     public IntPtr Pointer;
     public static implicit operator func_func(func func) => new func_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
 }
-

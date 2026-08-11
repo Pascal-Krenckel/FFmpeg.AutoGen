@@ -24,6 +24,9 @@ public static unsafe partial class ffmpeg
     /// <summary>Returns the AVAlphaMode value for name or an AVError if not found.</summary>
     public static _AVAlphaMode av_alpha_mode_from_name(string @name) => vectors.av_alpha_mode_from_name(@name);
     
+    /// <summary>Returns the AVAlphaMode value for name or an AVError if not found.</summary>
+    public static _AVAlphaMode av_alpha_mode_from_name(byte* @name) => vectors.av_alpha_mode_from_name_str(@name);
+    
     /// <summary>Returns the name for provided alpha mode or NULL if unknown.</summary>
     public static string av_alpha_mode_name(_AVAlphaMode @mode) => vectors.av_alpha_mode_name(@mode);
     
@@ -107,6 +110,9 @@ public static unsafe partial class ffmpeg
     /// <summary>Returns a bitstream filter with the specified name or NULL if no such bitstream filter exists.</summary>
     public static _AVBitStreamFilter* av_bsf_get_by_name(string @name) => vectors.av_bsf_get_by_name(@name);
     
+    /// <summary>Returns a bitstream filter with the specified name or NULL if no such bitstream filter exists.</summary>
+    public static _AVBitStreamFilter* av_bsf_get_by_name(byte* @name) => vectors.av_bsf_get_by_name_str(@name);
+    
     /// <summary>Get the AVClass for AVBSFContext. It can be used in combination with AV_OPT_SEARCH_FAKE_OBJ for examining options.</summary>
     public static _AVClass* av_bsf_get_class() => vectors.av_bsf_get_class();
     
@@ -136,6 +142,12 @@ public static unsafe partial class ffmpeg
     /// <param name="options">Options for the bitstream filter, can be set to NULL</param>
     public static int av_bsf_list_append2(_AVBSFList* @lst, string @bsf_name, _AVDictionary** @options) => vectors.av_bsf_list_append2(@lst, @bsf_name, @options);
     
+    /// <summary>Construct new bitstream filter context given it&apos;s name and options and append it to the list of bitstream filters.</summary>
+    /// <param name="lst">List to append to</param>
+    /// <param name="bsf_name">Name of the bitstream filter</param>
+    /// <param name="options">Options for the bitstream filter, can be set to NULL</param>
+    public static int av_bsf_list_append2(_AVBSFList* @lst, byte* @bsf_name, _AVDictionary** @options) => vectors.av_bsf_list_append2_str(@lst, @bsf_name, @options);
+    
     /// <summary>Finalize list of bitstream filters.</summary>
     /// <param name="lst">Filter list structure to be transformed</param>
     /// <param name="bsf">Pointer to be set to newly created structure representing the chain of bitstream filters</param>
@@ -149,6 +161,11 @@ public static unsafe partial class ffmpeg
     /// <param name="str">String describing chain of bitstream filters in format `bsf1[=opt1=val1:opt2=val2][,bsf2]`</param>
     /// <param name="bsf">Pointer to be set to newly created structure representing the chain of bitstream filters</param>
     public static int av_bsf_list_parse_str(string @str, _AVBSFContext** @bsf) => vectors.av_bsf_list_parse_str(@str, @bsf);
+    
+    /// <summary>Parse string describing list of bitstream filters and create single AVBSFContext describing the whole chain of bitstream filters. Resulting AVBSFContext can be treated as any other AVBSFContext freshly allocated by av_bsf_alloc().</summary>
+    /// <param name="str">String describing chain of bitstream filters in format `bsf1[=opt1=val1:opt2=val2][,bsf2]`</param>
+    /// <param name="bsf">Pointer to be set to newly created structure representing the chain of bitstream filters</param>
+    public static int av_bsf_list_parse_str(byte* @str, _AVBSFContext** @bsf) => vectors.av_bsf_list_parse_str_str(@str, @bsf);
     
     /// <summary>Retrieve a filtered packet.</summary>
     /// <param name="ctx">an initialized AVBSFContext</param>
@@ -329,6 +346,9 @@ public static unsafe partial class ffmpeg
     /// <summary>This is the inverse function of av_channel_name().</summary>
     public static _AVChannel av_channel_from_string(string @name) => vectors.av_channel_from_string(@name);
     
+    /// <summary>This is the inverse function of av_channel_name().</summary>
+    public static _AVChannel av_channel_from_string(byte* @name) => vectors.av_channel_from_string_str(@name);
+    
     /// <summary>Return the order if the layout is n-th order standard-order ambisonic. The presence of optional extra non-diegetic channels at the end is not taken into account.</summary>
     /// <param name="channel_layout">input channel layout</param>
     public static int av_channel_layout_ambisonic_order(_AVChannelLayout* @channel_layout) => vectors.av_channel_layout_ambisonic_order(@channel_layout);
@@ -342,6 +362,11 @@ public static unsafe partial class ffmpeg
     /// <param name="channel_layout">input channel layout</param>
     /// <param name="name">string describing the channel to obtain</param>
     public static _AVChannel av_channel_layout_channel_from_string(_AVChannelLayout* @channel_layout, string @name) => vectors.av_channel_layout_channel_from_string(@channel_layout, @name);
+    
+    /// <summary>Get a channel described by the given string.</summary>
+    /// <param name="channel_layout">input channel layout</param>
+    /// <param name="name">string describing the channel to obtain</param>
+    public static _AVChannel av_channel_layout_channel_from_string(_AVChannelLayout* @channel_layout, byte* @name) => vectors.av_channel_layout_channel_from_string_str(@channel_layout, @name);
     
     /// <summary>Check whether a channel layout is valid, i.e. can possibly describe audio data.</summary>
     /// <param name="channel_layout">input channel layout</param>
@@ -386,6 +411,11 @@ public static unsafe partial class ffmpeg
     /// <param name="str">string describing the channel layout</param>
     public static int av_channel_layout_from_string(_AVChannelLayout* @channel_layout, string @str) => vectors.av_channel_layout_from_string(@channel_layout, @str);
     
+    /// <summary>Initialize a channel layout from a given string description. The input string can be represented by: - the formal channel layout name (returned by av_channel_layout_describe()) - single or multiple channel names (returned by av_channel_name(), eg. &quot;FL&quot;, or concatenated with &quot;+&quot;, each optionally containing a custom name after a &quot;@&quot;, eg. &quot;FL@Left+FR@Right+LFE&quot;) - a decimal or hexadecimal value of a native channel layout (eg. &quot;4&quot; or &quot;0x4&quot;) - the number of channels with default layout (eg. &quot;4c&quot;) - the number of unordered channels (eg. &quot;4C&quot; or &quot;4 channels&quot;) - the ambisonic order followed by optional non-diegetic channels (eg. &quot;ambisonic 2+stereo&quot;) On error, the channel layout will remain uninitialized, but not necessarily untouched.</summary>
+    /// <param name="channel_layout">uninitialized channel layout for the result</param>
+    /// <param name="str">string describing the channel layout</param>
+    public static int av_channel_layout_from_string(_AVChannelLayout* @channel_layout, byte* @str) => vectors.av_channel_layout_from_string_str(@channel_layout, @str);
+    
     /// <summary>Get the index of a given channel in a channel layout. In case multiple channels are found, only the first match will be returned.</summary>
     /// <param name="channel_layout">input channel layout</param>
     /// <param name="channel">the channel whose index to obtain</param>
@@ -395,6 +425,11 @@ public static unsafe partial class ffmpeg
     /// <param name="channel_layout">input channel layout</param>
     /// <param name="name">string describing the channel whose index to obtain</param>
     public static int av_channel_layout_index_from_string(_AVChannelLayout* @channel_layout, string @name) => vectors.av_channel_layout_index_from_string(@channel_layout, @name);
+    
+    /// <summary>Get the index in a channel layout of a channel described by the given string. In case multiple channels are found, only the first match will be returned.</summary>
+    /// <param name="channel_layout">input channel layout</param>
+    /// <param name="name">string describing the channel whose index to obtain</param>
+    public static int av_channel_layout_index_from_string(_AVChannelLayout* @channel_layout, byte* @name) => vectors.av_channel_layout_index_from_string_str(@channel_layout, @name);
     
     /// <summary>Change the AVChannelOrder of a channel layout.</summary>
     /// <param name="channel_layout">channel layout which will be changed</param>
@@ -431,6 +466,9 @@ public static unsafe partial class ffmpeg
     
     /// <summary>Returns the AVChromaLocation value for name or an AVError if not found.</summary>
     public static int av_chroma_location_from_name(string @name) => vectors.av_chroma_location_from_name(@name);
+    
+    /// <summary>Returns the AVChromaLocation value for name or an AVError if not found.</summary>
+    public static int av_chroma_location_from_name(byte* @name) => vectors.av_chroma_location_from_name_str(@name);
     
     /// <summary>Returns the name for provided chroma location or NULL if unknown.</summary>
     public static string av_chroma_location_name(_AVChromaLocation @location) => vectors.av_chroma_location_name(@location);
@@ -469,11 +507,17 @@ public static unsafe partial class ffmpeg
     /// <summary>Returns the AVColorPrimaries value for name or an AVError if not found.</summary>
     public static int av_color_primaries_from_name(string @name) => vectors.av_color_primaries_from_name(@name);
     
+    /// <summary>Returns the AVColorPrimaries value for name or an AVError if not found.</summary>
+    public static int av_color_primaries_from_name(byte* @name) => vectors.av_color_primaries_from_name_str(@name);
+    
     /// <summary>Returns the name for provided color primaries or NULL if unknown.</summary>
     public static string av_color_primaries_name(_AVColorPrimaries @primaries) => vectors.av_color_primaries_name(@primaries);
     
     /// <summary>Returns the AVColorRange value for name or an AVError if not found.</summary>
     public static int av_color_range_from_name(string @name) => vectors.av_color_range_from_name(@name);
+    
+    /// <summary>Returns the AVColorRange value for name or an AVError if not found.</summary>
+    public static int av_color_range_from_name(byte* @name) => vectors.av_color_range_from_name_str(@name);
     
     /// <summary>Returns the name for provided color range or NULL if unknown.</summary>
     public static string av_color_range_name(_AVColorRange @range) => vectors.av_color_range_name(@range);
@@ -481,11 +525,17 @@ public static unsafe partial class ffmpeg
     /// <summary>Returns the AVColorSpace value for name or an AVError if not found.</summary>
     public static int av_color_space_from_name(string @name) => vectors.av_color_space_from_name(@name);
     
+    /// <summary>Returns the AVColorSpace value for name or an AVError if not found.</summary>
+    public static int av_color_space_from_name(byte* @name) => vectors.av_color_space_from_name_str(@name);
+    
     /// <summary>Returns the name for provided color space or NULL if unknown.</summary>
     public static string av_color_space_name(_AVColorSpace @space) => vectors.av_color_space_name(@space);
     
     /// <summary>Returns the AVColorTransferCharacteristic value for name or an AVError if not found.</summary>
     public static int av_color_transfer_from_name(string @name) => vectors.av_color_transfer_from_name(@name);
+    
+    /// <summary>Returns the AVColorTransferCharacteristic value for name or an AVError if not found.</summary>
+    public static int av_color_transfer_from_name(byte* @name) => vectors.av_color_transfer_from_name_str(@name);
     
     /// <summary>Returns the name for provided color transfer or NULL if unknown.</summary>
     public static string av_color_transfer_name(_AVColorTransferCharacteristic @transfer) => vectors.av_color_transfer_name(@transfer);
@@ -560,6 +610,12 @@ public static unsafe partial class ffmpeg
     /// <param name="flags">A collection of AV_DICT_* flags controlling how the entry is retrieved</param>
     public static _AVDictionaryEntry* av_dict_get(_AVDictionary* @m, string @key, _AVDictionaryEntry* @prev, int @flags) => vectors.av_dict_get(@m, @key, @prev, @flags);
     
+    /// <summary>Get a dictionary entry with matching key.</summary>
+    /// <param name="key">Matching key</param>
+    /// <param name="prev">Set to the previous matching element to find the next. If set to NULL the first matching element is returned.</param>
+    /// <param name="flags">A collection of AV_DICT_* flags controlling how the entry is retrieved</param>
+    public static _AVDictionaryEntry* av_dict_get(_AVDictionary* @m, byte* @key, _AVDictionaryEntry* @prev, int @flags) => vectors.av_dict_get_str(@m, @key, @prev, @flags);
+    
     /// <summary>Get dictionary entries as a string.</summary>
     /// <param name="m">The dictionary</param>
     /// <param name="buffer">Pointer to buffer that will be allocated with string containing entries. Buffer must be freed by the caller when is no longer needed.</param>
@@ -578,14 +634,29 @@ public static unsafe partial class ffmpeg
     /// <param name="flags">Flags to use when adding to the dictionary. ::AV_DICT_DONT_STRDUP_KEY and ::AV_DICT_DONT_STRDUP_VAL are ignored since the key/value tokens will always be duplicated.</param>
     public static int av_dict_parse_string(_AVDictionary** @pm, string @str, string @key_val_sep, string @pairs_sep, int @flags) => vectors.av_dict_parse_string(@pm, @str, @key_val_sep, @pairs_sep, @flags);
     
+    /// <summary>Parse the key/value pairs list and add the parsed entries to a dictionary.</summary>
+    /// <param name="key_val_sep">A 0-terminated list of characters used to separate key from value</param>
+    /// <param name="pairs_sep">A 0-terminated list of characters used to separate two pairs from each other</param>
+    /// <param name="flags">Flags to use when adding to the dictionary. ::AV_DICT_DONT_STRDUP_KEY and ::AV_DICT_DONT_STRDUP_VAL are ignored since the key/value tokens will always be duplicated.</param>
+    public static int av_dict_parse_string(_AVDictionary** @pm, byte* @str, byte* @key_val_sep, byte* @pairs_sep, int @flags) => vectors.av_dict_parse_string_str(@pm, @str, @key_val_sep, @pairs_sep, @flags);
+    
     /// <summary>Set the given entry in *pm, overwriting an existing entry.</summary>
     /// <param name="pm">Pointer to a pointer to a dictionary struct. If *pm is NULL a dictionary struct is allocated and put in *pm.</param>
     /// <param name="key">Entry key to add to *pm (will either be av_strduped or added as a new key depending on flags)</param>
     /// <param name="value">Entry value to add to *pm (will be av_strduped or added as a new key depending on flags). Passing a NULL value will cause an existing entry to be deleted.</param>
     public static int av_dict_set(_AVDictionary** @pm, string @key, string @value, int @flags) => vectors.av_dict_set(@pm, @key, @value, @flags);
     
+    /// <summary>Set the given entry in *pm, overwriting an existing entry.</summary>
+    /// <param name="pm">Pointer to a pointer to a dictionary struct. If *pm is NULL a dictionary struct is allocated and put in *pm.</param>
+    /// <param name="key">Entry key to add to *pm (will either be av_strduped or added as a new key depending on flags)</param>
+    /// <param name="value">Entry value to add to *pm (will be av_strduped or added as a new key depending on flags). Passing a NULL value will cause an existing entry to be deleted.</param>
+    public static int av_dict_set(_AVDictionary** @pm, byte* @key, byte* @value, int @flags) => vectors.av_dict_set_str(@pm, @key, @value, @flags);
+    
     /// <summary>Convenience wrapper for av_dict_set() that converts the value to a string and stores it.</summary>
     public static int av_dict_set_int(_AVDictionary** @pm, string @key, long @value, int @flags) => vectors.av_dict_set_int(@pm, @key, @value, @flags);
+    
+    /// <summary>Convenience wrapper for av_dict_set() that converts the value to a string and stores it.</summary>
+    public static int av_dict_set_int(_AVDictionary** @pm, byte* @key, long @value, int @flags) => vectors.av_dict_set_int_str(@pm, @key, @value, @flags);
     
     /// <summary>Flip the input matrix horizontally and/or vertically.</summary>
     /// <param name="matrix">a transformation matrix</param>
@@ -605,6 +676,9 @@ public static unsafe partial class ffmpeg
     /// <summary>Returns The AV_DISPOSITION_* flag corresponding to disp or a negative error code if disp does not correspond to a known stream disposition.</summary>
     public static int av_disposition_from_string(string @disp) => vectors.av_disposition_from_string(@disp);
     
+    /// <summary>Returns The AV_DISPOSITION_* flag corresponding to disp or a negative error code if disp does not correspond to a known stream disposition.</summary>
+    public static int av_disposition_from_string(byte* @disp) => vectors.av_disposition_from_string_str(@disp);
+    
     /// <summary>Returns The string description corresponding to the lowest set bit in disposition. NULL when the lowest set bit does not correspond to a known disposition or when disposition is 0.</summary>
     /// <param name="disposition">a combination of AV_DISPOSITION_* values</param>
     public static string av_disposition_to_string(int @disposition) => vectors.av_disposition_to_string(@disposition);
@@ -620,6 +694,13 @@ public static unsafe partial class ffmpeg
     /// <param name="url">the URL to print, such as source or destination file</param>
     /// <param name="is_output">Select whether the specified context is an input(0) or output(1)</param>
     public static void av_dump_format(_AVFormatContext* @ic, int @index, string @url, int @is_output) => vectors.av_dump_format(@ic, @index, @url, @is_output);
+    
+    /// <summary>Print detailed information about the input or output format, such as duration, bitrate, streams, container, programs, metadata, side data, codec and time base.</summary>
+    /// <param name="ic">the context to analyze</param>
+    /// <param name="index">index of the stream to dump information about</param>
+    /// <param name="url">the URL to print, such as source or destination file</param>
+    /// <param name="is_output">Select whether the specified context is an input(0) or output(1)</param>
+    public static void av_dump_format(_AVFormatContext* @ic, int @index, byte* @url, int @is_output) => vectors.av_dump_format_str(@ic, @index, @url, @is_output);
     
     /// <summary>Allocate an AVDynamicHDRPlus structure and set its fields to default values. The resulting struct can be freed using av_freep().</summary>
     public static _AVDynamicHDRPlus* av_dynamic_hdr_plus_alloc(ulong* @size) => vectors.av_dynamic_hdr_plus_alloc(@size);
@@ -688,6 +769,14 @@ public static unsafe partial class ffmpeg
     /// <param name="log_ctx">context used for logging</param>
     public static int av_file_map(string @filename, byte** @bufptr, ulong* @size, int @log_offset, void* @log_ctx) => vectors.av_file_map(@filename, @bufptr, @size, @log_offset, @log_ctx);
     
+    /// <summary>Read the file with name filename, and put its content in a newly allocated buffer or map it with mmap() when available. In case of success set *bufptr to the read or mmapped buffer, and *size to the size in bytes of the buffer in *bufptr. Unlike mmap this function succeeds with zero sized files, in this case *bufptr will be set to NULL and *size will be set to 0. The returned buffer must be released with av_file_unmap().</summary>
+    /// <param name="filename">path to the file</param>
+    /// <param name="bufptr">pointee is set to the mapped or allocated buffer</param>
+    /// <param name="size">pointee is set to the size in bytes of the buffer</param>
+    /// <param name="log_offset">loglevel offset used for logging</param>
+    /// <param name="log_ctx">context used for logging</param>
+    public static int av_file_map(byte* @filename, byte** @bufptr, ulong* @size, int @log_offset, void* @log_ctx) => vectors.av_file_map_str(@filename, @bufptr, @size, @log_offset, @log_ctx);
+    
     /// <summary>Unmap or free the buffer bufptr created by av_file_map().</summary>
     /// <param name="bufptr">the buffer previously created with av_file_map()</param>
     /// <param name="size">size in bytes of bufptr, must be the same as returned by av_file_map()</param>
@@ -696,6 +785,10 @@ public static unsafe partial class ffmpeg
     /// <summary>Check whether filename actually is a numbered sequence generator.</summary>
     /// <param name="filename">possible numbered sequence string</param>
     public static int av_filename_number_test(string @filename) => vectors.av_filename_number_test(@filename);
+    
+    /// <summary>Check whether filename actually is a numbered sequence generator.</summary>
+    /// <param name="filename">possible numbered sequence string</param>
+    public static int av_filename_number_test(byte* @filename) => vectors.av_filename_number_test_str(@filename);
     
     /// <summary>Iterate over all registered filters.</summary>
     /// <param name="opaque">a pointer where libavfilter will store the iteration state. Must point to NULL to start the iteration.</param>
@@ -719,6 +812,9 @@ public static unsafe partial class ffmpeg
     
     /// <summary>Find AVInputFormat based on the short name of the input format.</summary>
     public static _AVInputFormat* av_find_input_format(string @short_name) => vectors.av_find_input_format(@short_name);
+    
+    /// <summary>Find AVInputFormat based on the short name of the input format.</summary>
+    public static _AVInputFormat* av_find_input_format(byte* @short_name) => vectors.av_find_input_format_str(@short_name);
     
     /// <summary>Find the value in a list of rationals nearest a given reference rational.</summary>
     /// <param name="q">Reference rational</param>
@@ -899,6 +995,8 @@ public static unsafe partial class ffmpeg
     
     public static int av_get_frame_filename(byte* @buf, int @buf_size, string @path, int @number) => vectors.av_get_frame_filename(@buf, @buf_size, @path, @number);
     
+    public static int av_get_frame_filename(byte* @buf, int @buf_size, byte* @path, int @number) => vectors.av_get_frame_filename_str(@buf, @buf_size, @path, @number);
+    
     /// <summary>Return in &apos;buf&apos; the path with &apos;%d&apos; replaced by a number.</summary>
     /// <param name="buf">destination buffer</param>
     /// <param name="buf_size">destination buffer size</param>
@@ -906,6 +1004,14 @@ public static unsafe partial class ffmpeg
     /// <param name="number">frame number</param>
     /// <param name="flags">AV_FRAME_FILENAME_FLAGS_*</param>
     public static int av_get_frame_filename2(byte* @buf, int @buf_size, string @path, int @number, int @flags) => vectors.av_get_frame_filename2(@buf, @buf_size, @path, @number, @flags);
+    
+    /// <summary>Return in &apos;buf&apos; the path with &apos;%d&apos; replaced by a number.</summary>
+    /// <param name="buf">destination buffer</param>
+    /// <param name="buf_size">destination buffer size</param>
+    /// <param name="path">numbered sequence string</param>
+    /// <param name="number">frame number</param>
+    /// <param name="flags">AV_FRAME_FILENAME_FLAGS_*</param>
+    public static int av_get_frame_filename2(byte* @buf, int @buf_size, byte* @path, int @number, int @flags) => vectors.av_get_frame_filename2_str(@buf, @buf_size, @path, @number, @flags);
     
     /// <summary>Return a string describing the media_type enum, NULL if media_type is unknown.</summary>
     public static string av_get_media_type_string(_AVMediaType @media_type) => vectors.av_get_media_type_string(@media_type);
@@ -940,6 +1046,9 @@ public static unsafe partial class ffmpeg
     /// <summary>Return the pixel format corresponding to name.</summary>
     public static _AVPixelFormat av_get_pix_fmt(string @name) => vectors.av_get_pix_fmt(@name);
     
+    /// <summary>Return the pixel format corresponding to name.</summary>
+    public static _AVPixelFormat av_get_pix_fmt(byte* @name) => vectors.av_get_pix_fmt_str(@name);
+    
     /// <summary>Compute what kind of losses will occur when converting from one specific pixel format to another. When converting from one pixel format to another, information loss may occur. For example, when converting from RGB24 to GRAY, the color information will be lost. Similarly, other losses occur when converting from some formats to other formats. These losses can involve loss of chroma, but also loss of resolution, loss of color depth, loss due to the color space conversion, loss of the alpha bits or loss due to color quantization. av_get_fix_fmt_loss() informs you about the various types of losses which will occur when converting from one pixel format to another.</summary>
     /// <param name="dst_pix_fmt">destination pixel format</param>
     /// <param name="src_pix_fmt">source pixel format</param>
@@ -965,6 +1074,9 @@ public static unsafe partial class ffmpeg
     
     /// <summary>Return a sample format corresponding to name, or AV_SAMPLE_FMT_NONE on error.</summary>
     public static _AVSampleFormat av_get_sample_fmt(string @name) => vectors.av_get_sample_fmt(@name);
+    
+    /// <summary>Return a sample format corresponding to name, or AV_SAMPLE_FMT_NONE on error.</summary>
+    public static _AVSampleFormat av_get_sample_fmt(byte* @name) => vectors.av_get_sample_fmt_str(@name);
     
     /// <summary>Return the name of sample_fmt, or NULL if sample_fmt is not recognized.</summary>
     public static string av_get_sample_fmt_name(_AVSampleFormat @sample_fmt) => vectors.av_get_sample_fmt_name(@sample_fmt);
@@ -995,11 +1107,20 @@ public static unsafe partial class ffmpeg
     /// <summary>Guess the codec ID based upon muxer and filename.</summary>
     public static _AVCodecID av_guess_codec(_AVOutputFormat* @fmt, string @short_name, string @filename, string @mime_type, _AVMediaType @type) => vectors.av_guess_codec(@fmt, @short_name, @filename, @mime_type, @type);
     
+    /// <summary>Guess the codec ID based upon muxer and filename.</summary>
+    public static _AVCodecID av_guess_codec(_AVOutputFormat* @fmt, byte* @short_name, byte* @filename, byte* @mime_type, _AVMediaType @type) => vectors.av_guess_codec_str(@fmt, @short_name, @filename, @mime_type, @type);
+    
     /// <summary>Return the output format in the list of registered output formats which best matches the provided parameters, or return NULL if there is no match.</summary>
     /// <param name="short_name">if non-NULL checks if short_name matches with the names of the registered formats</param>
     /// <param name="filename">if non-NULL checks if filename terminates with the extensions of the registered formats</param>
     /// <param name="mime_type">if non-NULL checks if mime_type matches with the MIME type of the registered formats</param>
     public static _AVOutputFormat* av_guess_format(string @short_name, string @filename, string @mime_type) => vectors.av_guess_format(@short_name, @filename, @mime_type);
+    
+    /// <summary>Return the output format in the list of registered output formats which best matches the provided parameters, or return NULL if there is no match.</summary>
+    /// <param name="short_name">if non-NULL checks if short_name matches with the names of the registered formats</param>
+    /// <param name="filename">if non-NULL checks if filename terminates with the extensions of the registered formats</param>
+    /// <param name="mime_type">if non-NULL checks if mime_type matches with the MIME type of the registered formats</param>
+    public static _AVOutputFormat* av_guess_format(byte* @short_name, byte* @filename, byte* @mime_type) => vectors.av_guess_format_str(@short_name, @filename, @mime_type);
     
     /// <summary>Guess the frame rate, based on both the container and codec information.</summary>
     /// <param name="ctx">the format context which the stream is part of</param>
@@ -1038,6 +1159,14 @@ public static unsafe partial class ffmpeg
     /// <param name="flags">currently unused</param>
     public static int av_hwdevice_ctx_create(_AVBufferRef** @device_ctx, _AVHWDeviceType @type, string @device, _AVDictionary* @opts, int @flags) => vectors.av_hwdevice_ctx_create(@device_ctx, @type, @device, @opts, @flags);
     
+    /// <summary>Open a device of the specified type and create an AVHWDeviceContext for it.</summary>
+    /// <param name="device_ctx">On success, a reference to the newly-created device context will be written here. The reference is owned by the caller and must be released with av_buffer_unref() when no longer needed. On failure, NULL will be written to this pointer.</param>
+    /// <param name="type">The type of the device to create.</param>
+    /// <param name="device">A type-specific string identifying the device to open.</param>
+    /// <param name="opts">A dictionary of additional (type-specific) options to use in opening the device. The dictionary remains owned by the caller.</param>
+    /// <param name="flags">currently unused</param>
+    public static int av_hwdevice_ctx_create(_AVBufferRef** @device_ctx, _AVHWDeviceType @type, byte* @device, _AVDictionary* @opts, int @flags) => vectors.av_hwdevice_ctx_create_str(@device_ctx, @type, @device, @opts, @flags);
+    
     /// <summary>Create a new device of the specified type from an existing device.</summary>
     /// <param name="dst_ctx">On success, a reference to the newly-created AVHWDeviceContext.</param>
     /// <param name="type">The type of the new device to create.</param>
@@ -1060,6 +1189,10 @@ public static unsafe partial class ffmpeg
     /// <summary>Look up an AVHWDeviceType by name.</summary>
     /// <param name="name">String name of the device type (case-insensitive).</param>
     public static _AVHWDeviceType av_hwdevice_find_type_by_name(string @name) => vectors.av_hwdevice_find_type_by_name(@name);
+    
+    /// <summary>Look up an AVHWDeviceType by name.</summary>
+    /// <param name="name">String name of the device type (case-insensitive).</param>
+    public static _AVHWDeviceType av_hwdevice_find_type_by_name(byte* @name) => vectors.av_hwdevice_find_type_by_name_str(@name);
     
     /// <summary>Get the constraints on HW frames given a device and the HW-specific configuration to be used with that device. If no HW-specific configuration is provided, returns the maximum possible capabilities of the device.</summary>
     /// <param name="ref">a reference to the associated AVHWDeviceContext.</param>
@@ -1293,12 +1426,25 @@ public static unsafe partial class ffmpeg
     /// <param name="fmt">The format string (printf-compatible) that specifies how subsequent arguments are converted to output.</param>
     public static void av_log(void* @avcl, int @level, string @fmt) => vectors.av_log(@avcl, @level, @fmt);
     
+    /// <summary>Send the specified message to the log if the level is less than or equal to the current av_log_level. By default, all logging messages are sent to stderr. This behavior can be altered by setting a different logging callback function.</summary>
+    /// <param name="avcl">A pointer to an arbitrary struct of which the first field is a pointer to an AVClass struct or NULL if general log.</param>
+    /// <param name="level">The importance level of the message expressed using a &quot;Logging Constant&quot;.</param>
+    /// <param name="fmt">The format string (printf-compatible) that specifies how subsequent arguments are converted to output.</param>
+    public static void av_log(void* @avcl, int @level, byte* @fmt) => vectors.av_log_str(@avcl, @level, @fmt);
+    
     /// <summary>Default logging callback</summary>
     /// <param name="avcl">A pointer to an arbitrary struct of which the first field is a pointer to an AVClass struct.</param>
     /// <param name="level">The importance level of the message expressed using a &quot;Logging Constant&quot;.</param>
     /// <param name="fmt">The format string (printf-compatible) that specifies how subsequent arguments are converted to output.</param>
     /// <param name="vl">The arguments referenced by the format string.</param>
     public static void av_log_default_callback(void* @avcl, int @level, string @fmt, byte* @vl) => vectors.av_log_default_callback(@avcl, @level, @fmt, @vl);
+    
+    /// <summary>Default logging callback</summary>
+    /// <param name="avcl">A pointer to an arbitrary struct of which the first field is a pointer to an AVClass struct.</param>
+    /// <param name="level">The importance level of the message expressed using a &quot;Logging Constant&quot;.</param>
+    /// <param name="fmt">The format string (printf-compatible) that specifies how subsequent arguments are converted to output.</param>
+    /// <param name="vl">The arguments referenced by the format string.</param>
+    public static void av_log_default_callback(void* @avcl, int @level, byte* @fmt, byte* @vl) => vectors.av_log_default_callback_str(@avcl, @level, @fmt, @vl);
     
     /// <summary>Format a line of log the same way as the default callback.</summary>
     /// <param name="line">buffer to receive the formatted line</param>
@@ -1307,10 +1453,22 @@ public static unsafe partial class ffmpeg
     public static void av_log_format_line(void* @ptr, int @level, string @fmt, byte* @vl, byte* @line, int @line_size, int* @print_prefix) => vectors.av_log_format_line(@ptr, @level, @fmt, @vl, @line, @line_size, @print_prefix);
     
     /// <summary>Format a line of log the same way as the default callback.</summary>
+    /// <param name="line">buffer to receive the formatted line</param>
+    /// <param name="line_size">size of the buffer</param>
+    /// <param name="print_prefix">used to store whether the prefix must be printed; must point to a persistent integer initially set to 1</param>
+    public static void av_log_format_line(void* @ptr, int @level, byte* @fmt, byte* @vl, byte* @line, int @line_size, int* @print_prefix) => vectors.av_log_format_line_str(@ptr, @level, @fmt, @vl, @line, @line_size, @print_prefix);
+    
+    /// <summary>Format a line of log the same way as the default callback.</summary>
     /// <param name="line">buffer to receive the formatted line; may be NULL if line_size is 0</param>
     /// <param name="line_size">size of the buffer; at most line_size-1 characters will be written to the buffer, plus one null terminator</param>
     /// <param name="print_prefix">used to store whether the prefix must be printed; must point to a persistent integer initially set to 1</param>
     public static int av_log_format_line2(void* @ptr, int @level, string @fmt, byte* @vl, byte* @line, int @line_size, int* @print_prefix) => vectors.av_log_format_line2(@ptr, @level, @fmt, @vl, @line, @line_size, @print_prefix);
+    
+    /// <summary>Format a line of log the same way as the default callback.</summary>
+    /// <param name="line">buffer to receive the formatted line; may be NULL if line_size is 0</param>
+    /// <param name="line_size">size of the buffer; at most line_size-1 characters will be written to the buffer, plus one null terminator</param>
+    /// <param name="print_prefix">used to store whether the prefix must be printed; must point to a persistent integer initially set to 1</param>
+    public static int av_log_format_line2(void* @ptr, int @level, byte* @fmt, byte* @vl, byte* @line, int @line_size, int* @print_prefix) => vectors.av_log_format_line2_str(@ptr, @level, @fmt, @vl, @line, @line_size, @print_prefix);
     
     public static int av_log_get_flags() => vectors.av_log_get_flags();
     
@@ -1324,6 +1482,14 @@ public static unsafe partial class ffmpeg
     /// <param name="state">a variable to keep trak of if a message has already been printed this must be initialized to 0 before the first use. The same state must not be accessed by 2 Threads simultaneously.</param>
     /// <param name="fmt">The format string (printf-compatible) that specifies how subsequent arguments are converted to output.</param>
     public static void av_log_once(void* @avcl, int @initial_level, int @subsequent_level, int* @state, string @fmt) => vectors.av_log_once(@avcl, @initial_level, @subsequent_level, @state, @fmt);
+    
+    /// <summary>Send the specified message to the log once with the initial_level and then with the subsequent_level. By default, all logging messages are sent to stderr. This behavior can be altered by setting a different logging callback function.</summary>
+    /// <param name="avcl">A pointer to an arbitrary struct of which the first field is a pointer to an AVClass struct or NULL if general log.</param>
+    /// <param name="initial_level">importance level of the message expressed using a &quot;Logging Constant&quot; for the first occurrence.</param>
+    /// <param name="subsequent_level">importance level of the message expressed using a &quot;Logging Constant&quot; after the first occurrence.</param>
+    /// <param name="state">a variable to keep trak of if a message has already been printed this must be initialized to 0 before the first use. The same state must not be accessed by 2 Threads simultaneously.</param>
+    /// <param name="fmt">The format string (printf-compatible) that specifies how subsequent arguments are converted to output.</param>
+    public static void av_log_once(void* @avcl, int @initial_level, int @subsequent_level, int* @state, byte* @fmt) => vectors.av_log_once_str(@avcl, @initial_level, @subsequent_level, @state, @fmt);
     
     /// <summary>Set the logging callback</summary>
     /// <param name="callback">A logging function with a compatible signature.</param>
@@ -1366,6 +1532,11 @@ public static unsafe partial class ffmpeg
     /// <param name="filename">file name to check against the given extensions</param>
     /// <param name="extensions">a comma-separated list of filename extensions</param>
     public static int av_match_ext(string @filename, string @extensions) => vectors.av_match_ext(@filename, @extensions);
+    
+    /// <summary>Return a positive value if the given filename has one of the given extensions, 0 otherwise.</summary>
+    /// <param name="filename">file name to check against the given extensions</param>
+    /// <param name="extensions">a comma-separated list of filename extensions</param>
+    public static int av_match_ext(byte* @filename, byte* @extensions) => vectors.av_match_ext_str(@filename, @extensions);
     
     /// <summary>Set the maximum size that may be allocated in one block.</summary>
     /// <param name="max">Value to be set as the new maximum size</param>
@@ -1425,21 +1596,39 @@ public static unsafe partial class ffmpeg
     
     public static int av_opt_eval_double(void* @obj, _AVOption* @o, string @val, double* @double_out) => vectors.av_opt_eval_double(@obj, @o, @val, @double_out);
     
+    public static int av_opt_eval_double(void* @obj, _AVOption* @o, byte* @val, double* @double_out) => vectors.av_opt_eval_double_str(@obj, @o, @val, @double_out);
+    
     /// <summary>@{ This group of functions can be used to evaluate option strings and get numbers out of them. They do the same thing as av_opt_set(), except the result is written into the caller-supplied pointer.</summary>
     /// <param name="obj">a struct whose first element is a pointer to AVClass.</param>
     /// <param name="o">an option for which the string is to be evaluated.</param>
     /// <param name="val">string to be evaluated.</param>
     public static int av_opt_eval_flags(void* @obj, _AVOption* @o, string @val, int* @flags_out) => vectors.av_opt_eval_flags(@obj, @o, @val, @flags_out);
     
+    /// <summary>@{ This group of functions can be used to evaluate option strings and get numbers out of them. They do the same thing as av_opt_set(), except the result is written into the caller-supplied pointer.</summary>
+    /// <param name="obj">a struct whose first element is a pointer to AVClass.</param>
+    /// <param name="o">an option for which the string is to be evaluated.</param>
+    /// <param name="val">string to be evaluated.</param>
+    public static int av_opt_eval_flags(void* @obj, _AVOption* @o, byte* @val, int* @flags_out) => vectors.av_opt_eval_flags_str(@obj, @o, @val, @flags_out);
+    
     public static int av_opt_eval_float(void* @obj, _AVOption* @o, string @val, float* @float_out) => vectors.av_opt_eval_float(@obj, @o, @val, @float_out);
+    
+    public static int av_opt_eval_float(void* @obj, _AVOption* @o, byte* @val, float* @float_out) => vectors.av_opt_eval_float_str(@obj, @o, @val, @float_out);
     
     public static int av_opt_eval_int(void* @obj, _AVOption* @o, string @val, int* @int_out) => vectors.av_opt_eval_int(@obj, @o, @val, @int_out);
     
+    public static int av_opt_eval_int(void* @obj, _AVOption* @o, byte* @val, int* @int_out) => vectors.av_opt_eval_int_str(@obj, @o, @val, @int_out);
+    
     public static int av_opt_eval_int64(void* @obj, _AVOption* @o, string @val, long* @int64_out) => vectors.av_opt_eval_int64(@obj, @o, @val, @int64_out);
+    
+    public static int av_opt_eval_int64(void* @obj, _AVOption* @o, byte* @val, long* @int64_out) => vectors.av_opt_eval_int64_str(@obj, @o, @val, @int64_out);
     
     public static int av_opt_eval_q(void* @obj, _AVOption* @o, string @val, _AVRational* @q_out) => vectors.av_opt_eval_q(@obj, @o, @val, @q_out);
     
+    public static int av_opt_eval_q(void* @obj, _AVOption* @o, byte* @val, _AVRational* @q_out) => vectors.av_opt_eval_q_str(@obj, @o, @val, @q_out);
+    
     public static int av_opt_eval_uint(void* @obj, _AVOption* @o, string @val, uint* @uint_out) => vectors.av_opt_eval_uint(@obj, @o, @val, @uint_out);
+    
+    public static int av_opt_eval_uint(void* @obj, _AVOption* @o, byte* @val, uint* @uint_out) => vectors.av_opt_eval_uint_str(@obj, @o, @val, @uint_out);
     
     /// <summary>Look for an option in an object. Consider only options which have all the specified flags set.</summary>
     /// <param name="obj">A pointer to a struct whose first element is a pointer to an AVClass. Alternatively a double pointer to an AVClass, if AV_OPT_SEARCH_FAKE_OBJ search flag is set.</param>
@@ -1455,13 +1644,35 @@ public static unsafe partial class ffmpeg
     /// <param name="unit">When searching for named constants, name of the unit it belongs to.</param>
     /// <param name="opt_flags">Find only options with all the specified flags set (AV_OPT_FLAG).</param>
     /// <param name="search_flags">A combination of AV_OPT_SEARCH_*.</param>
+    public static _AVOption* av_opt_find(void* @obj, byte* @name, byte* @unit, int @opt_flags, int @search_flags) => vectors.av_opt_find_str(@obj, @name, @unit, @opt_flags, @search_flags);
+    
+    /// <summary>Look for an option in an object. Consider only options which have all the specified flags set.</summary>
+    /// <param name="obj">A pointer to a struct whose first element is a pointer to an AVClass. Alternatively a double pointer to an AVClass, if AV_OPT_SEARCH_FAKE_OBJ search flag is set.</param>
+    /// <param name="name">The name of the option to look for.</param>
+    /// <param name="unit">When searching for named constants, name of the unit it belongs to.</param>
+    /// <param name="opt_flags">Find only options with all the specified flags set (AV_OPT_FLAG).</param>
+    /// <param name="search_flags">A combination of AV_OPT_SEARCH_*.</param>
     /// <param name="target_obj">if non-NULL, an object to which the option belongs will be written here. It may be different from obj if AV_OPT_SEARCH_CHILDREN is present in search_flags. This parameter is ignored if search_flags contain AV_OPT_SEARCH_FAKE_OBJ.</param>
     public static _AVOption* av_opt_find2(void* @obj, string @name, string @unit, int @opt_flags, int @search_flags, void** @target_obj) => vectors.av_opt_find2(@obj, @name, @unit, @opt_flags, @search_flags, @target_obj);
+    
+    /// <summary>Look for an option in an object. Consider only options which have all the specified flags set.</summary>
+    /// <param name="obj">A pointer to a struct whose first element is a pointer to an AVClass. Alternatively a double pointer to an AVClass, if AV_OPT_SEARCH_FAKE_OBJ search flag is set.</param>
+    /// <param name="name">The name of the option to look for.</param>
+    /// <param name="unit">When searching for named constants, name of the unit it belongs to.</param>
+    /// <param name="opt_flags">Find only options with all the specified flags set (AV_OPT_FLAG).</param>
+    /// <param name="search_flags">A combination of AV_OPT_SEARCH_*.</param>
+    /// <param name="target_obj">if non-NULL, an object to which the option belongs will be written here. It may be different from obj if AV_OPT_SEARCH_CHILDREN is present in search_flags. This parameter is ignored if search_flags contain AV_OPT_SEARCH_FAKE_OBJ.</param>
+    public static _AVOption* av_opt_find2(void* @obj, byte* @name, byte* @unit, int @opt_flags, int @search_flags, void** @target_obj) => vectors.av_opt_find2_str(@obj, @name, @unit, @opt_flags, @search_flags, @target_obj);
     
     /// <summary>Check whether a particular flag is set in a flags field.</summary>
     /// <param name="field_name">the name of the flag field option</param>
     /// <param name="flag_name">the name of the flag to check</param>
     public static int av_opt_flag_is_set(void* @obj, string @field_name, string @flag_name) => vectors.av_opt_flag_is_set(@obj, @field_name, @flag_name);
+    
+    /// <summary>Check whether a particular flag is set in a flags field.</summary>
+    /// <param name="field_name">the name of the flag field option</param>
+    /// <param name="flag_name">the name of the flag to check</param>
+    public static int av_opt_flag_is_set(void* @obj, byte* @field_name, byte* @flag_name) => vectors.av_opt_flag_is_set_str(@obj, @field_name, @flag_name);
     
     /// <summary>Free all allocated objects in obj.</summary>
     public static void av_opt_free(void* @obj) => vectors.av_opt_free(@obj);
@@ -1476,6 +1687,13 @@ public static unsafe partial class ffmpeg
     /// <param name="out_val">value of the option will be written here</param>
     public static int av_opt_get(void* @obj, string @name, int @search_flags, byte** @out_val) => vectors.av_opt_get(@obj, @name, @search_flags, @out_val);
     
+    /// <summary>@{ Those functions get a value of the option with the given name from an object.</summary>
+    /// <param name="obj">a struct whose first element is a pointer to an AVClass.</param>
+    /// <param name="name">name of the option to get.</param>
+    /// <param name="search_flags">flags passed to av_opt_find2. I.e. if AV_OPT_SEARCH_CHILDREN is passed here, then the option may be found in a child of obj.</param>
+    /// <param name="out_val">value of the option will be written here</param>
+    public static int av_opt_get(void* @obj, byte* @name, int @search_flags, byte** @out_val) => vectors.av_opt_get_str(@obj, @name, @search_flags, @out_val);
+    
     /// <summary>For an array-type option, retrieve the values of one or more array elements.</summary>
     /// <param name="start_elem">index of the first array element to retrieve</param>
     /// <param name="nb_elems">number of array elements to retrieve; start_elem+nb_elems must not be larger than array size as returned by av_opt_get_array_size()</param>
@@ -1483,20 +1701,42 @@ public static unsafe partial class ffmpeg
     /// <param name="out_val">Array with nb_elems members into which the output will be written. The array type must match the underlying C type as documented for out_type, and be zeroed on entry to this function.</param>
     public static int av_opt_get_array(void* @obj, string @name, int @search_flags, uint @start_elem, uint @nb_elems, _AVOptionType @out_type, void* @out_val) => vectors.av_opt_get_array(@obj, @name, @search_flags, @start_elem, @nb_elems, @out_type, @out_val);
     
+    /// <summary>For an array-type option, retrieve the values of one or more array elements.</summary>
+    /// <param name="start_elem">index of the first array element to retrieve</param>
+    /// <param name="nb_elems">number of array elements to retrieve; start_elem+nb_elems must not be larger than array size as returned by av_opt_get_array_size()</param>
+    /// <param name="out_type">Option type corresponding to the desired output.</param>
+    /// <param name="out_val">Array with nb_elems members into which the output will be written. The array type must match the underlying C type as documented for out_type, and be zeroed on entry to this function.</param>
+    public static int av_opt_get_array(void* @obj, byte* @name, int @search_flags, uint @start_elem, uint @nb_elems, _AVOptionType @out_type, void* @out_val) => vectors.av_opt_get_array_str(@obj, @name, @search_flags, @start_elem, @nb_elems, @out_type, @out_val);
+    
     /// <summary>For an array-type option, get the number of elements in the array.</summary>
     public static int av_opt_get_array_size(void* @obj, string @name, int @search_flags, uint* @out_val) => vectors.av_opt_get_array_size(@obj, @name, @search_flags, @out_val);
+    
+    /// <summary>For an array-type option, get the number of elements in the array.</summary>
+    public static int av_opt_get_array_size(void* @obj, byte* @name, int @search_flags, uint* @out_val) => vectors.av_opt_get_array_size_str(@obj, @name, @search_flags, @out_val);
     
     /// <param name="layout">The returned layout is a copy of the actual value and must be freed with av_channel_layout_uninit() by the caller</param>
     public static int av_opt_get_chlayout(void* @obj, string @name, int @search_flags, _AVChannelLayout* @layout) => vectors.av_opt_get_chlayout(@obj, @name, @search_flags, @layout);
     
+    /// <param name="layout">The returned layout is a copy of the actual value and must be freed with av_channel_layout_uninit() by the caller</param>
+    public static int av_opt_get_chlayout(void* @obj, byte* @name, int @search_flags, _AVChannelLayout* @layout) => vectors.av_opt_get_chlayout_str(@obj, @name, @search_flags, @layout);
+    
     /// <param name="out_val">The returned dictionary is a copy of the actual value and must be freed with av_dict_free() by the caller</param>
     public static int av_opt_get_dict_val(void* @obj, string @name, int @search_flags, _AVDictionary** @out_val) => vectors.av_opt_get_dict_val(@obj, @name, @search_flags, @out_val);
     
+    /// <param name="out_val">The returned dictionary is a copy of the actual value and must be freed with av_dict_free() by the caller</param>
+    public static int av_opt_get_dict_val(void* @obj, byte* @name, int @search_flags, _AVDictionary** @out_val) => vectors.av_opt_get_dict_val_str(@obj, @name, @search_flags, @out_val);
+    
     public static int av_opt_get_double(void* @obj, string @name, int @search_flags, double* @out_val) => vectors.av_opt_get_double(@obj, @name, @search_flags, @out_val);
+    
+    public static int av_opt_get_double(void* @obj, byte* @name, int @search_flags, double* @out_val) => vectors.av_opt_get_double_str(@obj, @name, @search_flags, @out_val);
     
     public static int av_opt_get_image_size(void* @obj, string @name, int @search_flags, int* @w_out, int* @h_out) => vectors.av_opt_get_image_size(@obj, @name, @search_flags, @w_out, @h_out);
     
+    public static int av_opt_get_image_size(void* @obj, byte* @name, int @search_flags, int* @w_out, int* @h_out) => vectors.av_opt_get_image_size_str(@obj, @name, @search_flags, @w_out, @h_out);
+    
     public static int av_opt_get_int(void* @obj, string @name, int @search_flags, long* @out_val) => vectors.av_opt_get_int(@obj, @name, @search_flags, @out_val);
+    
+    public static int av_opt_get_int(void* @obj, byte* @name, int @search_flags, long* @out_val) => vectors.av_opt_get_int_str(@obj, @name, @search_flags, @out_val);
     
     /// <summary>Extract a key-value pair from the beginning of a string.</summary>
     /// <param name="ropts">pointer to the options string, will be updated to point to the rest of the string (one of the pairs_sep or the final NUL)</param>
@@ -1507,13 +1747,30 @@ public static unsafe partial class ffmpeg
     /// <param name="rval">parsed value; must be freed using av_free()</param>
     public static int av_opt_get_key_value(byte** @ropts, string @key_val_sep, string @pairs_sep, uint @flags, byte** @rkey, byte** @rval) => vectors.av_opt_get_key_value(@ropts, @key_val_sep, @pairs_sep, @flags, @rkey, @rval);
     
+    /// <summary>Extract a key-value pair from the beginning of a string.</summary>
+    /// <param name="ropts">pointer to the options string, will be updated to point to the rest of the string (one of the pairs_sep or the final NUL)</param>
+    /// <param name="key_val_sep">a 0-terminated list of characters used to separate key from value, for example &apos;=&apos;</param>
+    /// <param name="pairs_sep">a 0-terminated list of characters used to separate two pairs from each other, for example &apos;:&apos; or &apos;,&apos;</param>
+    /// <param name="flags">flags; see the AV_OPT_FLAG_* values below</param>
+    /// <param name="rkey">parsed key; must be freed using av_free()</param>
+    /// <param name="rval">parsed value; must be freed using av_free()</param>
+    public static int av_opt_get_key_value(byte** @ropts, byte* @key_val_sep, byte* @pairs_sep, uint @flags, byte** @rkey, byte** @rval) => vectors.av_opt_get_key_value_str(@ropts, @key_val_sep, @pairs_sep, @flags, @rkey, @rval);
+    
     public static int av_opt_get_pixel_fmt(void* @obj, string @name, int @search_flags, _AVPixelFormat* @out_fmt) => vectors.av_opt_get_pixel_fmt(@obj, @name, @search_flags, @out_fmt);
+    
+    public static int av_opt_get_pixel_fmt(void* @obj, byte* @name, int @search_flags, _AVPixelFormat* @out_fmt) => vectors.av_opt_get_pixel_fmt_str(@obj, @name, @search_flags, @out_fmt);
     
     public static int av_opt_get_q(void* @obj, string @name, int @search_flags, _AVRational* @out_val) => vectors.av_opt_get_q(@obj, @name, @search_flags, @out_val);
     
+    public static int av_opt_get_q(void* @obj, byte* @name, int @search_flags, _AVRational* @out_val) => vectors.av_opt_get_q_str(@obj, @name, @search_flags, @out_val);
+    
     public static int av_opt_get_sample_fmt(void* @obj, string @name, int @search_flags, _AVSampleFormat* @out_fmt) => vectors.av_opt_get_sample_fmt(@obj, @name, @search_flags, @out_fmt);
     
+    public static int av_opt_get_sample_fmt(void* @obj, byte* @name, int @search_flags, _AVSampleFormat* @out_fmt) => vectors.av_opt_get_sample_fmt_str(@obj, @name, @search_flags, @out_fmt);
+    
     public static int av_opt_get_video_rate(void* @obj, string @name, int @search_flags, _AVRational* @out_val) => vectors.av_opt_get_video_rate(@obj, @name, @search_flags, @out_val);
+    
+    public static int av_opt_get_video_rate(void* @obj, byte* @name, int @search_flags, _AVRational* @out_val) => vectors.av_opt_get_video_rate_str(@obj, @name, @search_flags, @out_val);
     
     /// <summary>Check if given option is set to its default value.</summary>
     /// <param name="obj">AVClass object to check option on</param>
@@ -1526,6 +1783,12 @@ public static unsafe partial class ffmpeg
     /// <param name="search_flags">combination of AV_OPT_SEARCH_*</param>
     public static int av_opt_is_set_to_default_by_name(void* @obj, string @name, int @search_flags) => vectors.av_opt_is_set_to_default_by_name(@obj, @name, @search_flags);
     
+    /// <summary>Check if given option is set to its default value.</summary>
+    /// <param name="obj">AVClass object to check option on</param>
+    /// <param name="name">option name</param>
+    /// <param name="search_flags">combination of AV_OPT_SEARCH_*</param>
+    public static int av_opt_is_set_to_default_by_name(void* @obj, byte* @name, int @search_flags) => vectors.av_opt_is_set_to_default_by_name_str(@obj, @name, @search_flags);
+    
     /// <summary>Iterate over all AVOptions belonging to obj.</summary>
     /// <param name="obj">an AVOptions-enabled struct or a double pointer to an AVClass describing it.</param>
     /// <param name="prev">result of the previous call to av_opt_next() on this object or NULL</param>
@@ -1535,13 +1798,25 @@ public static unsafe partial class ffmpeg
     [Obsolete("direct access to AVOption-exported fields is not supported")]
     public static void* av_opt_ptr(_AVClass* @avclass, void* @obj, string @name) => vectors.av_opt_ptr(@avclass, @obj, @name);
     
+    /// <summary>Gets a pointer to the requested field in a struct. This function allows accessing a struct even when its fields are moved or renamed since the application making the access has been compiled,</summary>
+    [Obsolete("direct access to AVOption-exported fields is not supported")]
+    public static void* av_opt_ptr(_AVClass* @avclass, void* @obj, byte* @name) => vectors.av_opt_ptr_str(@avclass, @obj, @name);
+    
     /// <summary>Get a list of allowed ranges for the given option.</summary>
     /// <param name="flags">is a bitmask of flags, undefined flags should not be set and should be ignored AV_OPT_SEARCH_FAKE_OBJ indicates that the obj is a double pointer to a AVClass instead of a full instance AV_OPT_MULTI_COMPONENT_RANGE indicates that function may return more than one component,</param>
     public static int av_opt_query_ranges(_AVOptionRanges** @p0, void* @obj, string @key, int @flags) => vectors.av_opt_query_ranges(@p0, @obj, @key, @flags);
     
+    /// <summary>Get a list of allowed ranges for the given option.</summary>
+    /// <param name="flags">is a bitmask of flags, undefined flags should not be set and should be ignored AV_OPT_SEARCH_FAKE_OBJ indicates that the obj is a double pointer to a AVClass instead of a full instance AV_OPT_MULTI_COMPONENT_RANGE indicates that function may return more than one component,</param>
+    public static int av_opt_query_ranges(_AVOptionRanges** @p0, void* @obj, byte* @key, int @flags) => vectors.av_opt_query_ranges_str(@p0, @obj, @key, @flags);
+    
     /// <summary>Get a default list of allowed ranges for the given option.</summary>
     /// <param name="flags">is a bitmask of flags, undefined flags should not be set and should be ignored AV_OPT_SEARCH_FAKE_OBJ indicates that the obj is a double pointer to a AVClass instead of a full instance AV_OPT_MULTI_COMPONENT_RANGE indicates that function may return more than one component,</param>
     public static int av_opt_query_ranges_default(_AVOptionRanges** @p0, void* @obj, string @key, int @flags) => vectors.av_opt_query_ranges_default(@p0, @obj, @key, @flags);
+    
+    /// <summary>Get a default list of allowed ranges for the given option.</summary>
+    /// <param name="flags">is a bitmask of flags, undefined flags should not be set and should be ignored AV_OPT_SEARCH_FAKE_OBJ indicates that the obj is a double pointer to a AVClass instead of a full instance AV_OPT_MULTI_COMPONENT_RANGE indicates that function may return more than one component,</param>
+    public static int av_opt_query_ranges_default(_AVOptionRanges** @p0, void* @obj, byte* @key, int @flags) => vectors.av_opt_query_ranges_default_str(@p0, @obj, @key, @flags);
     
     /// <summary>Serialize object&apos;s options.</summary>
     /// <param name="obj">AVClass object to serialize</param>
@@ -1559,6 +1834,13 @@ public static unsafe partial class ffmpeg
     /// <param name="search_flags">flags passed to av_opt_find2. I.e. if AV_OPT_SEARCH_CHILDREN is passed here, then the option may be set on a child of obj.</param>
     public static int av_opt_set(void* @obj, string @name, string @val, int @search_flags) => vectors.av_opt_set(@obj, @name, @val, @search_flags);
     
+    /// <summary>@{ Those functions set the field of obj with the given name to value.</summary>
+    /// <param name="obj">A struct whose first element is a pointer to an AVClass.</param>
+    /// <param name="name">the name of the field to set</param>
+    /// <param name="val">The value to set. In case of av_opt_set() if the field is not of a string type, then the given string is parsed. SI postfixes and some named scalars are supported. If the field is of a numeric type, it has to be a numeric or named scalar. Behavior with more than one scalar and +- infix operators is undefined. If the field is of a flags type, it has to be a sequence of numeric scalars or named flags separated by &apos;+&apos; or &apos;-&apos;. Prefixing a flag with &apos;+&apos; causes it to be set without affecting the other flags; similarly, &apos;-&apos; unsets a flag. If the field is of a dictionary type, it has to be a &apos;:&apos; separated list of key=value parameters. Values containing &apos;:&apos; special characters must be escaped.</param>
+    /// <param name="search_flags">flags passed to av_opt_find2. I.e. if AV_OPT_SEARCH_CHILDREN is passed here, then the option may be set on a child of obj.</param>
+    public static int av_opt_set(void* @obj, byte* @name, byte* @val, int @search_flags) => vectors.av_opt_set_str(@obj, @name, @val, @search_flags);
+    
     /// <summary>Add, replace, or remove elements for an array option. Which of these operations is performed depends on the values of val and search_flags.</summary>
     /// <param name="start_elem">Index of the first array element to modify; must not be larger than array size as returned by av_opt_get_array_size().</param>
     /// <param name="nb_elems">number of array elements to modify; when val is NULL, start_elem+nb_elems must not be larger than array size as returned by av_opt_get_array_size()</param>
@@ -1566,9 +1848,20 @@ public static unsafe partial class ffmpeg
     /// <param name="val">Array with nb_elems elements or NULL.</param>
     public static int av_opt_set_array(void* @obj, string @name, int @search_flags, uint @start_elem, uint @nb_elems, _AVOptionType @val_type, void* @val) => vectors.av_opt_set_array(@obj, @name, @search_flags, @start_elem, @nb_elems, @val_type, @val);
     
+    /// <summary>Add, replace, or remove elements for an array option. Which of these operations is performed depends on the values of val and search_flags.</summary>
+    /// <param name="start_elem">Index of the first array element to modify; must not be larger than array size as returned by av_opt_get_array_size().</param>
+    /// <param name="nb_elems">number of array elements to modify; when val is NULL, start_elem+nb_elems must not be larger than array size as returned by av_opt_get_array_size()</param>
+    /// <param name="val_type">Option type corresponding to the type of val, ignored when val is NULL.</param>
+    /// <param name="val">Array with nb_elems elements or NULL.</param>
+    public static int av_opt_set_array(void* @obj, byte* @name, int @search_flags, uint @start_elem, uint @nb_elems, _AVOptionType @val_type, void* @val) => vectors.av_opt_set_array_str(@obj, @name, @search_flags, @start_elem, @nb_elems, @val_type, @val);
+    
     public static int av_opt_set_bin(void* @obj, string @name, byte* @val, int @size, int @search_flags) => vectors.av_opt_set_bin(@obj, @name, @val, @size, @search_flags);
     
+    public static int av_opt_set_bin(void* @obj, byte* @name, byte* @val, int @size, int @search_flags) => vectors.av_opt_set_bin_str(@obj, @name, @val, @size, @search_flags);
+    
     public static int av_opt_set_chlayout(void* @obj, string @name, _AVChannelLayout* @layout, int @search_flags) => vectors.av_opt_set_chlayout(@obj, @name, @layout, @search_flags);
+    
+    public static int av_opt_set_chlayout(void* @obj, byte* @name, _AVChannelLayout* @layout, int @search_flags) => vectors.av_opt_set_chlayout_str(@obj, @name, @layout, @search_flags);
     
     /// <summary>Set the values of all AVOption fields to their default values.</summary>
     /// <param name="s">an AVOption-enabled struct (its first member must be a pointer to AVClass)</param>
@@ -1587,6 +1880,8 @@ public static unsafe partial class ffmpeg
     
     public static int av_opt_set_dict_val(void* @obj, string @name, _AVDictionary* @val, int @search_flags) => vectors.av_opt_set_dict_val(@obj, @name, @val, @search_flags);
     
+    public static int av_opt_set_dict_val(void* @obj, byte* @name, _AVDictionary* @val, int @search_flags) => vectors.av_opt_set_dict_val_str(@obj, @name, @val, @search_flags);
+    
     /// <summary>Set all the options from a given dictionary on an object.</summary>
     /// <param name="obj">a struct whose first element is a pointer to AVClass</param>
     /// <param name="options">options to process. This dictionary will be freed and replaced by a new one containing all options not found in obj. Of course this new dictionary needs to be freed by caller with av_dict_free().</param>
@@ -1594,6 +1889,8 @@ public static unsafe partial class ffmpeg
     public static int av_opt_set_dict2(void* @obj, _AVDictionary** @options, int @search_flags) => vectors.av_opt_set_dict2(@obj, @options, @search_flags);
     
     public static int av_opt_set_double(void* @obj, string @name, double @val, int @search_flags) => vectors.av_opt_set_double(@obj, @name, @val, @search_flags);
+    
+    public static int av_opt_set_double(void* @obj, byte* @name, double @val, int @search_flags) => vectors.av_opt_set_double_str(@obj, @name, @val, @search_flags);
     
     /// <summary>Parse the key-value pairs list in opts. For each key=value pair found, set the value of the corresponding option in ctx.</summary>
     /// <param name="ctx">the AVClass object to set options on</param>
@@ -1603,17 +1900,37 @@ public static unsafe partial class ffmpeg
     /// <param name="pairs_sep">a 0-terminated list of characters used to separate two pairs from each other, for example &apos;:&apos; or &apos;,&apos;</param>
     public static int av_opt_set_from_string(void* @ctx, string @opts, byte** @shorthand, string @key_val_sep, string @pairs_sep) => vectors.av_opt_set_from_string(@ctx, @opts, @shorthand, @key_val_sep, @pairs_sep);
     
+    /// <summary>Parse the key-value pairs list in opts. For each key=value pair found, set the value of the corresponding option in ctx.</summary>
+    /// <param name="ctx">the AVClass object to set options on</param>
+    /// <param name="opts">the options string, key-value pairs separated by a delimiter</param>
+    /// <param name="shorthand">a NULL-terminated array of options names for shorthand notation: if the first field in opts has no key part, the key is taken from the first element of shorthand; then again for the second, etc., until either opts is finished, shorthand is finished or a named option is found; after that, all options must be named</param>
+    /// <param name="key_val_sep">a 0-terminated list of characters used to separate key from value, for example &apos;=&apos;</param>
+    /// <param name="pairs_sep">a 0-terminated list of characters used to separate two pairs from each other, for example &apos;:&apos; or &apos;,&apos;</param>
+    public static int av_opt_set_from_string(void* @ctx, byte* @opts, byte** @shorthand, byte* @key_val_sep, byte* @pairs_sep) => vectors.av_opt_set_from_string_str(@ctx, @opts, @shorthand, @key_val_sep, @pairs_sep);
+    
     public static int av_opt_set_image_size(void* @obj, string @name, int @w, int @h, int @search_flags) => vectors.av_opt_set_image_size(@obj, @name, @w, @h, @search_flags);
+    
+    public static int av_opt_set_image_size(void* @obj, byte* @name, int @w, int @h, int @search_flags) => vectors.av_opt_set_image_size_str(@obj, @name, @w, @h, @search_flags);
     
     public static int av_opt_set_int(void* @obj, string @name, long @val, int @search_flags) => vectors.av_opt_set_int(@obj, @name, @val, @search_flags);
     
+    public static int av_opt_set_int(void* @obj, byte* @name, long @val, int @search_flags) => vectors.av_opt_set_int_str(@obj, @name, @val, @search_flags);
+    
     public static int av_opt_set_pixel_fmt(void* @obj, string @name, _AVPixelFormat @fmt, int @search_flags) => vectors.av_opt_set_pixel_fmt(@obj, @name, @fmt, @search_flags);
+    
+    public static int av_opt_set_pixel_fmt(void* @obj, byte* @name, _AVPixelFormat @fmt, int @search_flags) => vectors.av_opt_set_pixel_fmt_str(@obj, @name, @fmt, @search_flags);
     
     public static int av_opt_set_q(void* @obj, string @name, _AVRational @val, int @search_flags) => vectors.av_opt_set_q(@obj, @name, @val, @search_flags);
     
+    public static int av_opt_set_q(void* @obj, byte* @name, _AVRational @val, int @search_flags) => vectors.av_opt_set_q_str(@obj, @name, @val, @search_flags);
+    
     public static int av_opt_set_sample_fmt(void* @obj, string @name, _AVSampleFormat @fmt, int @search_flags) => vectors.av_opt_set_sample_fmt(@obj, @name, @fmt, @search_flags);
     
+    public static int av_opt_set_sample_fmt(void* @obj, byte* @name, _AVSampleFormat @fmt, int @search_flags) => vectors.av_opt_set_sample_fmt_str(@obj, @name, @fmt, @search_flags);
+    
     public static int av_opt_set_video_rate(void* @obj, string @name, _AVRational @val, int @search_flags) => vectors.av_opt_set_video_rate(@obj, @name, @val, @search_flags);
+    
+    public static int av_opt_set_video_rate(void* @obj, byte* @name, _AVRational @val, int @search_flags) => vectors.av_opt_set_video_rate_str(@obj, @name, @val, @search_flags);
     
     /// <summary>Show the obj options.</summary>
     /// <param name="av_log_obj">log context to use for showing the options</param>
@@ -1761,6 +2078,9 @@ public static unsafe partial class ffmpeg
     /// <summary>Parse CPU caps from a string and update the given AV_CPU_* flags based on that.</summary>
     public static int av_parse_cpu_caps(uint* @flags, string @s) => vectors.av_parse_cpu_caps(@flags, @s);
     
+    /// <summary>Parse CPU caps from a string and update the given AV_CPU_* flags based on that.</summary>
+    public static int av_parse_cpu_caps(uint* @flags, byte* @s) => vectors.av_parse_cpu_caps_str(@flags, @s);
+    
     public static void av_parser_close(_AVCodecParserContext* @s) => vectors.av_parser_close(@s);
     
     public static _AVCodecParserContext* av_parser_init(int @codec_id) => vectors.av_parser_init(@codec_id);
@@ -1822,6 +2142,9 @@ public static unsafe partial class ffmpeg
     /// <summary>Like av_probe_input_buffer2() but returns 0 on success</summary>
     public static int av_probe_input_buffer(_AVIOContext* @pb, _AVInputFormat** @fmt, string @url, void* @logctx, uint @offset, uint @max_probe_size) => vectors.av_probe_input_buffer(@pb, @fmt, @url, @logctx, @offset, @max_probe_size);
     
+    /// <summary>Like av_probe_input_buffer2() but returns 0 on success</summary>
+    public static int av_probe_input_buffer(_AVIOContext* @pb, _AVInputFormat** @fmt, byte* @url, void* @logctx, uint @offset, uint @max_probe_size) => vectors.av_probe_input_buffer_str(@pb, @fmt, @url, @logctx, @offset, @max_probe_size);
+    
     /// <summary>Probe a bytestream to determine the input format. Each time a probe returns with a score that is too low, the probe buffer size is increased and another attempt is made. When the maximum probe size is reached, the input format with the highest score is returned.</summary>
     /// <param name="pb">the bytestream to probe</param>
     /// <param name="fmt">the input format is put here</param>
@@ -1830,6 +2153,15 @@ public static unsafe partial class ffmpeg
     /// <param name="offset">the offset within the bytestream to probe from</param>
     /// <param name="max_probe_size">the maximum probe buffer size (zero for default)</param>
     public static int av_probe_input_buffer2(_AVIOContext* @pb, _AVInputFormat** @fmt, string @url, void* @logctx, uint @offset, uint @max_probe_size) => vectors.av_probe_input_buffer2(@pb, @fmt, @url, @logctx, @offset, @max_probe_size);
+    
+    /// <summary>Probe a bytestream to determine the input format. Each time a probe returns with a score that is too low, the probe buffer size is increased and another attempt is made. When the maximum probe size is reached, the input format with the highest score is returned.</summary>
+    /// <param name="pb">the bytestream to probe</param>
+    /// <param name="fmt">the input format is put here</param>
+    /// <param name="url">the url of the stream</param>
+    /// <param name="logctx">the log context</param>
+    /// <param name="offset">the offset within the bytestream to probe from</param>
+    /// <param name="max_probe_size">the maximum probe buffer size (zero for default)</param>
+    public static int av_probe_input_buffer2(_AVIOContext* @pb, _AVInputFormat** @fmt, byte* @url, void* @logctx, uint @offset, uint @max_probe_size) => vectors.av_probe_input_buffer2_str(@pb, @fmt, @url, @logctx, @offset, @max_probe_size);
     
     /// <summary>Guess the file format.</summary>
     /// <param name="pd">data to be probed</param>
@@ -2001,6 +2333,12 @@ public static unsafe partial class ffmpeg
     /// <param name="pairs_sep">a 0-terminated list of characters used to separate two pairs from each other</param>
     public static int av_set_options_string(void* @ctx, string @opts, string @key_val_sep, string @pairs_sep) => vectors.av_set_options_string(@ctx, @opts, @key_val_sep, @pairs_sep);
     
+    /// <summary>Parse the key/value pairs list in opts. For each key/value pair found, stores the value in the field in ctx that is named like the key. ctx must be an AVClass context, storing is done using AVOptions.</summary>
+    /// <param name="opts">options string to parse, may be NULL</param>
+    /// <param name="key_val_sep">a 0-terminated list of characters used to separate key from value</param>
+    /// <param name="pairs_sep">a 0-terminated list of characters used to separate two pairs from each other</param>
+    public static int av_set_options_string(void* @ctx, byte* @opts, byte* @key_val_sep, byte* @pairs_sep) => vectors.av_set_options_string_str(@ctx, @opts, @key_val_sep, @pairs_sep);
+    
     /// <summary>Reduce packet size, correctly zeroing padding</summary>
     /// <param name="pkt">packet</param>
     /// <param name="size">new size</param>
@@ -2026,9 +2364,17 @@ public static unsafe partial class ffmpeg
     /// <param name="name">The input string.</param>
     public static int av_stereo3d_from_name(string @name) => vectors.av_stereo3d_from_name(@name);
     
+    /// <summary>Get the AVStereo3DType form a human-readable name.</summary>
+    /// <param name="name">The input string.</param>
+    public static int av_stereo3d_from_name(byte* @name) => vectors.av_stereo3d_from_name_str(@name);
+    
     /// <summary>Get the AVStereo3DPrimaryEye form a human-readable name.</summary>
     /// <param name="name">The input string.</param>
     public static int av_stereo3d_primary_eye_from_name(string @name) => vectors.av_stereo3d_primary_eye_from_name(@name);
+    
+    /// <summary>Get the AVStereo3DPrimaryEye form a human-readable name.</summary>
+    /// <param name="name">The input string.</param>
+    public static int av_stereo3d_primary_eye_from_name(byte* @name) => vectors.av_stereo3d_primary_eye_from_name_str(@name);
     
     /// <summary>Provide a human-readable name of a given stereo3d primary eye.</summary>
     public static string av_stereo3d_primary_eye_name(uint @eye) => vectors.av_stereo3d_primary_eye_name(@eye);
@@ -2041,12 +2387,20 @@ public static unsafe partial class ffmpeg
     /// <param name="name">The input string.</param>
     public static int av_stereo3d_view_from_name(string @name) => vectors.av_stereo3d_view_from_name(@name);
     
+    /// <summary>Get the AVStereo3DView form a human-readable name.</summary>
+    /// <param name="name">The input string.</param>
+    public static int av_stereo3d_view_from_name(byte* @name) => vectors.av_stereo3d_view_from_name_str(@name);
+    
     /// <summary>Provide a human-readable name of a given stereo3d view.</summary>
     public static string av_stereo3d_view_name(uint @view) => vectors.av_stereo3d_view_name(@view);
     
     /// <summary>Duplicate a string.</summary>
     /// <param name="s">String to be duplicated</param>
     public static byte* av_strdup(string @s) => vectors.av_strdup(@s);
+    
+    /// <summary>Duplicate a string.</summary>
+    /// <param name="s">String to be duplicated</param>
+    public static byte* av_strdup(byte* @s) => vectors.av_strdup_str(@s);
     
     /// <summary>Get the AVClass for AVStream. It can be used in combination with AV_OPT_SEARCH_FAKE_OBJ for examining options.</summary>
     public static _AVClass* av_stream_get_class() => vectors.av_stream_get_class();
@@ -2069,6 +2423,11 @@ public static unsafe partial class ffmpeg
     /// <param name="s">String to be duplicated</param>
     /// <param name="len">Maximum length of the resulting string (not counting the terminating byte)</param>
     public static byte* av_strndup(string @s, ulong @len) => vectors.av_strndup(@s, @len);
+    
+    /// <summary>Duplicate a substring of a string.</summary>
+    /// <param name="s">String to be duplicated</param>
+    /// <param name="len">Maximum length of the resulting string (not counting the terminating byte)</param>
+    public static byte* av_strndup(byte* @s, ulong @len) => vectors.av_strndup_str(@s, @len);
     
     /// <summary>Subtract one rational from another.</summary>
     /// <param name="b">First rational</param>
@@ -2122,6 +2481,13 @@ public static unsafe partial class ffmpeg
     /// <param name="str">timecode string which will determine the frame start</param>
     /// <param name="log_ctx">a pointer to an arbitrary struct of which the first field is a pointer to an AVClass struct (used for av_log).</param>
     public static int av_timecode_init_from_string(_AVTimecode* @tc, _AVRational @rate, string @str, void* @log_ctx) => vectors.av_timecode_init_from_string(@tc, @rate, @str, @log_ctx);
+    
+    /// <summary>Parse timecode representation (hh:mm:ss[:;.]ff).</summary>
+    /// <param name="tc">pointer to an allocated AVTimecode</param>
+    /// <param name="rate">frame rate in rational form</param>
+    /// <param name="str">timecode string which will determine the frame start</param>
+    /// <param name="log_ctx">a pointer to an arbitrary struct of which the first field is a pointer to an AVClass struct (used for av_log).</param>
+    public static int av_timecode_init_from_string(_AVTimecode* @tc, _AVRational @rate, byte* @str, void* @log_ctx) => vectors.av_timecode_init_from_string_str(@tc, @rate, @str, @log_ctx);
     
     /// <summary>Get the timecode string from the 25-bit timecode format (MPEG GOP format).</summary>
     /// <param name="buf">destination buffer, must be at least AV_TIMECODE_STR_SIZE long</param>
@@ -2183,6 +2549,19 @@ public static unsafe partial class ffmpeg
     /// <param name="url">the URL to split</param>
     public static void av_url_split(byte* @proto, int @proto_size, byte* @authorization, int @authorization_size, byte* @hostname, int @hostname_size, int* @port_ptr, byte* @path, int @path_size, string @url) => vectors.av_url_split(@proto, @proto_size, @authorization, @authorization_size, @hostname, @hostname_size, @port_ptr, @path, @path_size, @url);
     
+    /// <summary>Split a URL string into components.</summary>
+    /// <param name="proto">the buffer for the protocol</param>
+    /// <param name="proto_size">the size of the proto buffer</param>
+    /// <param name="authorization">the buffer for the authorization</param>
+    /// <param name="authorization_size">the size of the authorization buffer</param>
+    /// <param name="hostname">the buffer for the host name</param>
+    /// <param name="hostname_size">the size of the hostname buffer</param>
+    /// <param name="port_ptr">a pointer to store the port number in</param>
+    /// <param name="path">the buffer for the path</param>
+    /// <param name="path_size">the size of the path buffer</param>
+    /// <param name="url">the URL to split</param>
+    public static void av_url_split(byte* @proto, int @proto_size, byte* @authorization, int @authorization_size, byte* @hostname, int @hostname_size, int* @port_ptr, byte* @path, int @path_size, byte* @url) => vectors.av_url_split_str(@proto, @proto_size, @authorization, @authorization_size, @hostname, @hostname_size, @port_ptr, @path, @path_size, @url);
+    
     /// <summary>Sleep for a period of time. Although the duration is expressed in microseconds, the actual delay may be rounded to the precision of the system timer.</summary>
     /// <param name="usec">Number of microseconds to sleep.</param>
     public static int av_usleep(uint @usec) => vectors.av_usleep(@usec);
@@ -2208,6 +2587,13 @@ public static unsafe partial class ffmpeg
     /// <param name="fmt">The format string (printf-compatible) that specifies how subsequent arguments are converted to output.</param>
     /// <param name="vl">The arguments referenced by the format string.</param>
     public static void av_vlog(void* @avcl, int @level, string @fmt, byte* @vl) => vectors.av_vlog(@avcl, @level, @fmt, @vl);
+    
+    /// <summary>Send the specified message to the log if the level is less than or equal to the current av_log_level. By default, all logging messages are sent to stderr. This behavior can be altered by setting a different logging callback function.</summary>
+    /// <param name="avcl">A pointer to an arbitrary struct of which the first field is a pointer to an AVClass struct.</param>
+    /// <param name="level">The importance level of the message expressed using a &quot;Logging Constant&quot;.</param>
+    /// <param name="fmt">The format string (printf-compatible) that specifies how subsequent arguments are converted to output.</param>
+    /// <param name="vl">The arguments referenced by the format string.</param>
+    public static void av_vlog(void* @avcl, int @level, byte* @fmt, byte* @vl) => vectors.av_vlog_str(@avcl, @level, @fmt, @vl);
     
     /// <summary>Write a packet to an output media file.</summary>
     /// <param name="s">media file handle</param>
@@ -2280,6 +2666,9 @@ public static unsafe partial class ffmpeg
     /// <summary>Returns codec descriptor with the given name or NULL if no such descriptor exists.</summary>
     public static _AVCodecDescriptor* avcodec_descriptor_get_by_name(string @name) => vectors.avcodec_descriptor_get_by_name(@name);
     
+    /// <summary>Returns codec descriptor with the given name or NULL if no such descriptor exists.</summary>
+    public static _AVCodecDescriptor* avcodec_descriptor_get_by_name(byte* @name) => vectors.avcodec_descriptor_get_by_name_str(@name);
+    
     /// <summary>Iterate over all codec descriptors known to libavcodec.</summary>
     /// <param name="prev">previous descriptor. NULL to get the first descriptor.</param>
     public static _AVCodecDescriptor* avcodec_descriptor_next(_AVCodecDescriptor* @prev) => vectors.avcodec_descriptor_next(@prev);
@@ -2311,6 +2700,10 @@ public static unsafe partial class ffmpeg
     /// <param name="name">name of the requested decoder</param>
     public static _AVCodec* avcodec_find_decoder_by_name(string @name) => vectors.avcodec_find_decoder_by_name(@name);
     
+    /// <summary>Find a registered decoder with the specified name.</summary>
+    /// <param name="name">name of the requested decoder</param>
+    public static _AVCodec* avcodec_find_decoder_by_name(byte* @name) => vectors.avcodec_find_decoder_by_name_str(@name);
+    
     /// <summary>Find a registered encoder with a matching codec ID.</summary>
     /// <param name="id">AVCodecID of the requested encoder</param>
     public static _AVCodec* avcodec_find_encoder(_AVCodecID @id) => vectors.avcodec_find_encoder(@id);
@@ -2318,6 +2711,10 @@ public static unsafe partial class ffmpeg
     /// <summary>Find a registered encoder with the specified name.</summary>
     /// <param name="name">name of the requested encoder</param>
     public static _AVCodec* avcodec_find_encoder_by_name(string @name) => vectors.avcodec_find_encoder_by_name(@name);
+    
+    /// <summary>Find a registered encoder with the specified name.</summary>
+    /// <param name="name">name of the requested encoder</param>
+    public static _AVCodec* avcodec_find_encoder_by_name(byte* @name) => vectors.avcodec_find_encoder_by_name_str(@name);
     
     /// <summary>Reset the internal codec state / flush internal buffers. Should be called e.g. when seeking or when switching to a different stream.</summary>
     public static void avcodec_flush_buffers(_AVCodecContext* @avctx) => vectors.avcodec_flush_buffers(@avctx);
@@ -2457,7 +2854,16 @@ public static unsafe partial class ffmpeg
     /// <param name="device_list">list of autodetected devices</param>
     public static int avdevice_list_input_sources(_AVInputFormat* @device, string @device_name, _AVDictionary* @device_options, _AVDeviceInfoList** @device_list) => vectors.avdevice_list_input_sources(@device, @device_name, @device_options, @device_list);
     
+    /// <summary>List devices.</summary>
+    /// <param name="device">device format. May be NULL if device name is set.</param>
+    /// <param name="device_name">device name. May be NULL if device format is set.</param>
+    /// <param name="device_options">An AVDictionary filled with device-private options. May be NULL. The same options must be passed later to avformat_write_header() for output devices or avformat_open_input() for input devices, or at any other place that affects device-private options.</param>
+    /// <param name="device_list">list of autodetected devices</param>
+    public static int avdevice_list_input_sources(_AVInputFormat* @device, byte* @device_name, _AVDictionary* @device_options, _AVDeviceInfoList** @device_list) => vectors.avdevice_list_input_sources_str(@device, @device_name, @device_options, @device_list);
+    
     public static int avdevice_list_output_sinks(_AVOutputFormat* @device, string @device_name, _AVDictionary* @device_options, _AVDeviceInfoList** @device_list) => vectors.avdevice_list_output_sinks(@device, @device_name, @device_options, @device_list);
+    
+    public static int avdevice_list_output_sinks(_AVOutputFormat* @device, byte* @device_name, _AVDictionary* @device_options, _AVDeviceInfoList** @device_list) => vectors.avdevice_list_output_sinks_str(@device, @device_name, @device_options, @device_list);
     
     /// <summary>Initialize libavdevice and register all the input and output devices.</summary>
     public static void avdevice_register_all() => vectors.avdevice_register_all();
@@ -2479,6 +2885,10 @@ public static unsafe partial class ffmpeg
     /// <param name="name">the filter name to find</param>
     public static _AVFilter* avfilter_get_by_name(string @name) => vectors.avfilter_get_by_name(@name);
     
+    /// <summary>Get a filter definition matching the given name.</summary>
+    /// <param name="name">the filter name to find</param>
+    public static _AVFilter* avfilter_get_by_name(byte* @name) => vectors.avfilter_get_by_name_str(@name);
+    
     /// <summary>Returns AVClass for AVFilterContext.</summary>
     public static _AVClass* avfilter_get_class() => vectors.avfilter_get_class();
     
@@ -2491,6 +2901,12 @@ public static unsafe partial class ffmpeg
     /// <param name="name">Name to give to the new instance (will be copied to AVFilterContext.name). This may be used by the caller to identify different filters, libavfilter itself assigns no semantics to this parameter. May be NULL.</param>
     public static _AVFilterContext* avfilter_graph_alloc_filter(_AVFilterGraph* @graph, _AVFilter* @filter, string @name) => vectors.avfilter_graph_alloc_filter(@graph, @filter, @name);
     
+    /// <summary>Create a new filter instance in a filter graph.</summary>
+    /// <param name="graph">graph in which the new filter will be used</param>
+    /// <param name="filter">the filter to create an instance of</param>
+    /// <param name="name">Name to give to the new instance (will be copied to AVFilterContext.name). This may be used by the caller to identify different filters, libavfilter itself assigns no semantics to this parameter. May be NULL.</param>
+    public static _AVFilterContext* avfilter_graph_alloc_filter(_AVFilterGraph* @graph, _AVFilter* @filter, byte* @name) => vectors.avfilter_graph_alloc_filter_str(@graph, @filter, @name);
+    
     /// <summary>Check validity and configure all the links and formats in the graph.</summary>
     /// <param name="graphctx">the filter graph</param>
     /// <param name="log_ctx">context used for logging</param>
@@ -2501,10 +2917,20 @@ public static unsafe partial class ffmpeg
     /// <param name="graph_ctx">the filter graph</param>
     public static int avfilter_graph_create_filter(_AVFilterContext** @filt_ctx, _AVFilter* @filt, string @name, string @args, void* @opaque, _AVFilterGraph* @graph_ctx) => vectors.avfilter_graph_create_filter(@filt_ctx, @filt, @name, @args, @opaque, @graph_ctx);
     
+    /// <summary>A convenience wrapper that allocates and initializes a filter in a single step. The filter instance is created from the filter filt and inited with the parameter args. opaque is currently ignored.</summary>
+    /// <param name="name">the instance name to give to the created filter instance</param>
+    /// <param name="graph_ctx">the filter graph</param>
+    public static int avfilter_graph_create_filter(_AVFilterContext** @filt_ctx, _AVFilter* @filt, byte* @name, byte* @args, void* @opaque, _AVFilterGraph* @graph_ctx) => vectors.avfilter_graph_create_filter_str(@filt_ctx, @filt, @name, @args, @opaque, @graph_ctx);
+    
     /// <summary>Dump a graph into a human-readable string representation.</summary>
     /// <param name="graph">the graph to dump</param>
     /// <param name="options">formatting options; currently ignored</param>
     public static byte* avfilter_graph_dump(_AVFilterGraph* @graph, string @options) => vectors.avfilter_graph_dump(@graph, @options);
+    
+    /// <summary>Dump a graph into a human-readable string representation.</summary>
+    /// <param name="graph">the graph to dump</param>
+    /// <param name="options">formatting options; currently ignored</param>
+    public static byte* avfilter_graph_dump(_AVFilterGraph* @graph, byte* @options) => vectors.avfilter_graph_dump_str(@graph, @options);
     
     /// <summary>Free a graph, destroy its links, and set *graph to NULL. If *graph is NULL, do nothing.</summary>
     public static void avfilter_graph_free(_AVFilterGraph** @graph) => vectors.avfilter_graph_free(@graph);
@@ -2513,6 +2939,11 @@ public static unsafe partial class ffmpeg
     /// <param name="graph">filter graph to search through.</param>
     /// <param name="name">filter instance name (should be unique in the graph).</param>
     public static _AVFilterContext* avfilter_graph_get_filter(_AVFilterGraph* @graph, string @name) => vectors.avfilter_graph_get_filter(@graph, @name);
+    
+    /// <summary>Get a filter instance identified by instance name from graph.</summary>
+    /// <param name="graph">filter graph to search through.</param>
+    /// <param name="name">filter instance name (should be unique in the graph).</param>
+    public static _AVFilterContext* avfilter_graph_get_filter(_AVFilterGraph* @graph, byte* @name) => vectors.avfilter_graph_get_filter_str(@graph, @name);
     
     /// <summary>Add a graph described by a string to a graph.</summary>
     /// <param name="graph">the filter graph where to link the parsed graph context</param>
@@ -2524,9 +2955,23 @@ public static unsafe partial class ffmpeg
     /// <summary>Add a graph described by a string to a graph.</summary>
     /// <param name="graph">the filter graph where to link the parsed graph context</param>
     /// <param name="filters">string to be parsed</param>
+    /// <param name="inputs">linked list to the inputs of the graph</param>
+    /// <param name="outputs">linked list to the outputs of the graph</param>
+    public static int avfilter_graph_parse(_AVFilterGraph* @graph, byte* @filters, _AVFilterInOut* @inputs, _AVFilterInOut* @outputs, void* @log_ctx) => vectors.avfilter_graph_parse_str(@graph, @filters, @inputs, @outputs, @log_ctx);
+    
+    /// <summary>Add a graph described by a string to a graph.</summary>
+    /// <param name="graph">the filter graph where to link the parsed graph context</param>
+    /// <param name="filters">string to be parsed</param>
     /// <param name="inputs">pointer to a linked list to the inputs of the graph, may be NULL. If non-NULL, *inputs is updated to contain the list of open inputs after the parsing, should be freed with avfilter_inout_free().</param>
     /// <param name="outputs">pointer to a linked list to the outputs of the graph, may be NULL. If non-NULL, *outputs is updated to contain the list of open outputs after the parsing, should be freed with avfilter_inout_free().</param>
     public static int avfilter_graph_parse_ptr(_AVFilterGraph* @graph, string @filters, _AVFilterInOut** @inputs, _AVFilterInOut** @outputs, void* @log_ctx) => vectors.avfilter_graph_parse_ptr(@graph, @filters, @inputs, @outputs, @log_ctx);
+    
+    /// <summary>Add a graph described by a string to a graph.</summary>
+    /// <param name="graph">the filter graph where to link the parsed graph context</param>
+    /// <param name="filters">string to be parsed</param>
+    /// <param name="inputs">pointer to a linked list to the inputs of the graph, may be NULL. If non-NULL, *inputs is updated to contain the list of open inputs after the parsing, should be freed with avfilter_inout_free().</param>
+    /// <param name="outputs">pointer to a linked list to the outputs of the graph, may be NULL. If non-NULL, *outputs is updated to contain the list of open outputs after the parsing, should be freed with avfilter_inout_free().</param>
+    public static int avfilter_graph_parse_ptr(_AVFilterGraph* @graph, byte* @filters, _AVFilterInOut** @inputs, _AVFilterInOut** @outputs, void* @log_ctx) => vectors.avfilter_graph_parse_ptr_str(@graph, @filters, @inputs, @outputs, @log_ctx);
     
     /// <summary>Add a graph described by a string to a graph.</summary>
     /// <param name="graph">the filter graph where to link the parsed graph context</param>
@@ -2535,6 +2980,13 @@ public static unsafe partial class ffmpeg
     /// <param name="outputs">a linked list of all free (unlinked) outputs of the parsed graph will be returned here. It is to be freed by the caller using avfilter_inout_free().</param>
     public static int avfilter_graph_parse2(_AVFilterGraph* @graph, string @filters, _AVFilterInOut** @inputs, _AVFilterInOut** @outputs) => vectors.avfilter_graph_parse2(@graph, @filters, @inputs, @outputs);
     
+    /// <summary>Add a graph described by a string to a graph.</summary>
+    /// <param name="graph">the filter graph where to link the parsed graph context</param>
+    /// <param name="filters">string to be parsed</param>
+    /// <param name="inputs">a linked list of all free (unlinked) inputs of the parsed graph will be returned here. It is to be freed by the caller using avfilter_inout_free().</param>
+    /// <param name="outputs">a linked list of all free (unlinked) outputs of the parsed graph will be returned here. It is to be freed by the caller using avfilter_inout_free().</param>
+    public static int avfilter_graph_parse2(_AVFilterGraph* @graph, byte* @filters, _AVFilterInOut** @inputs, _AVFilterInOut** @outputs) => vectors.avfilter_graph_parse2_str(@graph, @filters, @inputs, @outputs);
+    
     /// <summary>Queue a command for one or more filter instances.</summary>
     /// <param name="graph">the filter graph</param>
     /// <param name="target">the filter(s) to which the command should be sent &quot;all&quot; sends to all filters otherwise it can be a filter or filter instance name which will send the command to all matching filters.</param>
@@ -2542,6 +2994,14 @@ public static unsafe partial class ffmpeg
     /// <param name="arg">the argument for the command</param>
     /// <param name="ts">time at which the command should be sent to the filter</param>
     public static int avfilter_graph_queue_command(_AVFilterGraph* @graph, string @target, string @cmd, string @arg, int @flags, double @ts) => vectors.avfilter_graph_queue_command(@graph, @target, @cmd, @arg, @flags, @ts);
+    
+    /// <summary>Queue a command for one or more filter instances.</summary>
+    /// <param name="graph">the filter graph</param>
+    /// <param name="target">the filter(s) to which the command should be sent &quot;all&quot; sends to all filters otherwise it can be a filter or filter instance name which will send the command to all matching filters.</param>
+    /// <param name="cmd">the command to sent, for handling simplicity all commands must be alphanumeric only</param>
+    /// <param name="arg">the argument for the command</param>
+    /// <param name="ts">time at which the command should be sent to the filter</param>
+    public static int avfilter_graph_queue_command(_AVFilterGraph* @graph, byte* @target, byte* @cmd, byte* @arg, int @flags, double @ts) => vectors.avfilter_graph_queue_command_str(@graph, @target, @cmd, @arg, @flags, @ts);
     
     /// <summary>Request a frame on the oldest sink link.</summary>
     public static int avfilter_graph_request_oldest(_AVFilterGraph* @graph) => vectors.avfilter_graph_request_oldest(@graph);
@@ -2586,6 +3046,13 @@ public static unsafe partial class ffmpeg
     /// <param name="seg">A pointer to the newly-created AVFilterGraphSegment is written here on success. The graph segment is owned by the caller and must be freed with avfilter_graph_segment_free() before graph itself is freed.</param>
     public static int avfilter_graph_segment_parse(_AVFilterGraph* @graph, string @graph_str, int @flags, _AVFilterGraphSegment** @seg) => vectors.avfilter_graph_segment_parse(@graph, @graph_str, @flags, @seg);
     
+    /// <summary>Parse a textual filtergraph description into an intermediate form.</summary>
+    /// <param name="graph">Filter graph the parsed segment is associated with. Will only be used for logging and similar auxiliary purposes. The graph will not be actually modified by this function - the parsing results are instead stored in seg for further processing.</param>
+    /// <param name="graph_str">a string describing the filtergraph segment</param>
+    /// <param name="flags">reserved for future use, caller must set to 0 for now</param>
+    /// <param name="seg">A pointer to the newly-created AVFilterGraphSegment is written here on success. The graph segment is owned by the caller and must be freed with avfilter_graph_segment_free() before graph itself is freed.</param>
+    public static int avfilter_graph_segment_parse(_AVFilterGraph* @graph, byte* @graph_str, int @flags, _AVFilterGraphSegment** @seg) => vectors.avfilter_graph_segment_parse_str(@graph, @graph_str, @flags, @seg);
+    
     /// <summary>Send a command to one or more filter instances.</summary>
     /// <param name="graph">the filter graph</param>
     /// <param name="target">the filter(s) to which the command should be sent &quot;all&quot; sends to all filters otherwise it can be a filter or filter instance name which will send the command to all matching filters.</param>
@@ -2593,6 +3060,14 @@ public static unsafe partial class ffmpeg
     /// <param name="arg">the argument for the command</param>
     /// <param name="res">a buffer with size res_size where the filter(s) can return a response.</param>
     public static int avfilter_graph_send_command(_AVFilterGraph* @graph, string @target, string @cmd, string @arg, byte* @res, int @res_len, int @flags) => vectors.avfilter_graph_send_command(@graph, @target, @cmd, @arg, @res, @res_len, @flags);
+    
+    /// <summary>Send a command to one or more filter instances.</summary>
+    /// <param name="graph">the filter graph</param>
+    /// <param name="target">the filter(s) to which the command should be sent &quot;all&quot; sends to all filters otherwise it can be a filter or filter instance name which will send the command to all matching filters.</param>
+    /// <param name="cmd">the command to send, for handling simplicity all commands must be alphanumeric only</param>
+    /// <param name="arg">the argument for the command</param>
+    /// <param name="res">a buffer with size res_size where the filter(s) can return a response.</param>
+    public static int avfilter_graph_send_command(_AVFilterGraph* @graph, byte* @target, byte* @cmd, byte* @arg, byte* @res, int @res_len, int @flags) => vectors.avfilter_graph_send_command_str(@graph, @target, @cmd, @arg, @res, @res_len, @flags);
     
     /// <summary>Enable or disable automatic format conversion inside the graph.</summary>
     /// <param name="flags">any of the AVFILTER_AUTO_CONVERT_* constants</param>
@@ -2607,6 +3082,11 @@ public static unsafe partial class ffmpeg
     /// <param name="ctx">uninitialized filter context to initialize</param>
     /// <param name="args">Options to initialize the filter with. This must be a &apos;:&apos;-separated list of options in the &apos;key=value&apos; form. May be NULL if the options have been set directly using the AVOptions API or there are no options that need to be set.</param>
     public static int avfilter_init_str(_AVFilterContext* @ctx, string @args) => vectors.avfilter_init_str(@ctx, @args);
+    
+    /// <summary>Initialize a filter with the supplied parameters.</summary>
+    /// <param name="ctx">uninitialized filter context to initialize</param>
+    /// <param name="args">Options to initialize the filter with. This must be a &apos;:&apos;-separated list of options in the &apos;key=value&apos; form. May be NULL if the options have been set directly using the AVOptions API or there are no options that need to be set.</param>
+    public static int avfilter_init_str(_AVFilterContext* @ctx, byte* @args) => vectors.avfilter_init_str_str(@ctx, @args);
     
     /// <summary>Allocate a single AVFilterInOut entry. Must be freed with avfilter_inout_free().</summary>
     public static _AVFilterInOut* avfilter_inout_alloc() => vectors.avfilter_inout_alloc();
@@ -2648,6 +3128,9 @@ public static unsafe partial class ffmpeg
     /// <summary>Make the filter instance process a command. It is recommended to use avfilter_graph_send_command().</summary>
     public static int avfilter_process_command(_AVFilterContext* @filter, string @cmd, string @arg, byte* @res, int @res_len, int @flags) => vectors.avfilter_process_command(@filter, @cmd, @arg, @res, @res_len, @flags);
     
+    /// <summary>Make the filter instance process a command. It is recommended to use avfilter_graph_send_command().</summary>
+    public static int avfilter_process_command(_AVFilterContext* @filter, byte* @cmd, byte* @arg, byte* @res, int @res_len, int @flags) => vectors.avfilter_process_command_str(@filter, @cmd, @arg, @res, @res_len, @flags);
+    
     /// <summary>Return the LIBAVFILTER_VERSION_INT constant.</summary>
     public static uint avfilter_version() => vectors.avfilter_version();
     
@@ -2660,6 +3143,13 @@ public static unsafe partial class ffmpeg
     /// <param name="format_name">the name of output format to use for allocating the context, if NULL filename is used instead</param>
     /// <param name="filename">the name of the filename to use for allocating the context, may be NULL</param>
     public static int avformat_alloc_output_context2(_AVFormatContext** @ctx, _AVOutputFormat* @oformat, string @format_name, string @filename) => vectors.avformat_alloc_output_context2(@ctx, @oformat, @format_name, @filename);
+    
+    /// <summary>Allocate an AVFormatContext for an output format. avformat_free_context() can be used to free the context and everything allocated by the framework within it.</summary>
+    /// <param name="ctx">pointee is set to the created format context, or to NULL in case of failure</param>
+    /// <param name="oformat">format to use for allocating the context, if NULL format_name and filename are used instead</param>
+    /// <param name="format_name">the name of output format to use for allocating the context, if NULL filename is used instead</param>
+    /// <param name="filename">the name of the filename to use for allocating the context, may be NULL</param>
+    public static int avformat_alloc_output_context2(_AVFormatContext** @ctx, _AVOutputFormat* @oformat, byte* @format_name, byte* @filename) => vectors.avformat_alloc_output_context2_str(@ctx, @oformat, @format_name, @filename);
     
     /// <summary>Close an opened input AVFormatContext. Free it and all its contents and set *s to NULL.</summary>
     public static void avformat_close_input(_AVFormatContext** @s) => vectors.avformat_close_input(@s);
@@ -2721,6 +3211,9 @@ public static unsafe partial class ffmpeg
     /// <summary>Check if the stream st contained in s is matched by the stream specifier spec.</summary>
     public static int avformat_match_stream_specifier(_AVFormatContext* @s, _AVStream* @st, string @spec) => vectors.avformat_match_stream_specifier(@s, @st, @spec);
     
+    /// <summary>Check if the stream st contained in s is matched by the stream specifier spec.</summary>
+    public static int avformat_match_stream_specifier(_AVFormatContext* @s, _AVStream* @st, byte* @spec) => vectors.avformat_match_stream_specifier_str(@s, @st, @spec);
+    
     /// <summary>Undo the initialization done by avformat_network_init. Call it only once for each time you called avformat_network_init.</summary>
     public static int avformat_network_deinit() => vectors.avformat_network_deinit();
     
@@ -2738,6 +3231,13 @@ public static unsafe partial class ffmpeg
     /// <param name="fmt">If non-NULL, this parameter forces a specific input format. Otherwise the format is autodetected.</param>
     /// <param name="options">A dictionary filled with AVFormatContext and demuxer-private options. On return this parameter will be destroyed and replaced with a dict containing options that were not found. May be NULL.</param>
     public static int avformat_open_input(_AVFormatContext** @ps, string @url, _AVInputFormat* @fmt, _AVDictionary** @options) => vectors.avformat_open_input(@ps, @url, @fmt, @options);
+    
+    /// <summary>Open an input stream and read the header. The codecs are not opened. The stream must be closed with avformat_close_input().</summary>
+    /// <param name="ps">Pointer to user-supplied AVFormatContext (allocated by avformat_alloc_context). May be a pointer to NULL, in which case an AVFormatContext is allocated by this function and written into ps. Note that a user-supplied AVFormatContext will be freed on failure and its pointer set to NULL.</param>
+    /// <param name="url">URL of the stream to open.</param>
+    /// <param name="fmt">If non-NULL, this parameter forces a specific input format. Otherwise the format is autodetected.</param>
+    /// <param name="options">A dictionary filled with AVFormatContext and demuxer-private options. On return this parameter will be destroyed and replaced with a dict containing options that were not found. May be NULL.</param>
+    public static int avformat_open_input(_AVFormatContext** @ps, byte* @url, _AVInputFormat* @fmt, _AVDictionary** @options) => vectors.avformat_open_input_str(@ps, @url, @fmt, @options);
     
     /// <summary>Test if the given container can store a codec.</summary>
     /// <param name="ofmt">container to check for compatibility</param>
@@ -2809,6 +3309,9 @@ public static unsafe partial class ffmpeg
     /// <summary>Return AVIO_FLAG_* access flags corresponding to the access permissions of the resource in url, or a negative value corresponding to an AVERROR code in case of failure. The returned access flags are masked by the value in flags.</summary>
     public static int avio_check(string @url, int @flags) => vectors.avio_check(@url, @flags);
     
+    /// <summary>Return AVIO_FLAG_* access flags corresponding to the access permissions of the resource in url, or a negative value corresponding to an AVERROR code in case of failure. The returned access flags are masked by the value in flags.</summary>
+    public static int avio_check(byte* @url, int @flags) => vectors.avio_check_str(@url, @flags);
+    
     /// <summary>Close the resource accessed by the AVIOContext s and free it. This function can only be used if s was opened by avio_open().</summary>
     public static int avio_close(_AVIOContext* @s) => vectors.avio_close(@s);
     
@@ -2838,6 +3341,9 @@ public static unsafe partial class ffmpeg
     
     /// <summary>Return the name of the protocol that will handle the passed URL.</summary>
     public static string avio_find_protocol_name(string @url) => vectors.avio_find_protocol_name(@url);
+    
+    /// <summary>Return the name of the protocol that will handle the passed URL.</summary>
+    public static string avio_find_protocol_name(byte* @url) => vectors.avio_find_protocol_name_str(@url);
     
     /// <summary>Force flushing of buffered data.</summary>
     public static void avio_flush(_AVIOContext* @s) => vectors.avio_flush(@s);
@@ -2869,11 +3375,23 @@ public static unsafe partial class ffmpeg
     /// <param name="flags">flags which control how the resource indicated by url is to be opened</param>
     public static int avio_open(_AVIOContext** @s, string @url, int @flags) => vectors.avio_open(@s, @url, @flags);
     
+    /// <summary>Create and initialize a AVIOContext for accessing the resource indicated by url.</summary>
+    /// <param name="s">Used to return the pointer to the created AVIOContext. In case of failure the pointed to value is set to NULL.</param>
+    /// <param name="url">resource to access</param>
+    /// <param name="flags">flags which control how the resource indicated by url is to be opened</param>
+    public static int avio_open(_AVIOContext** @s, byte* @url, int @flags) => vectors.avio_open_str(@s, @url, @flags);
+    
     /// <summary>Open directory for reading.</summary>
     /// <param name="s">directory read context. Pointer to a NULL pointer must be passed.</param>
     /// <param name="url">directory to be listed.</param>
     /// <param name="options">A dictionary filled with protocol-private options. On return this parameter will be destroyed and replaced with a dictionary containing options that were not found. May be NULL.</param>
     public static int avio_open_dir(_AVIODirContext** @s, string @url, _AVDictionary** @options) => vectors.avio_open_dir(@s, @url, @options);
+    
+    /// <summary>Open directory for reading.</summary>
+    /// <param name="s">directory read context. Pointer to a NULL pointer must be passed.</param>
+    /// <param name="url">directory to be listed.</param>
+    /// <param name="options">A dictionary filled with protocol-private options. On return this parameter will be destroyed and replaced with a dictionary containing options that were not found. May be NULL.</param>
+    public static int avio_open_dir(_AVIODirContext** @s, byte* @url, _AVDictionary** @options) => vectors.avio_open_dir_str(@s, @url, @options);
     
     /// <summary>Open a write only memory stream.</summary>
     /// <param name="s">new IO context</param>
@@ -2886,6 +3404,14 @@ public static unsafe partial class ffmpeg
     /// <param name="int_cb">an interrupt callback to be used at the protocols level</param>
     /// <param name="options">A dictionary filled with protocol-private options. On return this parameter will be destroyed and replaced with a dict containing options that were not found. May be NULL.</param>
     public static int avio_open2(_AVIOContext** @s, string @url, int @flags, _AVIOInterruptCB* @int_cb, _AVDictionary** @options) => vectors.avio_open2(@s, @url, @flags, @int_cb, @options);
+    
+    /// <summary>Create and initialize a AVIOContext for accessing the resource indicated by url.</summary>
+    /// <param name="s">Used to return the pointer to the created AVIOContext. In case of failure the pointed to value is set to NULL.</param>
+    /// <param name="url">resource to access</param>
+    /// <param name="flags">flags which control how the resource indicated by url is to be opened</param>
+    /// <param name="int_cb">an interrupt callback to be used at the protocols level</param>
+    /// <param name="options">A dictionary filled with protocol-private options. On return this parameter will be destroyed and replaced with a dict containing options that were not found. May be NULL.</param>
+    public static int avio_open2(_AVIOContext** @s, byte* @url, int @flags, _AVIOInterruptCB* @int_cb, _AVDictionary** @options) => vectors.avio_open2_str(@s, @url, @flags, @int_cb, @options);
     
     /// <summary>Pause and resume playing - only meaningful if using a network streaming protocol (e.g. MMS).</summary>
     /// <param name="h">IO context from which to call the read_pause function pointer</param>
@@ -2901,21 +3427,40 @@ public static unsafe partial class ffmpeg
     /// <summary>Writes a formatted string to the context.</summary>
     public static int avio_printf(_AVIOContext* @s, string @fmt) => vectors.avio_printf(@s, @fmt);
     
+    /// <summary>Writes a formatted string to the context.</summary>
+    public static int avio_printf(_AVIOContext* @s, byte* @fmt) => vectors.avio_printf_str(@s, @fmt);
+    
     /// <summary>Get AVClass by names of available protocols.</summary>
     public static _AVClass* avio_protocol_get_class(string @name) => vectors.avio_protocol_get_class(@name);
     
+    /// <summary>Get AVClass by names of available protocols.</summary>
+    public static _AVClass* avio_protocol_get_class(byte* @name) => vectors.avio_protocol_get_class_str(@name);
+    
     /// <summary>Write a NULL-terminated string.</summary>
     public static int avio_put_str(_AVIOContext* @s, string @str) => vectors.avio_put_str(@s, @str);
+    
+    /// <summary>Write a NULL-terminated string.</summary>
+    public static int avio_put_str(_AVIOContext* @s, byte* @str) => vectors.avio_put_str_str(@s, @str);
     
     /// <summary>Convert an UTF-8 string to UTF-16BE and write it.</summary>
     /// <param name="s">the AVIOContext</param>
     /// <param name="str">NULL-terminated UTF-8 string</param>
     public static int avio_put_str16be(_AVIOContext* @s, string @str) => vectors.avio_put_str16be(@s, @str);
     
+    /// <summary>Convert an UTF-8 string to UTF-16BE and write it.</summary>
+    /// <param name="s">the AVIOContext</param>
+    /// <param name="str">NULL-terminated UTF-8 string</param>
+    public static int avio_put_str16be(_AVIOContext* @s, byte* @str) => vectors.avio_put_str16be_str(@s, @str);
+    
     /// <summary>Convert an UTF-8 string to UTF-16LE and write it.</summary>
     /// <param name="s">the AVIOContext</param>
     /// <param name="str">NULL-terminated UTF-8 string</param>
     public static int avio_put_str16le(_AVIOContext* @s, string @str) => vectors.avio_put_str16le(@s, @str);
+    
+    /// <summary>Convert an UTF-8 string to UTF-16LE and write it.</summary>
+    /// <param name="s">the AVIOContext</param>
+    /// <param name="str">NULL-terminated UTF-8 string</param>
+    public static int avio_put_str16le(_AVIOContext* @s, byte* @str) => vectors.avio_put_str16le_str(@s, @str);
     
     /// <summary>@{</summary>
     public static int avio_r8(_AVIOContext* @s) => vectors.avio_r8(@s);
@@ -2968,6 +3513,9 @@ public static unsafe partial class ffmpeg
     
     /// <summary>Writes a formatted string to the context taking a va_list.</summary>
     public static int avio_vprintf(_AVIOContext* @s, string @fmt, byte* @ap) => vectors.avio_vprintf(@s, @fmt, @ap);
+    
+    /// <summary>Writes a formatted string to the context taking a va_list.</summary>
+    public static int avio_vprintf(_AVIOContext* @s, byte* @fmt, byte* @ap) => vectors.avio_vprintf_str(@s, @fmt, @ap);
     
     public static void avio_w8(_AVIOContext* @s, int @b) => vectors.avio_w8(@s, @b);
     

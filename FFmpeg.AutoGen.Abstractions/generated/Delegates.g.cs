@@ -430,6 +430,22 @@ public unsafe struct avio_alloc_context_write_packet_func
 }
 
 [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public unsafe delegate int func (_AVCodecContext* @c2, void* @arg);
+public unsafe struct func_func
+{
+    public IntPtr Pointer;
+    public static implicit operator func_func(func func) => new func_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
+}
+
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public unsafe delegate int func (_AVCodecContext* @c2, void* @arg, int @jobnr, int @threadnr);
+public unsafe struct func_func
+{
+    public IntPtr Pointer;
+    public static implicit operator func_func(func func) => new func_func { Pointer = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(func) };
+}
+
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 public unsafe delegate int func (_AVFilterContext* @ctx, void* @arg, int @jobnr, int @nb_jobs);
 public unsafe struct func_func
 {

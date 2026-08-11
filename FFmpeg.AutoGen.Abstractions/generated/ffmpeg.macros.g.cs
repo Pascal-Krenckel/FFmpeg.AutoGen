@@ -16,7 +16,7 @@ public static unsafe partial class ffmpeg
     public const int AV_BUFFERSINK_FLAG_PEEK = 0x1;
     // public static av_builtin_constant_p = __builtin_constant_p;
     // public static av_ceil_log2 = av_ceil_log2_c;
-    // public static AV_CEIL_RSHIFT = (a,b) (!av_builtin_constant_p(b) ? -((-(a)) >> (b)) : ((a) + (1<<(b)) - 1) >> (b));
+    // public static AV_CEIL_RSHIFT = a;
     /// <summary>AV_CH_BACK_CENTER = (1ULL &lt;&lt; AV_CHAN_BACK_CENTER          )</summary>
     public static readonly ulong AV_CH_BACK_CENTER = 0x1UL << 8;
     /// <summary>AV_CH_BACK_LEFT = (1ULL &lt;&lt; AV_CHAN_BACK_LEFT            )</summary>
@@ -708,7 +708,7 @@ public static unsafe partial class ffmpeg
     public const int AV_OPT_SERIALIZE_SEARCH_CHILDREN = 0x4;
     /// <summary>AV_OPT_SERIALIZE_SKIP_DEFAULTS = 0x00000001</summary>
     public const int AV_OPT_SERIALIZE_SKIP_DEFAULTS = 0x1;
-    // public static av_opt_set_int_list = (obj, name, val, term, flags) (av_int_list_length(val, term) > INT_MAX / sizeof(*(val)) ? AVERROR(EINVAL) : av_opt_set_bin(obj, name, (const uint8_t *)(val), av_int_list_length(val, term) * sizeof(*(val)), flags));
+    // public static av_opt_set_int_list = obj;
     // public static av_parity = av_parity_c;
     /// <summary>AV_PARSER_PTS_NB = 0x4</summary>
     public const int AV_PARSER_PTS_NB = 0x4;
@@ -1218,7 +1218,7 @@ public static unsafe partial class ffmpeg
     public const int AV_SUBTITLE_FLAG_FORCED = 0x1;
     /// <summary>AV_TIME_BASE = 1000000</summary>
     public const int AV_TIME_BASE = 0xf4240;
-    // public static AV_TIME_BASE_Q = (AVRational){1, AV_TIME_BASE};
+    // public static AV_TIME_BASE_Q = (AVRational)(new (0x1, AV_TIME_BASE));
     /// <summary>AV_TIMECODE_STR_SIZE = 0x17</summary>
     public const int AV_TIMECODE_STR_SIZE = 0x17;
     // public static AV_TOSTRING = (s) #s;
@@ -1722,14 +1722,14 @@ public static unsafe partial class ffmpeg
     // public static FFALIGN = x;
     // public static FFDIFFSIGN = x;
     // public static FFERRTAG = a;
-    // public static FFMAX = (a,b) ((a) > (b) ? (a) : (b));
+    // public static FFMAX = a;
     // public static FFMAX3 = a;
-    // public static FFMIN = (a,b) ((a) > (b) ? (b) : (a));
+    // public static FFMIN = a;
     // public static FFMIN3 = a;
     // public static FFNABS = (a) ((a) <= 0 ? (a) : (-(a)));
     // public static FFSIGN = (a) ((a) > 0 ? 1 : -1);
     // public static FFSWAP = (type,a,b) do{type SWAP_tmp= b; b= a; a= SWAP_tmp;}while(0);
-    // public static FFUDIV = (a,b) (((a)>0 ?(a):(a)-(b)+1) / (b));
+    // public static FFUDIV = a;
     // public static FFUMOD = a;
     // public static GET_UTF16 = (val, GET_16BIT, ERROR)val = (uint16_t)(GET_16BIT);{unsigned int hi = val - 0xD800;if (hi < 0x800) {val = (uint16_t)(GET_16BIT) - 0xDC00;if (val > 0x3FFU || hi > 0x3FFU){ERROR}val += (hi<<10) + 0x10000;}};
     // public static GET_UTF8 = (val, GET_BYTE, ERROR)val= (uint8_t)(GET_BYTE);{uint32_t top = (val & 128) >> 1;if ((val & 0xc0) == 0x80 || val >= 0xFE){ERROR}while (val & top) {unsigned int tmp = (uint8_t)(GET_BYTE) - 128;if(tmp>>6){ERROR}val= (val<<6) + tmp;top <<= 5;}val &= (top << 1) - 1;};
@@ -1895,8 +1895,8 @@ public static unsafe partial class ffmpeg
     public const int PARSER_FLAG_USE_CODEC_TS = 0x1000;
     // public static PUT_UTF16 = (val, tmp, PUT_16BIT){uint32_t in = val;if (in < 0x10000) {tmp = in;PUT_16BIT} else {tmp = 0xD800 | ((in - 0x10000) >> 10);PUT_16BITtmp = 0xDC00 | ((in - 0x10000) & 0x3FF);PUT_16BIT}};
     // public static PUT_UTF8 = (val, tmp, PUT_BYTE){int bytes, shift;uint32_t in = val;if (in < 0x80) {tmp = in;PUT_BYTE} else {bytes = (av_log2(in) + 4) / 5;shift = (bytes - 1) * 6;tmp = (256 - (256 >> bytes)) | (in >> shift);PUT_BYTEwhile (shift >= 6) {shift -= 6;tmp = 0x80 | ((in >> shift) & 0x3f);PUT_BYTE}}};
-    // public static ROUNDED_DIV = (a,b) (((a)>=0 ? (a) + ((b)>>1) : (a) - ((b)>>1))/(b));
-    // public static RSHIFT = (a,b) ((a) > 0 ? ((a) + ((1<<(b))>>1))>>(b) : ((a) + ((1<<(b))>>1)-1)>>(b));
+    // public static ROUNDED_DIV = a;
+    // public static RSHIFT = a;
     /// <summary>SLICE_FLAG_ALLOW_FIELD = 0x2</summary>
     public const int SLICE_FLAG_ALLOW_FIELD = 0x2;
     /// <summary>SLICE_FLAG_ALLOW_PLANE = 0x4</summary>
