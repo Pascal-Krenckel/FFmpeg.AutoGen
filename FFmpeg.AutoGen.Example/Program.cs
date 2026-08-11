@@ -106,7 +106,8 @@ internal class Program
         Console.WriteLine($"codec name: {vsd.CodecName}");
 
         var info = vsd.GetContextInfo();
-        info.ToList().ForEach(x => Console.WriteLine($"{x.Key} = {x.Value}"));
+        foreach (var x in info)
+             Console.WriteLine($"{x.Key} = {x.Value}");
 
         var sourceSize = vsd.FrameSize;
         var sourcePixelFormat = HWDevice == AVHWDeviceType.AV_HWDEVICE_TYPE_NONE
