@@ -35,6 +35,9 @@ The basic example of the library usage: video decoding, conversion and frame ext
 For the more sophisticated operations please refer to offical [ffmpeg Documentation](https://www.ffmpeg.org/documentation.html) expecially API section of it.
 Nuget packages version uses [semantic versioning](https://semver.org/) and in sync with MAJOR and MINOR version of FFmpeg as PATCH incremets does not changing API.
 
+- NuGet (winx64): 
+  Install [![nuget](https://img.shields.io/nuget/v/FFmpegDotNet.bin.winx64.svg)](https://www.nuget.org/packages/FFmpegDotNet.bin.winx64/) 
+
 - on Windows:
 The x64 libraries source from [CODEX FFMPEG](https://www.gyan.dev/ffmpeg/builds/).
 Run the download script to get the required DLLs:
