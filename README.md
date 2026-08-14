@@ -25,8 +25,7 @@ As another option you can search for a solution in C(lang) as with some effort y
 Here repository with C# converted examples: https://github.com/stjeong/ffmpeg_autogen_cs
 
 ## FFmpeg.AutoGen 
-[![main](https://github.com/Ruslan-B/FFmpeg.AutoGen/actions/workflows/main.yml/badge.svg)](https://github.com/Ruslan-B/FFmpeg.AutoGen/actions/workflows/main.yml)
-[![nuget](https://img.shields.io/nuget/v/FFmpeg.AutoGen.svg)](https://www.nuget.org/packages/FFmpeg.AutoGen/)
+[![nuget](https://img.shields.io/nuget/v/FFmpegDotNet._AutoGen.svg)](https://www.nuget.org/packages/FFmpegDotNet._AutoGen/)
 
 FFmpeg auto generated unsafe bindings for C#/.NET and Mono.
 
