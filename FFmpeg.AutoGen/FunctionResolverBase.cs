@@ -113,6 +113,8 @@ public abstract class FunctionResolverBase : IFunctionResolver
         }
         foreach (string dir in dirs)
         {
+            if (dir == "\0")
+                break;
             string path = Path.Combine(dir, libraryName);
             if (File.Exists(path))
                 return path;
