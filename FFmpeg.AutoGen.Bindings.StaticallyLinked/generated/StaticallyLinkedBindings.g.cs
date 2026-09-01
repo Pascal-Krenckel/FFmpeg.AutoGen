@@ -28,7 +28,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <summary>Returns the AVAlphaMode value for name or an AVError if not found.</summary>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern _AVAlphaMode av_alpha_mode_from_name(    
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -140,7 +140,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <summary>Returns a bitstream filter with the specified name or NULL if no such bitstream filter exists.</summary>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern _AVBitStreamFilter* av_bsf_get_by_name(    
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -186,7 +186,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="options">Options for the bitstream filter, can be set to NULL</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_bsf_list_append2(_AVBSFList* @lst,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -216,7 +216,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="bsf">Pointer to be set to newly created structure representing the chain of bitstream filters</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_bsf_list_parse_str(    
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -457,7 +457,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <summary>This is the inverse function of av_channel_name().</summary>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern _AVChannel av_channel_from_string(    
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -484,7 +484,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="name">string describing the channel to obtain</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern _AVChannel av_channel_layout_channel_from_string(_AVChannelLayout* @channel_layout,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -548,7 +548,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="str">string describing the channel layout</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_channel_layout_from_string(_AVChannelLayout* @channel_layout,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -572,7 +572,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="name">string describing the channel whose index to obtain</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_channel_layout_index_from_string(_AVChannelLayout* @channel_layout,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -628,7 +628,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <summary>Returns the AVChromaLocation value for name or an AVError if not found.</summary>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_chroma_location_from_name(    
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -685,7 +685,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <summary>Returns the AVColorPrimaries value for name or an AVError if not found.</summary>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_color_primaries_from_name(    
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -704,7 +704,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <summary>Returns the AVColorRange value for name or an AVError if not found.</summary>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_color_range_from_name(    
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -723,7 +723,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <summary>Returns the AVColorSpace value for name or an AVError if not found.</summary>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_color_space_from_name(    
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -742,7 +742,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <summary>Returns the AVColorTransferCharacteristic value for name or an AVError if not found.</summary>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_color_transfer_from_name(    
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -846,7 +846,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="flags">A collection of AV_DICT_* flags controlling how the entry is retrieved</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern _AVDictionaryEntry* av_dict_get(_AVDictionary* @m,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -880,19 +880,19 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="flags">Flags to use when adding to the dictionary. ::AV_DICT_DONT_STRDUP_KEY and ::AV_DICT_DONT_STRDUP_VAL are ignored since the key/value tokens will always be duplicated.</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_dict_parse_string(_AVDictionary** @pm,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @str,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @key_val_sep,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -912,13 +912,13 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="value">Entry value to add to *pm (will be av_strduped or added as a new key depending on flags). Passing a NULL value will cause an existing entry to be deleted.</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_dict_set(_AVDictionary** @pm,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @key,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -935,7 +935,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <summary>Convenience wrapper for av_dict_set() that converts the value to a string and stores it.</summary>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_dict_set_int(_AVDictionary** @pm,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -967,7 +967,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <summary>Returns The AV_DISPOSITION_* flag corresponding to disp or a negative error code if disp does not correspond to a known stream disposition.</summary>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_disposition_from_string(    
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -997,7 +997,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="is_output">Select whether the specified context is an input(0) or output(1)</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern void av_dump_format(_AVFormatContext* @ic, int @index,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -1034,6 +1034,29 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="size">A pointer to a size to be set to the returned buffer&apos;s size. If *data is not NULL, *size must contain the size of the input buffer. May be NULL only if *data is NULL.</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_dynamic_hdr_plus_to_t35(_AVDynamicHDRPlus* @s, byte** @data, ulong* @size);
+    
+    /// <summary>Allocate an AVDynamicHDRSmpte2094App5 structure and set its fields to default values. The resulting struct can be freed using av_freep().</summary>
+    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
+    public static extern _AVDynamicHDRSmpte2094App5* av_dynamic_hdr_smpte2094_app5_alloc(ulong* @size);
+    
+    /// <summary>Allocate a complete AVDynamicHDRSmpte2094App5 and add it to the frame.</summary>
+    /// <param name="frame">The frame which side data is added to.</param>
+    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
+    public static extern _AVDynamicHDRSmpte2094App5* av_dynamic_hdr_smpte2094_app5_create_side_data(_AVFrame* @frame);
+    
+    /// <summary>Parse the user data formatted as ITU-T T.35 message to AVDynamicHDRSmpte2094App5.</summary>
+    /// <param name="s">A pointer containing the decoded AVDynamicHDRSmpte2094App5 structure.</param>
+    /// <param name="data">The byte array containing the raw ITU-T T.35 data.</param>
+    /// <param name="size">Size of the data array in bytes.</param>
+    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_dynamic_hdr_smpte2094_app5_from_t35(_AVDynamicHDRSmpte2094App5* @s, byte* @data, ulong @size);
+    
+    /// <summary>Serialize dynamic SMPTE-2094-50 metadata to a ITU-T T.35 message. Excluding the country_code, provider_code and provider_oriented_code.</summary>
+    /// <param name="s">A pointer containing the AVDynamicHDRSmpte2094App5 data.</param>
+    /// <param name="data">A pointer to pointer to a byte buffer to be filled with the serialized metadata. If *data is NULL, a buffer be will be allocated and a pointer to it stored in its place. The caller assumes ownership of the buffer. May be NULL, in which case the function will only store the required buffer size in *size.</param>
+    /// <param name="size">A pointer to a size to be set to the returned buffer&apos;s size. If *data is not NULL, *size must contain the size of the input buffer. May be NULL only if *data is NULL.</param>
+    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_dynamic_hdr_smpte2094_app5_to_t35(_AVDynamicHDRSmpte2094App5* @s, byte** @data, ulong* @size);
     
     /// <summary>Add the pointer to an element to a dynamic array.</summary>
     /// <param name="tab_ptr">Pointer to the array to grow</param>
@@ -1091,7 +1114,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="log_ctx">context used for logging</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_file_map(    
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -1117,7 +1140,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="filename">possible numbered sequence string</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_filename_number_test(    
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -1156,7 +1179,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <summary>Find AVInputFormat based on the short name of the input format.</summary>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern _AVInputFormat* av_find_input_format(    
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -1361,7 +1384,7 @@ public static unsafe partial class StaticallyLinkedBindings
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_get_audio_frame_duration(_AVCodecContext* @avctx, int @frame_bytes);
     
-    /// <summary>This function is the same as av_get_audio_frame_duration(), except it works with AVCodecParameters instead of an AVCodecContext.</summary>
+    /// <summary>This function is the same as ::av_get_audio_frame_duration(), except it works with ::AVCodecParameters instead of an ::AVCodecContext.</summary>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_get_audio_frame_duration2(_AVCodecParameters* @par, int @frame_bytes);
     
@@ -1390,7 +1413,7 @@ public static unsafe partial class StaticallyLinkedBindings
     
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_get_frame_filename(byte* @buf, int @buf_size,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -1408,7 +1431,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="flags">AV_FRAME_FILENAME_FLAGS_*</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_get_frame_filename2(byte* @buf, int @buf_size,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -1465,7 +1488,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <summary>Return the pixel format corresponding to name.</summary>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern _AVPixelFormat av_get_pix_fmt(    
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -1509,7 +1532,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <summary>Return a sample format corresponding to name, or AV_SAMPLE_FMT_NONE on error.</summary>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern _AVSampleFormat av_get_sample_fmt(    
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -1557,19 +1580,19 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <summary>Guess the codec ID based upon muxer and filename.</summary>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern _AVCodecID av_guess_codec(_AVOutputFormat* @fmt,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @short_name,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @filename,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -1586,19 +1609,19 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="mime_type">if non-NULL checks if mime_type matches with the MIME type of the registered formats</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern _AVOutputFormat* av_guess_format(    
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @short_name,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @filename,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -1654,7 +1677,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="flags">currently unused</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_hwdevice_ctx_create(_AVBufferRef** @device_ctx, _AVHWDeviceType @type,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -1696,7 +1719,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="name">String name of the device type (case-insensitive).</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern _AVHWDeviceType av_hwdevice_find_type_by_name(    
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -1954,14 +1977,6 @@ public static unsafe partial class StaticallyLinkedBindings
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern _AVInputFormat* av_input_video_device_next(_AVInputFormat* @d);
     
-    /// <summary>Compute the length of an integer list.</summary>
-    /// <param name="elsize">size in bytes of each list element (only 1, 2, 4 or 8)</param>
-    /// <param name="list">pointer to the list</param>
-    /// <param name="term">list terminator (usually 0 or -1)</param>
-    [Obsolete()]
-    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-    public static extern uint av_int_list_length_for_size(uint @elsize, void* @list, ulong @term);
-    
     /// <summary>Write a packet to an output media file ensuring correct interleaving.</summary>
     /// <param name="s">media file handle</param>
     /// <param name="pkt">The packet containing the data to be written. If the packet is reference-counted, this function will take ownership of this reference and unreference it later when it sees fit. If the packet is not reference-counted, libavformat will make a copy. The returned packet will be blank (as if returned from av_packet_alloc()), even on error. This parameter can be NULL (at any time, not just at the end), to flush the interleaving queues. Packet&apos;s &quot;stream_index&quot; field must be set to the index of the corresponding stream in &quot;s-&gt;streams&quot;. The timestamps ( &quot;pts&quot;, &quot;dts&quot;) must be set to correct values in the stream&apos;s timebase (unless the output format is flagged with the AVFMT_NOTIMESTAMPS flag, then they can be set to AV_NOPTS_VALUE). The dts for subsequent packets in one stream must be strictly increasing (unless the output format is flagged with the AVFMT_TS_NONSTRICT, then they merely have to be nondecreasing). &quot;duration&quot; should also be set if known.</param>
@@ -1978,7 +1993,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="fmt">The format string (printf-compatible) that specifies how subsequent arguments are converted to output.</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern void av_log(void* @avcl, int @level,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -1999,7 +2014,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="vl">The arguments referenced by the format string.</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern void av_log_default_callback(void* @avcl, int @level,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -2020,7 +2035,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="print_prefix">used to store whether the prefix must be printed; must point to a persistent integer initially set to 1</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern void av_log_format_line(void* @ptr, int @level,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -2040,7 +2055,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="print_prefix">used to store whether the prefix must be printed; must point to a persistent integer initially set to 1</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_log_format_line2(void* @ptr, int @level,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -2069,7 +2084,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="fmt">The format string (printf-compatible) that specifies how subsequent arguments are converted to output.</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern void av_log_once(void* @avcl, int @initial_level, int @subsequent_level, int* @state,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -2138,13 +2153,13 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="extensions">a comma-separated list of filename extensions</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_match_ext(    
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @filename,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -2227,7 +2242,7 @@ public static unsafe partial class StaticallyLinkedBindings
     
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_eval_double(void* @obj, _AVOption* @o,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -2243,7 +2258,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="val">string to be evaluated.</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_eval_flags(void* @obj, _AVOption* @o,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -2259,7 +2274,7 @@ public static unsafe partial class StaticallyLinkedBindings
     
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_eval_float(void* @obj, _AVOption* @o,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -2271,7 +2286,7 @@ public static unsafe partial class StaticallyLinkedBindings
     
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_eval_int(void* @obj, _AVOption* @o,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -2283,7 +2298,7 @@ public static unsafe partial class StaticallyLinkedBindings
     
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_eval_int64(void* @obj, _AVOption* @o,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -2295,7 +2310,7 @@ public static unsafe partial class StaticallyLinkedBindings
     
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_eval_q(void* @obj, _AVOption* @o,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -2307,7 +2322,7 @@ public static unsafe partial class StaticallyLinkedBindings
     
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_eval_uint(void* @obj, _AVOption* @o,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -2325,13 +2340,13 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="search_flags">A combination of AV_OPT_SEARCH_*.</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern _AVOption* av_opt_find(void* @obj,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @name,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -2356,13 +2371,13 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="target_obj">if non-NULL, an object to which the option belongs will be written here. It may be different from obj if AV_OPT_SEARCH_CHILDREN is present in search_flags. This parameter is ignored if search_flags contain AV_OPT_SEARCH_FAKE_OBJ.</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern _AVOption* av_opt_find2(void* @obj,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @name,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -2384,13 +2399,13 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="flag_name">the name of the flag to check</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_flag_is_set(void* @obj,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @field_name,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -2418,7 +2433,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="out_val">value of the option will be written here</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_get(void* @obj,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -2440,7 +2455,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="out_val">Array with nb_elems members into which the output will be written. The array type must match the underlying C type as documented for out_type, and be zeroed on entry to this function.</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_get_array(void* @obj,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -2458,7 +2473,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <summary>For an array-type option, get the number of elements in the array.</summary>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_get_array_size(void* @obj,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -2472,7 +2487,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="layout">The returned layout is a copy of the actual value and must be freed with av_channel_layout_uninit() by the caller</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_get_chlayout(void* @obj,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -2486,7 +2501,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="out_val">The returned dictionary is a copy of the actual value and must be freed with av_dict_free() by the caller</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_get_dict_val(void* @obj,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -2499,7 +2514,7 @@ public static unsafe partial class StaticallyLinkedBindings
     
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_get_double(void* @obj,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -2511,7 +2526,7 @@ public static unsafe partial class StaticallyLinkedBindings
     
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_get_image_size(void* @obj,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -2523,7 +2538,7 @@ public static unsafe partial class StaticallyLinkedBindings
     
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_get_int(void* @obj,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -2542,13 +2557,13 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="rval">parsed value; must be freed using av_free()</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_get_key_value(byte** @ropts,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @key_val_sep,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -2567,7 +2582,7 @@ public static unsafe partial class StaticallyLinkedBindings
     
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_get_pixel_fmt(void* @obj,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -2579,7 +2594,7 @@ public static unsafe partial class StaticallyLinkedBindings
     
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_get_q(void* @obj,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -2591,7 +2606,7 @@ public static unsafe partial class StaticallyLinkedBindings
     
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_get_sample_fmt(void* @obj,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -2603,7 +2618,7 @@ public static unsafe partial class StaticallyLinkedBindings
     
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_get_video_rate(void* @obj,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -2625,7 +2640,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="search_flags">combination of AV_OPT_SEARCH_*</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_is_set_to_default_by_name(void* @obj,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -2645,27 +2660,11 @@ public static unsafe partial class StaticallyLinkedBindings
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern _AVOption* av_opt_next(void* @obj, _AVOption* @prev);
     
-    /// <summary>Gets a pointer to the requested field in a struct. This function allows accessing a struct even when its fields are moved or renamed since the application making the access has been compiled,</summary>
-    [Obsolete("direct access to AVOption-exported fields is not supported")]
-    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-    public static extern void* av_opt_ptr(_AVClass* @avclass, void* @obj,     
-    #if NETSTANDARD2_1_OR_GREATER
-    [MarshalAs(UnmanagedType.LPUTF8Str)]
-    #else
-    [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
-    #endif
-    string @name);
-    
-    /// <summary>Gets a pointer to the requested field in a struct. This function allows accessing a struct even when its fields are moved or renamed since the application making the access has been compiled,</summary>
-    [Obsolete("direct access to AVOption-exported fields is not supported")]
-    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-    public static extern void* av_opt_ptr(_AVClass* @avclass, void* @obj, byte* @name);
-    
     /// <summary>Get a list of allowed ranges for the given option.</summary>
     /// <param name="flags">is a bitmask of flags, undefined flags should not be set and should be ignored AV_OPT_SEARCH_FAKE_OBJ indicates that the obj is a double pointer to a AVClass instead of a full instance AV_OPT_MULTI_COMPONENT_RANGE indicates that function may return more than one component,</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_query_ranges(_AVOptionRanges** @p0, void* @obj,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -2681,7 +2680,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="flags">is a bitmask of flags, undefined flags should not be set and should be ignored AV_OPT_SEARCH_FAKE_OBJ indicates that the obj is a double pointer to a AVClass instead of a full instance AV_OPT_MULTI_COMPONENT_RANGE indicates that function may return more than one component,</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_query_ranges_default(_AVOptionRanges** @p0, void* @obj,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -2710,13 +2709,13 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="search_flags">flags passed to av_opt_find2. I.e. if AV_OPT_SEARCH_CHILDREN is passed here, then the option may be set on a child of obj.</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_set(void* @obj,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @name,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -2738,7 +2737,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="val">Array with nb_elems elements or NULL.</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_set_array(void* @obj,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -2755,7 +2754,7 @@ public static unsafe partial class StaticallyLinkedBindings
     
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_set_bin(void* @obj,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -2767,7 +2766,7 @@ public static unsafe partial class StaticallyLinkedBindings
     
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_set_chlayout(void* @obj,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -2797,7 +2796,7 @@ public static unsafe partial class StaticallyLinkedBindings
     
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_set_dict_val(void* @obj,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -2816,7 +2815,7 @@ public static unsafe partial class StaticallyLinkedBindings
     
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_set_double(void* @obj,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -2834,19 +2833,19 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="pairs_sep">a 0-terminated list of characters used to separate two pairs from each other, for example &apos;:&apos; or &apos;,&apos;</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_set_from_string(void* @ctx,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @opts, byte** @shorthand,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @key_val_sep,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -2864,7 +2863,7 @@ public static unsafe partial class StaticallyLinkedBindings
     
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_set_image_size(void* @obj,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -2876,7 +2875,7 @@ public static unsafe partial class StaticallyLinkedBindings
     
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_set_int(void* @obj,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -2888,7 +2887,7 @@ public static unsafe partial class StaticallyLinkedBindings
     
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_set_pixel_fmt(void* @obj,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -2900,7 +2899,7 @@ public static unsafe partial class StaticallyLinkedBindings
     
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_set_q(void* @obj,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -2912,7 +2911,7 @@ public static unsafe partial class StaticallyLinkedBindings
     
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_set_sample_fmt(void* @obj,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -2924,7 +2923,7 @@ public static unsafe partial class StaticallyLinkedBindings
     
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_opt_set_video_rate(void* @obj,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -3110,7 +3109,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <summary>Parse CPU caps from a string and update the given AV_CPU_* flags based on that.</summary>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_parse_cpu_caps(uint* @flags,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -3125,7 +3124,7 @@ public static unsafe partial class StaticallyLinkedBindings
     public static extern void av_parser_close(_AVCodecParserContext* @s);
     
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-    public static extern _AVCodecParserContext* av_parser_init(int @codec_id);
+    public static extern _AVCodecParserContext* av_parser_init(_AVCodecID @codec_id);
     
     /// <summary>Iterate over all registered codec parsers.</summary>
     /// <param name="opaque">a pointer where libavcodec will store the iteration state. Must point to NULL to start the iteration.</param>
@@ -3194,7 +3193,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <summary>Like av_probe_input_buffer2() but returns 0 on success</summary>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_probe_input_buffer(_AVIOContext* @pb, _AVInputFormat** @fmt,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -3214,7 +3213,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="max_probe_size">the maximum probe buffer size (zero for default)</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_probe_input_buffer2(_AVIOContext* @pb, _AVInputFormat** @fmt,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -3252,6 +3251,21 @@ public static unsafe partial class StaticallyLinkedBindings
     
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern void av_program_add_stream_index(_AVFormatContext* @ac, int @progid, uint @idx);
+    
+    /// <summary>Add the supplied index of a stream to the AVProgram with matching id.</summary>
+    /// <param name="ac">the format context which contains the target AVProgram</param>
+    /// <param name="progid">the ID of the AVProgram whose stream index is to be updated</param>
+    /// <param name="idx">the index of the stream to be added</param>
+    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_program_add_stream_index2(_AVFormatContext* @ac, int @progid, uint @idx);
+    
+    /// <summary>Copy an AVProgram from one AVFormatContext to another.</summary>
+    /// <param name="dst">pointer to the target muxer context</param>
+    /// <param name="src">pointer to the source muxer context</param>
+    /// <param name="progid">ID of the program to be copied</param>
+    /// <param name="flags">combination of flags which determine how streams are matched and whether pre-existing AVProgram in target is overwritten. If no match condition is set, streams will be matched by ids if all source stream ids are non-zero and unique, else by index.</param>
+    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int av_program_copy(_AVFormatContext* @dst, _AVFormatContext* @src, int @progid, int @flags);
     
     /// <summary>Convert an AVRational to a IEEE 32-bit `float` expressed in fixed-point format.</summary>
     /// <param name="q">Rational to be converted</param>
@@ -3431,19 +3445,19 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="pairs_sep">a 0-terminated list of characters used to separate two pairs from each other</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_set_options_string(void* @ctx,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @opts,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @key_val_sep,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -3487,7 +3501,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="name">The input string.</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_stereo3d_from_name(    
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -3503,7 +3517,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="name">The input string.</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_stereo3d_primary_eye_from_name(    
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -3530,7 +3544,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="name">The input string.</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_stereo3d_view_from_name(    
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -3551,7 +3565,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="s">String to be duplicated</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern byte* av_strdup(    
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -3566,10 +3580,6 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <summary>Get the AVClass for AVStream. It can be used in combination with AV_OPT_SEARCH_FAKE_OBJ for examining options.</summary>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern _AVClass* av_stream_get_class();
-    
-    [Obsolete("do not call this function")]
-    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-    public static extern _AVRational av_stream_get_codec_timebase(_AVStream* @st);
     
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern _AVCodecParserContext* av_stream_get_parser(_AVStream* @s);
@@ -3590,7 +3600,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="len">Maximum length of the resulting string (not counting the terminating byte)</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern byte* av_strndup(    
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -3663,7 +3673,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="log_ctx">a pointer to an arbitrary struct of which the first field is a pointer to an AVClass struct (used for av_log).</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int av_timecode_init_from_string(_AVTimecode* @tc, _AVRational @rate,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -3747,7 +3757,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="url">the URL to split</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern void av_url_split(byte* @proto, int @proto_size, byte* @authorization, int @authorization_size, byte* @hostname, int @hostname_size, int* @port_ptr, byte* @path, int @path_size,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -3801,7 +3811,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="vl">The arguments referenced by the format string.</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern void av_vlog(void* @avcl, int @level,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -3906,7 +3916,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <summary>Returns codec descriptor with the given name or NULL if no such descriptor exists.</summary>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern _AVCodecDescriptor* avcodec_descriptor_get_by_name(    
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -3953,7 +3963,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="name">name of the requested decoder</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern _AVCodec* avcodec_find_decoder_by_name(    
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -3974,7 +3984,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="name">name of the requested encoder</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern _AVCodec* avcodec_find_encoder_by_name(    
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -4049,7 +4059,7 @@ public static unsafe partial class StaticallyLinkedBindings
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int avcodec_open2(_AVCodecContext* @avctx, _AVCodec* @codec, _AVDictionary** @options);
     
-    /// <summary>Allocate a new AVCodecParameters and set its fields to default values (unknown/invalid/0). The returned struct must be freed with avcodec_parameters_free().</summary>
+    /// <summary>Allocate a new AVCodecParameters and set its fields to default values (unknown/invalid/0). The returned struct must be freed with ::avcodec_parameters_free().</summary>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern _AVCodecParameters* avcodec_parameters_alloc();
     
@@ -4057,7 +4067,7 @@ public static unsafe partial class StaticallyLinkedBindings
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int avcodec_parameters_copy(_AVCodecParameters* @dst, _AVCodecParameters* @src);
     
-    /// <summary>Free an AVCodecParameters instance and everything associated with it and write NULL to the supplied pointer.</summary>
+    /// <summary>Free an AVCodecParameters instance and everything associated with it and write `NULL` to the supplied pointer.</summary>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern void avcodec_parameters_free(_AVCodecParameters** @par);
     
@@ -4161,7 +4171,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="device_list">list of autodetected devices</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int avdevice_list_input_sources(_AVInputFormat* @device,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -4178,7 +4188,7 @@ public static unsafe partial class StaticallyLinkedBindings
     
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int avdevice_list_output_sinks(_AVOutputFormat* @device,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -4214,7 +4224,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="name">the filter name to find</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern _AVFilter* avfilter_get_by_name(    
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -4240,7 +4250,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="name">Name to give to the new instance (will be copied to AVFilterContext.name). This may be used by the caller to identify different filters, libavfilter itself assigns no semantics to this parameter. May be NULL.</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern _AVFilterContext* avfilter_graph_alloc_filter(_AVFilterGraph* @graph, _AVFilter* @filter,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -4265,13 +4275,13 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="graph_ctx">the filter graph</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int avfilter_graph_create_filter(_AVFilterContext** @filt_ctx, _AVFilter* @filt,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @name,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -4289,7 +4299,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="options">formatting options; currently ignored</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern byte* avfilter_graph_dump(_AVFilterGraph* @graph,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -4311,7 +4321,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="name">filter instance name (should be unique in the graph).</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern _AVFilterContext* avfilter_graph_get_filter(_AVFilterGraph* @graph,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -4331,7 +4341,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="outputs">linked list to the outputs of the graph</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int avfilter_graph_parse(_AVFilterGraph* @graph,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -4353,7 +4363,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="outputs">pointer to a linked list to the outputs of the graph, may be NULL. If non-NULL, *outputs is updated to contain the list of open outputs after the parsing, should be freed with avfilter_inout_free().</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int avfilter_graph_parse_ptr(_AVFilterGraph* @graph,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -4375,7 +4385,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="outputs">a linked list of all free (unlinked) outputs of the parsed graph will be returned here. It is to be freed by the caller using avfilter_inout_free().</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int avfilter_graph_parse2(_AVFilterGraph* @graph,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -4398,19 +4408,19 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="ts">time at which the command should be sent to the filter</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int avfilter_graph_queue_command(_AVFilterGraph* @graph,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @target,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @cmd,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -4476,7 +4486,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="seg">A pointer to the newly-created AVFilterGraphSegment is written here on success. The graph segment is owned by the caller and must be freed with avfilter_graph_segment_free() before graph itself is freed.</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int avfilter_graph_segment_parse(_AVFilterGraph* @graph,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -4499,19 +4509,19 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="res">a buffer with size res_size where the filter(s) can return a response.</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int avfilter_graph_send_command(_AVFilterGraph* @graph,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @target,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @cmd,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -4543,7 +4553,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="args">Options to initialize the filter with. This must be a &apos;:&apos;-separated list of options in the &apos;key=value&apos; form. May be NULL if the options have been set directly using the AVOptions API or there are no options that need to be set.</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int avfilter_init_str(_AVFilterContext* @ctx,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -4606,13 +4616,13 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <summary>Make the filter instance process a command. It is recommended to use avfilter_graph_send_command().</summary>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int avfilter_process_command(_AVFilterContext* @filter,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @cmd,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -4638,13 +4648,13 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="filename">the name of the filename to use for allocating the context, may be NULL</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int avformat_alloc_output_context2(_AVFormatContext** @ctx, _AVOutputFormat* @oformat,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
     #endif
     string @format_name,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -4736,7 +4746,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <summary>Check if the stream st contained in s is matched by the stream specifier spec.</summary>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int avformat_match_stream_specifier(_AVFormatContext* @s, _AVStream* @st,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -4768,7 +4778,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="options">A dictionary filled with AVFormatContext and demuxer-private options. On return this parameter will be destroyed and replaced with a dict containing options that were not found. May be NULL.</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int avformat_open_input(_AVFormatContext** @ps,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -4833,10 +4843,6 @@ public static unsafe partial class StaticallyLinkedBindings
     [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(ConstCharPtrMarshaler))]
     public static extern string avformat_stream_group_name(_AVStreamGroupParamsType @type);
     
-    [Obsolete("do not call this function")]
-    [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
-    public static extern int avformat_transfer_internal_stream_timing_info(_AVOutputFormat* @ofmt, _AVStream* @ost, _AVStream* @ist, _AVTimebaseSource @copy_tb);
-    
     /// <summary>Return the LIBAVFORMAT_VERSION_INT constant.</summary>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern uint avformat_version();
@@ -4867,7 +4873,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <summary>Return AVIO_FLAG_* access flags corresponding to the access permissions of the resource in url, or a negative value corresponding to an AVERROR code in case of failure. The returned access flags are masked by the value in flags.</summary>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int avio_check(    
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -4917,7 +4923,7 @@ public static unsafe partial class StaticallyLinkedBindings
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(ConstCharPtrMarshaler))]
     public static extern string avio_find_protocol_name(    
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -4966,7 +4972,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="flags">flags which control how the resource indicated by url is to be opened</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int avio_open(_AVIOContext** @s,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -4986,7 +4992,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="options">A dictionary filled with protocol-private options. On return this parameter will be destroyed and replaced with a dictionary containing options that were not found. May be NULL.</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int avio_open_dir(_AVIODirContext** @s,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -5013,7 +5019,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="options">A dictionary filled with protocol-private options. On return this parameter will be destroyed and replaced with a dict containing options that were not found. May be NULL.</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int avio_open2(_AVIOContext** @s,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -5042,7 +5048,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <summary>Writes a formatted string to the context.</summary>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int avio_printf(_AVIOContext* @s,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -5056,7 +5062,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <summary>Get AVClass by names of available protocols.</summary>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern _AVClass* avio_protocol_get_class(    
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -5070,7 +5076,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <summary>Write a NULL-terminated string.</summary>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int avio_put_str(_AVIOContext* @s,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -5086,7 +5092,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="str">NULL-terminated UTF-8 string</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int avio_put_str16be(_AVIOContext* @s,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -5104,7 +5110,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <param name="str">NULL-terminated UTF-8 string</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int avio_put_str16le(_AVIOContext* @s,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -5186,7 +5192,7 @@ public static unsafe partial class StaticallyLinkedBindings
     /// <summary>Writes a formatted string to the context taking a va_list.</summary>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int avio_vprintf(_AVIOContext* @s,     
-    #if NETSTANDARD2_1_OR_GREATER
+    #if NETSTANDARD2_1_OR_GREATER || NET
     [MarshalAs(UnmanagedType.LPUTF8Str)]
     #else
     [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))]
@@ -5568,7 +5574,7 @@ public static unsafe partial class StaticallyLinkedBindings
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int sws_test_colorspace(_AVColorSpace @colorspace, int @output);
     
-    /// <summary>Test if a given (software) pixel format is supported.</summary>
+    /// <summary>Test if a given (software) pixel format is supported by any backend, excluding unstable backends.</summary>
     /// <param name="format">The format to check.</param>
     /// <param name="output">If 0, test if compatible with the source/input frame; otherwise, with the destination/output frame.</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
@@ -5578,7 +5584,7 @@ public static unsafe partial class StaticallyLinkedBindings
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int sws_test_frame(_AVFrame* @frame, int @output);
     
-    /// <summary>Test if a given hardware pixel format is supported.</summary>
+    /// <summary>Test if a given hardware pixel format is supported by any backend, excluding unstable backends.</summary>
     /// <param name="format">The hardware format to check, or AV_PIX_FMT_NONE.</param>
     [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
     public static extern int sws_test_hw_format(_AVPixelFormat @format);
@@ -5784,6 +5790,10 @@ public static unsafe partial class StaticallyLinkedBindings
         vectors.av_dynamic_hdr_plus_create_side_data = av_dynamic_hdr_plus_create_side_data;
         vectors.av_dynamic_hdr_plus_from_t35 = av_dynamic_hdr_plus_from_t35;
         vectors.av_dynamic_hdr_plus_to_t35 = av_dynamic_hdr_plus_to_t35;
+        vectors.av_dynamic_hdr_smpte2094_app5_alloc = av_dynamic_hdr_smpte2094_app5_alloc;
+        vectors.av_dynamic_hdr_smpte2094_app5_create_side_data = av_dynamic_hdr_smpte2094_app5_create_side_data;
+        vectors.av_dynamic_hdr_smpte2094_app5_from_t35 = av_dynamic_hdr_smpte2094_app5_from_t35;
+        vectors.av_dynamic_hdr_smpte2094_app5_to_t35 = av_dynamic_hdr_smpte2094_app5_to_t35;
         vectors.av_dynarray_add = av_dynarray_add;
         vectors.av_dynarray_add_nofree = av_dynarray_add_nofree;
         vectors.av_dynarray2_add = av_dynarray2_add;
@@ -5923,7 +5933,6 @@ public static unsafe partial class StaticallyLinkedBindings
         vectors.av_init_packet = av_init_packet;
         vectors.av_input_audio_device_next = av_input_audio_device_next;
         vectors.av_input_video_device_next = av_input_video_device_next;
-        vectors.av_int_list_length_for_size = av_int_list_length_for_size;
         vectors.av_interleaved_write_frame = av_interleaved_write_frame;
         vectors.av_interleaved_write_uncoded_frame = av_interleaved_write_uncoded_frame;
         vectors.av_log = av_log;
@@ -6015,8 +6024,6 @@ public static unsafe partial class StaticallyLinkedBindings
         vectors.av_opt_is_set_to_default_by_name = av_opt_is_set_to_default_by_name;
         vectors.av_opt_is_set_to_default_by_name = av_opt_is_set_to_default_by_name;
         vectors.av_opt_next = av_opt_next;
-        vectors.av_opt_ptr = av_opt_ptr;
-        vectors.av_opt_ptr = av_opt_ptr;
         vectors.av_opt_query_ranges = av_opt_query_ranges;
         vectors.av_opt_query_ranges = av_opt_query_ranges;
         vectors.av_opt_query_ranges_default = av_opt_query_ranges_default;
@@ -6103,6 +6110,8 @@ public static unsafe partial class StaticallyLinkedBindings
         vectors.av_probe_input_format2 = av_probe_input_format2;
         vectors.av_probe_input_format3 = av_probe_input_format3;
         vectors.av_program_add_stream_index = av_program_add_stream_index;
+        vectors.av_program_add_stream_index2 = av_program_add_stream_index2;
+        vectors.av_program_copy = av_program_copy;
         vectors.av_q2intfloat = av_q2intfloat;
         vectors.av_read_frame = av_read_frame;
         vectors.av_read_image_line = av_read_image_line;
@@ -6148,7 +6157,6 @@ public static unsafe partial class StaticallyLinkedBindings
         vectors.av_strdup = av_strdup;
         vectors.av_strdup = av_strdup;
         vectors.av_stream_get_class = av_stream_get_class;
-        vectors.av_stream_get_codec_timebase = av_stream_get_codec_timebase;
         vectors.av_stream_get_parser = av_stream_get_parser;
         vectors.av_stream_group_get_class = av_stream_group_get_class;
         vectors.av_strerror = av_strerror;
@@ -6334,7 +6342,6 @@ public static unsafe partial class StaticallyLinkedBindings
         vectors.avformat_stream_group_add_stream = avformat_stream_group_add_stream;
         vectors.avformat_stream_group_create = avformat_stream_group_create;
         vectors.avformat_stream_group_name = avformat_stream_group_name;
-        vectors.avformat_transfer_internal_stream_timing_info = avformat_transfer_internal_stream_timing_info;
         vectors.avformat_version = avformat_version;
         vectors.avformat_write_header = avformat_write_header;
         vectors.avio_accept = avio_accept;

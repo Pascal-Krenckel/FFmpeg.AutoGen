@@ -20,7 +20,7 @@
 		All classes and structs are renamed to start with '_'.
 		FFmpeg auto generated unsafe bindings for C#/.NET and Mono.</Description>
 	  <LangVersion>latest</LangVersion>
-    <TargetFrameworks>net8.0;netstandard2.1;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net8.0;net9.0;net10.0;netstandard2.1;netstandard2.0</TargetFrameworks>
     <Description>FFmpeg auto generated unsafe bindings for C#/.NET and Mono.</Description>
     <GeneratePackageOnBuild Condition=" $(Configuration) == 'Release' ">true</GeneratePackageOnBuild>
   </PropertyGroup>

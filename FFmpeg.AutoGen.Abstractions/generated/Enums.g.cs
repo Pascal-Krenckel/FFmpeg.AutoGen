@@ -2074,14 +2074,6 @@ public enum _AVSubtitleType : int
     @SUBTITLE_ASS = 3,
 }
 
-public enum _AVTimebaseSource : int
-{
-    @AVFMT_TBCF_AUTO = -1,
-    @AVFMT_TBCF_DECODER = 0,
-    @AVFMT_TBCF_DEMUXER = 1,
-    @AVFMT_TBCF_R_FRAMERATE = 2,
-}
-
 public enum _AVTimecodeFlag : int
 {
     /// <summary>timecode is drop frame</summary>
@@ -2312,7 +2304,7 @@ public enum _SwsAlphaBlend : int
     @SWS_ALPHA_BLEND_MAX_ENUM = 2147483647,
 }
 
-public enum SwsBackend : int
+public enum _SwsBackend : int
 {
     /// <summary>Legacy bespoke format-specific code</summary>
     @SWS_BACKEND_LEGACY = 1,
@@ -2404,44 +2396,29 @@ public enum _SwsIntent : int
     @SWS_INTENT_NB = 4,
 }
 
-public enum _VkAccessFlagBits : int
+public enum _SwsScaler : int
 {
-    @VK_ACCESS_INDIRECT_COMMAND_READ_BIT = 1,
-    @VK_ACCESS_INDEX_READ_BIT = 2,
-    @VK_ACCESS_VERTEX_ATTRIBUTE_READ_BIT = 4,
-    @VK_ACCESS_UNIFORM_READ_BIT = 8,
-    @VK_ACCESS_INPUT_ATTACHMENT_READ_BIT = 16,
-    @VK_ACCESS_SHADER_READ_BIT = 32,
-    @VK_ACCESS_SHADER_WRITE_BIT = 64,
-    @VK_ACCESS_COLOR_ATTACHMENT_READ_BIT = 128,
-    @VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT = 256,
-    @VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_READ_BIT = 512,
-    @VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT = 1024,
-    @VK_ACCESS_TRANSFER_READ_BIT = 2048,
-    @VK_ACCESS_TRANSFER_WRITE_BIT = 4096,
-    @VK_ACCESS_HOST_READ_BIT = 8192,
-    @VK_ACCESS_HOST_WRITE_BIT = 16384,
-    @VK_ACCESS_MEMORY_READ_BIT = 32768,
-    @VK_ACCESS_MEMORY_WRITE_BIT = 65536,
-    @VK_ACCESS_NONE = 0,
-    @VK_ACCESS_TRANSFORM_FEEDBACK_WRITE_BIT_EXT = 33554432,
-    @VK_ACCESS_TRANSFORM_FEEDBACK_COUNTER_READ_BIT_EXT = 67108864,
-    @VK_ACCESS_TRANSFORM_FEEDBACK_COUNTER_WRITE_BIT_EXT = 134217728,
-    @VK_ACCESS_CONDITIONAL_RENDERING_READ_BIT_EXT = 1048576,
-    @VK_ACCESS_COLOR_ATTACHMENT_READ_NONCOHERENT_BIT_EXT = 524288,
-    @VK_ACCESS_ACCELERATION_STRUCTURE_READ_BIT_KHR = 2097152,
-    @VK_ACCESS_ACCELERATION_STRUCTURE_WRITE_BIT_KHR = 4194304,
-    @VK_ACCESS_FRAGMENT_DENSITY_MAP_READ_BIT_EXT = 16777216,
-    @VK_ACCESS_FRAGMENT_SHADING_RATE_ATTACHMENT_READ_BIT_KHR = 8388608,
-    @VK_ACCESS_COMMAND_PREPROCESS_READ_BIT_EXT = 131072,
-    @VK_ACCESS_COMMAND_PREPROCESS_WRITE_BIT_EXT = 262144,
-    @VK_ACCESS_SHADING_RATE_IMAGE_READ_BIT_NV = 8388608,
-    @VK_ACCESS_ACCELERATION_STRUCTURE_READ_BIT_NV = 2097152,
-    @VK_ACCESS_ACCELERATION_STRUCTURE_WRITE_BIT_NV = 4194304,
-    @VK_ACCESS_COMMAND_PREPROCESS_READ_BIT_NV = 131072,
-    @VK_ACCESS_COMMAND_PREPROCESS_WRITE_BIT_NV = 262144,
-    @VK_ACCESS_NONE_KHR = 0,
-    @VK_ACCESS_FLAG_BITS_MAX_ENUM = 2147483647,
+    @SWS_SCALE_AUTO = 0,
+    /// <summary>bilinear filtering</summary>
+    @SWS_SCALE_BILINEAR = 1,
+    /// <summary>2-tap cubic BC-spline</summary>
+    @SWS_SCALE_BICUBIC = 2,
+    /// <summary>nearest neighbor (point sampling)</summary>
+    @SWS_SCALE_POINT = 3,
+    /// <summary>area averaging</summary>
+    @SWS_SCALE_AREA = 4,
+    /// <summary>2-tap gaussian approximation</summary>
+    @SWS_SCALE_GAUSSIAN = 5,
+    /// <summary>unwindowed sinc</summary>
+    @SWS_SCALE_SINC = 6,
+    /// <summary>3-tap sinc/sinc</summary>
+    @SWS_SCALE_LANCZOS = 7,
+    /// <summary>unwindowned natural cubic spline</summary>
+    @SWS_SCALE_SPLINE = 8,
+    /// <summary>not part of the ABI</summary>
+    @SWS_SCALE_NB = 9,
+    /// <summary>force size to 32 bits, not a valid filter type</summary>
+    @SWS_SCALE_MAX_ENUM = 2147483647,
 }
 
 public enum _VkFormat : int

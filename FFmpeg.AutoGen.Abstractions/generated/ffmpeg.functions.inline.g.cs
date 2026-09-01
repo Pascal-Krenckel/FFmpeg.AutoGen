@@ -251,14 +251,6 @@ public static unsafe partial class ffmpeg
     }
     // original body hash: 47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=
     
-    [Obsolete()]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static uint av_mod_uintp2_c(uint @a, uint @p)
-    {
-        return av_zero_extend_c(a, p);
-    }
-    // original body hash: 47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=
-    
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static int av_parity_c(uint @v)
     {

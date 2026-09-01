@@ -489,6 +489,50 @@ public unsafe struct byte4 : IFixedArray<byte>
 }
 
 [StructLayout(LayoutKind.Sequential)]
+public unsafe struct byte4x6 : IFixedArray<byte6>
+{
+    public static readonly int ArrayLength = 4;
+    public readonly int Length => 4;
+    #pragma warning disable CS9084
+    byte6 _0,_1,_2,_3;
+    
+    public ref byte6 this[int i] 
+    {
+        get { CheckIndex(i); return ref Unsafe.Add(ref _0, i); }
+    }
+    public ref byte6 this[uint i] 
+    {
+        get {  CheckIndex(i); return ref Unsafe.Add(ref _0, i); }
+    }
+    public byte6[] ToArray()
+    {
+        var a = new byte6[4];
+        for (int i = 0; i < 4; i++) a[i] = this[i];
+        return a;
+    }
+    public void UpdateFrom(byte6[] array)
+    {
+        int length = Math.Min(array.Length, Length);
+        for(int i = 0; i < length; i++) this[i] = array[i];
+    }
+    [EditorBrowsable(EditorBrowsableState.Never)]
+    public ref byte6 GetPinnableReference() => ref _0;
+    #pragma warning restore CS9084
+    public Span<byte6> AsSpan() { fixed(void* ptr = &_0) return new Span<byte6>(ptr, 4); }
+    public ReadOnlySpan<byte6> AsReadOnlySpan() { fixed(void* ptr = &_0) return new ReadOnlySpan<byte6>(ptr, 4); }
+    public static implicit operator Span<byte6>(byte4x6 array) => array.AsSpan();
+    public static implicit operator ReadOnlySpan<byte6>(byte4x6 array) => array.AsReadOnlySpan();
+    private static void CheckIndex(int index)
+    {
+        if ((uint)index >= 4) throw new ArgumentOutOfRangeException();
+    }
+    private static void CheckIndex(uint index)
+    {
+        if (index >= 4) throw new ArgumentOutOfRangeException();
+    }
+}
+
+[StructLayout(LayoutKind.Sequential)]
 public unsafe struct int4 : IFixedArray<int>
 {
     public static readonly int ArrayLength = 4;
@@ -624,118 +668,230 @@ public unsafe struct ulong4 : IFixedArray<ulong>
     }
 }
 
+[StructLayout(LayoutKind.Sequential)]
 public unsafe struct ushort4 : IFixedArray<ushort>
 {
     public static readonly int ArrayLength = 4;
-    public int Length => 4;
+    public readonly int Length => 4;
     fixed ushort _[4];
     
-    public ushort this[uint i]
-    {
-        get => _[i];
-        set => _[i] = value;
-    }
+    public ref ushort this[int i] => ref _[i];
+    public ref ushort this[uint i] => ref _[(int)i];
     public ushort[] ToArray()
     {
-        var a = new ushort[4]; for (uint i = 0; i < 4; i++) a[i] = _[i]; return a;
+        var a = new ushort[4]; for (int i = 0; i < 4; i++) a[i] = _[i]; return a;
     }
     public void UpdateFrom(ushort[] array)
     {
-        uint i = 0; foreach(var value in array) { _[i++] = value; if (i >= 4) return; }
-    }
-    public static implicit operator ushort[](ushort4 @struct) => @struct.ToArray();
-}
-
-public unsafe struct ushort4x32 : IFixedArray<ushort32>
-{
-    public static readonly int ArrayLength = 4;
-    public int Length => 4;
-    ushort32 _0; ushort32 _1; ushort32 _2; ushort32 _3;
-    
-    public ushort32 this[uint i]
-    {
-        get { if (i >= 4) throw new ArgumentOutOfRangeException(); fixed (ushort32* p0 = &_0) { return *(p0 + i); } }
-        set { if (i >= 4) throw new ArgumentOutOfRangeException(); fixed (ushort32* p0 = &_0) { *(p0 + i) = value;  } }
-    }
-    public ushort32[] ToArray()
-    {
-        fixed (ushort32* p0 = &_0) { var a = new ushort32[4]; for (uint i = 0; i < 4; i++) a[i] = *(p0 + i); return a; }
-    }
-    public void UpdateFrom(ushort32[] array)
-    {
-        fixed (ushort32* p0 = &_0) { uint i = 0; foreach(var value in array) { *(p0 + i++) = value; if (i >= 4) return; } }
-    }
-    public static implicit operator ushort32[](ushort4x32 @struct) => @struct.ToArray();
-}
-
-public unsafe struct ushort4x6 : IFixedArray<ushort6>
-{
-    public static readonly int ArrayLength = 4;
-    public int Length => 4;
-    ushort6 _0; ushort6 _1; ushort6 _2; ushort6 _3;
-    
-    public ushort6 this[uint i]
-    {
-        get { if (i >= 4) throw new ArgumentOutOfRangeException(); fixed (ushort6* p0 = &_0) { return *(p0 + i); } }
-        set { if (i >= 4) throw new ArgumentOutOfRangeException(); fixed (ushort6* p0 = &_0) { *(p0 + i) = value;  } }
-    }
-    public ushort6[] ToArray()
-    {
-        fixed (ushort6* p0 = &_0) { var a = new ushort6[4]; for (uint i = 0; i < 4; i++) a[i] = *(p0 + i); return a; }
-    }
-    public void UpdateFrom(ushort6[] array)
-    {
-        fixed (ushort6* p0 = &_0) { uint i = 0; foreach(var value in array) { *(p0 + i++) = value; if (i >= 4) return; } }
-    }
-    public static implicit operator ushort6[](ushort4x6 @struct) => @struct.ToArray();
-}
-
-public unsafe struct byte6 : IFixedArray<byte>
-{
-    public static readonly int ArrayLength = 6;
-    public int Length => 6;
-    fixed byte _[6];
-    
-    public byte this[uint i]
-    {
-        get => _[i];
-        set => _[i] = value;
-    }
-    public byte[] ToArray()
-    {
-        var a = new byte[6]; for (uint i = 0; i < 6; i++) a[i] = _[i]; return a;
-    }
-    public void UpdateFrom(byte[] array)
-    {
-        uint i = 0; foreach(var value in array) { _[i++] = value; if (i >= 6) return; }
-    }
-    public static implicit operator byte[](byte6 @struct) => @struct.ToArray();
-}
-
-[StructLayout(LayoutKind.Sequential)]
-public unsafe struct int7 : IFixedArray<int>
-{
-    public static readonly int ArrayLength = 7;
-    public readonly int Length => 7;
-    fixed int _[7];
-    
-    public ref int this[int i] => ref _[i];
-    public ref int this[uint i] => ref _[(int)i];
-    public int[] ToArray()
-    {
-        var a = new int[7]; for (int i = 0; i < 7; i++) a[i] = _[i]; return a;
-    }
-    public void UpdateFrom(int[] array)
-    {
-        int length = Math.Min(array.Length, 7);
+        int length = Math.Min(array.Length, 4);
         for(int i = 0; i < length; i++) _[i] = array[i];
     }
     [EditorBrowsable(EditorBrowsableState.Never)]
-    public ref int GetPinnableReference() => ref _[0];
-    public Span<int> AsSpan() { fixed(void* ptr = _) return new Span<int>(ptr, 7); }
-    public ReadOnlySpan<int> AsReadOnlySpan() { fixed(void* ptr = _) return new ReadOnlySpan<int>(ptr, 7); }
-    public static implicit operator Span<int>(int7 array) => array.AsSpan();
-    public static implicit operator ReadOnlySpan<int>(int7 array) => array.AsReadOnlySpan();
+    public ref ushort GetPinnableReference() => ref _[0];
+    public Span<ushort> AsSpan() { fixed(void* ptr = _) return new Span<ushort>(ptr, 4); }
+    public ReadOnlySpan<ushort> AsReadOnlySpan() { fixed(void* ptr = _) return new ReadOnlySpan<ushort>(ptr, 4); }
+    public static implicit operator Span<ushort>(ushort4 array) => array.AsSpan();
+    public static implicit operator ReadOnlySpan<ushort>(ushort4 array) => array.AsReadOnlySpan();
+    private static void CheckIndex(int index)
+    {
+        if ((uint)index >= 4) throw new ArgumentOutOfRangeException();
+    }
+    private static void CheckIndex(uint index)
+    {
+        if (index >= 4) throw new ArgumentOutOfRangeException();
+    }
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public unsafe struct ushort4x32 : IFixedArray<ushort32>
+{
+    public static readonly int ArrayLength = 4;
+    public readonly int Length => 4;
+    #pragma warning disable CS9084
+    ushort32 _0,_1,_2,_3;
+    
+    public ref ushort32 this[int i] 
+    {
+        get { CheckIndex(i); return ref Unsafe.Add(ref _0, i); }
+    }
+    public ref ushort32 this[uint i] 
+    {
+        get {  CheckIndex(i); return ref Unsafe.Add(ref _0, i); }
+    }
+    public ushort32[] ToArray()
+    {
+        var a = new ushort32[4];
+        for (int i = 0; i < 4; i++) a[i] = this[i];
+        return a;
+    }
+    public void UpdateFrom(ushort32[] array)
+    {
+        int length = Math.Min(array.Length, Length);
+        for(int i = 0; i < length; i++) this[i] = array[i];
+    }
+    [EditorBrowsable(EditorBrowsableState.Never)]
+    public ref ushort32 GetPinnableReference() => ref _0;
+    #pragma warning restore CS9084
+    public Span<ushort32> AsSpan() { fixed(void* ptr = &_0) return new Span<ushort32>(ptr, 4); }
+    public ReadOnlySpan<ushort32> AsReadOnlySpan() { fixed(void* ptr = &_0) return new ReadOnlySpan<ushort32>(ptr, 4); }
+    public static implicit operator Span<ushort32>(ushort4x32 array) => array.AsSpan();
+    public static implicit operator ReadOnlySpan<ushort32>(ushort4x32 array) => array.AsReadOnlySpan();
+    private static void CheckIndex(int index)
+    {
+        if ((uint)index >= 4) throw new ArgumentOutOfRangeException();
+    }
+    private static void CheckIndex(uint index)
+    {
+        if (index >= 4) throw new ArgumentOutOfRangeException();
+    }
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public unsafe struct ushort4x6 : IFixedArray<ushort6>
+{
+    public static readonly int ArrayLength = 4;
+    public readonly int Length => 4;
+    #pragma warning disable CS9084
+    ushort6 _0,_1,_2,_3;
+    
+    public ref ushort6 this[int i] 
+    {
+        get { CheckIndex(i); return ref Unsafe.Add(ref _0, i); }
+    }
+    public ref ushort6 this[uint i] 
+    {
+        get {  CheckIndex(i); return ref Unsafe.Add(ref _0, i); }
+    }
+    public ushort6[] ToArray()
+    {
+        var a = new ushort6[4];
+        for (int i = 0; i < 4; i++) a[i] = this[i];
+        return a;
+    }
+    public void UpdateFrom(ushort6[] array)
+    {
+        int length = Math.Min(array.Length, Length);
+        for(int i = 0; i < length; i++) this[i] = array[i];
+    }
+    [EditorBrowsable(EditorBrowsableState.Never)]
+    public ref ushort6 GetPinnableReference() => ref _0;
+    #pragma warning restore CS9084
+    public Span<ushort6> AsSpan() { fixed(void* ptr = &_0) return new Span<ushort6>(ptr, 4); }
+    public ReadOnlySpan<ushort6> AsReadOnlySpan() { fixed(void* ptr = &_0) return new ReadOnlySpan<ushort6>(ptr, 4); }
+    public static implicit operator Span<ushort6>(ushort4x6 array) => array.AsSpan();
+    public static implicit operator ReadOnlySpan<ushort6>(ushort4x6 array) => array.AsReadOnlySpan();
+    private static void CheckIndex(int index)
+    {
+        if ((uint)index >= 4) throw new ArgumentOutOfRangeException();
+    }
+    private static void CheckIndex(uint index)
+    {
+        if (index >= 4) throw new ArgumentOutOfRangeException();
+    }
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public unsafe struct byte6 : IFixedArray<byte>
+{
+    public static readonly int ArrayLength = 6;
+    public readonly int Length => 6;
+    fixed byte _[6];
+    
+    public ref byte this[int i] => ref _[i];
+    public ref byte this[uint i] => ref _[(int)i];
+    public byte[] ToArray()
+    {
+        var a = new byte[6]; for (int i = 0; i < 6; i++) a[i] = _[i]; return a;
+    }
+    public void UpdateFrom(byte[] array)
+    {
+        int length = Math.Min(array.Length, 6);
+        for(int i = 0; i < length; i++) _[i] = array[i];
+    }
+    [EditorBrowsable(EditorBrowsableState.Never)]
+    public ref byte GetPinnableReference() => ref _[0];
+    public Span<byte> AsSpan() { fixed(void* ptr = _) return new Span<byte>(ptr, 6); }
+    public ReadOnlySpan<byte> AsReadOnlySpan() { fixed(void* ptr = _) return new ReadOnlySpan<byte>(ptr, 6); }
+    public static implicit operator Span<byte>(byte6 array) => array.AsSpan();
+    public static implicit operator ReadOnlySpan<byte>(byte6 array) => array.AsReadOnlySpan();
+    private static void CheckIndex(int index)
+    {
+        if ((uint)index >= 6) throw new ArgumentOutOfRangeException();
+    }
+    private static void CheckIndex(uint index)
+    {
+        if (index >= 6) throw new ArgumentOutOfRangeException();
+    }
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public unsafe struct ushort6 : IFixedArray<ushort>
+{
+    public static readonly int ArrayLength = 6;
+    public readonly int Length => 6;
+    fixed ushort _[6];
+    
+    public ref ushort this[int i] => ref _[i];
+    public ref ushort this[uint i] => ref _[(int)i];
+    public ushort[] ToArray()
+    {
+        var a = new ushort[6]; for (int i = 0; i < 6; i++) a[i] = _[i]; return a;
+    }
+    public void UpdateFrom(ushort[] array)
+    {
+        int length = Math.Min(array.Length, 6);
+        for(int i = 0; i < length; i++) _[i] = array[i];
+    }
+    [EditorBrowsable(EditorBrowsableState.Never)]
+    public ref ushort GetPinnableReference() => ref _[0];
+    public Span<ushort> AsSpan() { fixed(void* ptr = _) return new Span<ushort>(ptr, 6); }
+    public ReadOnlySpan<ushort> AsReadOnlySpan() { fixed(void* ptr = _) return new ReadOnlySpan<ushort>(ptr, 6); }
+    public static implicit operator Span<ushort>(ushort6 array) => array.AsSpan();
+    public static implicit operator ReadOnlySpan<ushort>(ushort6 array) => array.AsReadOnlySpan();
+    private static void CheckIndex(int index)
+    {
+        if ((uint)index >= 6) throw new ArgumentOutOfRangeException();
+    }
+    private static void CheckIndex(uint index)
+    {
+        if (index >= 6) throw new ArgumentOutOfRangeException();
+    }
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public unsafe struct _AVCodecID7 : IFixedArray<_AVCodecID>
+{
+    public static readonly int ArrayLength = 7;
+    public readonly int Length => 7;
+    #pragma warning disable CS9084
+    _AVCodecID _0,_1,_2,_3,_4,_5,_6;
+    
+    public ref _AVCodecID this[int i] 
+    {
+        get { CheckIndex(i); return ref Unsafe.Add(ref _0, i); }
+    }
+    public ref _AVCodecID this[uint i] 
+    {
+        get {  CheckIndex(i); return ref Unsafe.Add(ref _0, i); }
+    }
+    public _AVCodecID[] ToArray()
+    {
+        var a = new _AVCodecID[7];
+        for (int i = 0; i < 7; i++) a[i] = this[i];
+        return a;
+    }
+    public void UpdateFrom(_AVCodecID[] array)
+    {
+        int length = Math.Min(array.Length, Length);
+        for(int i = 0; i < length; i++) this[i] = array[i];
+    }
+    [EditorBrowsable(EditorBrowsableState.Never)]
+    public ref _AVCodecID GetPinnableReference() => ref _0;
+    #pragma warning restore CS9084
+    public Span<_AVCodecID> AsSpan() { fixed(void* ptr = &_0) return new Span<_AVCodecID>(ptr, 7); }
+    public ReadOnlySpan<_AVCodecID> AsReadOnlySpan() { fixed(void* ptr = &_0) return new ReadOnlySpan<_AVCodecID>(ptr, 7); }
+    public static implicit operator Span<_AVCodecID>(_AVCodecID7 array) => array.AsSpan();
+    public static implicit operator ReadOnlySpan<_AVCodecID>(_AVCodecID7 array) => array.AsReadOnlySpan();
     private static void CheckIndex(int index)
     {
         if ((uint)index >= 7) throw new ArgumentOutOfRangeException();
@@ -878,50 +1034,6 @@ public unsafe struct _AVBufferRef_ptr8 : IFixedPtrArray<_AVBufferRef>
     #pragma warning restore CS9084
     public static implicit operator Span<IntPtr>(_AVBufferRef_ptr8 array) => array.AsSpan();
     public static implicit operator ReadOnlySpan<IntPtr>(_AVBufferRef_ptr8 array) => array.AsReadOnlySpan();
-    private static void CheckIndex(int index)
-    {
-        if ((uint)index >= 8) throw new ArgumentOutOfRangeException();
-    }
-    private static void CheckIndex(uint index)
-    {
-        if (index >= 8) throw new ArgumentOutOfRangeException();
-    }
-}
-
-[StructLayout(LayoutKind.Sequential)]
-public unsafe struct _VkAccessFlagBits8 : IFixedArray<_VkAccessFlagBits>
-{
-    public static readonly int ArrayLength = 8;
-    public readonly int Length => 8;
-    #pragma warning disable CS9084
-    _VkAccessFlagBits _0,_1,_2,_3,_4,_5,_6,_7;
-    
-    public ref _VkAccessFlagBits this[int i] 
-    {
-        get { CheckIndex(i); return ref Unsafe.Add(ref _0, i); }
-    }
-    public ref _VkAccessFlagBits this[uint i] 
-    {
-        get {  CheckIndex(i); return ref Unsafe.Add(ref _0, i); }
-    }
-    public _VkAccessFlagBits[] ToArray()
-    {
-        var a = new _VkAccessFlagBits[8];
-        for (int i = 0; i < 8; i++) a[i] = this[i];
-        return a;
-    }
-    public void UpdateFrom(_VkAccessFlagBits[] array)
-    {
-        int length = Math.Min(array.Length, Length);
-        for(int i = 0; i < length; i++) this[i] = array[i];
-    }
-    [EditorBrowsable(EditorBrowsableState.Never)]
-    public ref _VkAccessFlagBits GetPinnableReference() => ref _0;
-    #pragma warning restore CS9084
-    public Span<_VkAccessFlagBits> AsSpan() { fixed(void* ptr = &_0) return new Span<_VkAccessFlagBits>(ptr, 8); }
-    public ReadOnlySpan<_VkAccessFlagBits> AsReadOnlySpan() { fixed(void* ptr = &_0) return new ReadOnlySpan<_VkAccessFlagBits>(ptr, 8); }
-    public static implicit operator Span<_VkAccessFlagBits>(_VkAccessFlagBits8 array) => array.AsSpan();
-    public static implicit operator ReadOnlySpan<_VkAccessFlagBits>(_VkAccessFlagBits8 array) => array.AsReadOnlySpan();
     private static void CheckIndex(int index)
     {
         if ((uint)index >= 8) throw new ArgumentOutOfRangeException();
@@ -1475,6 +1587,40 @@ public unsafe struct ulong8 : IFixedArray<ulong>
 }
 
 [StructLayout(LayoutKind.Sequential)]
+public unsafe struct ushort8 : IFixedArray<ushort>
+{
+    public static readonly int ArrayLength = 8;
+    public readonly int Length => 8;
+    fixed ushort _[8];
+    
+    public ref ushort this[int i] => ref _[i];
+    public ref ushort this[uint i] => ref _[(int)i];
+    public ushort[] ToArray()
+    {
+        var a = new ushort[8]; for (int i = 0; i < 8; i++) a[i] = _[i]; return a;
+    }
+    public void UpdateFrom(ushort[] array)
+    {
+        int length = Math.Min(array.Length, 8);
+        for(int i = 0; i < length; i++) _[i] = array[i];
+    }
+    [EditorBrowsable(EditorBrowsableState.Never)]
+    public ref ushort GetPinnableReference() => ref _[0];
+    public Span<ushort> AsSpan() { fixed(void* ptr = _) return new Span<ushort>(ptr, 8); }
+    public ReadOnlySpan<ushort> AsReadOnlySpan() { fixed(void* ptr = _) return new ReadOnlySpan<ushort>(ptr, 8); }
+    public static implicit operator Span<ushort>(ushort8 array) => array.AsSpan();
+    public static implicit operator ReadOnlySpan<ushort>(ushort8 array) => array.AsReadOnlySpan();
+    private static void CheckIndex(int index)
+    {
+        if ((uint)index >= 8) throw new ArgumentOutOfRangeException();
+    }
+    private static void CheckIndex(uint index)
+    {
+        if (index >= 8) throw new ArgumentOutOfRangeException();
+    }
+}
+
+[StructLayout(LayoutKind.Sequential)]
 public unsafe struct void_ptr8 : IFixedPtrArray
 {
     public static readonly int ArrayLength = 8;
@@ -1765,6 +1911,40 @@ public unsafe struct _AVRational25x25 : IFixedArray<_AVRational25>
 }
 
 [StructLayout(LayoutKind.Sequential)]
+public unsafe struct ushort32 : IFixedArray<ushort>
+{
+    public static readonly int ArrayLength = 32;
+    public readonly int Length => 32;
+    fixed ushort _[32];
+    
+    public ref ushort this[int i] => ref _[i];
+    public ref ushort this[uint i] => ref _[(int)i];
+    public ushort[] ToArray()
+    {
+        var a = new ushort[32]; for (int i = 0; i < 32; i++) a[i] = _[i]; return a;
+    }
+    public void UpdateFrom(ushort[] array)
+    {
+        int length = Math.Min(array.Length, 32);
+        for(int i = 0; i < length; i++) _[i] = array[i];
+    }
+    [EditorBrowsable(EditorBrowsableState.Never)]
+    public ref ushort GetPinnableReference() => ref _[0];
+    public Span<ushort> AsSpan() { fixed(void* ptr = _) return new Span<ushort>(ptr, 32); }
+    public ReadOnlySpan<ushort> AsReadOnlySpan() { fixed(void* ptr = _) return new ReadOnlySpan<ushort>(ptr, 32); }
+    public static implicit operator Span<ushort>(ushort32 array) => array.AsSpan();
+    public static implicit operator ReadOnlySpan<ushort>(ushort32 array) => array.AsReadOnlySpan();
+    private static void CheckIndex(int index)
+    {
+        if ((uint)index >= 32) throw new ArgumentOutOfRangeException();
+    }
+    private static void CheckIndex(uint index)
+    {
+        if (index >= 32) throw new ArgumentOutOfRangeException();
+    }
+}
+
+[StructLayout(LayoutKind.Sequential)]
 public unsafe struct _AVVulkanDeviceQueueFamily64 : IFixedArray<_AVVulkanDeviceQueueFamily>
 {
     public static readonly int ArrayLength = 64;
@@ -1806,27 +1986,5 @@ public unsafe struct _AVVulkanDeviceQueueFamily64 : IFixedArray<_AVVulkanDeviceQ
     {
         if (index >= 64) throw new ArgumentOutOfRangeException();
     }
-}
-
-public unsafe struct ushort32 : IFixedArray<ushort>
-{
-    public static readonly int ArrayLength = 32;
-    public int Length => 32;
-    fixed ushort _[32];
-    
-    public ushort this[uint i]
-    {
-        get => _[i];
-        set => _[i] = value;
-    }
-    public ushort[] ToArray()
-    {
-        var a = new ushort[32]; for (uint i = 0; i < 32; i++) a[i] = _[i]; return a;
-    }
-    public void UpdateFrom(ushort[] array)
-    {
-        uint i = 0; foreach(var value in array) { _[i++] = value; if (i >= 32) return; }
-    }
-    public static implicit operator ushort[](ushort32 @struct) => @struct.ToArray();
 }
 
