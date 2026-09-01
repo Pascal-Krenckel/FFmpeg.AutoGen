@@ -39,7 +39,6 @@ public abstract class FunctionResolverBase : IFunctionResolver
             return throwOnError ? throw new EntryPointNotFoundException($"Could not find the entrypoint for {functionName}.") : default;
         }
 
-#if NETSTANDARD2_0_OR_GREATER
         try
         {
             return Marshal.GetDelegateForFunctionPointer<T>(functionPointer);
@@ -50,9 +49,6 @@ public abstract class FunctionResolverBase : IFunctionResolver
                 throw;
             return default;
         }
-#else
-        return (T)(object)Marshal.GetDelegateForFunctionPointer(functionPointer, typeof(T));
-#endif
     }
 
     public IntPtr GetOrLoadLibrary(string libraryName, bool throwOnError)

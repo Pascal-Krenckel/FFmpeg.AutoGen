@@ -1,4 +1,4 @@
-﻿using FFmpeg.AutoGen.Native;
+using FFmpeg.AutoGen.Native;
 using System;
 using System.Runtime.InteropServices;
 

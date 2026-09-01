@@ -1,4 +1,4 @@
-﻿using FFmpeg.AutoGen.Bindings.DynamicallyLoaded.Native;
+using FFmpeg.AutoGen.Bindings.DynamicallyLoaded.Native;
 using System;
 using System.Runtime.InteropServices;
 

@@ -721,6 +721,29 @@ public static unsafe partial class ffmpeg
     /// <param name="size">A pointer to a size to be set to the returned buffer&apos;s size. If *data is not NULL, *size must contain the size of the input buffer. May be NULL only if *data is NULL.</param>
     public static int av_dynamic_hdr_plus_to_t35(_AVDynamicHDRPlus* @s, byte** @data, ulong* @size) => vectors.av_dynamic_hdr_plus_to_t35(@s, @data, @size);
     
+    /// <summary>Allocate an AVDynamicHDRSmpte2094App5 structure and set its fields to default values. The resulting struct can be freed using av_freep().</summary>
+    /// <returns>An AVDynamicHDRSmpte2094App5 filled with default values or NULL on failure.</returns>
+    public static AVDynamicHDRSmpte2094App5* av_dynamic_hdr_smpte2094_app5_alloc(ulong* @size) => vectors.av_dynamic_hdr_smpte2094_app5_alloc(@size);
+    
+    /// <summary>Allocate a complete AVDynamicHDRSmpte2094App5 and add it to the frame.</summary>
+    /// <param name="frame">The frame which side data is added to.</param>
+    /// <returns>The AVDynamicHDRSmpte2094App5 structure to be filled by caller or NULL on failure.</returns>
+    public static AVDynamicHDRSmpte2094App5* av_dynamic_hdr_smpte2094_app5_create_side_data(AVFrame* @frame) => vectors.av_dynamic_hdr_smpte2094_app5_create_side_data(@frame);
+    
+    /// <summary>Parse the user data formatted as ITU-T T.35 message to AVDynamicHDRSmpte2094App5.</summary>
+    /// <param name="s">A pointer containing the decoded AVDynamicHDRSmpte2094App5 structure.</param>
+    /// <param name="data">The byte array containing the raw ITU-T T.35 data.</param>
+    /// <param name="size">Size of the data array in bytes.</param>
+    /// <returns>&gt;= 0 on success. Otherwise, returns the appropriate AVERROR.</returns>
+    public static int av_dynamic_hdr_smpte2094_app5_from_t35(AVDynamicHDRSmpte2094App5* @s, byte* @data, ulong @size) => vectors.av_dynamic_hdr_smpte2094_app5_from_t35(@s, @data, @size);
+    
+    /// <summary>Serialize dynamic SMPTE-2094-50 metadata to a ITU-T T.35 message. Excluding the country_code, provider_code and provider_oriented_code.</summary>
+    /// <param name="s">A pointer containing the AVDynamicHDRSmpte2094App5 data.</param>
+    /// <param name="data">A pointer to pointer to a byte buffer to be filled with the serialized metadata. If *data is NULL, a buffer be will be allocated and a pointer to it stored in its place. The caller assumes ownership of the buffer. May be NULL, in which case the function will only store the required buffer size in *size.</param>
+    /// <param name="size">A pointer to a size to be set to the returned buffer&apos;s size. If *data is not NULL, *size must contain the size of the input buffer. May be NULL only if *data is NULL.</param>
+    /// <returns>&gt;= 0 on success. Otherwise, returns the appropriate AVERROR.</returns>
+    public static int av_dynamic_hdr_smpte2094_app5_to_t35(AVDynamicHDRSmpte2094App5* @s, byte** @data, ulong* @size) => vectors.av_dynamic_hdr_smpte2094_app5_to_t35(@s, @data, @size);
+    
     /// <summary>Add the pointer to an element to a dynamic array.</summary>
     /// <param name="tab_ptr">Pointer to the array to grow</param>
     /// <param name="nb_ptr">Pointer to the number of elements in the array</param>
@@ -2180,6 +2203,21 @@ public static unsafe partial class ffmpeg
     public static _AVInputFormat* av_probe_input_format3(_AVProbeData* @pd, int @is_opened, int* @score_ret) => vectors.av_probe_input_format3(@pd, @is_opened, @score_ret);
     
     public static void av_program_add_stream_index(_AVFormatContext* @ac, int @progid, uint @idx) => vectors.av_program_add_stream_index(@ac, @progid, @idx);
+    
+    /// <summary>Add the supplied index of a stream to the AVProgram with matching id.</summary>
+    /// <param name="ac">the format context which contains the target AVProgram</param>
+    /// <param name="progid">the ID of the AVProgram whose stream index is to be updated</param>
+    /// <param name="idx">the index of the stream to be added</param>
+    /// <returns>&gt;=0 upon successful addition or if index was already present, AVERROR if no matching program is found or stream index is invalid or the stream index array reallocation failed.</returns>
+    public static int av_program_add_stream_index2(AVFormatContext* @ac, int @progid, uint @idx) => vectors.av_program_add_stream_index2(@ac, @progid, @idx);
+    
+    /// <summary>Copy an AVProgram from one AVFormatContext to another.</summary>
+    /// <param name="dst">pointer to the target muxer context</param>
+    /// <param name="src">pointer to the source muxer context</param>
+    /// <param name="progid">ID of the program to be copied</param>
+    /// <param name="flags">combination of flags which determine how streams are matched and whether pre-existing AVProgram in target is overwritten. If no match condition is set, streams will be matched by ids if all source stream ids are non-zero and unique, else by index.</param>
+    /// <returns>&gt;= 0 in case of success, Error EEXIST if target already has program with same ID and overwrite flag isn&apos;t set, else a negative AVERROR code in case of other failures.</returns>
+    public static int av_program_copy(AVFormatContext* @dst, AVFormatContext* @src, int @progid, int @flags) => vectors.av_program_copy(@dst, @src, @progid, @flags);
     
     /// <summary>Convert an AVRational to a IEEE 32-bit `float` expressed in fixed-point format.</summary>
     /// <param name="q">Rational to be converted</param>
@@ -3825,7 +3863,7 @@ public static unsafe partial class ffmpeg
     /// <param name="output">If 0, test if compatible with the source/input frame; otherwise, with the destination/output frame.</param>
     public static int sws_test_colorspace(_AVColorSpace @colorspace, int @output) => vectors.sws_test_colorspace(@colorspace, @output);
     
-    /// <summary>Test if a given (software) pixel format is supported.</summary>
+    /// <summary>Test if a given (software) pixel format is supported by any backend, excluding unstable backends.</summary>
     /// <param name="format">The format to check.</param>
     /// <param name="output">If 0, test if compatible with the source/input frame; otherwise, with the destination/output frame.</param>
     public static int sws_test_format(_AVPixelFormat @format, int @output) => vectors.sws_test_format(@format, @output);
@@ -3833,7 +3871,7 @@ public static unsafe partial class ffmpeg
     /// <summary>Helper function to run all sws_test_* against a frame, as well as testing the basic frame properties for sanity. Ignores irrelevant properties - for example, AVColorSpace is not checked for RGB frames.</summary>
     public static int sws_test_frame(_AVFrame* @frame, int @output) => vectors.sws_test_frame(@frame, @output);
     
-    /// <summary>Test if a given hardware pixel format is supported.</summary>
+    /// <summary>Test if a given hardware pixel format is supported by any backend, excluding unstable backends.</summary>
     /// <param name="format">The hardware format to check, or AV_PIX_FMT_NONE.</param>
     public static int sws_test_hw_format(_AVPixelFormat @format) => vectors.sws_test_hw_format(@format);
     

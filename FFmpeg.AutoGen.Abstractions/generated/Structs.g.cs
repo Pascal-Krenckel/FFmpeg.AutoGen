@@ -1,11 +1,16 @@
 using System;
 using System.Runtime.InteropServices;
 
+#if NET6_0_OR_GREATER
+using CLong = System.Runtime.InteropServices.CLong;
+using CULong = System.Runtime.InteropServices.CULong;
+#endif
+
 namespace FFmpeg.AutoGen.Abstractions;
 
 public unsafe partial struct __GUID
 {
-    public ulong @Data1;
+    public CULong @Data1;
     public ushort @Data2;
     public ushort @Data3;
     public byte8 @Data4;
@@ -433,8 +438,6 @@ public unsafe partial struct _AVCodecContext
     public int @profile;
     /// <summary>Encoding level descriptor. - encoding: Set by user, corresponds to a specific level defined by the codec, usually corresponding to the profile level, if not specified it is set to AV_LEVEL_UNKNOWN. - decoding: Set by libavcodec. See AV_LEVEL_* in defs.h.</summary>
     public int @level;
-    /// <summary>Properties of the stream that gets decoded - encoding: unused - decoding: set by libavcodec</summary>
-    public uint @properties;
     /// <summary>Skip loop filtering for selected frames. - encoding: unused - decoding: Set by user.</summary>
     public _AVDiscard @skip_loop_filter;
     /// <summary>Skip IDCT/dequantization for selected frames. - encoding: unused - decoding: Set by user.</summary>
@@ -534,19 +537,20 @@ public unsafe partial struct _AVCodecParameters
     public _AVPacketSideData* @coded_side_data;
     /// <summary>Amount of entries in coded_side_data.</summary>
     public int @nb_coded_side_data;
-    /// <summary>- video: the pixel format, the value corresponds to enum AVPixelFormat. - audio: the sample format, the value corresponds to enum AVSampleFormat.</summary>
+    /// <summary>- Video: the pixel format, the value corresponds to enum ::AVPixelFormat. - Audio: the sample format, the value corresponds to enum ::AVSampleFormat.</summary>
     public int @format;
     /// <summary>The average bitrate of the encoded data (in bits per second).</summary>
     public long @bit_rate;
     /// <summary>The number of bits per sample in the codedwords.</summary>
     public int @bits_per_coded_sample;
-    /// <summary>This is the number of valid bits in each output sample. If the sample format has more bits, the least significant bits are additional padding bits, which are always 0. Use right shifts to reduce the sample to its actual size. For example, audio formats with 24 bit samples will have bits_per_raw_sample set to 24, and format set to AV_SAMPLE_FMT_S32. To get the original sample use &quot;(int32_t)sample &gt;&gt; 8&quot;.&quot;</summary>
+    /// <summary>The number of valid bits in each output sample.</summary>
     public int @bits_per_raw_sample;
     /// <summary>Codec-specific bitstream restrictions that the stream conforms to.</summary>
     public int @profile;
     public int @level;
-    /// <summary>Video only. The dimensions of the video frame in pixels.</summary>
+    /// <summary>The width of the video frame in pixels.</summary>
     public int @width;
+    /// <summary>The height of the video frame in pixels.</summary>
     public int @height;
     /// <summary>Video only. The aspect ratio (width / height) which a single pixel should have when displayed.</summary>
     public _AVRational @sample_aspect_ratio;
@@ -566,15 +570,15 @@ public unsafe partial struct _AVCodecParameters
     public _AVChannelLayout @ch_layout;
     /// <summary>Audio only. The number of audio samples per second.</summary>
     public int @sample_rate;
-    /// <summary>Audio only. The number of bytes per coded audio frame, required by some formats.</summary>
+    /// <summary>The number of bytes per coded audio frame, required by some formats.</summary>
     public int @block_align;
-    /// <summary>Audio only. Audio frame size, if known. Required by some formats to be static.</summary>
+    /// <summary>Audio frame size, if known. Required by some formats to be static.</summary>
     public int @frame_size;
-    /// <summary>Audio only. The amount of padding (in samples) inserted by the encoder at the beginning of the audio. I.e. this number of leading decoded samples must be discarded by the caller to get the original audio without leading padding.</summary>
+    /// <summary>Number of padding audio samples at the start.</summary>
     public int @initial_padding;
-    /// <summary>Audio only. The amount of padding (in samples) appended by the encoder to the end of the audio. I.e. this number of decoded samples must be discarded by the caller from the end of the stream to get the original audio without any trailing padding.</summary>
+    /// <summary>Number of padding audio samples at the end.</summary>
     public int @trailing_padding;
-    /// <summary>Audio only. Number of samples to skip after a discontinuity.</summary>
+    /// <summary>Number of audio samples to skip after a discontinuity.</summary>
     public int @seek_preroll;
     /// <summary>Video with alpha channel only. Alpha channel handling</summary>
     public _AVAlphaMode @alpha_mode;
@@ -864,7 +868,7 @@ public unsafe partial struct _AVDXVA2DeviceContext
 public unsafe partial struct _AVDXVA2FramesContext
 {
     /// <summary>The surface type (e.g. DXVA2_VideoProcessorRenderTarget or DXVA2_VideoDecoderRenderTarget). Must be set by the caller.</summary>
-    public ulong @surface_type;
+    public CULong @surface_type;
     /// <summary>The surface pool. When an external pool is not provided by the caller, this will be managed (allocated and filled on init, freed on uninit) by libavutil.</summary>
     public _IDirect3DSurface9** @surfaces;
     public int @nb_surfaces;
@@ -901,6 +905,37 @@ public unsafe partial struct _AVDynamicHDRPlus
     public byte @num_cols_mastering_display_actual_peak_luminance;
     /// <summary>The normalized actual peak luminance of the mastering display used for mastering the image essence. The values should be in the range of 0 to 1, inclusive and in multiples of 1/15.</summary>
     public _AVRational25x25 @mastering_display_actual_peak_luminance;
+}
+
+/// <summary>This struct represents dynamic metadata for color volume transform as specified in the SMPTE 2094-50 standard.</summary>
+public unsafe partial struct AVDynamicHDRSmpte2094App5
+{
+    /// <summary>Section C.2.1. smpte_st_2094_50_application_info()</summary>
+    public byte @application_version;
+    public byte @minimum_application_version;
+    /// <summary>Section C.2.2 smpte_st_2094_50_color_volume_transform()</summary>
+    public byte @has_custom_hdr_reference_white_flag;
+    public byte @has_adaptive_tone_map_flag;
+    public ushort @hdr_reference_white;
+    /// <summary>Section C.2.3 smpte_st_2094_50_adaptive_tone_map()</summary>
+    public ushort @baseline_hdr_headroom;
+    public byte @use_reference_white_tone_mapping_flag;
+    public byte @num_alternate_images;
+    public byte @gain_application_space_chromaticities_flag;
+    public byte @has_common_component_mix_params_flag;
+    public byte @has_common_curve_params_flag;
+    public ushort8 @gain_application_space_chromaticities;
+    public ushort4 @alternate_hdr_headrooms;
+    /// <summary>Section C.2.4 smpte_st_2094_50_component_mixing()</summary>
+    public byte4 @component_mixing_type;
+    public byte4x6 @has_component_mixing_coefficient_flag;
+    public ushort4x6 @component_mixing_coefficient;
+    /// <summary>Section C.2.5 smpte_st_2094_50_gain_curve()</summary>
+    public byte4 @gain_curve_num_control_points_minus_1;
+    public byte4 @gain_curve_use_pchip_slope_flag;
+    public ushort4x32 @gain_curve_control_points_x;
+    public ushort4x32 @gain_curve_control_points_y;
+    public ushort4x32 @gain_curve_control_points_theta;
 }
 
 /// <summary>Filter definition. This defines the pads a filter contains, and all the callback functions used to interact with the filter.</summary>
@@ -960,10 +995,6 @@ public unsafe partial struct _AVFilterContext
     public _AVFilterCommand* @command_queue;
     /// <summary>enable expression string</summary>
     public byte* @enable_str;
-    [Obsolete("unused")]
-    public void* @enable;
-    [Obsolete("unused")]
-    public double* @var_values;
     /// <summary>MUST NOT be accessed from outside avfilter.</summary>
     public int @is_disabled;
     /// <summary>For filters which will create hardware frames, sets the device the filter should create them in. All other filters will ignore this field: in particular, a filter which consumes or processes hardware frames will instead use the hw_frames_ctx field in AVFilterLink to carry the hardware context information.</summary>
@@ -1488,7 +1519,7 @@ public unsafe partial struct _AVInputFormat
     public byte* @name;
     /// <summary>Descriptive name for the format, meant to be more human-readable than name. You should use the NULL_IF_CONFIG_SMALL() macro to define it.</summary>
     public byte* @long_name;
-    /// <summary>Can use flags: AVFMT_NOFILE, AVFMT_NEEDNUMBER, AVFMT_SHOW_IDS, AVFMT_NOTIMESTAMPS, AVFMT_GENERIC_INDEX, AVFMT_TS_DISCONT, AVFMT_NOBINSEARCH, AVFMT_NOGENSEARCH, AVFMT_NO_BYTE_SEEK, AVFMT_SEEK_TO_PTS.</summary>
+    /// <summary>Can use flags: AVFMT_NOFILE, AVFMT_NEEDNUMBER, AVFMT_EXPERIMENTAL, AVFMT_SHOW_IDS, AVFMT_NOTIMESTAMPS, AVFMT_GENERIC_INDEX, AVFMT_TS_DISCONT, AVFMT_NOBINSEARCH, AVFMT_NOGENSEARCH, AVFMT_NO_BYTE_SEEK, AVFMT_SEEK_TO_PTS.</summary>
     public int @flags;
     /// <summary>If extensions are defined, then no probe is done. You should usually not use extension format guessing because it is not reliable enough</summary>
     public byte* @extensions;
@@ -1528,7 +1559,7 @@ public unsafe partial struct _AVIOContext
     public int @max_packet_size;
     /// <summary>Try to buffer at least this amount of data before flushing it.</summary>
     public int @min_packet_size;
-    public ulong @checksum;
+    public CULong @checksum;
     public byte* @checksum_ptr;
     public _AVIOContext_update_checksum_func @update_checksum;
     /// <summary>Pause or resume playback for network streaming protocols - e.g. MMS.</summary>
@@ -2028,6 +2059,16 @@ public unsafe partial struct _AVStreamGroupLCEVC
     public int @width;
     /// <summary>Height of the final image for presentation.</summary>
     public int @height;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe partial struct AVStreamGroupLayeredVideo_union0
+{
+    [FieldOffset(0)]
+    public uint @el_index;
+    /// <summary>Alias for el_index, kept for backward compatibility.</summary>
+    [FieldOffset(0)]
+    public uint @lcevc_index;
 }
 
 /// <summary>AVStreamGroupTileGrid holds information on how to combine several independent images on a single canvas for presentation.</summary>
@@ -2767,7 +2808,6 @@ public unsafe partial struct _SwsContext
     public void* @opaque;
     /// <summary>Bitmask of SWS_*. See `SwsFlags` for details.</summary>
     public uint @flags;
-    /// <summary>Extra parameters for fine-tuning certain scalers.</summary>
     public double2 @scaler_params;
     /// <summary>How many threads to use for processing, or 0 for automatic selection.</summary>
     public int @threads;
@@ -2803,6 +2843,12 @@ public unsafe partial struct _SwsContext
     public int @dst_h_chr_pos;
     /// <summary>Desired ICC intent for color space conversions.</summary>
     public int @intent;
+    /// <summary>Scaling filter. If set to something other than SWS_SCALE_AUTO, this will override the filter implied by `SwsContext.flags`.</summary>
+    public SwsScaler @scaler;
+    /// <summary>Scaler used specifically for up/downsampling subsampled (chroma) planes. If set to something other than SWS_SCALE_AUTO, this will override the filter implied by `SwsContext.scaler`. Otherwise, the same filter will be used for both main scaling and chroma subsampling.</summary>
+    public SwsScaler @scaler_sub;
+    /// <summary>Bitmask of SWS_BACKEND_*. If non-zero, this will restrict the available backends to the specified set. If left as zero, a default set of backends will be selected automatically (based on SWS_UNSTABLE).</summary>
+    public SwsBackend @backends;
 }
 
 public unsafe partial struct _SwsFilter
