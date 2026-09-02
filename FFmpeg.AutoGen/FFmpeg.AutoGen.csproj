@@ -3,17 +3,7 @@
 	<PropertyGroup>
 		<TargetFrameworks>net8.0;net9.0;net10.0;netstandard2.1;netstandard2.0</TargetFrameworks>
 		<PackageReleaseNotes>
-			___ Changes  ---
-			Fixed arrays are now pinnable and use ref this[...]
-			Added FixedPtrArry they are also pinnable, but no ref this[...]
-			Added function overloads named *_str which accept byte* instead of string
-			--- Changes  ---
-			Correct description -&gt; release notes are now in the package release note section
-			--- Changes ---
-			Added hwcontext for OpenCL, DirectX12, Vulkan and Cuda
-			--- BugFix ---
-			Last version build for FFmpeg 9.0 (pre)
-
+			- FFmpeg 9.0.1
 		</PackageReleaseNotes>
 		<Description>
 			Based on FFmpeg.AutoGen by Ruslan Balanukhin with minor changes to use with FFmpegDotNet.
