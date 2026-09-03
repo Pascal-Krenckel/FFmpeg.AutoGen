@@ -1,0 +1,53 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<!--
+		This project is NOT meant to be built/packed/referenced on its own.
+		It compiles the exact same sources as FFmpeg_AutoGen.csproj for
+		netstandard2.0 and netstandard2.1, but with TARGET_WINDOWS defined so
+		CLong/CULong resolve to their Windows-shaped (32-bit) layout. Neither
+		netstandard target has System.Runtime.InteropServices.CLong - that
+		only exists from .NET 6 onward - so both need this treatment.
+
+		The main project invokes this via an <MSBuild> task during pack and
+		slots the resulting DLLs into runtimes/win/lib/netstandard2.0/ and
+		runtimes/win/lib/netstandard2.1/ of the nupkg, so consumers on
+		Windows get these builds at restore/publish time while everyone
+		else keeps using the regular netstandard builds.
+	-->
+
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+
+		<!-- Must match the main project's assembly identity exactly -->
+		<AssemblyName>FFmpeg.AutoGen</AssemblyName>
+		<RootNamespace>FFmpeg.AutoGen</RootNamespace>
+
+		<DefineConstants>$(DefineConstants);TARGET_WINDOWS</DefineConstants>
+
+		<LangVersion>latest</LangVersion>
+		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+		<NoWarn>108;169;618;1573;1591;1701;1702;1705;8981</NoWarn>
+		<TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+
+		<!-- Never produce its own nupkg -->
+		<IsPackable>false</IsPackable>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+
+		<!--
+			Redirect only the OUTPUT location (not BaseOutputPath/BaseIntermediateOutputPath).
+			This keeps the SDK's default "bin\**;obj\**" compile-item excludes intact,
+			so this project still correctly ignores the *other* project's generated
+			obj\**\AssemblyInfo.cs / GlobalUsings.cs etc. instead of accidentally
+			globbing them and causing duplicate-attribute errors.
+			$(TargetFramework) is resolved per inner build, so netstandard2.0 and
+			netstandard2.1 land in their own subfolders automatically.
+		-->
+		<OutputPath>bin\Windows\$(Configuration)\</OutputPath>
+		<IntermediateOutputPath>obj\Windows\$(Configuration)\</IntermediateOutputPath>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="System.Runtime.CompilerServices.Unsafe" />
+	</ItemGroup>
+
+</Project>

@@ -37,4 +37,48 @@
 		<PackageReference Include="System.Runtime.CompilerServices.Unsafe" />
 	</ItemGroup>
 
+	<!--
+		Windows-specific netstandard2.0 / netstandard2.1 runtime assets.
+
+		Neither netstandard target has CLong/CULong - that only exists from
+		.NET 6 onward - so we hand-polyfill it, but the polyfill differs by OS
+		(Windows: always 32-bit; everywhere else: nint/nuint). Since a single
+		netstandard assembly can't branch on OS at runtime for a *struct
+		layout*, we compile a second copy of the exact same sources with
+		TARGET_WINDOWS defined (see FFmpeg.AutoGen.win.csproj) and ship it as a
+		NuGet "runtime-specific implementation assembly" under runtimes/win/lib/.
+		NuGet substitutes it in automatically once a Windows RID is known
+		(self-contained publish, apphost, etc.); everyone else keeps using the
+		plain lib/netstandardX.X builds produced by this project.
+
+		This only needs to run once for the whole multi-targeted pack, hence the
+		Condition="'$(TargetFramework)' == ''" - that's true only during the
+		outer, cross-targeting pass that NuGet.Build.Tasks.Pack uses to gather
+		package files (_GetPackageFiles), not during each inner TFM build.
+	-->
+	<ItemGroup>
+		<!-- One entry per netstandard TFM that needs a Windows-specific runtime asset -->
+		<_WindowsRuntimeTfm Include="netstandard2.0" />
+		<_WindowsRuntimeTfm Include="netstandard2.1" />
+	</ItemGroup>
+
+	<Target Name="BuildAndIncludeWindowsRuntimeAsset" BeforeTargets="_GetPackageFiles" Condition="'$(TargetFramework)' == ''">
+
+		<MSBuild Projects="$(MSBuildThisFileDirectory)FFmpeg.AutoGen.win.csproj"
+				 Targets="Restore;Build"
+				 Properties="Configuration=$(Configuration)" />
+
+		<ItemGroup>
+			<None Include="$(MSBuildThisFileDirectory)bin\Windows\$(Configuration)\%(_WindowsRuntimeTfm.Identity)\FFmpeg.AutoGen.dll"
+				  Pack="true"
+				  PackagePath="runtimes/win/lib/%(_WindowsRuntimeTfm.Identity)/" />
+
+			<None Include="$(MSBuildThisFileDirectory)bin\Windows\$(Configuration)\%(_WindowsRuntimeTfm.Identity)\FFmpeg_AutoGen.pdb"
+				  Pack="true"
+				  PackagePath="runtimes/win/lib/%(_WindowsRuntimeTfm.Identity)/"
+				  Condition="'$(IncludeSymbols)' == 'true' And Exists('$(MSBuildThisFileDirectory)bin\Windows\$(Configuration)\%(_WindowsRuntimeTfm.Identity)\FFmpeg_AutoGen.pdb')" />
+		</ItemGroup>
+
+	</Target>
+
 </Project>
