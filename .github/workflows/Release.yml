@@ -52,14 +52,14 @@ jobs:
 
       - name: Publish NuGet package
         run: |
-          dotnet nuget push "FFmpeg.AutoGen/FFmpeg.AutoGen/bin/Release/*.nupkg" \
+          dotnet nuget push "FFmpeg.AutoGen/bin/Release/*.nupkg" \
             --api-key "${{ steps.nuget-login.outputs.NUGET_API_KEY }}" \
             --source https://api.nuget.org/v3/index.json \
             --skip-duplicate
 
       - name: Publish NuGet symbols
         run: |
-          dotnet nuget push "FFmpeg.AutoGen/FFmpeg.AutoGen/bin/Release/*.snupkg" \
+          dotnet nuget push "FFmpeg.AutoGen/bin/Release/*.snupkg" \
             --api-key "${{ steps.nuget-login.outputs.NUGET_API_KEY }}" \
             --source https://api.nuget.org/v3/index.json \
             --skip-duplicate
