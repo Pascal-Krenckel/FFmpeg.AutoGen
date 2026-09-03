@@ -1,48 +1,80 @@
 #if !NET6_0_OR_GREATER
+// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
+
 using System;
-using System.Runtime.InteropServices;
+using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 
-namespace FFmpeg.AutoGen.Abstractions;
+#pragma warning disable SA1121 // We use our own aliases since they differ per platform
+#if TARGET_WINDOWS
+using NativeType = System.Int32;
+#else
+using NativeType = System.IntPtr;
+#endif
 
-/// <summary>
-/// Platform-specific C 'long' type.
-/// Always 8 bytes here, which is correct on Linux and macOS x64 but wrong on Windows,
-/// where C 'long' is 4 bytes. A netstandard assembly has one fixed layout and cannot
-/// differ per platform, so this preserves the historical behaviour rather than fixing it.
-/// The runtime supplies its own per-platform CLong from net6.0 onward, which is why this
-/// shim is excluded there. net8.0 is the lowest modern target this package ships,
-/// so that is the one to move to.
-/// </summary>
-[Obsolete("CLong is 8 bytes here, which is wrong on Windows and shifts every field after it. Target net8.0 or newer - the lowest modern asset this package ships - for a correct struct layout.")]
-[StructLayout(LayoutKind.Sequential)]
-public struct CLong
-{
-    public long Value;
-
-    public CLong(long value) => Value = value;
-
-    public static implicit operator long(CLong value) => value.Value;
-    public static implicit operator CLong(long value) => new CLong(value);
-}
+namespace FFmpeg.AutoGen;
 
 /// <summary>
-/// Platform-specific C 'unsigned long' type.
-/// Always 8 bytes here, which is correct on Linux and macOS x64 but wrong on Windows,
-/// where C 'unsigned long' is 4 bytes. A netstandard assembly has one fixed layout and
-/// cannot differ per platform, so this preserves the historical behaviour rather than
-/// fixing it. The runtime supplies its own per-platform CULong from net6.0 onward, which is
-/// why this shim is excluded there. net8.0 is the lowest modern target this package ships,
-/// so that is the one to move to.
+/// <see cref="CLong"/> is an immutable value type that represents the <c>long</c> type in C and C++.
+/// It is meant to be used as an exchange type at the managed/unmanaged boundary to accurately represent
+/// in managed code unmanaged APIs that use the <c>long</c> type.
+/// This type has 32-bits of storage on all Windows platforms and 32-bit Unix-based platforms.
+/// It has 64-bits of storage on 64-bit Unix platforms.
 /// </summary>
-[Obsolete("CULong is 8 bytes here, which is wrong on Windows and shifts every field after it. Target net8.0 or newer - the lowest modern asset this package ships - for a correct struct layout.")]
-[StructLayout(LayoutKind.Sequential)]
-public struct CULong
+[CLSCompliant(false)]
+public readonly struct CLong : IEquatable<CLong>
 {
-    public ulong Value;
+    private readonly NativeType _value;
 
-    public CULong(ulong value) => Value = value;
+    /// <summary>
+    /// Constructs an instance from a 32-bit integer.
+    /// </summary>
+    /// <param name="value">The integer value.</param>
+    public CLong(int value)
+    {
+        _value = (NativeType)value;
+    }
 
-    public static implicit operator ulong(CULong value) => value.Value;
-    public static implicit operator CULong(ulong value) => new CULong(value);
+    /// <summary>
+    /// Constructs an instance from a native-sized integer.
+    /// </summary>
+    /// <param name="value">The integer value.</param>
+    /// <exception cref="OverflowException"><paramref name="value"/> is outside the range of the underlying storage type.</exception>
+    public CLong(nint value)
+    {
+        _value = checked((NativeType)value);
+    }
+
+    /// <summary>
+    /// The underlying integer value of this instance.
+    /// </summary>
+    public nint Value => _value;
+
+    /// <summary>
+    /// Returns a value indicating whether this instance is equal to a specified object.
+    /// </summary>
+    /// <param name="o">An object to compare with this instance.</param>
+    /// <returns><c>true</c> if <paramref name="o"/> is an instance of <see cref="CLong"/> and equals the value of this instance; otherwise, <c>false</c>.</returns>
+    public override bool Equals(object o) => o is CLong other && Equals(other);
+
+    /// <summary>
+    /// Returns a value indicating whether this instance is equal to a specified <see cref="CLong"/> value.
+    /// </summary>
+    /// <param name="other">A <see cref="CLong"/> value to compare to this instance.</param>
+    /// <returns><c>true</c> if <paramref name="other"/> has the same value as this instance; otherwise, <c>false</c>.</returns>
+    public bool Equals(CLong other) => _value == other._value;
+
+    /// <summary>
+    /// Returns the hash code for this instance.
+    /// </summary>
+    /// <returns>A 32-bit signed integer hash code.</returns>
+    public override int GetHashCode() => _value.GetHashCode();
+
+    /// <summary>
+    /// Converts the numeric value of this instance to its equivalent string representation.
+    /// </summary>
+    /// <returns>The string representation of the value of this instance, consisting of a negative sign if the value is negative, and a sequence of digits ranging from 0 to 9 with no leading zeroes.</returns>
+    public override string ToString() => _value.ToString();
 }
 #endif
