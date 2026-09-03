@@ -1,4 +1,5 @@
 ﻿using FFmpeg.AutoGen.CppSharpUnsafeGenerator.Definitions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -36,6 +37,7 @@ internal sealed class StructuresGenerator : GeneratorBase<StructureDefinition>
 
     protected override void GenerateDefinition(StructureDefinition structure)
     {
+        GenerateWindowsDefinition(structure);
         this.WriteSummary(structure);
         if (!structure.IsComplete)
             WriteLine("/// <remarks>This struct is incomplete.</remarks>");
@@ -61,5 +63,54 @@ internal sealed class StructuresGenerator : GeneratorBase<StructureDefinition>
             }
 
         WriteLine();
+    }
+
+    private void GenerateWindowsDefinition(StructureDefinition structure)
+    {
+        if(structure.Fields.Any(f => f.FieldType.Name.Equals("CLONG",StringComparison.OrdinalIgnoreCase) || f.FieldType.Name.Equals("CULONG", StringComparison.OrdinalIgnoreCase))))
+        {
+            StructureDefinition copy = new()
+            {
+                Content = structure.Content,
+                IsComplete = structure.IsComplete,
+                IsUnion = structure.IsUnion,
+                Obsoletion = structure.Obsoletion,
+                TypeName = structure.TypeName,
+                Name = structure.Name + "_win",
+                Fields = new StructureField[structure.Fields.Length]
+            };
+            for(int i = 0; i < structure.Fields.Length; i++)
+            {
+                if(structure.Fields[i].FieldType.Name.Equals("CLONG", StringComparison.OrdinalIgnoreCase))
+                {
+                    copy.Fields[i] = new StructureField
+                    {
+                        Content = structure.Fields[i].Content,
+                        Obsoletion = structure.Fields[i].Obsoletion,
+                        Name = structure.Fields[i].Name,
+                       
+                        FieldType = new TypeDefinition() { Name = "int"}
+                    };
+                }
+                else if (structure.Fields[i].FieldType.Name.Equals("CULONG", StringComparison.OrdinalIgnoreCase))
+                {
+                    copy.Fields[i] = new StructureField
+                    {
+                        Content = structure.Fields[i].Content,
+                        Obsoletion = structure.Fields[i].Obsoletion,
+                        Name = structure.Fields[i].Name,
+
+                        FieldType = new TypeDefinition() { Name = "uint" }
+                    };
+                }
+                else
+                {
+                    copy.Fields[i] = structure.Fields[i];
+                }
+            }
+
+            GenerateDefinition(copy);
+        }
+
     }
 }
