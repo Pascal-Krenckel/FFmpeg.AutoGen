@@ -35,7 +35,7 @@ jobs:
         run: |
           mkdir -p release-assets
 
-          for dir in FFmpeg.AutoGen/FFmpeg.AutoGen/bin/Release/*/; do
+          for dir in FFmpeg.AutoGen/bin/Release/*/; do
             name="FFmpeg.AutoGen.$(basename "$dir")"
 
             (
