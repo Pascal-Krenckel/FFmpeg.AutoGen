@@ -8,6 +8,16 @@ using CULong = System.Runtime.InteropServices.CULong;
 
 namespace FFmpeg.AutoGen.Abstractions;
 
+#if !NET6_0_OR_GREATER
+public unsafe partial struct __GUID_win
+{
+    public uint @Data1;
+    public ushort @Data2;
+    public ushort @Data3;
+    public byte8 @Data4;
+}
+
+#endif
 public unsafe partial struct __GUID
 {
     public CULong @Data1;
@@ -847,6 +857,20 @@ public unsafe partial struct _AVDXVA2DeviceContext
     public _IDirect3DDeviceManager9* @devmgr;
 }
 
+#if !NET6_0_OR_GREATER
+/// <summary>This struct is allocated as AVHWFramesContext.hwctx</summary>
+public unsafe partial struct _AVDXVA2FramesContext_win
+{
+    /// <summary>The surface type (e.g. DXVA2_VideoProcessorRenderTarget or DXVA2_VideoDecoderRenderTarget). Must be set by the caller.</summary>
+    public uint @surface_type;
+    /// <summary>The surface pool. When an external pool is not provided by the caller, this will be managed (allocated and filled on init, freed on uninit) by libavutil.</summary>
+    public _IDirect3DSurface9** @surfaces;
+    public int @nb_surfaces;
+    /// <summary>Certain drivers require the decoder to be destroyed before the surfaces. To allow internally managed pools to work properly in such cases, this field is provided.</summary>
+    public _IDirectXVideoDecoder* @decoder_to_release;
+}
+
+#endif
 /// <summary>This struct is allocated as AVHWFramesContext.hwctx</summary>
 public unsafe partial struct _AVDXVA2FramesContext
 {
@@ -1509,6 +1533,64 @@ public unsafe partial struct _AVInputFormat
     public byte* @mime_type;
 }
 
+#if !NET6_0_OR_GREATER
+/// <summary>Bytestream IO Context. New public fields can be added with minor version bumps. Removal, reordering and changes to existing public fields require a major version bump. sizeof(AVIOContext) must not be used outside libav*.</summary>
+public unsafe partial struct _AVIOContext_win
+{
+    /// <summary>A class for private options.</summary>
+    public _AVClass* @av_class;
+    /// <summary>Start of the buffer.</summary>
+    public byte* @buffer;
+    /// <summary>Maximum buffer size</summary>
+    public int @buffer_size;
+    /// <summary>Current position in the buffer</summary>
+    public byte* @buf_ptr;
+    /// <summary>End of the data, may be less than buffer+buffer_size if the read function returned less data than requested, e.g. for streams where no more data has been received yet.</summary>
+    public byte* @buf_end;
+    /// <summary>A private pointer, passed to the read/write/seek/... functions.</summary>
+    public void* @opaque;
+    public _AVIOContext_read_packet_func @read_packet;
+    public _AVIOContext_write_packet_func @write_packet;
+    public _AVIOContext_seek_func @seek;
+    /// <summary>position in the file of the current buffer</summary>
+    public long @pos;
+    /// <summary>true if was unable to read due to error or eof</summary>
+    public int @eof_reached;
+    /// <summary>contains the error code or 0 if no error happened</summary>
+    public int @error;
+    /// <summary>true if open for writing</summary>
+    public int @write_flag;
+    public int @max_packet_size;
+    /// <summary>Try to buffer at least this amount of data before flushing it.</summary>
+    public int @min_packet_size;
+    public uint @checksum;
+    public byte* @checksum_ptr;
+    public _AVIOContext_update_checksum_func @update_checksum;
+    /// <summary>Pause or resume playback for network streaming protocols - e.g. MMS.</summary>
+    public _AVIOContext_read_pause_func @read_pause;
+    /// <summary>Seek to a given timestamp in stream with the specified stream_index. Needed for some network streaming protocols which don&apos;t support seeking to byte position.</summary>
+    public _AVIOContext_read_seek_func @read_seek;
+    /// <summary>A combination of AVIO_SEEKABLE_ flags or 0 when the stream is not seekable.</summary>
+    public int @seekable;
+    /// <summary>avio_read and avio_write should if possible be satisfied directly instead of going through a buffer, and avio_seek will always call the underlying seek function directly.</summary>
+    public int @direct;
+    /// <summary>&apos;,&apos; separated list of allowed protocols.</summary>
+    public byte* @protocol_whitelist;
+    /// <summary>&apos;,&apos; separated list of disallowed protocols.</summary>
+    public byte* @protocol_blacklist;
+    /// <summary>A callback that is used instead of write_packet.</summary>
+    public _AVIOContext_write_data_type_func @write_data_type;
+    /// <summary>If set, don&apos;t call write_data_type separately for AVIO_DATA_MARKER_BOUNDARY_POINT, but ignore them and treat them as AVIO_DATA_MARKER_UNKNOWN (to avoid needlessly small chunks of data returned from the callback).</summary>
+    public int @ignore_boundary_point;
+    /// <summary>Maximum reached position before a backward seek in the write buffer, used keeping track of already written data for a later flush.</summary>
+    public byte* @buf_ptr_max;
+    /// <summary>Read-only statistic of bytes read for this AVIOContext.</summary>
+    public long @bytes_read;
+    /// <summary>Read-only statistic of bytes written for this AVIOContext.</summary>
+    public long @bytes_written;
+}
+
+#endif
 /// <summary>Bytestream IO Context. New public fields can be added with minor version bumps. Removal, reordering and changes to existing public fields require a major version bump. sizeof(AVIOContext) must not be used outside libav*.</summary>
 public unsafe partial struct _AVIOContext
 {
