@@ -67,7 +67,7 @@ internal sealed class StructuresGenerator : GeneratorBase<StructureDefinition>
 
     private void GenerateWindowsDefinition(StructureDefinition structure)
     {
-        if(structure.Fields.Any(f => f.FieldType.Name.Equals("CLONG",StringComparison.OrdinalIgnoreCase) || f.FieldType.Name.Equals("CULONG", StringComparison.OrdinalIgnoreCase))))
+        if(structure.Fields.Any(f => f.FieldType.Name.Equals("CLONG",StringComparison.OrdinalIgnoreCase) || f.FieldType.Name.Equals("CULONG", StringComparison.OrdinalIgnoreCase)))
         {
             StructureDefinition copy = new()
             {
