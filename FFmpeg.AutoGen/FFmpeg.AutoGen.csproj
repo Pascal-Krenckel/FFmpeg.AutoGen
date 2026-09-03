@@ -3,7 +3,13 @@
 	<PropertyGroup>
 		<TargetFrameworks>net8.0;net9.0;net10.0;netstandard2.1;netstandard2.0</TargetFrameworks>
 		<PackageReleaseNotes>
-			- FFmpeg 9.0.1
+			--- 9.0.1.1 ---
+			BugFix:
+			CLong/CULong had incorrect size (on Windows or 32bit) and netstandard.
+			The nuget package contains a windows specific build for netstandard2.0 and netstandard2.1 to fix this issue.
+			For unix/linux it maps to IntPtr/UIntPtr, for windows targets it mappes to int/uint.
+			Also a _win struct is included if netstandard so that the general build has structs with correct size.
+			Cast to the correct type at runtime if necessary. (e.B. _AVIOContext(_win) FormatContext->pb)
 		</PackageReleaseNotes>
 		<Description>
 			Based on FFmpeg.AutoGen by Ruslan Balanukhin with minor changes to use with FFmpegDotNet.
@@ -29,7 +35,7 @@
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<Title>FFmpeg._AutoGen</Title>
 		<Product>FFmpeg._AutoGen</Product>
-		<Version>9.0.1.0</Version>
+		<Version>9.0.1.1</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
