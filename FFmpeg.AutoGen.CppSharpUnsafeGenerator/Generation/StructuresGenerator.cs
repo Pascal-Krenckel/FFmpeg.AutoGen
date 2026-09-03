@@ -108,8 +108,9 @@ internal sealed class StructuresGenerator : GeneratorBase<StructureDefinition>
                     copy.Fields[i] = structure.Fields[i];
                 }
             }
-
+            WriteLine("#if !NET6_0_OR_GREATER");
             GenerateDefinition(copy);
+            WriteLine("#endif");
         }
 
     }
