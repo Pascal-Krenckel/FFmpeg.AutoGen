@@ -6,7 +6,6 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
-#pragma warning disable SA1121 // We use our own aliases since they differ per platform
 #if TARGET_WINDOWS
 using NativeType = System.Int32;
 #else
@@ -22,7 +21,6 @@ namespace FFmpeg.AutoGen;
 /// This type has 32-bits of storage on all Windows platforms and 32-bit Unix-based platforms.
 /// It has 64-bits of storage on 64-bit Unix platforms.
 /// </summary>
-[CLSCompliant(false)]
 public readonly struct CLong : IEquatable<CLong>
 {
     private readonly NativeType _value;
