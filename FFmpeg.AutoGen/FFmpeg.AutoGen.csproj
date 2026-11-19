@@ -2,7 +2,11 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>net8.0;net9.0;net10.0;netstandard2.1;netstandard2.0</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::VersionGreaterThanOrEquals('$(NETCoreSdkVersion)', '11.0'))">$(TargetFrameworks);net11.0</TargetFrameworks>
 		<PackageReleaseNotes>
+			--- 9.0.1.2 ---
+			Added net11.0 target framework for .NET 11 support.
+
 			--- 9.0.1.1 ---
 			BugFix:
 			CLong/CULong had incorrect size (on Windows or 32bit) and netstandard.
@@ -33,9 +37,10 @@
 		<!-- Build symbol package (.snupkg) to distribute the PDB containing Source Link -->
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
 		<Title>FFmpeg._AutoGen</Title>
 		<Product>FFmpeg._AutoGen</Product>
-		<Version>9.0.1.1</Version>
+		<Version>9.0.1.2</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
