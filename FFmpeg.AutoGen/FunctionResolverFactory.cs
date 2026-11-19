@@ -8,17 +8,16 @@ public static class FunctionResolverFactory
 {
     private static readonly OSPlatform Android = OSPlatform.Create("ANDROID");
     private static readonly OSPlatform IOS = OSPlatform.Create("IOS");
-    public static PlatformID GetPlatformId()
-    {
+    public static PlatformID GetPlatformId() =>
 
 #if NETSTANDARD2_0_OR_GREATER
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            return PlatformID.Win32NT;
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-            return PlatformID.Unix;
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-            return PlatformID.MacOSX;
-        return RuntimeInformation.IsOSPlatform(Android)
+        RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
+            ? PlatformID.Win32NT
+            : RuntimeInformation.IsOSPlatform(OSPlatform.Linux)
+            ? PlatformID.Unix
+            : RuntimeInformation.IsOSPlatform(OSPlatform.OSX)
+            ? PlatformID.MacOSX
+            : RuntimeInformation.IsOSPlatform(Android)
             ? PlatformID.Unix
             : RuntimeInformation.IsOSPlatform(IOS)
             ? PlatformID.Unix
@@ -26,10 +25,10 @@ public static class FunctionResolverFactory
             ? PlatformID.Unix
             : OSDescriptionContains("ios") ? PlatformID.Unix : throw new PlatformNotSupportedException();
 #else
-        return Environment.OSVersion.Platform;
+        Environment.OSVersion.Platform;
 
 #endif
-    }
+
     private static bool OSDescriptionContains(string os) =>
 #if NETSTANDARD2_1_OR_GREATER
         RuntimeInformation.OSDescription.Contains(os, StringComparison.OrdinalIgnoreCase);

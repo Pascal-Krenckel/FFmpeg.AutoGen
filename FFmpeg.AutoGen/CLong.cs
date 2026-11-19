@@ -29,20 +29,14 @@ public readonly struct CLong : IEquatable<CLong>
     /// Constructs an instance from a 32-bit integer.
     /// </summary>
     /// <param name="value">The integer value.</param>
-    public CLong(int value)
-    {
-        _value = (NativeType)value;
-    }
+    public CLong(int value) => _value = (NativeType)value;
 
     /// <summary>
     /// Constructs an instance from a native-sized integer.
     /// </summary>
     /// <param name="value">The integer value.</param>
     /// <exception cref="OverflowException"><paramref name="value"/> is outside the range of the underlying storage type.</exception>
-    public CLong(nint value)
-    {
-        _value = checked((NativeType)value);
-    }
+    public CLong(nint value) => _value =checked( (NativeType)value);
 
     /// <summary>
     /// The underlying integer value of this instance.
